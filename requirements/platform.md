@@ -58,3 +58,11 @@ derives_from: [FUNC-POWER-PATH-001](functional.md#func-power-path-001)
 derives_from: [FUNC-POWER-SWITCH-001](functional.md#func-power-switch-001)
 **Description:** SW1, a mini slide switch in the floor of the left leg, sits after the power-path merge (VPATH) and before VSYS. Its contacts are rated ≥ 1 A. Acceptance: pytest on the schematic (SW1 between VPATH and VSYS); bench: datasheet or marking ≥ 1 A; a temperature rise of ≤ 10 °C after 10 min at 1 A (3.9 Ω 5 W load). Pending: E-M6 (the actual rating of SW1) not checked yet.
 
+
+### PLAT-POWER-REG-001
+**Title:** TPS63020 module U9 makes the 3.3 V rail
+**Status:** validated
+**Dependencies:** [PERF-POWER-REG-001](performance.md#perf-power-reg-001)
+derives_from: [TECH-POWER-REG-001](technical.md#tech-power-reg-001)
+**Description:** A TPS63020 buck-boost module (U9, left leg) is fed from VSYS on its own pair, with EN tied to VIN (always on after SW1). Its output goes to P1 and then the S3 Mini's 3V3 pin. Acceptance (bench, nothing on the output): VOUT 3.3 V ± 3 % (never 5 V); input idle current < 0.1 mA (see [power_budget.md](../power_budget.md)). A few mA means it is stuck in PWM.
+
