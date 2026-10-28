@@ -16,16 +16,19 @@ Move the micro-USB charge port (J1) from under the left foot to its heel, so TAR
   the bottom of the lid, centre 10.3 above the floor; floor opening removed; geometry checks in `tars4.scad`.
 - Regenerated: STLs, renders (+ `renders/tars4_heel_back.png`, `renders/tars4_heel_open.png`), harness guide (J1
   position), both Orca projects (meshes only). README, `hardware/measurements.md`, `open_questions.md` (CP1) updated.
-- Tight spot: receptacle ~0.6 mm from the switch frame (x), checked by the model.
+- Tight spot: receptacle 0.755 from the switch frame (x), checked by the model.
+- M2 / M3 measured and folded in (2026-10-28): `usbb_out` 1.1, `usbb_rec` 7.85 × 2.47 → lid notch 8.45 × 3.07 (bottom
+  6.0 above the floor), mouth 0.7 inside the back face; CP1 removed from `open_questions.md`.
+- Toolchain fixes for Windows found on the way: `build4.sh` passes `cygpath -m` paths in the render includes,
+  `boards.py` / `harness.py` read and write their text files in UTF-8; `connectors.scad` (XH() for the renders)
+  now lives next to `tars4.scad`.
 
 ## Open questions
 | # | Question | Answer |
 |---|---|---|
 | M1 | Breakout orientation: receptacle on a 14.3 side, the 16 towards the back? | yes (2026-10-28) |
-| M2 | `usbb_out`: receptacle mouth past the PCB's back edge (modelled 1.0; ≥ 0.8 needed, else the PCB goes through the lid) | |
-| M3 | `usbb_rec`: receptacle shell width × height above the PCB (modelled 7.5 × 2.6) | |
+| M2 | `usbb_out`: receptacle mouth past the PCB's back edge (modelled 1.0; ≥ 0.8 needed, else the PCB goes through the lid) | ~1.1, hard to read (2026-10-28); drives no printed geometry |
+| M3 | `usbb_rec`: receptacle shell width × height above the PCB (modelled 7.5 × 2.6) | 7.85 × 2.47 (2026-10-28) |
 
 ## Merge condition
-Not mergeable until M2 and M3 are measured and folded into the model (CLAUDE.md: no merge while a measurement is
-pending). Then: update `usbb_out` / `usbb_rec`, `make check`, Orca refresh, remove CP1 from `open_questions.md` and
-this file, PR to main.
+Measurements folded in. Left: `make check` clean, Orca refresh (warn Aurelien first), remove this file, PR to main.
