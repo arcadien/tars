@@ -18,3 +18,11 @@ derives_from: [FUNC-POWER-CHARGE-001](functional.md#func-power-charge-001)
 derives_from: [TECH-POWER-CHARGE-001](technical.md#tech-power-charge-001)
 **Description:** The TP4056 module's R_PROG (1.2 kΩ "122" from the factory) is replaced by 2.4 kΩ ("242"), which sets the charge current to 0.5 A. If E-M8 fails (wall > 45 °C), the fallback is 3.6 kΩ (0.33 A); D13 is decided after E-M8. Acceptance (bench): with the module unpowered, the fitted R_PROG is within ± 5 %; the charge current into a half-empty cell is 0.45–0.55 A (fallback 0.30–0.36 A); in open air, the TP4056 case is < 60 °C after 15 min.
 
+
+### PLAT-POWER-HOTPLUG-001
+**Title:** TVS D3 and capacitor C9 on the TP4056 input pads
+**Status:** validated
+**Dependencies:** [PLAT-POWER-CHARGE-001](platform.md#plat-power-charge-001)
+derives_from: [TECH-POWER-HOTPLUG-001](technical.md#tech-power-hotplug-001)
+**Description:** A unidirectional SMAJ5.0A TVS (D3) and a 22 µF electrolytic (C9) are soldered across the TP4056 IN+ / IN− pads, with D3's cathode band and C9's + on IN+. Acceptance: pytest on the schematic (D3 and C9 between VUSB and GND, with the right orientation); bench: VUSB unchanged, no heating, IN+ not shorted to IN−.
+
