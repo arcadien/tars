@@ -1,6 +1,9 @@
 """TECH-POWER acceptance criteria checked on the schematic (requirements/technical.md)."""
 import pytest
 
+import boards    # tools/, on the path through conftest.py
+import harness
+
 
 @pytest.mark.req('TECH-POWER-CELL-001')
 def test_tech_power_cell_001_one_charger_both_cells_on_bat_plus_and_b_minus(sch):
@@ -72,3 +75,29 @@ def test_tech_power_reg_001_one_buck_boost_feeds_every_3v3_load(sch):
             assert fed_by_3v3(n), f'{r}.{p} on {n}'
     # And no other module draws from VSYS (no linear regulator on the system rail)
     assert {r for r, _ in sch.nets[vsys] if r.startswith('U')} <= {reg, amp}
+
+
+@pytest.mark.req('TECH-POWER-DIST-001')
+def test_tech_power_dist_001_separate_vsys_pairs_for_regulator_and_amplifier(sch):
+    # Given the regulator and the amplifier, both loads of VSYS in the schematic
+    reg, = sch.refs('TPS63020_3V3')
+    amp, = sch.refs('MAX98357A')
+    vsys = sch.net('SW1', '2')
+    assert sch.net(reg, 'VIN') == vsys and sch.net(amp, 'VIN') == vsys
+    # When reading the power board's wire list (its GND bus is the star point)
+    power = next(b for b in boards.BOARDS if b['key'] == 'power')
+    star = next(holes for kind, holes, net in power['links'] if kind == 'bus' and net == 'GND')
+
+    def wire(net, dest):
+        ws = [w for w in power['wires'] if w[1] == net and dest in w[5]]
+        assert len(ws) == 1, f'{net} → {dest}: {len(ws)} wires'
+        return ws[0]
+    # Then the regulator and the amplifier each get their own VSYS wire and their own GND wire from the star
+    wire('VSYS', 'TPS63020 VIN')
+    assert wire('VSYS', 'amplifier VIN')[6] == ['X13.VSYS']
+    assert wire('GND', 'TPS63020 GND')[0] in star
+    amp_gnd = wire('GND', 'amplifier GND')
+    assert amp_gnd[0] in star and amp_gnd[6] == ['X13.GND amp']
+    # And the 3V3 pair (3V3 + logic GND) leaves from the regulator's own pads
+    starts = {e[5]['pin']: (e[4]['block'], e[4]['port']) for e in harness.EXTRA if e[5].get('ref') == 'X13'}
+    assert starts['3V3'] == ('TPS63020', 'VOUT') and starts['GND log'] == ('TPS63020', 'GND')
