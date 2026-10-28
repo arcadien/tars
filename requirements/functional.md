@@ -37,3 +37,10 @@
 **Dependencies:** [FUNC-POWER-CHARGE-001](functional.md#func-power-charge-001), [FUNC-POWER-SWITCH-001](functional.md#func-power-switch-001)
 **Description:** The robot recharges when plugged in, whether it is switched on or off: switching it off neither stops nor slows the charge, and while it is on, its own consumption is taken from the external supply, not from the charge. Acceptance (bench, same partly discharged battery): the current flowing into the battery with the robot switched off and with it switched on and idle differ by no more than 10 %.
 
+
+### FUNC-POWER-MONITOR-001
+**Title:** Firmware measures the battery voltage
+**Status:** validated
+**Dependencies:** [PERF-POWER-MONITOR-001](performance.md#perf-power-monitor-001)
+**Description:** The firmware measures the voltage at the battery terminals (not the system rail), both on battery and with the external supply connected. Acceptance (on-target Unity test + multimeter): on battery and on the external supply, the value the firmware reports is the B+ voltage within the accuracy of [PERF-POWER-MONITOR-001](performance.md#perf-power-monitor-001); on the external supply it does not follow the system rail (~4.7 V).
+
