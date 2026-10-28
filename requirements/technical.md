@@ -51,3 +51,10 @@
 **Dependencies:** none
 **Description:** A USB host on the controller's programming port powers only the controller, never the system rail or the battery, and flashing works with the power switch on or off. Acceptance (bench): cells out, switch on, no external supply, host on → system rail < 0.1 V; on battery, host off and cable still in → current from the cells into the host's VBUS ≤ 1 mA; flashing succeeds with the switch in both positions. Pending: the ≤ 1 mA back-leak limit is provisional until measured.
 
+
+### TECH-POWER-BACKFEED-001
+**Title:** Outputs to rail-powered peripherals stay low until the system rail is present
+**Status:** validated
+**Dependencies:** [FUNC-POWER-VSENSE-001](functional.md#func-power-vsense-001)
+**Description:** From reset, the amplifier enable, the amplifier's I2S lines and the backlight enable stay low or idle until [FUNC-POWER-VSENSE-001](functional.md#func-power-vsense-001) reports the system rail present. This stops a peripheral on an unpowered rail from being back-powered through its input pins (e.g. switch off, controller on a PC). If the rail disappears they are driven low again within 100 ms. Acceptance (on-target Unity test, rail sense injected or toggled with the switch): pins low with the rail absent; released only with the rail present; low within 100 ms of the rail dropping.
+
