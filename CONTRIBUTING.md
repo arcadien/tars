@@ -27,8 +27,8 @@ Every change starts from a requirement in `requirements/` (see the README, *Requ
    commit that touches `mechanical/` or `hardware/` without a validated requirement ID, the `pre-commit` hook runs
    `make check`.
 
-Work on a branch; its state (goal, findings, open questions, next step) lives in `branches/<branch>.md`, read first
-when the branch is picked up again and removed at merge. A branch whose change still waits for a measurement (`MEASURE` value, bench check) is not merged
+Work on a branch; its state (goal, findings, open questions, next step) lives in `status.md` at the repo root, read first
+when the branch is picked up again and removed before the merge (main has none). A branch whose change still waits for a measurement (`MEASURE` value, bench check) is not merged
 until the measurement is done and folded into the model or the requirement: the risk is still there.
 
 A change in `mechanical/` or `hardware/` brings extra checks and updates in the same commit; the lists are in
