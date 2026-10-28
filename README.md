@@ -781,7 +781,7 @@ What is left to buy: `shopping_list.md`. Open questions and measurements: `open_
       then no Q2 / Q3).
 - [ ] MAX98357A breakout: SD pull-up value (Adafruit: 1 M to VIN). With a 100 k pull-up, R18 → **2.2 k**; if SD is
       tied to VIN, cut the trace.
-- [ ] D1 (1N5822) reverse leakage at 4.2 V, warm (~50 °C): > 50 µA → R1 4.7 k or a lower-leakage Schottky.
+- [ ] D1 (1N5822) reverse leakage at 4.2 V, at 35 °C (hot room; D1 only blocks on battery, the charger is off then and does not heat the leg): > 50 µA → R1 4.7 k or a lower-leakage Schottky.
 - [ ] AM312 output high level at 3.3 V > 2.5 V; DW01: does it switch on by itself when the cells are first connected?
 - [ ] TP4056: R_PROG swapped for 2.4 k (~2.4 k across it, module unpowered).
 - [ ] TPS63020: **output 3.3 V unloaded** (never 5 V), idle current with EN on, PS/SYNC bridged to GND.
