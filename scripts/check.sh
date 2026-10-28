@@ -13,7 +13,7 @@
 #             tars4_cr10.3mf on the CR-10, layout kept) and slices every plate with the OrcaSlicer CLI: a part that
 #             grew off its plate or into a neighbour fails
 #   erc       KiCad ERC through kicad-cli (no GUI): errors fail, warnings are listed; then the requirement acceptance
-#             tests on the same schematic (tests/, `uvx pytest`)
+#             tests (tests/, `uvx pytest`: schematic, model, wire lists, requirement coverage)
 #   renders   standard PNG views (tools/build4.sh renders); each PNG must be rewritten by this run and not blank
 #   docs      board drawings (boards.py, with its own net checks), wiring SVG, harness guide + PDF (no blank page)
 # Incremental: a stage runs only when its input files changed since its last pass (sha256 of their contents in
@@ -41,7 +41,9 @@ inputs() {
         overhang) echo mechanical/stl/tars4_*.stl scripts/overhang.py scripts/overhang_allow.json ;;
         orca) echo mechanical/stl/tars4_*.stl mechanical/3mf/tars4.3mf mechanical/3mf/tars4_cr10.3mf scripts/orca_check.py scripts/orca_profile.py \
                    tools/update_orca_project.py tools/stl2_3mf.py "$ORCA_PRESETS"/machine/*.json "$ORCA_PRESETS"/process/*.json ;;
-        erc) echo hardware/kicad/*.kicad_sch hardware/kicad/*.kicad_sym hardware/kicad/*.kicad_pro hardware/kicad/sym-lib-table \n                  tests/*.py tools/boards.py tools/harness.py ;;
+        erc) echo hardware/kicad/*.kicad_sch hardware/kicad/*.kicad_sym hardware/kicad/*.kicad_pro hardware/kicad/sym-lib-table \
+                  tests/*.py tests/bench/*.md tests/manual/*.md requirements/*.md audits/exclusions.yml \
+                  mechanical/scad/*.scad tools/boards.py tools/harness.py ;;
         renders) echo mechanical/scad/*.scad tools/build4.sh scripts/check_renders.py ;;
         docs) echo mechanical/scad/*.scad tools/boards.py tools/kicad_sch_gen.py tools/harness.py tools/html2pdf.py tools/wiring_svg.js hardware/tars4_wiring.html ;;
     esac
