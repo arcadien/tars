@@ -44,7 +44,7 @@ A change in `hardware/` also requires, in the same change:
   typed soldered / Dupont / JST-XH, lengths), `hardware/tars4_wiring.html` + SVG, `hardware/tars4_schematic.html`;
 - colour code and resistor-at-the-board rules respected;
 - `hardware/power_budget.md` (a row per module: estimate now, measurement later), `hardware/shopping_list.md`
-  (stock parts only), README (BOM, signals, bring-up checklist), `open_questions.md`;
+  (stock parts only), README (BOM, signals), `tests/bench/` (bring-up order, a bench test sheet per bench-only requirement), `open_questions.md`;
 - the mechanical checks above when the change needs room in the model (new module, connector, board).
 
 ## Language
