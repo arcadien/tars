@@ -58,3 +58,10 @@
 **Dependencies:** [FUNC-POWER-VSENSE-001](functional.md#func-power-vsense-001)
 **Description:** From reset, the amplifier enable, the amplifier's I2S lines and the backlight enable stay low or idle until [FUNC-POWER-VSENSE-001](functional.md#func-power-vsense-001) reports the system rail present. This stops a peripheral on an unpowered rail from being back-powered through its input pins (e.g. switch off, controller on a PC). If the rail disappears they are driven low again within 100 ms. Acceptance (on-target Unity test, rail sense injected or toggled with the switch): pins low with the rail absent; released only with the rail present; low within 100 ms of the rail dropping.
 
+
+### TECH-POWER-GROUND-001
+**Title:** Star ground on the pack output
+**Status:** validated
+**Dependencies:** [TECH-POWER-PROTECT-001](technical.md#tech-power-protect-001)
+**Description:** All power returns meet at one star point on the protected pack output (system GND). No load returns to the raw cell negative (B−), because the protection switches sit between B− and GND. Acceptance: pytest on the schematic (no load ground pin on the B− net); bench: B−, pack OUT−, the regulator GND and the amplifier GND are each < 0.1 Ω from the star point, with the protection switched on.
+
