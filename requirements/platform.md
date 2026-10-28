@@ -74,3 +74,11 @@ derives_from: [TECH-POWER-REG-001](technical.md#tech-power-reg-001)
 derives_from: [TECH-POWER-REG-002](technical.md#tech-power-reg-002)
 **Description:** The TPS63020's PS/SYNC pin is tied to GND (power-save mode) and is never pulled high: forced PWM could sink current from the 3.3 V rail when the S3's ME6211 LDO drives it too. Acceptance: pytest on the schematic (U9 PS on GND); bench continuity check from PS/SYNC to GND.
 
+
+### PLAT-POWER-REG-003
+**Title:** C1 220 µF low-ESR polymer capacitor at the S3 3V pin
+**Status:** validated
+**Dependencies:** [PLAT-POWER-REG-001](platform.md#plat-power-reg-001), [PERF-POWER-REG-002](performance.md#perf-power-reg-002)
+derives_from: [TECH-POWER-REG-001](technical.md#tech-power-reg-001)
+**Description:** C1, a 220 µF polymer tantalum (Panasonic 10TPE220ML, 10 V, ESR ≤ 25 mΩ), sits at the S3 Mini's 3V pin on the carrier, about 35 cm of wire away from the TPS63020, with + on 3V3. Acceptance: pytest on the schematic (C1 between +3V3 and GND at the S3); bench polarity check before the first power-up.
+
