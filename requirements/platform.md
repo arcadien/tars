@@ -90,3 +90,11 @@ derives_from: [TECH-POWER-REG-001](technical.md#tech-power-reg-001)
 derives_from: [TECH-POWER-DIST-001](technical.md#tech-power-dist-001)
 **Description:** The MAX98357A's VIN / GND get their own twisted VSYS / GND pair from the star point, with C7 470 µF at VIN (+ on VIN). The amplifier's GND goes to system GND, never to B−. Acceptance: pytest on the schematic and harness (amplifier VIN on VSYS, GND on GND, C7 across them); bench: VIN = VSYS, C7 polarity checked.
 
+
+### PLAT-POWER-MONITOR-001
+**Title:** VBAT/2 divider R2 / R3 into GPIO1 (ADC1)
+**Status:** validated
+**Dependencies:** [CONF-POWER-ADCCAL-001](configuration.md#conf-power-adccal-001)
+derives_from: [FUNC-POWER-MONITOR-001](functional.md#func-power-monitor-001)
+**Description:** R2 / R3 (1 MΩ / 1 MΩ) on the power-path board divide the TP4056 B+ pad voltage. The midpoint (VBAT/2) goes to GPIO1, an ADC1 channel usable with Wi-Fi on. C6 100 nF ceramic (never tantalum) sits from GPIO1 to GND at the S3. Acceptance: pytest on the schematic (these values and nets); bench: VBAT/2 = B+ / 2 ± 2 % with the switch on, the switch off and the charger plugged in.
+
