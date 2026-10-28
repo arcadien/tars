@@ -26,3 +26,11 @@ derives_from: [TECH-POWER-CHARGE-001](technical.md#tech-power-charge-001)
 derives_from: [TECH-POWER-HOTPLUG-001](technical.md#tech-power-hotplug-001)
 **Description:** A unidirectional SMAJ5.0A TVS (D3) and a 22 µF electrolytic (C9) are soldered across the TP4056 IN+ / IN− pads, with D3's cathode band and C9's + on IN+. Acceptance: pytest on the schematic (D3 and C9 between VUSB and GND, with the right orientation); bench: VUSB unchanged, no heating, IN+ not shorted to IN−.
 
+
+### PLAT-POWER-PROTECT-001
+**Title:** The DW01 on the TP4056 module protects the pack
+**Status:** draft
+**Dependencies:** [PLAT-POWER-CHARGE-001](platform.md#plat-power-charge-001)
+derives_from: [TECH-POWER-PROTECT-001](technical.md#tech-power-protect-001)
+**Description:** The pack protection is the DW01 and its MOSFET pair on the TP4056 module, switching OUT−. Acceptance (bench, 3.7 V bench supply on B+/B−): OUT+ ≈ B+ and OUT− conducts to B−; when the supply is lowered, OUT− opens between 2.3 and 2.5 V; the module's quiescent current with USB out is < 10 µA (see [power_budget.md](../power_budget.md)). Pending: E-M5 (whether the DW01 switches on by itself when the cells are first connected) is still to record.
+
