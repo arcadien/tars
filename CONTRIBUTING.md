@@ -7,7 +7,7 @@ the tools are installed.
 
 | Tool | Used for | Notes |
 |---|---|---|
-| OpenSCAD 2021.01 (`openscad`) | the model, STL export, renders | GUI for previewing, CLI for the scripts |
+| OpenSCAD **2026.10.27** nightly (`openscad`), pinned | the model, STL export, renders | GUI for previewing, CLI for the scripts; the same version as CI (`.github/workflows/check.yml`): another version may export different geometry |
 | Python 3 | `tools/*.py`, `scripts/*.py` | standard library only, except the two `uv` scripts below |
 | `uv` | `scripts/check_renders.py` (Pillow), `scripts/overhang.py` (trimesh) | downloads packages on the first run: run `make check` once **while online** to fill the cache, then work offline with `UV_OFFLINE=1` |
 | Node.js (`node`) | `tools/wiring_svg.js` | static SVG of the wiring sketch |
@@ -25,7 +25,8 @@ Every change starts from a requirement in `requirements/` (see the README, *Requ
    `test(<ID>): …`.
 3. **Change**, commit `<feat|tech|perf|ui|conf|fix>(<ID>): …`. Run `make hook` once: the `commit-msg` hook refuses a
    commit that touches `mechanical/` or `hardware/` without a validated requirement ID, the `pre-commit` hook runs
-   `make check`.
+   the fast checks (model, ERC, docs: seconds), the `pre-push` hook the slow ones (STL export, renders). The CI job
+   `check` (model, STL, ERC, docs) must pass before a pull request is merged into main.
 
 Work on a branch; its state (goal, findings, open questions, next step) lives in `status.md` at the repo root, read first
 when the branch is picked up again and removed before the merge (main has none). A branch whose change still waits for a measurement (`MEASURE` value, bench check) is not merged
@@ -44,10 +45,10 @@ Everything that gets printed lives in `mechanical/`:
 |---|---|---|
 | `mechanical/scad/tars4.scad` | the model: every dimension is a named parameter at the top of the file | **you** |
 | `mechanical/scad/column_sections.scad` | helper for the column section drawing | rarely edited |
-| `mechanical/stl/` | one STL per part, in print orientation | `tools/build4.sh stl` |
+| `mechanical/stl/` | one STL per part, in print orientation; **not in git**: `make check-stl` before a print | `tools/build4.sh stl` |
 | `mechanical/3mf/tars4.3mf` | **the Orca project** (plates arranged by hand, Ender 3) | Orca, then `tools/update_orca_project.py` |
 | `mechanical/3mf/tars4_cr10.3mf` | the CR-10 Orca project (one-piece parts) | Orca, then `tools/update_orca_project.py` |
-| `mechanical/3mf/tars4_plate*.3mf` | raw plates, starting point of a new Orca layout | `tools/build4.sh 3mf` |
+| `mechanical/3mf/tars4_plate*.3mf` | raw plates, starting point of a new Orca layout; **not in git** | `tools/build4.sh 3mf` |
 
 ### 1. Change the model
 

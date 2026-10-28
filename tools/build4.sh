@@ -6,6 +6,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 WHAT=${1:-all}
+mkdir -p mechanical/stl   # not in git (TECH-BUILD-ARTIFACTS-001): absent on a fresh clone
 TMP=$(mktemp -d)
 ROOT=$PWD
 command -v cygpath >/dev/null && TMP=$(cygpath -m "$TMP") && ROOT=$(cygpath -m "$PWD")   # Windows OpenSCAD cannot read Git Bash /c/... paths

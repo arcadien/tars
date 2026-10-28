@@ -3,11 +3,12 @@
 TARS robot, `tars4` variant. `README.md` is the project documentation; `mechanical/scad/tars4.scad` is the model.
 
 ## Repository
-- Layout: `mechanical/` (scad, stl, 3mf), `hardware/` (kicad, schematic / wiring / harness pages, power budget,
+- Layout: `mechanical/` (scad, stl generated, 3mf), `hardware/` (kicad, schematic / wiring / harness pages, power budget,
   measurements, shopping list), `software/`, `requirements/` (RBD), `renders/`, `tools/`, `scripts/`,
   `open_questions.md`. `CONTRIBUTING.md` is the manual workflow (no network, no assistant): keep it in step with the tools.
-- `make check` (incremental, also the pre-commit hook) must pass; commit the files it rewrites. STLs are re-exported
-  byte-different even when the geometry is unchanged.
+- `make check` (incremental) must pass; commit the files it rewrites. The pre-commit hook runs the fast stages (model,
+  erc, docs), the pre-push hook the slow ones (stl, renders), CI (`check` job) gates merges to main. STLs and raw
+  plates are not in git (TECH-BUILD-ARTIFACTS-001): `make check-stl` before a print. OpenSCAD pinned to 2026.10.27.
 - Commit prefixes (RBD pre-push hook): req, test, feat, tech, perf, ui, conf, arch, plan, chore, fix, docs, style,
   refactor; `feat(ID):`-style ones need a validated requirement. Granular commits, push after each.
 - Branches: each work branch keeps its state in `status.md` at the repo root (goal, state, findings, open questions with

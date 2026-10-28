@@ -85,7 +85,7 @@ def main():
     ff = subprocess.Popen(['firefox', '--headless', '--no-remote', '--profile', prof, f'--remote-debugging-port={port}'],
                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     try:
-        for _ in range(150):
+        for _ in range(450):   # 90 s: the snap Firefox of CI runners starts slowly when cold
             try:
                 ws = WS('127.0.0.1', port, '/session')
                 break
