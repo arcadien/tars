@@ -65,3 +65,10 @@
 **Dependencies:** [TECH-POWER-PROTECT-001](technical.md#tech-power-protect-001)
 **Description:** All power returns meet at one star point on the protected pack output (system GND). No load returns to the raw cell negative (B−), because the protection switches sit between B− and GND. Acceptance: pytest on the schematic (no load ground pin on the B− net); bench: B−, pack OUT−, the regulator GND and the amplifier GND are each < 0.1 Ω from the star point, with the protection switched on.
 
+
+### TECH-POWER-DIST-001
+**Title:** Separate supply pairs for the 3.3 V regulator and the audio amplifier
+**Status:** validated
+**Dependencies:** [TECH-POWER-GROUND-001](technical.md#tech-power-ground-001)
+**Description:** The 3.3 V regulator and the audio amplifier each get their own system-rail/GND wire pair from the star point, so that amplifier current peaks do not flow through the controller's supply wires. The logic GND leaves from the regulator's GND pad, next to its 3.3 V wire. Acceptance: pytest on the harness wire list (tools/harness.py) and the schematic: two distinct VSYS/GND pairs start at the star; the 3V3 pair starts at the regulator.
+
