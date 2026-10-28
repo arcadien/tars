@@ -10,7 +10,7 @@ TMP=$(mktemp -d)
 command -v cygpath >/dev/null && TMP=$(cygpath -m "$TMP")   # Windows OpenSCAD cannot read Git Bash /tmp paths
 trap 'rm -rf "$TMP"' EXIT
 CR10_PARTS="col0 col1 col2 col3 lid_leg lid_leg_sd lid_mid lid_mid_left"
-TEST_PARTS="pir_test tube_test tube_test2 tube_test3"
+TEST_PARTS="tube_test3"
 PARTS="col0_bottom col0_top col1_bottom col1_top col2_bottom col2_top col3_bottom col3_top lid_leg_bottom lid_leg_sd_bottom lid_leg_top lid_mid_bottom lid_mid_top lid_mid_left_bottom lid_mid_left_top splint inserts inserts_speaker collar"
 
 # export_stl <file prefix> <parts...>: print_<part> -> mechanical/stl/tars4_<prefix><part>.stl, in parallel; fails on WARNING / ERROR

@@ -53,7 +53,7 @@ one step by hand instead:
 |---|---|
 | `tools/build4.sh stl` | `mechanical/stl/tars4_*.stl` (Ender 3 halves) |
 | `tools/build4.sh cr10stl` | `mechanical/stl/tars4_cr10_*.stl` (one-piece parts) |
-| `tools/build4.sh tests` | trial prints (`pir_test`, `tube_test*`) |
+| `tools/build4.sh tests` | trial print `tube_test3` (finished trials `pir_test`, `tube_test`, `tube_test2` stay in the model, export them one-off) |
 | `openscad -D 'part="print_<part>"' -o <part>.stl mechanical/scad/tars4.scad` | any other part, one-off (e.g. `test_level`, `test_screen`: kept in the model, no longer exported) |
 | `tools/build4.sh renders` | `renders/*.png` (README pictures, connector details) |
 | `python3 -I tools/column_sections.py` | `renders/tars4_column_sections.svg` |
