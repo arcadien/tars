@@ -50,3 +50,11 @@ derives_from: [TECH-POWER-PROTECT-002](technical.md#tech-power-protect-002)
 derives_from: [FUNC-POWER-PATH-001](functional.md#func-power-path-001)
 **Description:** The circuit is: a 1N5822 Schottky D1 from VUSB to VPATH; a logic-level P-MOSFET Q1 (AO3401A, D on OUT+, S on VPATH, G on VUSB); R1 10 kΩ from Q1's gate to GND. Acceptance: pytest on the schematic (these nets); bench: VUSB < 0.5 V within 1 s of unplugging; D1's reverse leakage at 4.2 V and 35 °C is ≤ 50 µA (otherwise R1 becomes 4.7 kΩ or D1 is replaced). Pending: E-M3 (D1 leakage) not measured yet.
 
+
+### PLAT-POWER-SWITCH-001
+**Title:** Slide switch SW1 between VPATH and VSYS
+**Status:** draft
+**Dependencies:** [PLAT-POWER-PATH-001](platform.md#plat-power-path-001)
+derives_from: [FUNC-POWER-SWITCH-001](functional.md#func-power-switch-001)
+**Description:** SW1, a mini slide switch in the floor of the left leg, sits after the power-path merge (VPATH) and before VSYS. Its contacts are rated ≥ 1 A. Acceptance: pytest on the schematic (SW1 between VPATH and VSYS); bench: datasheet or marking ≥ 1 A; a temperature rise of ≤ 10 °C after 10 min at 1 A (3.9 Ω 5 W load). Pending: E-M6 (the actual rating of SW1) not checked yet.
+
