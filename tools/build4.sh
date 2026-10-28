@@ -128,9 +128,12 @@ EOF
 
 build_cr10() {
     # CR-10 (300 x 300): columns and lids in one piece, everything on one plate
+    # PLATE_DIR=dir writes the raw plate there (make check: fit test)
+    local D=${PLATE_DIR:-mechanical/3mf}
+    mkdir -p "$D"
     export_stl cr10_ $CR10_PARTS
     echo "== tars4_cr10_plate.3mf"
-    python3 -I tools/stl2_3mf.py mechanical/3mf/tars4_cr10_plate.3mf 300 300 \
+    python3 -I tools/stl2_3mf.py "$D/tars4_cr10_plate.3mf" 300 300 \
         leg_left=mechanical/stl/tars4_cr10_col0.stl mid_left=mechanical/stl/tars4_cr10_col1.stl mid_right=mechanical/stl/tars4_cr10_col2.stl leg_right=mechanical/stl/tars4_cr10_col3.stl \
         lid_leg_left=mechanical/stl/tars4_cr10_lid_leg_sd.stl lid_mid_left=mechanical/stl/tars4_cr10_lid_mid_left.stl \
         lid_mid_right=mechanical/stl/tars4_cr10_lid_mid.stl lid_leg_right=mechanical/stl/tars4_cr10_lid_leg.stl

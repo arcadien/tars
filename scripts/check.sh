@@ -5,8 +5,8 @@
 #        in Orca). The pre-commit hook runs the fast stages (model erc docs), the pre-push hook the slow ones (stl renders).
 #   model     tars4.scad evaluated without any export (seconds): fails on any OpenSCAD WARNING / ERROR (model checks)
 #   stl       every printable part to STL (Ender 3 halves, CR-10 one-piece parts, trial prints; mechanical/stl/, not in
-#             git) + the raw 3MF plates (written to build/plates); fails on any OpenSCAD WARNING /
-#             ERROR (connector clashes, fit checks, ...) or a raw layout off its 220 x 220 bed
+#             git) + the raw 3MF plates, Ender 3 and CR-10 (written to build/plates); fails on any OpenSCAD WARNING /
+#             ERROR (connector clashes, fit checks, ...) or a raw layout off its bed (Ender 3 220 x 220, CR-10 300 x 300)
 #   overhang  scripts/overhang.py (uv, trimesh): faces > 50 deg from vertical over 2 cm2, unless a narrow bridge or
 #             listed in scripts/overhang_allow.json with the reason it prints without support
 #   orca      scripts/orca_check.py: refreshes the meshes of the saved Orca projects (tars4.3mf on the Ender 3,
@@ -61,10 +61,10 @@ stage_model() {
 }
 
 stage_stl() {
-    tools/build4.sh stl && tools/build4.sh cr10stl && tools/build4.sh tests || return 1
-    # raw Ender 3 plates go to build/plates: checked for fit, the repo copies are only rewritten on request
-    PLATE_DIR=build/plates tools/build4.sh 3mf | tee "$LOG/3mf.out"
-    ! grep -q "WARNING" "$LOG/3mf.out"
+    tools/build4.sh stl && tools/build4.sh tests || return 1
+    # CR-10 one-piece parts + their plate, then the raw Ender 3 plates, to build/plates: checked for fit on their bed
+    { PLATE_DIR=build/plates tools/build4.sh cr10 && PLATE_DIR=build/plates tools/build4.sh 3mf; } | tee "$LOG/3mf.out"
+    [ "${PIPESTATUS[0]}" = 0 ] && ! grep -q "WARNING" "$LOG/3mf.out"
 }
 
 stage_overhang() {
