@@ -16,3 +16,10 @@
 **Dependencies:** [TECH-POWER-CELL-001](technical.md#tech-power-cell-001)
 **Description:** The two cells are the same model and age, and each is charged on its own to the same voltage within ±0.05 V before they are first connected in parallel. Acceptance (bench record): both cell voltages, measured with a multimeter just before the first insertion, are logged in the bring-up notes and differ by ≤ 0.05 V.
 
+
+### TECH-POWER-CHARGE-001
+**Title:** Lithium-ion CC/CV charge with termination at 4.20 V
+**Status:** validated
+**Dependencies:** [TECH-POWER-CELL-001](technical.md#tech-power-cell-001)
+**Description:** The charger charges at constant current and then at constant voltage, with a final voltage of 4.20 V ± 1 % (4.158–4.242 V) at the cell terminals, and stops on its own at the end of the charge. Acceptance (bench): from a half-empty cell, the charge ends with B+ between 4.158 and 4.242 V and the charge current falls to ≤ 10 % of the set current, then stops.
+
