@@ -460,8 +460,8 @@ as the amplifier on the other side: free.
 
 - **One pivot per joint, at the top** (238.4 mm, as high as the bosses allow so it clears the screen board): the
   two-legged walk. The wires run through the tubes, so there is no centre pivot (no crutch walk / wheel).
-- Tube: **brass 8 / 7 mm** (`tube_od = 8`), ~20 mm long per joint. Glued into the left-hand column of the joint (hole
-  8.1), turning in the right-hand one (hole 8.3) on a Ø16 bearing ring with 2 detent bumps; 24 dimples on the fixed side
+- Tube: **brass 8 / 7 mm** (`tube_od = 7.93` measured), ~20 mm long per joint. Glued into the left-hand column of the
+  joint (teardrop hole 8.00), turning in the right-hand one (teardrop hole 8.05, PLAT-MECH-PIVOT-001) on a Ø16 bearing ring with 2 detent bumps; 24 dimples on the fixed side
   → a click every 15°. A printed collar (Ø13 × 2, `collar`) glued on the tube inside the turning column holds the joint
   together; the tube sticks out 0.5 past it (`tube_over`). Bosses Ø14 × 5 inside the walls; nothing else at that height.
 - Swinging back and forth is fine; endless rotation would need a Ø12.5 slip ring.
@@ -777,10 +777,9 @@ What is left to buy: `hardware/shopping_list.md`. Open questions and measurement
       ZS-042 header depth → `rtc_hdr_y`. The model must echo no connector WARNING afterwards.
 - [x] Polyfuses XF160 15 × 16 × 2.5: too wide for the top shelf → standing on the inner front wall in front of each cell.
 - [x] BME280 12 × 15.6 × 2.6, sensor centred. - [ ] no regulator (3.3 V straight to the sensor), no LED.
-- [ ] Pivot bores: tube 7.93. `tube_test` (round bores) came out ~0.1 small and the tube turned in all of them;
-  `tube_test2` showed the round bores sag ~0.3 vertically (horizontal bores when printed front face down). Print
-  `mechanical/stl/tars4_tube_test3.stl` (teardrop bores, G7.95 / 8.0 / 8.05, R8.05 / 8.1 / 8.15), then set `tube_od` and the
-  clearances and switch the pivot bores to teardrops (`xtear`). Tight rather than loose: sand to fit.
+- [x] Pivot bores: tube 7.93; `tube_test3` (teardrop bores, the round ones sagged ~0.3): G7.95 scrapes, **G8.00 holds**
+  with no play, **R8.05 turns** with micro play, wider bores get looser → teardrop pivots 8.00 / 8.05
+  (PLAT-MECH-PIVOT-001). A bore that binds: sand or ream with an 8 mm drill.
 - [x] AM312: `pir_test` printed, cap glued from the inside, Ø11.5 hole (dome flush). - [ ] measure `pir_pcb_dn`.
 
 **2. Check on the bench, before wiring** (multimeter)

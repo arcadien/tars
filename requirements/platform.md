@@ -135,3 +135,9 @@ derives_from: [TECH-POWER-SLEEP-001](technical.md#tech-power-sleep-001)
 **Dependencies:** [PLAT-POWER-CHARGE-001](platform.md#plat-power-charge-001)
 derives_from: [FUNC-POWER-CHARGE-001](functional.md#func-power-charge-001)
 **Description:** The micro-USB breakout stands against the outer side wall of the left foot, its receptacle axis horizontal along y. The receptacle mouth is at most 1 mm inside the back face, and its centre is ≥ 6 mm above the floor, so a plug overmold up to 11.6 × 8 mm clears both the table and the leg edges. The breakout is held so that the plug's insertion force (≤ 35 N, micro-USB spec) does not move it, and the lid can still be removed without unsoldering anything. The floor opening of the former port is closed. Acceptance: `make check` clean (geometry asserts in `tars4.scad` for the axis, mouth depth, height and clearances); print: a plug inserted and removed 10 times, with the breakout staying in place.
+
+### PLAT-MECH-PIVOT-001
+**Title:** Column pivot bores sized from tube_test3: teardrop bores, glued 8.00 / turning 8.05 for the 7.93 brass tube
+**Status:** validated
+**Dependencies:** none
+**Description:** Each column joint turns on a brass tube (7.93 measured outer Ø), glued into one column and turning in the next. The pivot bores are horizontal when the columns print front face down, so they are teardrop-shaped (point toward the print top, self-supporting 45° ceiling, no support inside the bore). Drawn Ø: glued side 8.00 (tube held, no play), turning side 8.05 (turns, micro play only), from tube_test3 (2026-10-28, IBoss PLA Silk, 0.20 mm Ender3 profile). Tight beats loose: a bore that binds is sanded or reamed with an 8 mm drill. Acceptance: `make check` clean (no WARNING); `tube_od` = 7.93, `tube_glue_clr` = 0.07, `tube_run_clr` = 0.12; `pivot_cut` uses `xtear`; first printed joint: glued side holds, turning side turns without wobble.
