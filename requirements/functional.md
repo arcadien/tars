@@ -7,7 +7,7 @@
 **Title:** Battery charges from an external 5 V USB supply
 **Status:** validated
 **Dependencies:** [TECH-POWER-CHARGE-001](technical.md#tech-power-charge-001)
-**Description:** When a 5 V USB supply is connected to the robot's charge port, the battery charges and the charge stops by itself when the battery is full ([TECH-POWER-CHARGE-001](technical.md#tech-power-charge-001)). The charge port can be reached from underneath the robot without opening any lid. Acceptance (bench): with a partly discharged battery, connecting the supply makes current flow into the battery (multimeter in series with B+) and the battery voltage rises; no lid is removed to plug the supply in.
+**Description:** When a 5 V USB supply is connected to the robot's charge port, the battery charges and the charge stops by itself when the battery is full ([TECH-POWER-CHARGE-001](technical.md#tech-power-charge-001)). The charge port is on the heel (back face) of the left leg and can be reached while the robot stands upright on its feet, without opening any lid, lifting or tilting the robot. Acceptance (bench): robot standing on a flat table, partly discharged battery; a standard micro-USB cable is plugged in horizontally from behind; current flows into the battery (multimeter in series with B+) and the battery voltage rises; the robot stays standing, with the cable resting on the table. Lying face down, the port stays reachable too.
 
 ### FUNC-POWER-PATH-001
 **Title:** On an external supply, the system load does not draw from the battery
