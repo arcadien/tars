@@ -108,14 +108,15 @@ for s in $STAGES; do
     if ! declare -F "stage_$s" >/dev/null; then echo "unknown stage: $s"; exit 2; fi
     printf '== %-9s ' "$s"
     sum=$(digest "$s")
-    if [ -z "${FORCE:-}" ] && [ "$(cat "$LOG/$s.sum" 2>/dev/null)" = "$sum" ]; then
+    # every input digest that passed is kept (one per line): switching branches does not re-run a stage already
+    # checked with the same inputs (the committed outputs of that branch are the ones it produced)
+    if [ -z "${FORCE:-}" ] && grep -qx "$sum" "$LOG/$s.sum" 2>/dev/null; then
         echo "unchanged, skipped"
         continue
     fi
     t=$(date +%s)
-    rm -f "$LOG/$s.sum"
     if "stage_$s" > "$LOG/$s.log" 2>&1; then
-        digest "$s" > "$LOG/$s.sum"   # after the run: a stage may rewrite its own inputs (orca refreshes the 3MF meshes)
+        digest "$s" >> "$LOG/$s.sum"   # after the run: a stage may rewrite its own inputs (orca refreshes the 3MF meshes)
         echo "ok ($(( $(date +%s) - t )) s)"
     else
         echo "FAILED ($(( $(date +%s) - t )) s), $LOG/$s.log:"
