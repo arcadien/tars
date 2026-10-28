@@ -93,3 +93,9 @@
 **Dependencies:** [FUNC-POWER-CUTOFF-001](functional.md#func-power-cutoff-001), [FUNC-POWER-DETECT-002](functional.md#func-power-detect-002)
 **Description:** After a low-battery shutdown, the firmware records an "empty" state that survives deep sleep. While it is set, every wake returns to deep sleep without turning on the screens, the amplifier or the radio. It is cleared only when the external supply is present and the battery is above 3.50 V. While the supply is present, the controller wakes on a timer every re-check interval ([CONF-POWER-THRESH-001](configuration.md#conf-power-thresh-001)) to test this; on battery alone no timer wake is armed, so an empty battery is not drained further. Acceptance (on-target Unity test): with the state set, a wake goes back to sleep within 200 ms with the enables low; supply present: the next timer wake comes after the re-check interval ±10 %; supply absent: no timer wake within 2 intervals; supply + 3.4 V keeps the state set; supply + 3.6 V clears it.
 
+
+### FUNC-POWER-GATE-001
+**Title:** Firmware can cut the supply of the removable storage card
+**Status:** validated
+**Dependencies:** none
+**Description:** The removable storage card's supply is switched by the firmware and is off while the controller is in reset or has not yet driven the switch. Before cutting it, the firmware stops driving the card's signal lines. Acceptance: bench: card supply < 0.1 V when commanded off and while the controller is held in reset; on-target Unity test: the card signal pins are inputs whenever the supply is commanded off.
