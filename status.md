@@ -37,6 +37,7 @@ MECH requirements for them before any model change.
 | A2 | The two holes: Ø 4.7 at 16 mm between centres, or is 4.7 the width of the white band? | |
 | A3 | Buy a MAX98357A breakout (~8 €) instead of adapting the current board? | recommended: keeps the design as is (SD pin on GPIO4, < 1 µA in sleep, 19.4 × 18 slot, schematic, budget and requirements unchanged); a clone (purple board, SD / GAIN pins) at 1–3 € does the same; the current board stays the fallback (CTRL trace cut or P-MOSFET switch). User decides at home |
 | S1 | Speaker: open its box and use the bare driver (option 1), or another speaker from stock (option 2)? | looking in the drawers (2026-10-28) |
+| S4 | Round speaker candidate: diameter, impedance, power? | depth 5 mm (2026-10-28): fits easily (≤ 15); diameter must be ≤ Ø23; diameter and impedance still to read |
 | S3 | Which impedance, which shape if bought new? | **8 Ω** (4 Ω also works but doubles the current peaks on VSYS: ~1 A at full volume vs ~0.5 A), 0.5–2 W. Face against the lower black panel (27.2 wide inside, minus the side rails ≈ 23; panel 33.5 tall): **oval 20 × 30, long axis vertical**, fits; **round Ø28 does not** (wider than the interior); a round one must be ≤ Ø23. Depth ≤ ~15 with its wires |
 | S2 | If option 1: bare driver long axis, short axis, depth with the magnet, flange if any | |
 
