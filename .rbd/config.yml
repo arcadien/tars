@@ -22,4 +22,5 @@ test_tagging:
     convention: "@pytest.mark.req('{id}')"
 
 linter:
-  command: "uvx platformio check -d s3mini/bench_test --skip-packages && uvx ruff check tools scripts bench_assets"
+  # firmware lint (uvx platformio check -d <firmware dir>) is added once firmware lives on this branch
+  command: "uvx ruff check tools scripts"
