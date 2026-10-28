@@ -66,3 +66,11 @@ derives_from: [FUNC-POWER-SWITCH-001](functional.md#func-power-switch-001)
 derives_from: [TECH-POWER-REG-001](technical.md#tech-power-reg-001)
 **Description:** A TPS63020 buck-boost module (U9, left leg) is fed from VSYS on its own pair, with EN tied to VIN (always on after SW1). Its output goes to P1 and then the S3 Mini's 3V3 pin. Acceptance (bench, nothing on the output): VOUT 3.3 V ± 3 % (never 5 V); input idle current < 0.1 mA (see [power_budget.md](../power_budget.md)). A few mA means it is stuck in PWM.
 
+
+### PLAT-POWER-REG-002
+**Title:** TPS63020 PS/SYNC tied to GND (power-save mode)
+**Status:** validated
+**Dependencies:** [PLAT-POWER-REG-001](platform.md#plat-power-reg-001)
+derives_from: [TECH-POWER-REG-002](technical.md#tech-power-reg-002)
+**Description:** The TPS63020's PS/SYNC pin is tied to GND (power-save mode) and is never pulled high: forced PWM could sink current from the 3.3 V rail when the S3's ME6211 LDO drives it too. Acceptance: pytest on the schematic (U9 PS on GND); bench continuity check from PS/SYNC to GND.
+
