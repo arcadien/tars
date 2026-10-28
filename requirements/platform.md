@@ -122,3 +122,11 @@ derives_from: [TECH-POWER-BACKFEED-001](technical.md#tech-power-backfeed-001)
 derives_from: [TECH-POWER-VBUS-001](technical.md#tech-power-vbus-001)
 **Description:** The S3 Mini's VBUS pin reaches only its own USB-C connector: the matching contact is pulled out of the carrier's female header, so VBUS touches no carrier net. Acceptance: pytest on the schematic (S3 pin V is no-connect); bench: no continuity between the S3's VBUS pin and any carrier pad.
 
+
+### PLAT-POWER-GATE-001
+**Title:** Q5 switches the microSD 3V3 from SD_EN on GPIO36
+**Status:** validated
+**Dependencies:** [PLAT-POWER-REG-001](platform.md#plat-power-reg-001)
+derives_from: [FUNC-POWER-GATE-001](functional.md#func-power-gate-001)
+**Description:** Q5 (AO3401A, on the power-path board) switches +3V3 to SD_3V3 on the high side. Its gate is on SD_EN (GPIO36, low = card powered), and R22 100 kΩ pulls the gate up to 3V3 so the card stays off while the pin floats. Acceptance: pytest on the schematic (these nets); bench: SD_3V3 < 0.1 V with GPIO36 high and with the S3 held in reset.
+
