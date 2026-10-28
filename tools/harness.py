@@ -160,6 +160,12 @@ def geometry():
         with open(GEO_CACHE, 'w', encoding='utf-8') as fh:
             json.dump(geo, fh, indent=1)
         return geo
+    # without openscad, the cache is only trusted if no model file changed after it was written (else: old wire lengths)
+    scad = os.path.join(ROOT, 'mechanical', 'scad', 'tars4.scad')
+    if not os.path.exists(GEO_CACHE) or os.path.getmtime(GEO_CACHE) < os.path.getmtime(scad):
+        sys.exit(f'harness.py: openscad not found and {os.path.relpath(GEO_CACHE, ROOT)} is missing or older than '
+                 'tars4.scad: put openscad on the PATH')
+    print(f'harness.py: openscad not found, positions from {os.path.relpath(GEO_CACHE, ROOT)}')
     return json.load(open(GEO_CACHE))
 
 
