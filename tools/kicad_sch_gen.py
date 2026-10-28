@@ -12,6 +12,7 @@ Check it with: kicad-cli sch erc hardware/kicad/tars4.kicad_sch ; kicad-cli sch 
 """
 import os
 import re
+import shutil
 import subprocess
 import tempfile
 import uuid
@@ -21,7 +22,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 LIBSRC = os.path.join(ROOT, "hardware", "kicad", "lib_src")
 OUT = os.path.join(ROOT, "hardware", "kicad", "tars4.kicad_sch")
-KICAD = os.path.expanduser("~/bin/kicad-10.0.7-x86_64.AppImage")
+# kicad-cli: the AppImage named by $KICAD (or the newest ~/bin/kicad-*.AppImage), else kicad-cli on the PATH
+_bin = os.path.expanduser("~/bin")
+_appimages = sorted(f for f in os.listdir(_bin) if f.startswith("kicad-") and f.endswith(".AppImage")) if os.path.isdir(_bin) else []
+KICAD = os.environ.get("KICAD") or (os.path.expanduser(f"~/bin/{_appimages[-1]}") if _appimages else "")
+KICAD_CLI = [KICAD, "kicad-cli"] if KICAD else ([shutil.which("kicad-cli")] if shutil.which("kicad-cli") else [])
 ROOT_UUID = str(uuid.uuid5(uuid.NAMESPACE_URL, "tars4-root"))
 _n = [0]
 
@@ -58,7 +63,7 @@ LIBS, PINS = {}, {}
 
 def load_std(lib_id):
     lib, name = lib_id.split(":")
-    text = open(os.path.join(LIBSRC, f"{lib}__{name}.kicad_sym")).read()
+    text = open(os.path.join(LIBSRC, f"{lib}__{name}.kicad_sym"), encoding="utf-8").read()
     b = block(text, text.index('(symbol "'))
     b = b.replace(f'(symbol "{name}"', f'(symbol "{lib_id}"', 1)
     LIBS[lib_id] = b
@@ -566,25 +571,27 @@ doc = f"""(kicad_sch
 	(embedded_fonts no)
 )
 """
-open(OUT, "w").write(doc)
+open(OUT, "w", encoding="utf-8").write(doc)
 # project library with the module symbols (names without the "tars:" prefix), project file and library table
 mods = [v.replace(f'(symbol "{k}"', f'(symbol "{k.split(":")[1]}"', 1) for k, v in LIBS.items() if k.startswith("tars:")]
-open(os.path.join(ROOT, "hardware", "kicad", "tars.kicad_sym"), "w").write(
+open(os.path.join(ROOT, "hardware", "kicad", "tars.kicad_sym"), "w", encoding="utf-8").write(
     '(kicad_symbol_lib (version 20251024) (generator "kicad_symbol_editor") (generator_version "10.0")\n' + "\n".join(mods) + "\n)\n")
-open(os.path.join(ROOT, "hardware", "kicad", "sym-lib-table"), "w").write(
+open(os.path.join(ROOT, "hardware", "kicad", "sym-lib-table"), "w", encoding="utf-8").write(
     '(sym_lib_table (version 7) (lib (name "tars") (type "KiCad") (uri "${KIPRJMOD}/tars.kicad_sym") (options "") (descr "TARS4 modules")))\n')
 pro = os.path.join(ROOT, "hardware", "kicad", "tars4.kicad_pro")
 if not os.path.exists(pro):
-    open(pro, "w").write('{\n  "meta": {\n    "filename": "tars4.kicad_pro",\n    "version": 3\n  }\n}\n')
+    open(pro, "w", encoding="utf-8").write('{\n  "meta": {\n    "filename": "tars4.kicad_pro",\n    "version": 3\n  }\n}\n')
 print(f"{OUT}: {len(items)} items, {len(SEGS)} wires, {len(set(NETS.values()) - {'NC'})} nets")
 
 # ---------------- native format + netlist comparison ----------------
-if os.path.exists(KICAD):
-    subprocess.run([KICAD, "kicad-cli", "sch", "upgrade", OUT], check=True, capture_output=True)
+if not KICAD_CLI:
+    print("WARNING: KiCad not found (kicad-cli on the PATH or $KICAD): file not upgraded, netlist not checked")
+else:
+    subprocess.run([*KICAD_CLI, "sch", "upgrade", OUT], check=True, capture_output=True)
     with tempfile.TemporaryDirectory() as tmp:
         net = os.path.join(tmp, "t.net")
-        subprocess.run([KICAD, "kicad-cli", "sch", "export", "netlist", "--format", "kicadsexpr", "-o", net, OUT], check=True, capture_output=True)
-        text = open(net).read()
+        subprocess.run([*KICAD_CLI, "sch", "export", "netlist", "--format", "kicadsexpr", "-o", net, OUT], check=True, capture_output=True)
+        text = open(net, encoding="utf-8").read()
     got = defaultdict(set)
     for m in re.finditer(r'\(net\s+\(code "(\d+)"\)\s+\(name "([^"]*)"\)(.*?)\n\t\t\)', text, re.S):
         for r, p in re.findall(r'\(ref "([^"]+)"\)\s+\(pin "([^"]+)"\)', m.group(3)):
