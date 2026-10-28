@@ -72,3 +72,10 @@
 **Dependencies:** [TECH-POWER-GROUND-001](technical.md#tech-power-ground-001)
 **Description:** The 3.3 V regulator and the audio amplifier each get their own system-rail/GND wire pair from the star point, so that amplifier current peaks do not flow through the controller's supply wires. The logic GND leaves from the regulator's GND pad, next to its 3.3 V wire. Acceptance: pytest on the harness wire list (tools/harness.py) and the schematic: two distinct VSYS/GND pairs start at the star; the 3V3 pair starts at the regulator.
 
+
+### TECH-POWER-REG-001
+**Title:** A single 3.3 V logic rail from a buck-boost converter
+**Status:** validated
+**Dependencies:** none
+**Description:** All 3.3 V loads (controller, screens, sensors, storage card) are fed by one regulated rail, made from the system rail by a buck-boost converter that regulates whether the input is above or below 3.3 V (2.5 V cells up to the ~4.7 V of the external supply). No linear regulator is fed from the system rail. Acceptance: pytest on the schematic (every 3V3 load pin is on the +3V3 net; one regulator sourcing it, input on VSYS).
+
