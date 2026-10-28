@@ -147,7 +147,7 @@ def geometry():
     items = [(k, k) for k in keys] + [('pivot_z', 'pivot_z[0]'), ('conn_names', '[for (c = CONN) c[1]]'),
                                       ('conn_box', '[for (c = CONN) [c[0], c[3], c[4]]]')]
     body = ', '.join(f'"{"," if n else ""}{q}{k}{q}:", {v}' for n, (k, v) in enumerate(items))
-    scad = f'include <{os.path.join(ROOT, "physical", "scad", "tars4.scad")}>\necho(str("GEOJSON{{", {body}, "}}"));\n'
+    scad = f'include <{os.path.join(ROOT, "mechanical", "scad", "tars4.scad")}>\necho(str("GEOJSON{{", {body}, "}}"));\n'
     if shutil.which('openscad'):
         with tempfile.TemporaryDirectory() as d:
             with open(os.path.join(d, 'g.scad'), 'w') as fh:

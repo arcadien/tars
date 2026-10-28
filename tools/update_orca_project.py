@@ -79,7 +79,7 @@ def main():
     args = [a for a in args if a != "--check"]
     proj = args[0]
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # repo root
-    stl_dir = os.path.join(root, "physical", "stl")
+    stl_dir = os.path.join(root, "mechanical", "stl")
     zin = zipfile.ZipFile(proj)
     model = zin.read("3D/3dmodel.model").decode()
     # object file -> its build item (through the wrapper object that references it)

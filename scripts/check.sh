@@ -32,13 +32,13 @@ T0=$(date +%s)
 # input files of each stage (what makes its result change)
 inputs() {
     case $1 in
-        stl) echo physical/scad/tars4.scad tools/build4.sh tools/stl2_3mf.py $LIBS/*.scad ;;
-        overhang) echo physical/stl/tars4_*.stl scripts/overhang.py scripts/overhang_allow.json ;;
-        orca) echo physical/stl/tars4_*.stl physical/3mf/tars4.3mf physical/3mf/tars4_cr10.3mf scripts/orca_check.py scripts/orca_profile.py \
+        stl) echo mechanical/scad/tars4.scad tools/build4.sh tools/stl2_3mf.py $LIBS/*.scad ;;
+        overhang) echo mechanical/stl/tars4_*.stl scripts/overhang.py scripts/overhang_allow.json ;;
+        orca) echo mechanical/stl/tars4_*.stl mechanical/3mf/tars4.3mf mechanical/3mf/tars4_cr10.3mf scripts/orca_check.py scripts/orca_profile.py \
                    tools/update_orca_project.py tools/stl2_3mf.py "$ORCA_PRESETS"/machine/*.json "$ORCA_PRESETS"/process/*.json ;;
         erc) echo hardware/kicad/*.kicad_sch hardware/kicad/*.kicad_sym hardware/kicad/*.kicad_pro hardware/kicad/sym-lib-table ;;
-        renders) echo physical/scad/tars4.scad tools/build4.sh $LIBS/*.scad scripts/check_renders.py ;;
-        docs) echo physical/scad/tars4.scad tools/boards.py tools/harness.py tools/html2pdf.py tools/wiring_svg.js hardware/tars4_wiring.html ;;
+        renders) echo mechanical/scad/tars4.scad tools/build4.sh $LIBS/*.scad scripts/check_renders.py ;;
+        docs) echo mechanical/scad/tars4.scad tools/boards.py tools/harness.py tools/html2pdf.py tools/wiring_svg.js hardware/tars4_wiring.html ;;
     esac
 }
 
@@ -57,7 +57,7 @@ stage_stl() {
 }
 
 stage_overhang() {
-    uv run -q scripts/overhang.py physical/stl/tars4_*.stl
+    uv run -q scripts/overhang.py mechanical/stl/tars4_*.stl
 }
 
 stage_orca() {

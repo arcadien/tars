@@ -1,10 +1,10 @@
 # tars4 — measurements to take
 
-Parts all received (2026-10-27). Fill the **Measured** column as you go; everything is merged into `physical/scad/tars4.scad` in one
+Parts all received (2026-10-27). Fill the **Measured** column as you go; everything is merged into `mechanical/scad/tars4.scad` in one
 pass at the end, then STL / 3MF are regenerated once. Electrical bench checks stay in the README checklist
 (*to do when the parts arrive*), they don't change the model.
 
-**Merged into `physical/scad/tars4.scad` on 2026-10-27 (23:50)**; every print part renders
+**Merged into `mechanical/scad/tars4.scad` on 2026-10-27 (23:50)**; every print part renders
 with no WARNING. Side effects: polyfuse holders on the front walls, TPS63020 slot cut 0.15 into the walls (`bk_clr`),
 TP4056 grooves gone, screen connector box 8 deep (bundle corridor moved back to y 13.5–25), BME280 0.3 lower, AM312
 re-centred in its band (asymmetric extents), `active_dz` −1.1. **Still open**: tube bores (test3, then `tube_od` 7.93 +
@@ -27,7 +27,7 @@ yet (after test3, one pass).
 |---|---|---|---|---|
 | Brass tube | `tube_test`: tightest glued bore that takes the tube (G8.1 / 8.3 / 8.5) | `tube_glue_clr` 0.1 | printed G8.1 / 8.3 / 8.5 → **8.00 / 8.20 / 8.45**; tube **turns even in G8.1** (8.00 printed): too loose for gluing → second test `tube_test2` | holes only ~0.05–0.1 undersize here (not the 0.5 of the PIR plate) |
 | Brass tube | `tube_test`: tightest bore that turns freely (R8.3 / 8.5 / 8.7) | `tube_run_clr` 0.3 | printed R8.3 / 8.5 / 8.7 → **8.30 / 8.40 / 8.60**: all turn → second test | |
-| Brass tube | outer Ø | `tube_od` 8 | **7.93** | `physical/stl/tars4_tube_test3.stl` (teardrop bores, 108 long like test 1): G7.95 / 8.0 / 8.05, R8.05 / 8.1 / 8.15 → measure across + fit. Before: `physical/stl/tars4_tube_test2.stl`: G7.9 (glued) + R8.0 (turning) → printed **7.7 / 7.7** (−0.2 / −0.3, vs −0.05…−0.1 on the 1st print): printing session: slicer ~unchanged (Arachne, no hole compensation, which would not act anyway). Bores are **horizontal** (front face down, like the real columns): the ceiling sags → measure each bore **across (Y) and vertically (Z)**; fix in the model at merge (teardrop / flat-top bore, or oversize on Z). Measured: G7.9 → **7.70 across / 7.41 vertical**, R8.0 → **7.74 / 7.49** (the short part cools less: 1st test, 107 mm long like the columns, lost only ~0.1). **Proposal**: teardrop bores, `tube_od` 7.93, glued drawn 8.0, turning drawn 8.1 (1st test: 8.1 → 8.00 turned), tight then sand; confirm with a teardrop test3 as long as test 1 |
+| Brass tube | outer Ø | `tube_od` 8 | **7.93** | `mechanical/stl/tars4_tube_test3.stl` (teardrop bores, 108 long like test 1): G7.95 / 8.0 / 8.05, R8.05 / 8.1 / 8.15 → measure across + fit. Before: `mechanical/stl/tars4_tube_test2.stl`: G7.9 (glued) + R8.0 (turning) → printed **7.7 / 7.7** (−0.2 / −0.3, vs −0.05…−0.1 on the 1st print): printing session: slicer ~unchanged (Arachne, no hole compensation, which would not act anyway). Bores are **horizontal** (front face down, like the real columns): the ceiling sags → measure each bore **across (Y) and vertically (Z)**; fix in the model at merge (teardrop / flat-top bore, or oversize on Z). Measured: G7.9 → **7.70 across / 7.41 vertical**, R8.0 → **7.74 / 7.49** (the short part cools less: 1st test, 107 mm long like the columns, lost only ~0.1). **Proposal**: teardrop bores, `tube_od` 7.93, glued drawn 8.0, turning drawn 8.1 (1st test: 8.1 → 8.00 turned), tight then sand; confirm with a teardrop test3 as long as test 1 |
 | LOLIN S3 Mini | RST-side notch at the USB end: depth, height | `d1_notch` [1.2, 7] | **[2, 7]** (approx.) | the front rib at z = `d1_btn` reaches 2 mm further on the RST side |
 | LOLIN S3 Mini | buttons: top edge above the USB end; depth in front of the PCB; **which side BOOT sticks out** (high x = right seen from the front, per the LOLIN drawing) | `d1_btn` 4.5, `d1_btn_y` 3 | BOOT on the right (confirmed); 3 high in front of the PCB (below the USB-C); sticks out **1.3** → `d1_boot_out` 1.3; z extent not measured (drawing: 1–3.9, `d1_btn` stays 4.5) | still 0.4 into the wall: window kept |
 | S3 headers | female header body height | `s3_sock_h` 8.5 | **8.4** | male header (11.10 = 3.1 tail + 2.4 spacer + 5.6 pin) is not this one |

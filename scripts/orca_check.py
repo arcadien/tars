@@ -7,7 +7,7 @@ usage: python3 -I scripts/orca_check.py [--orca path/to/OrcaSlicer.AppImage]
   tars4_cr10.3mf  CR-10 V2 (300 x 300), the one-piece parts on one plate, user preset
                   "Creality CR-10 V2 0.4 nozzle - Default" + system "0.20mm Standard @Creality CR10V2"
 
-The layouts are the saved projects, never re-arranged: their meshes are refreshed in place from physical/stl/ by
+The layouts are the saved projects, never re-arranged: their meshes are refreshed in place from mechanical/stl/ by
 tools/update_orca_project.py (positions, rotations and plates kept, a backup of the old file goes to backups/).
 tars4_cr10.3mf is created once, from the stl2_3mf.py strip layout, if it does not exist yet; arrange it in Orca
 and save, the layout then survives every regeneration. Orca's own auto-arrange is off (--arrange 0).
@@ -29,10 +29,10 @@ PROJECTS = [
     {"file": "tars4.3mf", "printer": "Creality Ender-3 0.4", "process": "0.20mm PETG @Ender3", "filament": None},
     {"file": "tars4_cr10.3mf", "printer": "Creality CR-10 V2 0.4 nozzle - Default",
      "process": "0.20mm Standard @Creality CR10V2", "filament": "Amazon Basics PETG Red",
-     "seed": ["cr10_leg_left=physical/stl/tars4_cr10_col0.stl", "cr10_mid_left=physical/stl/tars4_cr10_col1.stl",
-              "cr10_mid_right=physical/stl/tars4_cr10_col2.stl", "cr10_leg_right=physical/stl/tars4_cr10_col3.stl",
-              "cr10_lid_leg_left=physical/stl/tars4_cr10_lid_leg_sd.stl", "cr10_lid_mid_left=physical/stl/tars4_cr10_lid_mid_left.stl",
-              "cr10_lid_mid_right=physical/stl/tars4_cr10_lid_mid.stl", "cr10_lid_leg_right=physical/stl/tars4_cr10_lid_leg.stl"]},
+     "seed": ["cr10_leg_left=mechanical/stl/tars4_cr10_col0.stl", "cr10_mid_left=mechanical/stl/tars4_cr10_col1.stl",
+              "cr10_mid_right=mechanical/stl/tars4_cr10_col2.stl", "cr10_leg_right=mechanical/stl/tars4_cr10_col3.stl",
+              "cr10_lid_leg_left=mechanical/stl/tars4_cr10_lid_leg_sd.stl", "cr10_lid_mid_left=mechanical/stl/tars4_cr10_lid_mid_left.stl",
+              "cr10_lid_mid_right=mechanical/stl/tars4_cr10_lid_mid.stl", "cr10_lid_leg_right=mechanical/stl/tars4_cr10_lid_leg.stl"]},
 ]
 
 
@@ -87,7 +87,7 @@ def main():
         shutil.rmtree(d, ignore_errors=True)
         os.makedirs(d)
         files = profiles(p, d)
-        proj = os.path.join(ROOT, "physical", "3mf", p["file"])
+        proj = os.path.join(ROOT, "mechanical", "3mf", p["file"])
         base = ["--arrange", "0", "--orient", "0", "--load-settings", ";".join(f for f in files if "filament" not in f)]
         if p["filament"]:
             base += ["--load-filaments", files[-1]]
@@ -108,7 +108,7 @@ def main():
             if "UPDATED" in chk.stdout:
                 subprocess.run([sys.executable, "-I", os.path.join(ROOT, "tools", "update_orca_project.py"), proj],
                                cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
-                print(f"   {p['file']}: meshes refreshed from physical/stl/ (layout kept): "
+                print(f"   {p['file']}: meshes refreshed from mechanical/stl/ (layout kept): "
                       + ", ".join(l.split()[0] for l in chk.stdout.splitlines() if "UPDATED" in l))
             for l in chk.stdout.splitlines():
                 if l.startswith("NOTE"):
