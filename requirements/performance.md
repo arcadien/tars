@@ -16,3 +16,10 @@
 **Dependencies:** [PERF-POWER-REG-001](performance.md#perf-power-reg-001), [TECH-POWER-DIST-001](technical.md#tech-power-dist-001)
 **Description:** At the controller's 3.3 V pin, the rail stays ≥ 3.10 V during Wi-Fi transmit bursts and during full-volume audio playback, with the battery at 3.4 V. Acceptance (bench, scope at the controller 3V3 pin, firmware sending continuous Wi-Fi TX and playing a full-scale tone at the same time for 60 s): minimum ≥ 3.10 V and no controller reset.
 
+
+### PERF-POWER-PATH-001
+**Title:** Power-path voltage drop
+**Status:** validated
+**Dependencies:** [FUNC-POWER-PATH-001](functional.md#func-power-path-001)
+**Description:** At a 110 mA system load, the system rail is within 0.10 V of the battery voltage on battery, and within 0.50 V of the external-supply voltage on the external supply. Acceptance (bench, multimeter, 33 Ω load, switch on): both drops are measured and within limits; a 0.5–0.7 V drop on battery fails.
+
