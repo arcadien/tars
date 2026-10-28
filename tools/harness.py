@@ -9,6 +9,7 @@ soldered (grey dot), Dupont (blue D) or JST-XH (orange XH), female F / male M. E
 columns from left to right, tubes between them), its wire table and its bench test.
 """
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -665,6 +666,13 @@ def main():
         make_pdf()
 
 
+def pin_dates(path):
+    """fixed creation / modification dates (same length, offsets unchanged): an unchanged guide gives the same bytes"""
+    b = open(path, 'rb').read()
+    b = re.sub(rb'/(CreationDate|ModDate) ?\(D:\d{14}', lambda m: m.group(0)[:-14] + b'20000101000000', b)
+    open(path, 'wb').write(b)
+
+
 def make_pdf():
     """printable copy through headless Firefox: the document in A4 landscape, then every portrait diagram printed on
     its own A4 portrait page and put in place of its landscape page (gs splits, pdfunite joins)"""
@@ -683,6 +691,7 @@ def make_pdf():
         pdf(main_html, os.path.join(d, 'main.pdf'))
         if not sheets or not (shutil.which('gs') and shutil.which('pdfunite') and shutil.which('pdftotext')):
             shutil.copy(os.path.join(d, 'main.pdf'), PDF)
+            pin_dates(PDF)
             print('wrote tars4_harness.pdf (landscape only)')
             return
         n = int(subprocess.run(['gs', '-q', '-dNODISPLAY', '-dNOSAFER', '-c',
@@ -704,6 +713,7 @@ def make_pdf():
                     pages[i] = os.path.join(d, f'portrait{k}.pdf')
                     break
         subprocess.run(['pdfunite', *pages, PDF], check=True)
+    pin_dates(PDF)
     print(f'wrote tars4_harness.pdf ({len(sheets)} diagram(s) in portrait)')
 
 
