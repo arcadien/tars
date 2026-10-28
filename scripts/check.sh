@@ -45,11 +45,12 @@ inputs() {
     esac
 }
 
-digest() { # sha256 of the stage's inputs (names + contents); missing files count as changed
+digest() { # sha256 of the stage's inputs (names + contents) and of the OpenSCAD version; missing files count as changed
     local f
-    for f in $(inputs "$1"); do
+    { openscad --version 2>&1
+      for f in $(inputs "$1"); do
         if [ -f "$f" ]; then sha256sum "$f"; else echo "missing $f"; fi
-    done | sha256sum | cut -d' ' -f1
+      done; } | sha256sum | cut -d' ' -f1
 }
 
 stage_model() {

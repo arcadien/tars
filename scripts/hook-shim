@@ -1,0 +1,6 @@
+#!/bin/sh
+# git hook shim (installed by `make hook` under each hook name): the hooks directory is shared by every worktree, so
+# each hook runs the checked-out branch's own scripts/<hook>; a branch without it has nothing to run.
+h="$(git rev-parse --show-toplevel)/scripts/$(basename "$0")"
+[ -f "$h" ] || exit 0
+exec "$h" "$@"
