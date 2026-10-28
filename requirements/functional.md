@@ -86,3 +86,10 @@
 **Dependencies:** [FUNC-POWER-MONITOR-002](functional.md#func-power-monitor-002), [FUNC-POWER-DETECT-001](functional.md#func-power-detect-001), [CONF-POWER-THRESH-001](configuration.md#conf-power-thresh-001)
 **Description:** When the averaged battery voltage reaches the empty level (≤ 3.30 V) and no external supply is present, the firmware puts the robot into deep sleep. No shutdown happens while the external supply is present, nor when the battery reading is < 2.50 V (no cells: controller powered from the programming port). Acceptance (native Unity test): empty without supply → shutdown requested; empty with supply → none; reading 2.4 V → none.
 
+
+### FUNC-POWER-CUTOFF-002
+**Title:** An empty battery stays asleep until it is charging and above 3.5 V
+**Status:** validated
+**Dependencies:** [FUNC-POWER-CUTOFF-001](functional.md#func-power-cutoff-001), [FUNC-POWER-DETECT-002](functional.md#func-power-detect-002)
+**Description:** After a low-battery shutdown, the firmware records an "empty" state that survives deep sleep. While it is set, every wake returns to deep sleep without turning on the screens, the amplifier or the radio. It is cleared only when the external supply is present and the battery is above 3.50 V. While the supply is present, the controller wakes on a timer every re-check interval ([CONF-POWER-THRESH-001](configuration.md#conf-power-thresh-001)) to test this; on battery alone no timer wake is armed, so an empty battery is not drained further. Acceptance (on-target Unity test): with the state set, a wake goes back to sleep within 200 ms with the enables low; supply present: the next timer wake comes after the re-check interval ±10 %; supply absent: no timer wake within 2 intervals; supply + 3.4 V keeps the state set; supply + 3.6 V clears it.
+
