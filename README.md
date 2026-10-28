@@ -281,6 +281,9 @@ The sketch is to scale for the parts; the bus splits are drawn schematically (th
   backwards through a notch at the bottom of the lid (centre 10.3 above the floor), so TARS charges standing up (or
   stays on mains with a charger plugged in). Its back edge rests against the lid, a front stop takes the plug's push;
   the wires leave forwards. It feeds the TP4056's IN+ / IN− pads; the TP4056's own micro-USB stays unused.
+
+  ![heel, lid on](renders/tars4_heel_back.png) ![heel, lid off: breakout on the side wall, switch](renders/tars4_heel_open.png)
+
 - **Charge current 0.5 A**: swap the module's R_PROG (1.2 k, marked "122") for **2.4 k** ("242"). At 1 A the linear
   TP4056 would burn 1–1.8 W in a closed PLA leg; at 0.5 A (~0.25 A per cell) a full charge takes ~10 h and it still
   dissipates 0.65–1 W: vents in the leg lids, check its temperature after 15 min.

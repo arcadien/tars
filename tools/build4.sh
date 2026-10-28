@@ -113,6 +113,12 @@ EOF
     printf 'include <%s/mechanical/scad/tars4.scad>\nintersection() { union() { color([0.6, 0.6, 0.6]) column(0); dummies(0); } translate([-5, -5, 100]) cube([col_w / 2 + 5, 45, 50]); }\n' "$PWD" > "$TMP/sd.scad"
     openscad -D 'part="none"' -o renders/tars4_sd_reader.png --imgsize=900,900 --camera=12,15,118,60,0,120,75 --colorscheme=Tomorrow "$TMP/sd.scad" 2>/dev/null
     openscad -D 'part="none"' -o renders/tars4_buck_sd.png --imgsize=900,900 --camera=12,15,128,55,0,120,95 --colorscheme=Tomorrow "$TMP/sd.scad" 2>/dev/null
+    # heel of the left leg (charge port + switch): from behind with the lid on, then lid off seen from the back right,
+    # cut under the bottom shelf
+    printf 'include <%s/mechanical/scad/tars4.scad>\nintersection() { union() { color([0.6, 0.6, 0.6]) column(0); color([0.45, 0.45, 0.45]) lid(false, true); } translate([-5, -5, -1]) cube([45, 45, 27]); }\n' "$PWD" > "$TMP/heel.scad"
+    printf 'include <%s/mechanical/scad/tars4.scad>\nintersection() { union() { color([0.6, 0.6, 0.6]) column(0); dummies(0); } translate([-5, -5, -1]) cube([45, 45, shelf_z - shelf_t - 0.5]); }\n' "$PWD" > "$TMP/heel_open.scad"
+    openscad -D 'part="none"' -o renders/tars4_heel_back.png --imgsize=1200,900 --camera=-35,85,30,10,26,9 --colorscheme=Tomorrow "$TMP/heel.scad" 2>/dev/null
+    openscad -D 'part="none"' -o renders/tars4_heel_open.png --imgsize=1200,1000 --camera=45,85,45,8,18,7 --colorscheme=Tomorrow "$TMP/heel_open.scad" 2>/dev/null
     # inside of a middle column, lid removed
     echo "color([0.78,0.78,0.76]) import(\"$TMP/col1.stl\");" > "$TMP/inside.scad"
     openscad -o renders/tars4_mid_column_inside.png --imgsize=800,1400 --camera=14,200,114,14,14,114 --viewall --colorscheme=Tomorrow "$TMP/inside.scad" 2>/dev/null
