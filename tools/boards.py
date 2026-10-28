@@ -24,8 +24,7 @@ P = 2.54
 KIT = {  # wire colours of the kits (same values as tars4_wiring.html)
     'red': '#d7262b', 'black': '#1b1b1d', 'yellow': '#f5c400', 'green': '#23964a', 'blue': '#2a62d6',
     'white': '#fbfbf7', 'orange': '#f07800', 'brown': '#8a5326', 'purple': '#8e44c4', 'grey': '#9aa3a8'}
-FR = {'red': 'rouge', 'black': 'noir', 'yellow': 'jaune', 'green': 'vert', 'blue': 'bleu', 'white': 'blanc',
-      'orange': 'orange', 'brown': 'marron', 'purple': 'violet', 'grey': 'gris'}
+NAME = {c: c for c in KIT}  # colour names shown in the docs
 INK, MUTED, SHEET, RULE = '#1d2226', '#5e676d', '#fbfbf9', '#c9cec9'
 # rings: an int = that many black heat-shrink rings (signal buses: 1 I2S / PIR, 2 I2C, 3 microSD); a colour name = one
 # coloured heat-shrink band on the + wire and its GND (power rails sharing the red / black pair: white OUT+, yellow
@@ -36,29 +35,29 @@ def rings_text(r):
     if not r:
         return ''
     if isinstance(r, str):
-        return f', bague {dict(white="blanche", purple="violette").get(r, FR[r])}'
-    return f', {r} bague{"s" if r > 1 else ""}'
+        return f', {NAME[r]} band'
+    return f', {r} ring{"s" if r > 1 else ""}'
 POWER = {'VUSB', 'VPATH', 'VSYS', 'OUT+', 'B+'}
 GPIO = {'USB_DET', 'VBAT/2', 'SD_EN'}
 # Connectors X1–X15 (harness side), pins from pin 1: (name, net); net 'key' = module pin pulled and cavity plugged,
 # None = contact left empty (pin tied on the module), '|' = gap between two housings. A wire's 7th field lists the
 # contacts it is crimped into ('X1.CS'); its net must be the contact's. X6 (speaker), X12 / X16 (cells) meet no board.
 CONNS = {
-    'X1': ('écran 1 · Dupont 1 × 8 sur barrette coudée', [('GND', 'GND'), ('VCC', '3V3'), ('SCL', 'SCK1'), ('SDA', 'MOSI'), ('RES', 'RST'), ('DC', 'DC'), ('CS', 'CS1'), ('BLK', 'BL_EN')]),
-    'X2': ('ADXL345 · Dupont 1 × 8, 5 fils', [('GND', 'GND'), ('VCC', '3V3'), ('CS', None), ('INT1', 'INT1'), ('INT2', 'key'), ('SDO', None), ('SDA', 'SDA'), ('SCL', 'SCL')]),
-    'X3': ('INMP441 · queue + Dupont 1 × 6 en ligne', [('SCK', 'MIC_BCLK'), ('WS', 'MIC_WS'), ('SD', 'MIC_SD'), ('VDD', '3V3'), ('GND', 'GND'), ('—', 'key')]),
-    'X4': ('écran 2 · Dupont 1 × 8 sur barrette coudée', [('GND', 'GND'), ('VCC', '3V3'), ('SCL', 'SCK2'), ('SDA', 'MOSI'), ('RES', 'RST'), ('DC', 'DC'), ('CS', 'CS2'), ('BLK', 'BL_EN')]),
+    'X1': ('screen 1 · Dupont 1 × 8 on a right-angle header', [('GND', 'GND'), ('VCC', '3V3'), ('SCL', 'SCK1'), ('SDA', 'MOSI'), ('RES', 'RST'), ('DC', 'DC'), ('CS', 'CS1'), ('BLK', 'BL_EN')]),
+    'X2': ('ADXL345 · Dupont 1 × 8, 5 wires', [('GND', 'GND'), ('VCC', '3V3'), ('CS', None), ('INT1', 'INT1'), ('INT2', 'key'), ('SDO', None), ('SDA', 'SDA'), ('SCL', 'SCL')]),
+    'X3': ('INMP441 · pigtail + inline Dupont 1 × 6', [('SCK', 'MIC_BCLK'), ('WS', 'MIC_WS'), ('SD', 'MIC_SD'), ('VDD', '3V3'), ('GND', 'GND'), ('—', 'key')]),
+    'X4': ('screen 2 · Dupont 1 × 8 on a right-angle header', [('GND', 'GND'), ('VCC', '3V3'), ('SCL', 'SCK2'), ('SDA', 'MOSI'), ('RES', 'RST'), ('DC', 'DC'), ('CS', 'CS2'), ('BLK', 'BL_EN')]),
     'X5': ('MAX98357A · Dupont 1 × 4 + 1 × 3', [('LRC', 'LRC'), ('BCLK', 'BCLK'), ('DIN', 'DIN'), ('GAIN', 'key'), ('|', '|'), ('SD', 'AMP_SD'), ('GND', 'GND'), ('VIN', 'VSYS')]),
-    'X7': ('AM312 · queue + Dupont 1 × 4 en ligne', [('VIN', 'PIR_VDD'), ('OUT', 'PIR_OUT'), ('GND', 'GND'), ('—', 'key')]),
-    'X8': ('DS3231 · Dupont 1 × 6 sur barrette coudée, 4 fils', [('32K', 'key'), ('SQW', None), ('SCL', 'SCL'), ('SDA', 'SDA'), ('VCC', '3V3'), ('GND', 'GND')]),
-    'X9': ('BME280 · Dupont 1 × 4 (chaîné vers X8)', [('VCC', '3V3'), ('GND', 'GND'), ('SCL', 'SCL'), ('SDA', 'SDA')]),
-    'X10': ('J1 + SW1 · JST-XH 4 en ligne', [('VUSB', 'VUSB'), ('GND', 'GND'), ('VPATH', 'VPATH'), ('VSYS', 'VSYS')]),
-    'X13': ('sorties du bloc alim · JST-XH 4 en ligne', [('VSYS', 'VSYS'), ('GND amp', 'GND'), ('3V3', '3V3'), ('GND log', 'GND')]),
-    'X14': ('mesures · JST-XH 3 en ligne', [('VBAT/2', 'VBAT/2'), ('USB_DET', 'USB_DET'), ('SD_EN', 'SD_EN')]),
-    'X15': ('microSD · queue + Dupont 1 × 6 en ligne', [('CLK', 'SD_CLK'), ('CMD', 'SD_CMD'), ('D0', 'SD_D0'), ('3V3', 'SD_3V3'), ('GND', 'GND'), ('—', 'key')]),
-    'X6': ('haut-parleur · Dupont 1 × 2 sur barrette', [('+', 'SPK+'), ('−', 'SPK−')]),
-    'X12': ('cellule gauche · JST-XH 2 en ligne', [('B+', 'B+'), ('B−', 'B−')]),
-    'X16': ('cellule droite · JST-XH 2 en ligne', [('B+', 'B+'), ('B−', 'B−')]),
+    'X7': ('AM312 · pigtail + inline Dupont 1 × 4', [('VIN', 'PIR_VDD'), ('OUT', 'PIR_OUT'), ('GND', 'GND'), ('—', 'key')]),
+    'X8': ('DS3231 · Dupont 1 × 6 on a right-angle header, 4 wires', [('32K', 'key'), ('SQW', None), ('SCL', 'SCL'), ('SDA', 'SDA'), ('VCC', '3V3'), ('GND', 'GND')]),
+    'X9': ('BME280 · Dupont 1 × 4 (daisy-chained to X8)', [('VCC', '3V3'), ('GND', 'GND'), ('SCL', 'SCL'), ('SDA', 'SDA')]),
+    'X10': ('J1 + SW1 · inline JST-XH 4', [('VUSB', 'VUSB'), ('GND', 'GND'), ('VPATH', 'VPATH'), ('VSYS', 'VSYS')]),
+    'X13': ('power block outputs · inline JST-XH 4', [('VSYS', 'VSYS'), ('GND amp', 'GND'), ('3V3', '3V3'), ('GND log', 'GND')]),
+    'X14': ('measurements · inline JST-XH 3', [('VBAT/2', 'VBAT/2'), ('USB_DET', 'USB_DET'), ('SD_EN', 'SD_EN')]),
+    'X15': ('microSD · pigtail + inline Dupont 1 × 6', [('CLK', 'SD_CLK'), ('CMD', 'SD_CMD'), ('D0', 'SD_D0'), ('3V3', 'SD_3V3'), ('GND', 'GND'), ('—', 'key')]),
+    'X6': ('speaker · Dupont 1 × 2 on a header', [('+', 'SPK+'), ('−', 'SPK−')]),
+    'X12': ('left cell · inline JST-XH 2', [('B+', 'B+'), ('B−', 'B−')]),
+    'X16': ('right cell · inline JST-XH 2', [('B+', 'B+'), ('B−', 'B−')]),
 }
 XH = {'X10', 'X12', 'X13', 'X14', 'X16'}
 CCOL = {'X1': 1, 'X2': 1, 'X3': 1, 'X4': 2, 'X5': 2, 'X6': 2, 'X7': 2, 'X8': 3, 'X9': 3, 'X10': 0, 'X12': 0, 'X13': 0,
@@ -116,24 +115,24 @@ for c, names in S3_PINS.items():
         s3_hdr[n + ('' if n != 'G' else str(c))] = (hn(c, 3 + k), S3_NET.get(n))
 
 CARRIER = dict(
-    key='s3', title='P3 · support de la LOLIN S3 Mini', size=(25.6, 34.4), grid=(10, 13), strips=False, lpad=24, rowpad=24,
+    key='s3', title='P3 · LOLIN S3 Mini carrier', size=(25.6, 34.4), grid=(10, 13), strips=False, lpad=24, rowpad=24,
     my0=1.22,  # bottom margin: row 4 (first S3 pin row) 8.8 mm above the USB edge, as on the LOLIN drawing
-    sub='plaque à pastilles simple face (une pastille par trou), 25,6 × 34,4 mm, 10 × 13 trous · milieu gauche, z 8,1–42,5',
-    comp='côté composants : face avant de TARS (vers la S3), les barrettes et les composants debout sous la S3',
-    copper='côté soudures : vers le couvercle, tous les fils et les liaisons',
-    keep=[('A3', 'patte du couvercle'), ('J3', 'patte du couvercle'), ('A12', 'patte du couvercle'),
-          ('J12', 'patte du couvercle'), ('J4', 'V (VBUS) : contact retiré de la barrette')],
-    keep_note='bandes 4,5–7 et 27,9–30,4 mm (rangées 3 et 12) : les pattes du couvercle appuient sur les bords, côté soudures ; rangées 12–13 sous l\'antenne : rien',
+    sub='single-sided pad perfboard (one pad per hole), 25.6 × 34.4 mm, 10 × 13 holes · left middle, z 8.1–42.5',
+    comp='component side: TARS front (towards the S3), the headers and the standing parts under the S3',
+    copper='solder side: towards the lid, all the wires and links',
+    keep=[('A3', 'lid tab'), ('J3', 'lid tab'), ('A12', 'lid tab'),
+          ('J12', 'lid tab'), ('J4', 'V (VBUS): contact pulled out of the header')],
+    keep_note='bands 4.5–7 and 27.9–30.4 mm (rows 3 and 12): the lid tabs press on the edges, solder side; rows 12–13 under the antenna: nothing',
     parts=[
-        ('X', 'HDR', '2 × 8 femelle', {k: v for k, v in s3_hdr.items() if v[0][0] in 'AB'}, 'barrette gauche (EN … 3V)'),
-        ('X', 'HDR', '2 × 8 femelle', {k: v for k, v in s3_hdr.items() if v[0][0] in 'IJ'}, 'barrette droite (33 … V)'),
-        ('R12', 'Rv', '47 Ω', {'1': ('C8', 'SCK_S3'), '2': ('C7', 'SCK1')}, 'SCK → écran 1'),
-        ('R19', 'Rv', '47 Ω', {'1': ('D8', 'SCK_S3'), '2': ('D7', 'SCK2')}, 'SCK → écran 2'),
-        ('R20', 'Rv', '33 Ω', {'1': ('C9', 'MOSI_S3'), '2': ('C10', 'MOSI')}, 'MOSI, en série (fronts adoucis, SPI à 40 MHz)'),
-        ('C6', 'Cc', '100 nF', {'1': ('C11', 'VBAT/2'), '2': ('D11', 'GND')}, 'GPIO1 → GND, petite céramique (pas de tantale, pas de film : trop large)'),
-        ('C1', 'C', '220 µF CMS 7343', {'+': ('C2', '3V3'), '-': ('E2', 'GND')}, 'tantale CMS 7,3 × 4,3 couché à plat sous la S3, bande (+) côté C2 ; une chute de patte soudée sur chaque extrémité, passée dans C2 / E2 (Panasonic POSCAP 10TPE220ML, polymère 10 V, ESR 25 mΩ)'),
+        ('X', 'HDR', '2 × 8 female', {k: v for k, v in s3_hdr.items() if v[0][0] in 'AB'}, 'left header (EN … 3V)'),
+        ('X', 'HDR', '2 × 8 female', {k: v for k, v in s3_hdr.items() if v[0][0] in 'IJ'}, 'right header (33 … V)'),
+        ('R12', 'Rv', '47 Ω', {'1': ('C8', 'SCK_S3'), '2': ('C7', 'SCK1')}, 'SCK → screen 1'),
+        ('R19', 'Rv', '47 Ω', {'1': ('D8', 'SCK_S3'), '2': ('D7', 'SCK2')}, 'SCK → screen 2'),
+        ('R20', 'Rv', '33 Ω', {'1': ('C9', 'MOSI_S3'), '2': ('C10', 'MOSI')}, 'MOSI, in series (softer edges, SPI at 40 MHz)'),
+        ('C6', 'Cc', '100 nF', {'1': ('C11', 'VBAT/2'), '2': ('D11', 'GND')}, 'GPIO1 → GND, small ceramic (no tantalum, no film: too wide)'),
+        ('C1', 'C', '220 µF CMS 7343', {'+': ('C2', '3V3'), '-': ('E2', 'GND')}, 'SMD tantalum 7.3 × 4.3 lying flat under the S3, band (+) on the C2 side; a lead offcut soldered on each end, through C2 / E2 (Panasonic POSCAP 10TPE220ML, 10 V polymer, ESR 25 mΩ)'),
         ('R11', 'Rv', '33 Ω', {'1': ('H11', 'SD_CLK_S3'), '2': ('G11', 'SD_CLK')}, 'SD_CLK'),
-        ('C8', 'Cc', '100 nF', {'1': ('H7', 'USB_DET'), '2': ('G7', 'GND')}, 'GPIO21 → GND, petite céramique (pas de film : trop large)'),
+        ('C8', 'Cc', '100 nF', {'1': ('H7', 'USB_DET'), '2': ('G7', 'GND')}, 'GPIO21 → GND, small ceramic (no film: too wide)'),
         ('R14', 'Rv', '33 Ω', {'1': ('H6', 'LRC_S3'), '2': ('G6', 'LRC')}, 'LRC'),
         ('R13', 'Rv', '33 Ω', {'1': ('H4', 'BCLK_S3'), '2': ('G4', 'BCLK')}, 'BCLK'),
     ],
@@ -149,125 +148,125 @@ CARRIER = dict(
     ],
     wires=[  # hole, net, colour, gauge, rings, destination
         ('A4', '3V3', 'white', 26, 0, 'P1 3V3'), ('J5', 'GND', 'blue', 26, 0, 'P1 GND'),
-        ('A10', 'INT1', 'red', 30, 0, 'X2 ADXL345 INT1', ['X2.INT1']), ('A9', 'AMP_SD_S3', 'brown', 30, 1, 'tube central → P2 A11 (avant R10)'),
-        ('A7', 'DC', 'red', 30, 0, 'P1 DC'), ('C10', 'MOSI', 'green', 30, 0, 'P1 MOSI (après R20)'),
-        ('A5', 'CS1', 'purple', 30, 0, 'X1 écran 1 CS', ['X1.CS']),
-        ('B11', 'VBAT/2', 'brown', 30, 0, 'tube gauche → X14', ['X14.VBAT/2']), ('B10', 'PIR', 'red', 30, 1, 'tube central → P2 A4 (avant R17)'),
+        ('A10', 'INT1', 'red', 30, 0, 'X2 ADXL345 INT1', ['X2.INT1']), ('A9', 'AMP_SD_S3', 'brown', 30, 1, 'middle tube → P2 A11 (before R10)'),
+        ('A7', 'DC', 'red', 30, 0, 'P1 DC'), ('C10', 'MOSI', 'green', 30, 0, 'P1 MOSI (after R20)'),
+        ('A5', 'CS1', 'purple', 30, 0, 'X1 screen 1 CS', ['X1.CS']),
+        ('B11', 'VBAT/2', 'brown', 30, 0, 'left tube → X14', ['X14.VBAT/2']), ('B10', 'PIR', 'red', 30, 1, 'middle tube → P2 A4 (before R17)'),
         ('B9', 'SDA', 'green', 30, 2, 'X2 ADXL345 SDA', ['X2.SDA']), ('B8', 'SCL', 'yellow', 30, 2, 'X2 ADXL345 SCL', ['X2.SCL']),
         ('B7', 'BL_EN', 'brown', 30, 0, 'P1 BL_EN'), ('B6', 'RST', 'orange', 30, 0, 'P1 RST'),
-        ('B5', 'CS2', 'purple', 30, 0, 'tube central → X4 écran 2 CS', ['X4.CS']), ('B4', 'MIC_BCLK', 'yellow', 30, 1, 'X3 micro SCK', ['X3.SCK']),
-        ('C7', 'SCK1', 'yellow', 30, 0, 'X1 écran 1 SCL', ['X1.SCL']), ('D7', 'SCK2', 'yellow', 30, 0, 'tube central → X4 écran 2 SCL', ['X4.SCL']),
-        ('I9', 'MIC_WS', 'purple', 30, 1, 'X3 micro WS', ['X3.WS']), ('I8', 'SD_CMD', 'purple', 30, 3, 'tube gauche → X15 CMD', ['X15.CMD']),
-        ('I7', 'USB_DET', 'orange', 30, 0, 'tube gauche → X14', ['X14.USB_DET']), ('I4', 'MIC_SD', 'green', 30, 1, 'X3 micro SD', ['X3.SD']),
-        ('J9', 'SD_EN', 'brown', 30, 3, 'tube gauche → X14', ['X14.SD_EN']), ('J8', 'SD_D0', 'green', 30, 3, 'tube gauche → X15 D0', ['X15.D0']),
-        ('J6', 'DIN', 'green', 30, 1, 'tube central → X5 ampli DIN', ['X5.DIN']),
-        ('G11', 'SD_CLK', 'yellow', 30, 3, 'tube gauche → X15 CLK', ['X15.CLK']), ('G6', 'LRC', 'purple', 30, 1, 'tube central → X5 ampli LRC', ['X5.LRC']),
-        ('G4', 'BCLK', 'yellow', 30, 1, 'tube central → X5 ampli BCLK', ['X5.BCLK']),
+        ('B5', 'CS2', 'purple', 30, 0, 'middle tube → X4 screen 2 CS', ['X4.CS']), ('B4', 'MIC_BCLK', 'yellow', 30, 1, 'X3 mic SCK', ['X3.SCK']),
+        ('C7', 'SCK1', 'yellow', 30, 0, 'X1 screen 1 SCL', ['X1.SCL']), ('D7', 'SCK2', 'yellow', 30, 0, 'middle tube → X4 screen 2 SCL', ['X4.SCL']),
+        ('I9', 'MIC_WS', 'purple', 30, 1, 'X3 mic WS', ['X3.WS']), ('I8', 'SD_CMD', 'purple', 30, 3, 'left tube → X15 CMD', ['X15.CMD']),
+        ('I7', 'USB_DET', 'orange', 30, 0, 'left tube → X14', ['X14.USB_DET']), ('I4', 'MIC_SD', 'green', 30, 1, 'X3 mic SD', ['X3.SD']),
+        ('J9', 'SD_EN', 'brown', 30, 3, 'left tube → X14', ['X14.SD_EN']), ('J8', 'SD_D0', 'green', 30, 3, 'left tube → X15 D0', ['X15.D0']),
+        ('J6', 'DIN', 'green', 30, 1, 'middle tube → X5 amplifier DIN', ['X5.DIN']),
+        ('G11', 'SD_CLK', 'yellow', 30, 3, 'left tube → X15 CLK', ['X15.CLK']), ('G6', 'LRC', 'purple', 30, 1, 'middle tube → X5 amplifier LRC', ['X5.LRC']),
+        ('G4', 'BCLK', 'yellow', 30, 1, 'middle tube → X5 amplifier BCLK', ['X5.BCLK']),
     ],
     notes=[
-        'Monter dans l\'ordre : barrettes femelles (côté composants, bien perpendiculaires : les enficher sur la S3 pour souder), composants, ponts, bus GND (fil étamé le long de la colonne E), cavaliers isolés, puis les fils. Tout se fait sur l\'établi, support sorti de TARS.',
-        'Découpe : 1,2 mm sous la rangée 1 et 2,7 mm au-dessus de la rangée 13, pour que le bord bas tombe au ras du bord USB de la S3 (rangée 4 = 1re rangée de broches, 8,8 mm au-dessus de ce bord ; à vérifier sur la S3).',
-        'Plaque simple face : seules les pastilles côté soudures tiennent les barrettes. Coller chaque barrette sur la plaque (cyanoacrylate ou époxy) une fois soudée, et tenir le support pour enficher ou retirer la S3.',
-        'Avant de souder la barrette droite, retirer le contact de V (J4, VBUS de l\'USB-C) : poussé hors du plastique par le dessous, ou coupé à ras. Le 5 V du PC n\'arrive jamais sur le support (J4 est entre GND J5 et MIC_SD I4).',
-        'Résistances debout (pas 2,54), corps sous la S3 : hauteur ≤ 10 mm (11 mm libres entre support et S3). Barrettes soudées d\'abord, puis les pièces debout redressées vers le centre : R11–R14, R12, R20, C6 et C8 frôlent le plastique des barrettes (~0,1 mm).',
-        'Chaque fil est soudé sur la queue de sa broche ou sur sa pastille, côté soudures, puis part d\'abord à plat vers l\'intérieur (colonnes C–H) avant de monter ou descendre : rien à moins de 5 mm des bords gauche et droit dans les bandes 4,5–7 et 27,9–30,4 (pattes du couvercle). Boucle de service 6–8 cm.',
-        'EN (A11), IO37 (I10), IO43 / IO44 (J11, J10) restent libres : EN est le reset, pas BL_EN.',
-        'Contrôle à l\'ohmmètre, S3 retirée : chaque fil ↔ sa broche ; GND (bus E) isolé de 3V3 (> 1 kΩ avec C1 chargé) et de chaque signal, en particulier BCLK (H4) et LRC (H6) de part et d\'autre du pont GND de la rangée 5, et VBAT/2 (B11) ↔ EN (A11).',
+        'Assemble in this order: female headers (component side, square: plug them onto the S3 to solder), parts, bridges, GND bus (tinned wire along column E), insulated jumpers, then the wires. Everything is done on the bench, carrier out of TARS.',
+        'Cut: 1.2 mm below row 1 and 2.7 mm above row 13, so the bottom edge is flush with the S3 USB edge (row 4 = first pin row, 8.8 mm above that edge; check on the S3).',
+        'Single-sided board: only the solder-side pads hold the headers. Glue each header to the board (cyanoacrylate or epoxy) once soldered, and hold the carrier to plug or pull the S3.',
+        'Before soldering the right header, remove the V contact (J4, USB-C VBUS): pushed out of the plastic from below, or cut flush. The PC 5 V never reaches the carrier (J4 sits between GND J5 and MIC_SD I4).',
+        'Standing resistors (2.54 pitch), body under the S3: height ≤ 10 mm (11 mm free between carrier and S3). Headers soldered first, then the standing parts bent towards the centre: R11–R14, R12, R20, C6 and C8 brush the header plastic (~0.1 mm).',
+        'Each wire is soldered to the tail of its pin or to its pad, solder side, then first runs flat inwards (columns C–H) before going up or down: nothing within 5 mm of the left and right edges in bands 4.5–7 and 27.9–30.4 (lid tabs). Service loop 6–8 cm.',
+        'EN (A11), IO37 (I10, planned VSYS sense), IO43 / IO44 (J11, J10) stay free: EN is the reset, not BL_EN.',
+        'Ohmmeter check, S3 removed: each wire ↔ its pin; GND (bus E) isolated from 3V3 (> 1 kΩ with C1 charged) and from every signal, in particular BCLK (H4) and LRC (H6) on either side of the row 5 GND bridge, and VBAT/2 (B11) ↔ EN (A11).',
     ])
 
 P1 = dict(
-    key='p1', title='P1 · répartiteur du milieu gauche', size=(24, 32), grid=(9, 12), strips=True, lpad=40,
-    sub='plaque à bandes, 24 × 32 mm, 9 × 12 trous, bandes horizontales · debout sous l\'écran 1, z 139,9–171,9',
-    comp='côté composants : vers la façade, les fils y entrent par les trous',
-    copper='côté cuivre : vers le couvercle, les fils et pattes y sont soudés',
-    keep=[], keep_note='bords gauche et droit : pattes du couvercle et butées (≈ 1,5 mm), pas de trou utilisé en colonne A / I sur les rangées 1 et 12',
+    key='p1', title='P1 · left middle distribution', size=(24, 32), grid=(9, 12), strips=True, lpad=40,
+    sub='stripboard, 24 × 32 mm, 9 × 12 holes, horizontal strips · standing under screen 1, z 139.9–171.9',
+    comp='component side: towards the front, the wires enter through the holes',
+    copper='copper side: towards the lid, wires and leads are soldered there',
+    keep=[], keep_note='left and right edges: lid tabs and stops (≈ 1.5 mm), no hole used in column A / I on rows 1 and 12',
     parts=[
-        ('R4', 'R', '10 k', {'1': ('E8', 'BL_EN'), '2': ('E11', 'GND')}, 'BL_EN → GND, couchée (pas 7,62)'),
-        ('C2', 'C', '10 µF 16 V', {'+': ('G9', '3V3'), '-': ('G10', 'GND')}, 'tantale 16 V, + en G9 (3V3) ; ou céramique X5R / X7R ≥ 6,3 V, pas 2,54'),
-        ('C3', 'Cc', '100 nF', {'1': ('H9', '3V3'), '2': ('H10', 'GND')}, 'découplage, céramique (en dépannage : film au pas de 5,08 en H9–H11)'),
+        ('R4', 'R', '10 k', {'1': ('E8', 'BL_EN'), '2': ('E11', 'GND')}, 'BL_EN → GND, lying (7.62 pitch)'),
+        ('C2', 'C', '10 µF 16 V', {'+': ('G9', '3V3'), '-': ('G10', 'GND')}, '16 V tantalum, + at G9 (3V3); or X5R / X7R ceramic ≥ 6.3 V, 2.54 pitch'),
+        ('C3', 'Cc', '100 nF', {'1': ('H9', '3V3'), '2': ('H10', 'GND')}, 'decoupling, ceramic (as a fallback: 5.08-pitch film at H9–H11)'),
     ],
     links=[('link', ['I10', 'I11'], 'GND 10–11')],
     cuts=[],
     wires=[
-        ('A10', 'GND', 'blue', 30, 0, 'X1 écran 1 GND', ['X1.GND']), ('B10', 'GND', 'blue', 26, 0, 'S3 G (J5)'),
-        ('C10', 'GND', 'blue', 26, 0, 'tube gauche → TPS63020 GND (X13)', ['X13.GND log']),
-        ('B11', 'GND', 'blue', 30, 3, 'tube gauche → X15 microSD GND (torsadé avec CLK)', ['X15.GND']),
-        ('C11', 'GND', 'blue', 30, 0, 'tube central → P2 GND'), ('D11', 'GND', 'blue', 30, 0, 'X3 micro GND (→ ADXL345)', ['X3.GND']),
-        ('A9', '3V3', 'white', 30, 0, 'X1 écran 1 VCC', ['X1.VCC']), ('B9', '3V3', 'white', 26, 0, 'S3 3V (A4)'),
-        ('C9', '3V3', 'white', 26, 0, 'tube gauche → TPS63020 VOUT (X13)', ['X13.3V3']), ('D9', '3V3', 'white', 30, 0, 'X3 micro VDD (→ ADXL345)', ['X3.VDD']),
-        ('F9', '3V3', 'white', 30, 0, 'tube central → P2 3V3'),
-        ('A8', 'BL_EN', 'brown', 30, 0, 'S3 IO7 (B7)'), ('B8', 'BL_EN', 'brown', 30, 0, 'X1 écran 1 BLK', ['X1.BLK']),
-        ('C8', 'BL_EN', 'brown', 30, 0, 'tube central → X4 écran 2 BLK', ['X4.BLK']),
-        ('A7', 'DC', 'red', 30, 0, 'S3 IO13 (A7)'), ('B7', 'DC', 'red', 30, 0, 'X1 écran 1 DC', ['X1.DC']),
-        ('C7', 'DC', 'red', 30, 0, 'tube central → X4 écran 2 DC', ['X4.DC']),
-        ('A6', 'RST', 'orange', 30, 0, 'S3 IO8 (B6)'), ('B6', 'RST', 'orange', 30, 0, 'X1 écran 1 RES', ['X1.RES']),
-        ('C6', 'RST', 'orange', 30, 0, 'tube central → X4 écran 2 RES', ['X4.RES']),
-        ('A5', 'MOSI', 'green', 30, 0, 'S3 IO11 (C10, après R20)'), ('B5', 'MOSI', 'green', 30, 0, 'X1 écran 1 SDA', ['X1.SDA']),
-        ('C5', 'MOSI', 'green', 30, 0, 'tube central → X4 écran 2 SDA', ['X4.SDA']),
+        ('A10', 'GND', 'blue', 30, 0, 'X1 screen 1 GND', ['X1.GND']), ('B10', 'GND', 'blue', 26, 0, 'S3 G (J5)'),
+        ('C10', 'GND', 'blue', 26, 0, 'left tube → TPS63020 GND (X13)', ['X13.GND log']),
+        ('B11', 'GND', 'blue', 30, 3, 'left tube → X15 microSD GND (twisted with CLK)', ['X15.GND']),
+        ('C11', 'GND', 'blue', 30, 0, 'middle tube → P2 GND'), ('D11', 'GND', 'blue', 30, 0, 'X3 mic GND (→ ADXL345)', ['X3.GND']),
+        ('A9', '3V3', 'white', 30, 0, 'X1 screen 1 VCC', ['X1.VCC']), ('B9', '3V3', 'white', 26, 0, 'S3 3V (A4)'),
+        ('C9', '3V3', 'white', 26, 0, 'left tube → TPS63020 VOUT (X13)', ['X13.3V3']), ('D9', '3V3', 'white', 30, 0, 'X3 mic VDD (→ ADXL345)', ['X3.VDD']),
+        ('F9', '3V3', 'white', 30, 0, 'middle tube → P2 3V3'),
+        ('A8', 'BL_EN', 'brown', 30, 0, 'S3 IO7 (B7)'), ('B8', 'BL_EN', 'brown', 30, 0, 'X1 screen 1 BLK', ['X1.BLK']),
+        ('C8', 'BL_EN', 'brown', 30, 0, 'middle tube → X4 screen 2 BLK', ['X4.BLK']),
+        ('A7', 'DC', 'red', 30, 0, 'S3 IO13 (A7)'), ('B7', 'DC', 'red', 30, 0, 'X1 screen 1 DC', ['X1.DC']),
+        ('C7', 'DC', 'red', 30, 0, 'middle tube → X4 screen 2 DC', ['X4.DC']),
+        ('A6', 'RST', 'orange', 30, 0, 'S3 IO8 (B6)'), ('B6', 'RST', 'orange', 30, 0, 'X1 screen 1 RES', ['X1.RES']),
+        ('C6', 'RST', 'orange', 30, 0, 'middle tube → X4 screen 2 RES', ['X4.RES']),
+        ('A5', 'MOSI', 'green', 30, 0, 'S3 IO11 (C10, after R20)'), ('B5', 'MOSI', 'green', 30, 0, 'X1 screen 1 SDA', ['X1.SDA']),
+        ('C5', 'MOSI', 'green', 30, 0, 'middle tube → X4 screen 2 SDA', ['X4.SDA']),
     ],
     strip_names={10: 'GND', 9: 'GND', 8: '3V3', 7: 'BL_EN', 6: 'DC', 5: 'RST', 4: 'MOSI'},
     notes=[
-        'Bandes 1–4 et 12 libres (réserve : Q2 / Q3 si le BLK des écrans tire le courant des LED). Aucune coupe.',
-        'Fils passés par le côté composants, soudés côté cuivre ; 26 AWG dans les trous de 1 mm sans forcer. Colonnes A et I : seulement du 30 AWG, replié vers l\'intérieur dès la sortie du trou (les butées avant couvrent 1,5 mm de chaque bord).',
-        'Hauteur des pièces ≤ 9 mm côté composants (10,4 mm jusqu\'à la paroi avant).',
-        'Lien nu I10–I11 côté composants : les bandes 10 et 11 forment un seul GND (11 trous de soudure pour 6 fils GND et 3 pattes).',
+        'Strips 1–4 and 12 free (spare: Q2 / Q3 if the screens BLK draws the LED current). No cut.',
+        'Wires pushed through from the component side, soldered on the copper side; 26 AWG goes into the 1 mm holes without forcing. Columns A and I: 30 AWG only, bent inwards right out of the hole (the front stops cover 1.5 mm of each edge).',
+        'Part height ≤ 9 mm on the component side (10.4 mm up to the front wall).',
+        'Bare link I10–I11 on the component side: strips 10 and 11 form a single GND (11 solder holes for 6 GND wires and 3 leads).',
     ])
 
 P2 = dict(
-    key='p2', title='P2 · répartiteur du milieu droit', size=(24, 32), grid=(9, 12), strips=True, lpad=100, gap=150,
-    sub='plaque à bandes, 24 × 32 mm, 9 × 12 trous, bandes horizontales · debout sous l\'écran 2, z 139,9–171,9',
-    comp='côté composants : vers la façade, les fils y entrent par les trous',
-    copper='côté cuivre : vers le couvercle, les fils et pattes y sont soudés',
-    keep=[], keep_note='bords gauche et droit : pattes du couvercle et butées (≈ 1,5 mm)',
+    key='p2', title='P2 · right middle distribution', size=(24, 32), grid=(9, 12), strips=True, lpad=100, gap=150,
+    sub='stripboard, 24 × 32 mm, 9 × 12 holes, horizontal strips · standing under screen 2, z 139.9–171.9',
+    comp='component side: towards the front, the wires enter through the holes',
+    copper='copper side: towards the lid, wires and leads are soldered there',
+    keep=[], keep_note='left and right edges: lid tabs and stops (≈ 1.5 mm)',
     parts=[
-        ('R10', 'Rv', '1 k', {'1': ('B11', 'AMP_SD_S3'), '2': ('D11', 'AMP_SD')}, 'en série, debout, enjambe la coupe C11'),
-        ('R18', 'Rv', '10 k', {'1': ('E11', 'AMP_SD'), '2': ('E10', 'GND')}, 'AMP_SD → GND, debout'),
-        ('C10', 'C', '10 µF 16 V', {'+': ('F9', '3V3'), '-': ('F10', 'GND')}, 'tantale 16 V, + en F9 (3V3) ; ou céramique X5R / X7R ≥ 6,3 V'),
-        ('C11', 'Cc', '100 nF', {'1': ('G9', '3V3'), '2': ('G10', 'GND')}, 'découplage, céramique'),
-        ('R21', 'R', '100 Ω', {'1': ('H9', '3V3'), '2': ('H6', 'PIR_VDD')}, 'filtre de l\'AM312, couchée (pas 7,62)'),
-        ('C12', 'C', '10 µF 16 V', {'+': ('F6', 'PIR_VDD'), '-': ('F5', 'GND')}, 'filtre de l\'AM312, tantale 16 V (+ en F6) ; ou électrolytique 47 µF Ø5 × 7 au plus'),
-        ('R17', 'Rv', '1 k', {'1': ('B4', 'PIR'), '2': ('D4', 'PIR_OUT')}, 'en série, debout, enjambe la coupe C4'),
+        ('R10', 'Rv', '1 k', {'1': ('B11', 'AMP_SD_S3'), '2': ('D11', 'AMP_SD')}, 'in series, standing, straddles the C11 cut'),
+        ('R18', 'Rv', '10 k', {'1': ('E11', 'AMP_SD'), '2': ('E10', 'GND')}, 'AMP_SD → GND, standing'),
+        ('C10', 'C', '10 µF 16 V', {'+': ('F9', '3V3'), '-': ('F10', 'GND')}, '16 V tantalum, + at F9 (3V3); or X5R / X7R ceramic ≥ 6.3 V'),
+        ('C11', 'Cc', '100 nF', {'1': ('G9', '3V3'), '2': ('G10', 'GND')}, 'decoupling, ceramic'),
+        ('R21', 'R', '100 Ω', {'1': ('H9', '3V3'), '2': ('H6', 'PIR_VDD')}, 'AM312 filter, lying (7.62 pitch)'),
+        ('C12', 'C', '10 µF 16 V', {'+': ('F6', 'PIR_VDD'), '-': ('F5', 'GND')}, 'AM312 filter, 16 V tantalum (+ at F6); or 47 µF electrolytic Ø5 × 7 at most'),
+        ('R17', 'Rv', '1 k', {'1': ('B4', 'PIR'), '2': ('D4', 'PIR_OUT')}, 'in series, standing, straddles the C4 cut'),
     ],
     links=[('jumper', ['I10', 'I5'], 'GND 10 ↔ 5')],
     cuts=['C11', 'C4'],
     wires=[
-        ('A11', 'AMP_SD_S3', 'brown', 30, 1, 'tube central → S3 IO4 (A9)'), ('F11', 'AMP_SD', 'brown', 30, 1, 'X5 ampli SD', ['X5.SD']),
-        ('A10', 'GND', 'blue', 30, 0, 'tube central → P1 GND'), ('B10', 'GND', 'blue', 30, 0, 'X4 écran 2 GND', ['X4.GND']),
-        ('C10', 'GND', 'blue', 30, 0, 'tube droit → X8 DS3231 / X9 BME280 GND', ['X9.GND', 'X8.GND']), ('D10', 'GND', 'blue', 30, 0, 'X7 AM312 GND', ['X7.GND']),
-        ('A9', '3V3', 'white', 30, 0, 'tube central → P1 3V3'), ('B9', '3V3', 'white', 30, 0, 'X4 écran 2 VCC', ['X4.VCC']),
-        ('C9', '3V3', 'white', 30, 0, 'tube droit → X8 / X9 VCC', ['X9.VCC', 'X8.VCC']),
-        ('A8', 'SDA', 'green', 30, 2, 'tube central → ADXL345 SDA', ['X2.SDA']), ('C8', 'SDA', 'green', 30, 2, 'tube droit → X9 / X8 SDA', ['X9.SDA', 'X8.SDA']),
-        ('A7', 'SCL', 'yellow', 30, 2, 'tube central → ADXL345 SCL', ['X2.SCL']), ('C7', 'SCL', 'yellow', 30, 2, 'tube droit → X9 / X8 SCL', ['X9.SCL', 'X8.SCL']),
+        ('A11', 'AMP_SD_S3', 'brown', 30, 1, 'middle tube → S3 IO4 (A9)'), ('F11', 'AMP_SD', 'brown', 30, 1, 'X5 amplifier SD', ['X5.SD']),
+        ('A10', 'GND', 'blue', 30, 0, 'middle tube → P1 GND'), ('B10', 'GND', 'blue', 30, 0, 'X4 screen 2 GND', ['X4.GND']),
+        ('C10', 'GND', 'blue', 30, 0, 'right tube → X8 DS3231 / X9 BME280 GND', ['X9.GND', 'X8.GND']), ('D10', 'GND', 'blue', 30, 0, 'X7 AM312 GND', ['X7.GND']),
+        ('A9', '3V3', 'white', 30, 0, 'middle tube → P1 3V3'), ('B9', '3V3', 'white', 30, 0, 'X4 screen 2 VCC', ['X4.VCC']),
+        ('C9', '3V3', 'white', 30, 0, 'right tube → X8 / X9 VCC', ['X9.VCC', 'X8.VCC']),
+        ('A8', 'SDA', 'green', 30, 2, 'middle tube → ADXL345 SDA', ['X2.SDA']), ('C8', 'SDA', 'green', 30, 2, 'right tube → X9 / X8 SDA', ['X9.SDA', 'X8.SDA']),
+        ('A7', 'SCL', 'yellow', 30, 2, 'middle tube → ADXL345 SCL', ['X2.SCL']), ('C7', 'SCL', 'yellow', 30, 2, 'right tube → X9 / X8 SCL', ['X9.SCL', 'X8.SCL']),
         ('D6', 'PIR_VDD', 'white', 30, 0, 'X7 AM312 VIN', ['X7.VIN']),
-        ('A4', 'PIR', 'red', 30, 1, 'tube central → S3 IO3 (B10)'), ('F4', 'PIR_OUT', 'red', 30, 1, 'X7 AM312 OUT', ['X7.OUT']),
+        ('A4', 'PIR', 'red', 30, 1, 'middle tube → S3 IO3 (B10)'), ('F4', 'PIR_OUT', 'red', 30, 1, 'X7 AM312 OUT', ['X7.OUT']),
     ],
     strip_names={10: 'AMP_SD_S3 | AMP_SD', 9: 'GND', 8: '3V3', 7: 'SDA', 6: 'SCL', 5: 'PIR_VDD', 4: 'GND', 3: 'PIR | PIR_OUT'},
     notes=[
-        'Coupes C11 et C4 (foret 3 mm tourné à la main côté cuivre) : R10 et R17 sont en série dans leur bande.',
-        'Cavalier isolé I10 → I5 côté cuivre (les pattes du couvercle ne touchent que les rangées 1 et 12) : les bandes 10 et 5 sont toutes deux GND (C12 a besoin d\'un GND voisin de PIR_VDD).',
-        'Bandes 1–3 et 12 libres (réserve).',
-        'Le fil de la S3 arrive avant la résistance série (A11 AMP_SD_S3, A4 PIR), celui du module après (F11 AMP_SD, F4 PIR_OUT) : ne pas les intervertir, sinon R10 / R17 sont court-circuitées.',
-        'Hauteur des pièces ≤ 9 mm côté composants (10,4 mm jusqu\'à la paroi avant) ; colonnes A et I : fils repliés vers l\'intérieur dès la sortie du trou (butées avant).',
-        'Les fils SPI, CS2, BL_EN et I2S de l\'écran 2 / de l\'ampli ne passent pas par P2 : tube → connecteur directement.',
+        'Cuts at C11 and C4 (3 mm drill turned by hand on the copper side): R10 and R17 are in series in their strip.',
+        'Insulated jumper I10 → I5 on the copper side (the lid tabs only touch rows 1 and 12): strips 10 and 5 are both GND (C12 needs a GND next to PIR_VDD).',
+        'Strips 1–3 and 12 free (spare).',
+        'The S3 wire arrives before the series resistor (A11 AMP_SD_S3, A4 PIR), the module one after it (F11 AMP_SD, F4 PIR_OUT): don\'t swap them, otherwise R10 / R17 are shorted.',
+        'Part height ≤ 9 mm on the component side (10.4 mm up to the front wall); columns A and I: wires bent inwards right out of the hole (front stops).',
+        'The SPI, CS2, BL_EN and I2S wires of screen 2 / the amplifier don\'t go through P2: tube → connector directly.',
     ])
 
 POWER_BOARD = dict(
-    key='power', title='P4 · plaquette du partage de charge', size=(26.6, 20), grid=(10, 8), strips=False,
-    sub='plaque à pastilles simple face, 26,6 × 20 mm, 10 × 8 trous · à plat dans la jambe gauche, z 170,8, composants en haut',
-    comp='vue de dessus, côté composants : l\'avant de TARS en bas, la gauche de TARS à gauche',
-    copper='côté soudures (dessous) : ponts, bus GND et tous les fils, qui partent vers l\'avant',
+    key='power', title='P4 · power-path board', size=(26.6, 20), grid=(10, 8), strips=False,
+    sub='single-sided pad perfboard, 26.6 × 20 mm, 10 × 8 holes · flat in the left leg, z 170.8, parts on top',
+    comp='top view, component side: TARS front at the bottom, TARS left on the left',
+    copper='solder side (underneath): bridges, GND bus and all the wires, which leave towards the front',
     keep=[('J3', 'attache de toron'), ('J4', 'attache de toron'), ('J5', 'attache de toron'), ('J6', 'attache de toron')],
-    keep_note='colonne J, rangées 3–6 : l\'attache de toron (z 179) passe 4 mm au-dessus : seulement des pièces couchées',
+    keep_note='column J, rows 3–6: the harness clip (z 179) passes 4 mm above: lying parts only',
     parts=[
-        ('D1', 'D', '1N5822', {'K': ('A7', 'VPATH'), 'A': ('F7', 'VUSB')}, 'couchée, anneau côté A7 (axe à 3,6 mm du bord arrière) ; trous percés à 1,3 mm, pattes pliées à la pince plate'),
-        ('Q1', 'Q', 'AO3401A', {'S': ('A5', 'VPATH'), 'G': ('E5', 'VUSB'), 'D': ('B4', 'OUT+'), '_at': 'C5', '_d': 'N', '_via': {'D': ['B6']}}, 'collé pattes en l\'air sur C5–D5, D vers l\'arrière : G à l\'est (→ E5), S à l\'ouest (→ A5), D contourne par l\'ouest jusqu\'à B4'),
+        ('D1', 'D', '1N5822', {'K': ('A7', 'VPATH'), 'A': ('F7', 'VUSB')}, 'lying, band on the A7 side (axis 3.6 mm from the back edge); holes drilled to 1.3 mm, leads bent with flat pliers'),
+        ('Q1', 'Q', 'AO3401A', {'S': ('A5', 'VPATH'), 'G': ('E5', 'VUSB'), 'D': ('B4', 'OUT+'), '_at': 'C5', '_d': 'N', '_via': {'D': ['B6']}}, 'glued legs up on C5–D5, D towards the back: G to the east (→ E5), S to the west (→ A5), D goes round by the west to B4'),
         ('R15', 'R', '68 k', {'1': ('F5', 'VUSB'), '2': ('F2', 'USB_DET')}, 'VUSB → USB_DET'),
         ('R16', 'R', '100 k', {'1': ('E2', 'USB_DET'), '2': ('B2', 'GND')}, 'USB_DET → GND'),
         ('R1', 'R', '10 k', {'1': ('G7', 'VUSB'), '2': ('G4', 'GND')}, 'grille de Q1 → GND'),
         ('R3', 'R', '1 M', {'1': ('I4', 'VBAT/2'), '2': ('I1', 'GND')}, 'VBAT/2 → GND'),
-        ('R2', 'R', '1 M', {'1': ('J8', 'B+'), '2': ('J5', 'VBAT/2')}, 'B+ → VBAT/2, 1/8 W (Ø1,8) de préférence : corps sur J7–J6, sous la lèvre de la rainure'),
+        ('R2', 'R', '1 M', {'1': ('J8', 'B+'), '2': ('J5', 'VBAT/2')}, 'B+ → VBAT/2, preferably 1/8 W (Ø1.8): body over J7–J6, under the groove lip'),
         ('R22', 'R', '100 k', {'1': ('H8', '3V3'), '2': ('H5', 'SD_EN')}, 'grille de Q5 → 3V3'),
-        ('Q5', 'Q', 'AO3401A', {'S': ('H8', '3V3'), 'G': ('H5', 'SD_EN'), 'D': ('I6', 'SD_3V3'), '_at': 'I7', '_d': 'E'}, 'collé pattes en l\'air sur I7, D vers la droite : S vers l\'arrière (→ H8), G vers l\'avant (→ H5), D redescend en I6'),
+        ('Q5', 'Q', 'AO3401A', {'S': ('H8', '3V3'), 'G': ('H5', 'SD_EN'), 'D': ('I6', 'SD_3V3'), '_at': 'I7', '_d': 'E'}, 'glued legs up on I7, D to the right: S towards the back (→ H8), G towards the front (→ H5), D comes back down at I6'),
     ],
     links=[
         ('bridge', ['A8', 'A7', 'A6', 'A5'], ''),
@@ -280,22 +279,22 @@ POWER_BOARD = dict(
     ],
     wires=[
         ('F8', 'VUSB', 'red', 26, 'purple', 'TP4056 IN+ (VUSB)'), ('B4', 'OUT+', 'red', 26, 'white', 'TP4056 OUT+'),
-        ('A8', 'VPATH', 'red', 26, 'yellow', 'X10 → interrupteur SW1 (VPATH)', ['X10.VPATH']),
-        ('D3', 'VSYS', 'red', 26, 'orange', 'X10 ← interrupteur SW1 (VSYS)', ['X10.VSYS']), ('C3', 'VSYS', 'red', 26, 'orange', 'TPS63020 VIN'),
-        ('C3', 'VSYS', 'red', 26, 'orange', 'X13 → ampli VIN (paire torsadée)', ['X13.VSYS']),
+        ('A8', 'VPATH', 'red', 26, 'yellow', 'X10 → switch SW1 (VPATH)', ['X10.VPATH']),
+        ('D3', 'VSYS', 'red', 26, 'orange', 'X10 ← switch SW1 (VSYS)', ['X10.VSYS']), ('C3', 'VSYS', 'red', 26, 'orange', 'TPS63020 VIN'),
+        ('C3', 'VSYS', 'red', 26, 'orange', 'X13 → amplifier VIN (twisted pair)', ['X13.VSYS']),
         ('C1', 'GND', 'black', 26, 'white', 'TP4056 OUT−'), ('D1', 'GND', 'black', 26, 'orange', 'TPS63020 GND'),
-        ('E1', 'GND', 'black', 26, 'orange', 'X13 → ampli GND (paire torsadée)', ['X13.GND amp']),
-        ('J8', 'B+', 'red', 30, 0, 'TP4056 B+ (mesure)'), ('J3', 'VBAT/2', 'brown', 30, 0, 'X14 → tube gauche → S3 IO1', ['X14.VBAT/2']),
-        ('E2', 'USB_DET', 'orange', 30, 0, 'X14 → tube gauche → S3 IO21', ['X14.USB_DET']),
-        ('H8', '3V3', 'white', 30, 0, 'TPS63020 VOUT'), ('I6', 'SD_3V3', 'white', 30, 3, 'X15 → lecteur microSD VCC', ['X15.3V3']),
-        ('H5', 'SD_EN', 'brown', 30, 3, 'X14 → tube gauche → S3 IO36', ['X14.SD_EN']),
+        ('E1', 'GND', 'black', 26, 'orange', 'X13 → amplifier GND (twisted pair)', ['X13.GND amp']),
+        ('J8', 'B+', 'red', 30, 0, 'TP4056 B+ (sense)'), ('J3', 'VBAT/2', 'brown', 30, 0, 'X14 → left tube → S3 IO1', ['X14.VBAT/2']),
+        ('E2', 'USB_DET', 'orange', 30, 0, 'X14 → left tube → S3 IO21', ['X14.USB_DET']),
+        ('H8', '3V3', 'white', 30, 0, 'TPS63020 VOUT'), ('I6', 'SD_3V3', 'white', 30, 3, 'X15 → microSD reader VCC', ['X15.3V3']),
+        ('H5', 'SD_EN', 'brown', 30, 3, 'X14 → left tube → S3 IO36', ['X14.SD_EN']),
     ],
     notes=[
-        'Plaque simple face, cuivre en dessous : pas de cuivre sous Q1 / Q5 ni sous les corps des pièces.',
-        'Pièces couchées (1/4 W, pas 7,62 ; R2 en 1/8 W), D1 couchée (Ø5,3) : hauteur ≤ 6 mm. Q1 et Q5 (SOT-23) collés pattes en l\'air dans le sens dessiné (vu de dessus, retourné : G / S / D sur le croquis), reliés par du fil à wrapper isolé 30 AWG (Kynar), dénudé 2 mm à chaque bout (une touche de fer chacun) ; colle par-dessus une fois testés.',
-        'Le dessous porte le bus GND (fil étamé le long de la rangée 1 : l\'étoile de masse), les ponts et tous les fils, qui partent vers l\'avant (rangée 1) puis montent ou descendent dans le couloir de façade.',
-        'Trous laissés vides entre les nets d\'alimentation et la masse / les GPIO : ne pas les combler de soudure.',
-        'Contrôle vers GND, sans les modules : VUSB ≈ 9,4 kΩ (R1 ∥ R15 + R16), USB_DET ≈ 44 kΩ, VBAT/2 ≈ 1 MΩ, B+ ≈ 2 MΩ, VPATH / VSYS / OUT+ > 1 MΩ ; OUT+ ↔ VSYS et OUT+ ↔ VPATH ouverts.',
+        'Single-sided board, copper underneath: no copper under Q1 / Q5 nor under the part bodies.',
+        'Lying parts (1/4 W, 7.62 pitch; R2 as 1/8 W), D1 lying (Ø5.3): height ≤ 6 mm. Q1 and Q5 (SOT-23) glued legs up in the drawn orientation (seen from the top, flipped: G / S / D on the sketch), linked with insulated 30 AWG wire-wrap wire (Kynar), stripped 2 mm at each end (one touch of the iron each); glue on top once tested.',
+        'The underside carries the GND bus (tinned wire along row 1: the ground star), the bridges and all the wires, which leave towards the front (row 1) then go up or down in the front corridor.',
+        'Holes left empty between the power nets and ground / the GPIOs: don\'t fill them with solder.',
+        'Check to GND, without the modules: VUSB ≈ 9.4 kΩ (R1 ∥ R15 + R16), USB_DET ≈ 44 kΩ, VBAT/2 ≈ 1 MΩ, B+ ≈ 2 MΩ, VPATH / VSYS / OUT+ > 1 MΩ; OUT+ ↔ VSYS and OUT+ ↔ VPATH open.',
     ])
 
 BOARDS = [CARRIER, P1, P2, POWER_BOARD]
@@ -489,7 +488,7 @@ def render(b):
     total_w = ox2 + W * S + 40
     e(f'<text x="{ox1}" y="34" font-size="22" font-weight="600" fill="{INK}" font-family="IBM Plex Sans Condensed, Arial Narrow, sans-serif">{esc(b["title"])}</text>')
     e(f'<text x="{ox1}" y="56" font-size="12.5" fill="{MUTED}">{esc(b["sub"])}</text>')
-    for k, (ox, mirror, label, sub) in enumerate([(ox1, False, 'côté composants', b['comp']), (ox2, True, 'côté soudures (miroir)', b['copper'])]):
+    for k, (ox, mirror, label, sub) in enumerate([(ox1, False, 'component side', b['comp']), (ox2, True, 'solder side (mirrored)', b['copper'])]):
         e(f'<text x="{ox}" y="{oy - 30}" font-size="13" font-weight="600" fill="{INK}">{label}</text>')
         # board
         fill = '#efe3c6' if not mirror else '#e2cfa3'
@@ -601,7 +600,7 @@ def render(b):
             used.setdefault(ref, {})[pin] = (i, w[2])
     if used:
         cw, gap_c, x, y = 46, 34, ox1, ty + 6
-        e(f'<text x="{ox1}" y="{y}" font-size="12" font-weight="600" fill="{MUTED}" letter-spacing=".06em">CONNECTEURS (CÔTÉ FAISCEAU, BROCHE 1 À GAUCHE ; N° = FIL DE CETTE PLAQUE)</text>')
+        e(f'<text x="{ox1}" y="{y}" font-size="12" font-weight="600" fill="{MUTED}" letter-spacing=".06em">CONNECTORS (HARNESS SIDE, PIN 1 ON THE LEFT; NO. = WIRE OF THIS BOARD)</text>')
         y += 30
         maxx = max(ox2 + W * S, ox1 + 780)
         for ref in sorted(used, key=lambda r: int(r[1:])):
@@ -619,7 +618,7 @@ def render(b):
                 if k == 0:
                     e(f'<path d="M{cx} {y + 8} l7 0 l-7 7 z" fill="{INK}"/>')
                 if net == 'key':
-                    e(f'<text x="{cx + cw / 2 - 1}" y="{y + 29}" font-size="9.5" text-anchor="middle" fill="{MUTED}">bouché</text>')
+                    e(f'<text x="{cx + cw / 2 - 1}" y="{y + 29}" font-size="9.5" text-anchor="middle" fill="{MUTED}">plugged</text>')
                 elif pin in used[ref]:
                     n, colr = used[ref][pin]
                     tc = '#ffffff' if colr in ('black', 'blue', 'green', 'brown', 'purple', 'red') else INK
@@ -628,7 +627,7 @@ def render(b):
                 elif net:
                     e(f'<text x="{cx + cw / 2 - 1}" y="{y + 29}" font-size="8.5" text-anchor="middle" fill="{MUTED}">{esc(net)}</text>')
                 else:
-                    e(f'<text x="{cx + cw / 2 - 1}" y="{y + 29}" font-size="9.5" text-anchor="middle" fill="{MUTED}">vide</text>')
+                    e(f'<text x="{cx + cw / 2 - 1}" y="{y + 29}" font-size="9.5" text-anchor="middle" fill="{MUTED}">empty</text>')
                 e(f'<text x="{cx + cw / 2 - 1}" y="{y + 56}" font-size="9.5" text-anchor="middle" fill="{INK}" font-family="IBM Plex Mono, monospace">{esc(pin)}</text>')
                 cx += cw
             x += wd + gap_c
@@ -639,23 +638,23 @@ def render(b):
     for ref, kind, val, pins, note in b['parts']:
         if kind == 'HDR':
             hs = sorted({v[0] for v in pins.values()}, key=lambda s: (s[0], int(s[1:])))
-            lines.append(('p', f'{ref} {val}', f'{hs[0][0]}–{hs[-1][0]}, rangées {min(int(s[1:]) for s in hs)}–{max(int(s[1:]) for s in hs)}', note))
+            lines.append(('p', f'{ref} {val}', f'{hs[0][0]}–{hs[-1][0]}, rows {min(int(s[1:]) for s in hs)}–{max(int(s[1:]) for s in hs)}', note))
             continue
         pinstr = ' · '.join(f'{k} {v[0]} ({v[1]})' for k, v in pins.items() if not k.startswith('_'))
         lines.append(('p', f'{ref} {val}', pinstr, note))
-    lines.append(('h', 'Liaisons côté soudures' if not b['strips'] else 'Liens'))
+    lines.append(('h', 'Solder-side links' if not b['strips'] else 'Links'))
     for kind, holes, label in b['links']:
-        nm = {'bridge': 'pont', 'bus': 'bus nu', 'jumper': 'cavalier isolé', 'link': 'lien côté composants'}[kind]
+        nm = {'bridge': 'bridge', 'bus': 'bare bus', 'jumper': 'insulated jumper', 'link': 'component-side link'}[kind]
         lines.append(('p', nm, '–'.join(holes) if kind != 'bus' else f'{holes[0]} … {holes[-1]}', label))
     if b.get('cuts'):
-        lines.append(('p', 'coupes', ', '.join(b['cuts']), 'bande interrompue à ce trou'))
-    lines.append(('h', 'Fils (n° du dessin · trou · signal · fil · autre bout : ● soudé, D Dupont, XH JST-XH, F / M · vers)'))
+        lines.append(('p', 'cuts', ', '.join(b['cuts']), 'strip broken at this hole'))
+    lines.append(('h', 'Wires (drawing no. · hole · signal · wire · other end: ● soldered, D Dupont, XH JST-XH, F / M · to)'))
     for i, (hole, net, colr, g, rings, to, *tg) in enumerate(b['wires'], 1):
         rg = rings_text(rings)
         pins = ' + '.join(f'{t.split(".", 1)[0]} br. {pin_no(*t.split(".", 1))}' for t in (tg[0] if tg else []))
         t0 = tg[0][0].split('.', 1)[0] if tg and tg[0] else None
         far = ('XH' if t0 in XH else 'D', gender(t0, b['key'])) if t0 else ('S', '')
-        lines.append(('w', f'{i}', f'{hole}  {net}', f'{FR[colr]} {g} AWG{rg}', to + (f'  [{pins}]' if pins else ''), colr, far))
+        lines.append(('w', f'{i}', f'{hole}  {net}', f'{NAME[colr]} {g} AWG{rg}', to + (f'  [{pins}]' if pins else ''), colr, far))
     lines.append(('h', 'Notes'))
     if b.get('keep_note'):
         lines.append(('n', b['keep_note']))
