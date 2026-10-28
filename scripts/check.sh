@@ -19,13 +19,15 @@
 # build/check/<stage>.sum, written after the stage passes). FORCE=1 runs everything. Geometry changes (tars4.scad)
 # trigger stl → renders → docs (wire lengths); a wire colour change only docs; the schematic only erc.
 # Logs go to build/check/<stage>.log. ORCA=/path/to/OrcaSlicer.AppImage and KICAD=/path/to/kicad.AppImage override
-# the tool lookup.
+# the tool lookup; otherwise KiCad is the newest ~/bin/kicad-*.AppImage, else `kicad-cli` on the PATH, and Ghostscript
+# is `gs`, else `gswin64c` (Windows).
 set -uo pipefail
 cd "$(dirname "$0")/.."
 LOG=build/check
 mkdir -p "$LOG"
 STAGES=${*:-model stl erc renders docs}
 KICAD=${KICAD:-$(ls ~/bin/kicad-*.AppImage 2>/dev/null | sort | tail -1)}
+GS=$(command -v gs || command -v gswin64c)
 ORCA_PRESETS=~/.config/OrcaSlicer/user/default
 FAILED=()
 T0=$(date +%s)
@@ -75,8 +77,10 @@ stage_orca() {
 }
 
 stage_erc() {
-    [ -n "$KICAD" ] || { echo "KiCad AppImage not found in ~/bin (set KICAD=...)"; return 1; }
-    "$KICAD" kicad-cli sch erc --severity-all --format json -o "$LOG/erc.json" hardware/kicad/tars4.kicad_sch || return 1
+    local cli=(kicad-cli)
+    [ -n "$KICAD" ] && cli=("$KICAD" kicad-cli)
+    command -v "${cli[0]}" >/dev/null || { echo "KiCad not found: kicad-cli on the PATH or a kicad AppImage in ~/bin (KICAD=...)"; return 1; }
+    "${cli[@]}" sch erc --severity-all --format json -o "$LOG/erc.json" hardware/kicad/tars4.kicad_sch || return 1
     python3 -I - "$LOG/erc.json" <<'EOF'
 import json, sys
 d = json.load(open(sys.argv[1]))
@@ -108,7 +112,7 @@ stage_docs() {
     done
     # harness PDF: no blank page (ghostscript ink coverage, every page must carry some ink)
     if [ -s hardware/tars4_harness.pdf ]; then
-        gs -q -o - -sDEVICE=inkcov hardware/tars4_harness.pdf | awk '{ n++; if ($1 + $2 + $3 + $4 < 0.0005) { print "RENDER hardware/tars4_harness.pdf: page " n " is blank"; b = 1 } }
+        "$GS" -q -o - -sDEVICE=inkcov hardware/tars4_harness.pdf | awk '{ n++; if ($1 + $2 + $3 + $4 < 0.0005) { print "RENDER hardware/tars4_harness.pdf: page " n " is blank"; b = 1 } }
             END { print "harness pdf: " n " pages"; exit b }' || bad=1
     fi
     return $bad

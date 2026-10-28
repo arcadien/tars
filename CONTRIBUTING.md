@@ -11,8 +11,8 @@ the tools are installed.
 | Python 3 | `tools/*.py`, `scripts/*.py` | standard library only, except the two `uv` scripts below |
 | `uv` | `scripts/check_renders.py` (Pillow), `scripts/overhang.py` (trimesh) | downloads packages on the first run: run `make check` once **while online** to fill the cache, then work offline with `UV_OFFLINE=1` |
 | Node.js (`node`) | `tools/wiring_svg.js` | static SVG of the wiring sketch |
-| Firefox + Ghostscript (`gs`) + `pdfunite` | printable wiring guide `hardware/tars4_harness.pdf` | without Firefox the HTML guide is still written, not the PDF |
-| KiCad 10 AppImage in `~/bin` | schematic ERC (`make check`) | only needed when `hardware/kicad/` changes; `KICAD=/path/to/kicad.AppImage` overrides |
+| Firefox + Ghostscript (`gs`, or `gswin64c` on Windows) + `pdfunite` | printable wiring guide `hardware/tars4_harness.pdf` | without Firefox the HTML guide is still written, not the PDF |
+| KiCad 10: AppImage in `~/bin`, or `kicad-cli` on the PATH | schematic ERC (`make check`) | only needed when `hardware/kicad/` changes; `KICAD=/path/to/kicad.AppImage` overrides |
 | OrcaSlicer | slicing `mechanical/3mf/tars4.3mf` | by hand, at the end |
 
 ## Workflow (RBD)
