@@ -51,3 +51,10 @@
 **Dependencies:** [FUNC-POWER-MONITOR-001](functional.md#func-power-monitor-001), [CONF-POWER-ADCCAL-001](configuration.md#conf-power-adccal-001)
 **Description:** After calibration ([CONF-POWER-ADCCAL-001](configuration.md#conf-power-adccal-001)), the battery voltage reported by the firmware is within ±3 % of a multimeter reading at B+ over 3.0–4.2 V. Pending: the ADC calibration has not been done yet. Acceptance (on-target Unity test plus a multimeter; bench supply in place of the cells at 3.0, 3.3, 3.7 and 4.2 V; the value is the mean of 16 samples).
 
+
+### PERF-POWER-SLEEP-001
+**Title:** Deep-sleep current from the battery
+**Status:** draft
+**Dependencies:** [TECH-POWER-SLEEP-001](technical.md#tech-power-sleep-001), [FUNC-POWER-GATE-001](functional.md#func-power-gate-001)
+**Description:** In deep sleep, with every wake source armed and the storage card supply cut, the robot draws ≤ 0.65 mA from the battery (breakdown per module: [power_budget.md](../power_budget.md)). With ~5–10 % of capacity left after the cut-off, this keeps the pack above the protection's 2.4 V threshold for weeks. Provisional limit: to be tightened once E-M7 has been measured. Acceptance (bench, µA-range meter in series with B+, value logged 60 s after the controller has gone to sleep).
+
