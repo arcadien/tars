@@ -19,6 +19,9 @@ Every change goes through RBD: a validated requirement first (`req(ID):` commit,
 tests where they apply, then the change in a `<feat|tech|perf|ui|conf|fix>(ID):` commit. The `commit-msg` hook
 (`make hook`) refuses a commit touching `mechanical/` or `hardware/` without a validated requirement ID. Only
 `docs:` / `plan:` / `refactor:` changes outside those folders skip it.
+Work happens on a branch. A branch whose change still depends on a pending measurement (a `MEASURE` value it
+introduced or relies on, a bench check in draft) is **not merged** until the measurement is done and folded in: a risk
+remains. List it in `open_questions.md` with the branch name.
 
 A change in `mechanical/` also requires, in the same change:
 - `make check` clean: no OpenSCAD WARNING, every plate on its bed (Ender 3 220 × 220 halves, CR-10 one-piece);
