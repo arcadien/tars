@@ -51,3 +51,10 @@
 **Dependencies:** [FUNC-POWER-MONITOR-001](functional.md#func-power-monitor-001), [CONF-POWER-THRESH-001](configuration.md#conf-power-thresh-001)
 **Description:** On battery, the firmware averages the battery voltage over a 60 s sliding window and classifies it as: fed (≥ 3.90 V), peckish (3.70–3.90 V), hungry (3.50–3.70 V), starving (3.30–3.50 V), empty (≤ 3.30 V). The 60 s average is the only hysteresis: there is no extra band, so one sample (a Wi-Fi or amplifier peak) cannot change the level. Acceptance (native Unity test with injected samples): each band gives its level at the boundaries; a 2 s dip of 0.3 V inside a stable window does not change the level.
 
+
+### FUNC-POWER-MONITOR-003
+**Title:** Charging and full states replace the level on an external supply
+**Status:** validated
+**Dependencies:** [FUNC-POWER-DETECT-001](functional.md#func-power-detect-001), [FUNC-POWER-MONITOR-001](functional.md#func-power-monitor-001)
+**Description:** While the external supply is present, the firmware reports the battery state as "charging" instead of a level, then "full" once the charge has ended. The end of charge is inferred from the battery voltage alone; the charger's status output is not wired. Acceptance (native Unity test, injected supply flag and voltages): supply present and rising → charging; supply present and the voltage relaxed to ≤ 4.17 V after reaching ≥ 4.19 V → full; supply removed → back to the [FUNC-POWER-MONITOR-002](functional.md#func-power-monitor-002) level.
+
