@@ -38,7 +38,7 @@ Not run on hardware yet (compiles only, 2026-10-28). Arduino-ESP32 3.3, ESP8266A
 - **BL_EN** PWM at 20 kHz (above hearing, next to the amp); `l` steps 100 / 50 / 10 / 0 %. Measure
   the BLK current at 100 % (README: transistor needed only if it feeds the LEDs directly).
 - **Flash**: ~48 % of the 1.25 MB app partition (default 4 MB layout with OTA), mostly the Arduino /
-  Wi-Fi core, the 115 KB photo and the MP3 decoder.
+  ESP-IDF core (no Wi-Fi linked yet), the 115 KB photo and the MP3 decoder (details below).
 - **PSRAM** is required (frame buffer + recording); the sketch stops with a message if it's missing.
 
 ## Flash budget and firmware updates (notes, 2026-10-28)
