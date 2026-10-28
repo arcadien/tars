@@ -44,3 +44,10 @@
 **Dependencies:** [FUNC-POWER-PATH-001](functional.md#func-power-path-001)
 **Description:** With a 5 V ≥ 2 A supply, the battery charging at maximum current and a 1 A system load, the voltage at the charger input stays ≥ 4.60 V for 30 min. Acceptance (bench, multimeter at the charger IN pads, readings every 5 min).
 
+
+### PERF-POWER-MONITOR-001
+**Title:** Battery voltage measurement accuracy
+**Status:** draft
+**Dependencies:** [FUNC-POWER-MONITOR-001](functional.md#func-power-monitor-001), [CONF-POWER-ADCCAL-001](configuration.md#conf-power-adccal-001)
+**Description:** After calibration ([CONF-POWER-ADCCAL-001](configuration.md#conf-power-adccal-001)), the battery voltage reported by the firmware is within ±3 % of a multimeter reading at B+ over 3.0–4.2 V. Pending: the ADC calibration has not been done yet. Acceptance (on-target Unity test plus a multimeter; bench supply in place of the cells at 3.0, 3.3, 3.7 and 4.2 V; the value is the mean of 16 samples).
+
