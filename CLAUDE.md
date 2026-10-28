@@ -2,6 +2,18 @@
 
 TARS robot, `tars4` variant. `README.md` is the project documentation; `mechanical/scad/tars4.scad` is the model.
 
+## Repository
+- Layout: `mechanical/` (scad, stl, 3mf), `hardware/` (kicad, schematic / wiring / harness pages, power budget,
+  measurements, shopping list), `software/`, `requirements/` (RBD), `renders/`, `tools/`, `scripts/`,
+  `open_questions.md`. `CONTRIBUTING.md` is the manual workflow (no network, no assistant): keep it in step with the tools.
+- `make check` (incremental, also the pre-commit hook) must pass; commit the files it rewrites. STLs are re-exported
+  byte-different even when the geometry is unchanged.
+- Commit prefixes (RBD pre-push hook): req, test, feat, tech, perf, ui, conf, arch, plan, chore, fix, docs, style,
+  refactor; `feat(ID):`-style ones need a validated requirement. Granular commits, push after each.
+- Branch `bench-tests`: bench firmware for the D1 mini and the S3 Mini, not merged.
+- Requirements: draft a whole domain for review; keep a requirement `draft` while a bench measurement is pending;
+  a PLAT requirement is validated only after its FUNC / TECH parent.
+
 ## Language
 - Requirements (`requirements/*.md`) and all documentation are written in **English**: README, markdown notes,
   generated guides and diagrams, code comments, commit messages.
@@ -14,7 +26,8 @@ TARS robot, `tars4` variant. `README.md` is the project documentation; `mechanic
 ### Electronics & Hardware Docs
 - Power wires go in pairs: red / black for battery and 5V (B+/B−, VBAT, VSYS, VUSB), white / blue for regulated or stepped voltages (3V3, buck/boost outputs). Blue is for power only, never a signal. Do not use yellow for 3V3.
 - Every wiring diagram must label each wire end as solder, Dupont or JST-XH, and give the wire length. Write guides so a beginner knows the first step.
-- The TP4056 board uses micro-USB. Resistors go on the board or harness side, not at the LEDs, unless I say otherwise.
+- The TP4056 module's own micro-USB is desoldered: charging goes through the micro-USB breakout J1 in the left foot, wired to its IN pads. Resistors go on the board or harness side, not at the LEDs, unless I say otherwise.
+- Parts budget is spent: solutions use parts already in stock (`hardware/shopping_list.md`, *already in stock*).
 - Renders must include connector detail on every leg and in open/exploded views.
 - Check that the PDF/HTML output has no blank pages and that diagrams are readable at print size.
 - Strip EXIF/GPS from every image: `python3 ~/.claude/skills/hardware-change/scripts/strip_exif.py <paths>`.

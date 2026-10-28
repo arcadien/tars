@@ -206,7 +206,7 @@ USB end.
 | microSD | CLK, CMD, D0 + SD_EN | SDMMC 1-bit, 10 MHz, R11 33 Ω on CLK; SD_EN GPIO36 → Q5 (low = card powered) |
 
 The ESP32-S3 routes SPI and I2S to any GPIO. Avoid the strapping pins (GPIO 0, 45, 46; GPIO3 only selects the JTAG
-source when an eFuse is burnt, so it is used as the PIR input) and the USB pins (GPIO 19, 20). Free: GPIO37. GPIO map:
+source when an eFuse is burnt, so it is used as the PIR input) and the USB pins (GPIO 19, 20). GPIO37: planned VSYS sense (small NPN + 1 M / 1 M from VSYS, low = rail present; PLAT-POWER-VSENSE-001, not wired yet). GPIO map:
 `hardware/tars4_schematic.html` (confirm when soldered).
 
 - Through the middle tube go **7 wires** for screen 2 (SCK, MOSI, DC, CS2, RST, 3V3, GND from P1) + BL_EN + 3 for I2S +
@@ -869,18 +869,35 @@ cells until step 3.5; nothing goes on the 3V3 before step 3.6 is green)
 
 ## Open questions
 
-- Charger **IP2312** (2 A switching) instead of the TP4056: see `open_questions.md` (D13).
-- Replaceable PETG detent rings.
+Live list: `open_questions.md` (tube test3, VSYS sense hardware, charger D13 / temperature E-M8, bench measurements).
+Also: replaceable PETG detent rings.
+
+## Requirements
+
+The platform is specified in `requirements/` (requirement-based development, `.rbd/config.yml`): FUNC (what the
+robot does), TECH (constraints), PERF (measurable limits), CONF (settings), PLAT (how it is built on this hardware,
+each deriving from a FUNC / TECH requirement), UI. IDs are `<CAT>-<DOMAIN>-<FEATURE>-NNN`. Written so far: the POWER
+domain (validated, or `draft` while a bench measurement is pending). Module currents: `hardware/power_budget.md`.
+
+## Branches
+
+| Branch | Content |
+|---|---|
+| `main` | the design (model, hardware docs, requirements) |
+| `bench-tests` | bench test firmware for the D1 mini and the S3 Mini (`d1mini/`, `s3mini/`, `bench_assets/`), not merged |
 
 ## Rebuild
 
+Step by step, offline included: `CONTRIBUTING.md`.
+
 ```
 cd ~/git/Tars
-tools/build4.sh            # all half STLs, the 3 plates, renders (~10 min)
-tools/build4.sh stl        # only the STLs
-tools/build4.sh renders    # only the renders
-openscad tars4.scad        # interactive; `part` selects what is shown
-python3 -I tools/boards.py # board layouts, checked (renders/tars4_board_*.svg)
+tools/build4.sh                           # all half STLs, the 3 raw plates, renders (~10 min)
+tools/build4.sh stl                       # only the STLs
+tools/build4.sh renders                   # only the renders
+openscad mechanical/scad/tars4.scad       # interactive; `part` selects what is shown
+python3 -I tools/boards.py                # board layouts, checked (renders/tars4_board_*.svg)
+python3 -I tools/update_orca_project.py mechanical/3mf/tars4.3mf   # swap the Orca project's meshes
 ```
 
 **Validation** (`make check`; also the git pre-commit hook, installed by `make hook`). **Incremental**: each stage
@@ -890,7 +907,7 @@ Logs in `build/check/`.
 
 | Stage | Runs when | What fails it |
 |---|---|---|
-| stl | `mechanical/scad/tars4.scad`, `build4.sh`, the OpenSCAD libraries change | any print part (Ender 3 halves, CR-10 one-piece, trial prints) with an OpenSCAD `WARNING` / `ERROR`; a raw plate (written to `build/plates/`) off the 220 × 220 bed |
+| stl | `mechanical/scad/tars4.scad`, `build4.sh`, the OpenSCAD libraries change | any print part (Ender 3 halves, CR-10 one-piece, the `tube_test3` trial print) with an OpenSCAD `WARNING` / `ERROR`; a raw plate (written to `build/plates/`) off the 220 × 220 bed |
 | overhang | **only on request** (`make check-overhang`, not part of `make check`: overhangs are checked in Orca) | `scripts/overhang.py` (uv + trimesh): a region over 2 cm² facing down more than 50° from vertical, unless it is a ceiling narrower than 3 mm (bridge) or listed with its reason in `scripts/overhang_allow.json` (`--limit 45` for a stricter pass) |
 | orca | **only on request** (`make check-orca`, not part of `make check`: the Orca projects are refreshed by hand at the end) | `scripts/orca_check.py` refreshes the meshes of `mechanical/3mf/tars4.3mf` (Ender 3) and `mechanical/3mf/tars4_cr10.3mf` (CR-10) in place (layout kept, backup in `backups/`; same as `update_orca_project.py`), then the OrcaSlicer CLI (AppImage, no GUI) slices every plate: a part that grew off its plate or into its neighbour fails |
 | erc | the KiCad files change | KiCad ERC through `kicad-cli`: any error (warnings are listed) |
