@@ -58,3 +58,10 @@
 **Dependencies:** [TECH-POWER-SLEEP-001](technical.md#tech-power-sleep-001), [FUNC-POWER-GATE-001](functional.md#func-power-gate-001)
 **Description:** In deep sleep, with every wake source armed and the storage card supply cut, the robot draws ≤ 0.65 mA from the battery (breakdown per module: [power_budget.md](../power_budget.md)). With ~5–10 % of capacity left after the cut-off, this keeps the pack above the protection's 2.4 V threshold for weeks. Provisional limit: to be tightened once E-M7 has been measured. Acceptance (bench, µA-range meter in series with B+, value logged 60 s after the controller has gone to sleep).
 
+
+### PERF-POWER-OFF-001
+**Title:** Battery drain with the switch off
+**Status:** draft
+**Dependencies:** [FUNC-POWER-SWITCH-001](functional.md#func-power-switch-001)
+**Description:** With the power switch off and no external supply, the battery drain is ≤ 60 µA: charger and protection quiescent current, the battery divider and power-path diode leakage (breakdown: [power_budget.md](../power_budget.md)). Pending: the limit depends on E-M3 (D1 leakage), not measured yet. Acceptance (bench, µA meter in series with B+, at room temperature and at 35 °C, a hot room: D1 only blocks on battery, when the charger is off and does not heat the leg).
+
