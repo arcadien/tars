@@ -37,8 +37,17 @@ Not run on hardware yet (compiles only, 2026-10-28). Arduino-ESP32 3.3, ESP8266A
   Start at 50 % (`v`).
 - **BL_EN** PWM at 20 kHz (above hearing, next to the amp); `l` steps 100 / 50 / 10 / 0 %. Measure
   the BLK current at 100 % (README: transistor needed only if it feeds the LEDs directly).
-- **Flash**: ~48 % of the 1.25 MB app partition (default 4 MB layout with OTA), mostly the Arduino /
+- **Flash**: ~54 % of the 1.25 MB app partition (48 % before the sensors) (default 4 MB layout with OTA), mostly the Arduino /
   ESP-IDF core (no Wi-Fi linked yet), the 115 KB photo and the MP3 decoder (details below).
+- **PIR (GPIO3)**: 30 s warm-up (`w` skips it). Each pulse is logged with what the S3 was doing
+  (idle, drawing, recording, playing, mp3): `p` prints the counts per activity. Pulses while nobody
+  moves = false triggers from the backlight PWM, SPI bursts or the speaker (README checklist: 1 nF on
+  GPIO3 if so). A green bar at the bottom of both screens follows OUT.
+- **BME280** (0x76, forced mode, `t`): the I2C scan at start-up (`g`) also names the ADXL345 (0x53),
+  DS3231 (0x68) and ZS-042 EEPROM (0x57) if they are on the bus. 100 kHz as in TARS.
+- **Battery** (`u`): VBAT/2 on GPIO1, eFuse-calibrated ADC, 16 samples; compare with a multimeter
+  (README: ± 3 %). Without C6 100 nF at the pin the 500 k source reads low and noisy. `j` logs BME280
+  + battery every 2 s (CSV `BME,...` / `VBAT,...`), e.g. during a charge.
 - **PSRAM** is required (frame buffer + recording); the sketch stops with a message if it's missing.
 
 ## Flash budget and firmware updates (notes, 2026-10-28)

@@ -1,12 +1,19 @@
 /*
  * TARS - bench test on the LOLIN S3 Mini, TARS pin map (tars4_schematic.html / tools/kicad_sch_gen.py):
- * both 1.3" ST7789 screens, INMP441 microphone, MAX98357A amplifier + speaker.
+ * both 1.3" ST7789 screens, INMP441 microphone, MAX98357A amplifier + speaker, AM312 motion sensor,
+ * BME280, battery voltage.
  *
  *   - screens: test patterns + a photo (bench_assets/image.h) from a frame buffer in PSRAM,
  *     hardware SPI at 26.7 MHz (40 MHz with f), same or different pattern on each screen;
  *   - "record and replay": REC_SECONDS from the INMP441 (I2S1, 32-bit slots), normalised,
  *     played back on the MAX98357A (I2S0);
- *   - a short MP3 from flash (bench_assets/sound.h, ESP8266Audio).
+ *   - a short MP3 from flash (bench_assets/sound.h, ESP8266Audio);
+ *   - AM312 motion sensor on GPIO3: every pulse logged with its length and with what the S3 was
+ *     doing at the time (idle, drawing, recording, playing), to catch false triggers from the
+ *     backlight PWM, the SPI bursts or the speaker (README checklist); a bar at the bottom of
+ *     both screens follows OUT;
+ *   - BME280 (I2C 0x76, forced mode) and battery voltage (VBAT/2 divider on GPIO1, USB_DET on
+ *     GPIO21), on demand or logged every 2 s; I2C bus scan.
  * Assets: uv run ../../bench_assets/make_assets.py
  *
  * Wiring on the bench (no carrier, Dupont wires; on TARS the series resistors R12 / R19 /
@@ -37,6 +44,16 @@
  *                      SD      GPIO4  (AMP_SD: high while a sound plays; 10 k to GND like R18)
  *                      GAIN    not connected (9 dB)
  *     Speaker on the amp's + / - (4-8 ohm).
+ *     AM312 PIR        VIN     3V3    (TARS: through R21 100 ohm, C12 10 uF on P2)
+ *                      GND     GND
+ *                      OUT     GPIO3  (PIR; TARS: through R17 1 k on P2; push-pull, active high)
+ *     BME280           VIN     3V3
+ *                      GND     GND
+ *                      SDA     GPIO5  (TARS: 4.7 k pull-ups on the ADXL345 board; the BME280
+ *                      SCL     GPIO6   breakout has its own, enough on the bench)
+ *     Battery          B+ -> R2 1 M -> GPIO1 -> R3 1 M -> GND, C6 100 nF GPIO1 -> GND (at the pin;
+ *                      without it the 500 k source reads low and noisy). Cell or bench supply <= 4.2 V.
+ *     Charger detect   GPIO21 <- VUSB through R15 68 k / R16 100 k (optional: "unwired" reads low)
  *
  * Serial over the S3's USB-C (USB CDC), 115200 baud, one letter:
  *   screens: n / b next / previous pattern, a auto-cycle on / off, d same / different
@@ -44,12 +61,16 @@
  *            l backlight 100 / 50 / 10 / 0 %, s speed test
  *   sound  : r record then replay, e replay again, m play the MP3, v volume,
  *            k microphone channel (left / right, if the recording is silent)
+ *   PIR    : p summary per activity, o reset the counters, w skip the warm-up
+ *   sensors: t BME280 reading, u battery voltage, g I2C scan, j log both every 2 s on / off
  *   ?      : help
  */
 
 #include <Arduino.h>
 #include <SPI.h>
 #include <ESP_I2S.h>
+#include <Wire.h>
+#include <Adafruit_BME280.h>
 #include <AudioFileSourcePROGMEM.h>
 #include <AudioGeneratorMP3.h>
 #include <AudioOutputI2S.h>
@@ -71,6 +92,13 @@ static const int8_t PIN_AMP_BCLK = 18;
 static const int8_t PIN_AMP_LRC = 17;
 static const int8_t PIN_AMP_DIN = 16;
 static const int8_t PIN_AMP_SD = 4;
+static const int8_t PIN_PIR = 3;
+static const int8_t PIN_SDA = 5;
+static const int8_t PIN_SCL = 6;
+static const int8_t PIN_VBAT = 1;         // VBAT/2, ADC1
+static const int8_t PIN_USB_DET = 21;
+static const uint8_t BME_ADDR = 0x76;
+static const uint32_t SENSOR_LOG_MS = 2000;
 
 static const uint16_t W = 240;
 static const uint16_t H = 240;
@@ -100,6 +128,46 @@ static bool fast_spi = false;
 static bool mic_right = false;           // L/R tied to GND -> left
 static uint8_t backlight_step = 0;
 static uint8_t volume_step = 1;
+
+// ---- PIR: edges timestamped by the ISR, tagged with the current activity -----
+
+enum Activity : uint8_t { IDLE, DRAWING, RECORDING, PLAYING, MP3, ACTIVITY_COUNT };
+static const char *ACTIVITY_NAMES[ACTIVITY_COUNT] = {"idle", "drawing", "recording", "playing", "mp3"};
+static volatile uint8_t activity = IDLE;
+
+static const uint32_t PIR_WARMUP_MS = 30000;  // AM312: 10-60 s after power-up, edges ignored
+struct PirEdge {
+  uint32_t ms;
+  uint8_t level;
+  uint8_t activity;
+};
+static const uint8_t PIR_QUEUE = 32;           // power of two; sounds block loop() up to ~5 s
+static volatile PirEdge pir_queue[PIR_QUEUE];
+static volatile uint8_t pir_head = 0, pir_tail = 0;
+static volatile bool pir_overflow = false;
+
+struct PirStats {
+  uint16_t detections;
+  uint32_t total_high_ms, min_high_ms, max_high_ms;
+};
+static PirStats pir_stats[ACTIVITY_COUNT];
+static bool pir_warming_up = true;
+static bool pir_high = false;
+static uint32_t pir_rise_ms = 0;
+static uint8_t pir_rise_activity = IDLE;
+static uint32_t pir_since_ms = 0;
+
+static void IRAM_ATTR on_pir_change() {
+  uint8_t next = (pir_head + 1) & (PIR_QUEUE - 1);
+  if (next == pir_tail) {
+    pir_overflow = true;
+    return;
+  }
+  pir_queue[pir_head].ms = millis();
+  pir_queue[pir_head].level = digitalRead(PIN_PIR);
+  pir_queue[pir_head].activity = activity;
+  pir_head = next;
+}
 
 // ---- ST7789 on the shared bus ------------------------------------------------
 
@@ -283,14 +351,19 @@ static const char *draw_pattern(uint8_t n) {
 static const uint8_t PATTERN_COUNT = 7;
 static uint8_t pattern = 0;
 
+static void pir_bar();
+
 static void show() {
   for (uint8_t s = 0; s < 2; s++) {
     uint8_t n = (pattern + (different && s ? 3 : 0)) % PATTERN_COUNT;
     const char *name = draw_pattern(n);
     uint32_t t0 = micros();
+    activity = DRAWING;
     push(s);
+    activity = IDLE;
     Serial.printf("PAT,screen%u,%u,%s,push_ms=%.1f\n", s + 1, n, name, (micros() - t0) / 1000.0f);
   }
+  if (!pir_warming_up) pir_bar();
 }
 
 static void speed_test() {
@@ -324,6 +397,7 @@ static void record() {
     return;
   }
   Serial.printf("REC,start,seconds=%lu\n", REC_SECONDS);
+  activity = RECORDING;
   fill(BLACK);
   push(0);
   push(1);
@@ -346,6 +420,7 @@ static void record() {
     level_bar(peak, RED);                // every 32 ms, on top of the I2S DMA
   }
   mic.end();
+  activity = IDLE;
 
   // remove the DC offset, then normalise to ~ -1 dBFS
   int32_t mean = sum / (int64_t)REC_LEN >> 4;
@@ -373,6 +448,7 @@ static void replay() {
     return;
   }
   Serial.println("PLAY,recording");
+  activity = PLAYING;
   digitalWrite(PIN_AMP_SD, HIGH);
   float vol = VOLUMES[volume_step];
   static int16_t frames[2 * 512];
@@ -390,6 +466,7 @@ static void replay() {
   memset(frames, 0, sizeof(frames));
   amp.write((const uint8_t *)frames, sizeof(frames));  // flush the DMA with silence
   digitalWrite(PIN_AMP_SD, LOW);
+  activity = IDLE;
   amp.end();
   Serial.println("PLAY,done");
 }
@@ -404,6 +481,7 @@ static void play_mp3() {
   out.SetPinout(PIN_AMP_BCLK, PIN_AMP_LRC, PIN_AMP_DIN);
   out.SetGain(VOLUMES[volume_step]);
   AudioGeneratorMP3 mp3;
+  activity = MP3;
   digitalWrite(PIN_AMP_SD, HIGH);
   if (!mp3.begin(&file, &out)) {
     Serial.println("# MP3 start failed");
@@ -420,7 +498,143 @@ static void play_mp3() {
     }
   }
   digitalWrite(PIN_AMP_SD, LOW);
+  activity = IDLE;
   Serial.println("PLAY,done");
+}
+
+// ---- PIR processing ----------------------------------------------------------
+
+// Bar on the bottom 12 rows of both screens: green while OUT is high.
+static void pir_bar() {
+  fill_rect(0, H - 12, W, 12, pir_high ? GREEN : rgb(40, 40, 40));
+  activity = DRAWING;
+  push_rows(0, H - 12, H - 1);
+  push_rows(1, H - 12, H - 1);
+  activity = IDLE;
+}
+
+static void pir_reset() {
+  memset(pir_stats, 0, sizeof(pir_stats));
+  pir_since_ms = millis();
+}
+
+static void pir_summary() {
+  Serial.printf("# PIR over %lu s%s\n", (unsigned long)(millis() - pir_since_ms) / 1000,
+                pir_warming_up ? " (still warming up)" : "");
+  for (uint8_t a = 0; a < ACTIVITY_COUNT; a++) {
+    const PirStats &st = pir_stats[a];
+    Serial.printf("SUM,%s,detections=%u,high_min=%lu,high_avg=%lu,high_max=%lu\n", ACTIVITY_NAMES[a],
+                  st.detections, (unsigned long)st.min_high_ms,
+                  (unsigned long)(st.detections ? st.total_high_ms / st.detections : 0),
+                  (unsigned long)st.max_high_ms);
+  }
+}
+
+static void pir_end_warmup() {
+  pir_warming_up = false;
+  pir_tail = pir_head;                   // drop the warm-up edges
+  pir_overflow = false;
+  pir_high = digitalRead(PIN_PIR);
+  pir_rise_ms = millis();
+  pir_reset();
+  Serial.printf("# PIR warm-up done, OUT is %s\n", pir_high ? "HIGH (pulse in progress, not counted)" : "LOW");
+  pir_bar();
+}
+
+static void pir_poll() {
+  if (pir_warming_up) {
+    static uint32_t last_tick = 0;
+    if (millis() >= PIR_WARMUP_MS) {
+      pir_end_warmup();
+    } else if (millis() - last_tick >= 10000 || last_tick == 0) {
+      last_tick = millis() | 1;
+      Serial.printf("# PIR warm-up, %lu s left (w to skip)\n", (unsigned long)(PIR_WARMUP_MS - millis()) / 1000);
+    }
+    return;
+  }
+  if (pir_overflow) {
+    pir_overflow = false;
+    Serial.println("# WARN PIR edge queue overflow");
+  }
+  bool changed = false;
+  while (pir_tail != pir_head) {
+    PirEdge e = {pir_queue[pir_tail].ms, pir_queue[pir_tail].level, pir_queue[pir_tail].activity};
+    pir_tail = (pir_tail + 1) & (PIR_QUEUE - 1);
+    if (e.level && !pir_high) {
+      pir_high = true;
+      pir_rise_ms = e.ms;
+      pir_rise_activity = e.activity;
+      PirStats &st = pir_stats[e.activity];
+      st.detections++;
+      Serial.printf("EVT,%lu,RISE,%s,%u\n", (unsigned long)e.ms, ACTIVITY_NAMES[e.activity], st.detections);
+      changed = true;
+    } else if (!e.level && pir_high) {
+      pir_high = false;
+      uint32_t high_ms = e.ms - pir_rise_ms;
+      PirStats &st = pir_stats[pir_rise_activity];
+      st.total_high_ms += high_ms;
+      if (st.min_high_ms == 0 || high_ms < st.min_high_ms) st.min_high_ms = high_ms;
+      st.max_high_ms = max(st.max_high_ms, high_ms);
+      Serial.printf("EVT,%lu,FALL,%s,%lu\n", (unsigned long)e.ms, ACTIVITY_NAMES[pir_rise_activity],
+                    (unsigned long)high_ms);
+      changed = true;
+    }
+    // same level twice: a glitch shorter than the ISR latency, nothing to log
+  }
+  if (changed) pir_bar();
+}
+
+// ---- BME280, battery, I2C -------------------------------------------------------
+
+static Adafruit_BME280 bme;
+static bool bme_ok = false;
+static bool sensor_log = false;
+
+static void bme_begin() {
+  bme_ok = bme.begin(BME_ADDR, &Wire);
+  if (!bme_ok) {
+    Serial.printf("# BME280 not found at 0x%02X (0x77 if SDO is high; g to scan)\n", BME_ADDR);
+    return;
+  }
+  // forced mode, x1 oversampling, no filter: one measurement per read, no self-heating
+  bme.setSampling(Adafruit_BME280::MODE_FORCED, Adafruit_BME280::SAMPLING_X1, Adafruit_BME280::SAMPLING_X1,
+                  Adafruit_BME280::SAMPLING_X1, Adafruit_BME280::FILTER_OFF);
+  Serial.printf("# BME280 found, chip id 0x%02X\n", (unsigned)bme.sensorID());
+}
+
+static void bme_read() {
+  if (!bme_ok) bme_begin();
+  if (!bme_ok) return;
+  if (!bme.takeForcedMeasurement()) {
+    Serial.println("# BME280 measurement failed");
+    return;
+  }
+  Serial.printf("BME,%lu,t_c=%.2f,p_hpa=%.2f,rh=%.1f\n", (unsigned long)millis(), bme.readTemperature(),
+                bme.readPressure() / 100.0f, bme.readHumidity());
+}
+
+static void battery_read() {
+  uint32_t mv = 0;
+  for (uint8_t i = 0; i < 16; i++) mv += analogReadMilliVolts(PIN_VBAT);  // eFuse-calibrated
+  mv /= 16;
+  float vbat = mv * 2 / 1000.0f;         // R2 / R3 1 M / 1 M
+  Serial.printf("VBAT,%lu,adc_mv=%lu,vbat=%.3f,usb=%s\n", (unsigned long)millis(), (unsigned long)mv, vbat,
+                digitalRead(PIN_USB_DET) ? "plugged" : "no");
+}
+
+static void i2c_scan() {
+  Serial.print("# I2C:");
+  uint8_t found = 0;
+  for (uint8_t a = 0x08; a < 0x78; a++) {
+    Wire.beginTransmission(a);
+    if (Wire.endTransmission() == 0) {
+      found++;
+      const char *name = a == 0x76 || a == 0x77 ? "BME280" : a == 0x53 || a == 0x1D ? "ADXL345"
+                         : a == 0x68 ? "DS3231" : a == 0x57 ? "ZS-042 EEPROM" : "?";
+      Serial.printf(" 0x%02X (%s)", a, name);
+    }
+  }
+  Serial.println(found ? "" : " nothing (SDA / SCL swapped? pull-ups?)");
 }
 
 // ---- commands ----------------------------------------------------------------
@@ -428,7 +642,9 @@ static void play_mp3() {
 static void print_help() {
   Serial.println("# screens: n/b next/prev, a auto, d same/different, i inversion, c RGB/BGR,");
   Serial.println("#          f SPI 26.7/40 MHz, l backlight, s speed");
-  Serial.println("# sound  : r record + replay, e replay, m MP3, v volume, k mic channel, ? help");
+  Serial.println("# sound  : r record + replay, e replay, m MP3, v volume, k mic channel");
+  Serial.println("# PIR    : p summary, o reset, w skip warm-up");
+  Serial.println("# sensors: t BME280, u battery, g I2C scan, j log every 2 s, ? help");
 }
 
 static void handle_command(char cmd) {
@@ -454,6 +670,13 @@ static void handle_command(char cmd) {
       Serial.printf("# volume %d %%\n", (int)(VOLUMES[volume_step] * 100));
       break;
     case 'k': mic_right = !mic_right; Serial.println(mic_right ? "# mic right" : "# mic left"); break;
+    case 'p': pir_summary(); break;
+    case 'o': pir_reset(); Serial.println("# PIR counters reset"); break;
+    case 'w': if (pir_warming_up) pir_end_warmup(); break;
+    case 't': bme_read(); break;
+    case 'u': battery_read(); break;
+    case 'g': i2c_scan(); break;
+    case 'j': sensor_log = !sensor_log; Serial.println(sensor_log ? "# sensor log on" : "# sensor log off"); break;
     case '?':
     case 'h': print_help(); break;
     default: break;                      // ignore CR, LF and the rest
@@ -463,6 +686,10 @@ static void handle_command(char cmd) {
 void setup() {
   pinMode(PIN_AMP_SD, OUTPUT);
   digitalWrite(PIN_AMP_SD, LOW);         // amp off until a sound plays
+  pinMode(PIN_PIR, INPUT_PULLDOWN);      // AM312 OUT is push-pull; the pull-down only keeps an unwired pin low
+  attachInterrupt(PIN_PIR, on_pir_change, CHANGE);
+  pinMode(PIN_USB_DET, INPUT_PULLDOWN);  // TARS: R16 100 k to GND; the pull-down only keeps it low unwired
+  analogSetPinAttenuation(PIN_VBAT, ADC_11db);  // up to ~3.1 V, VBAT/2 <= 2.1 V
   for (int8_t cs : PIN_CS) {
     pinMode(cs, OUTPUT);
     digitalWrite(cs, HIGH);
@@ -486,6 +713,11 @@ void setup() {
     while (true) delay(1000);
   }
 
+  Wire.begin(PIN_SDA, PIN_SCL, 100000);  // 100 kHz as in TARS (long bus through the tubes)
+  i2c_scan();
+  bme_begin();
+  battery_read();
+
   spi.begin(PIN_SCK, -1, PIN_MOSI, -1);
   lcd_init();
   show();
@@ -493,6 +725,13 @@ void setup() {
 
 void loop() {
   static uint32_t last = millis();
+  static uint32_t last_log = 0;
+  pir_poll();
+  if (sensor_log && millis() - last_log >= SENSOR_LOG_MS) {
+    last_log = millis();
+    bme_read();
+    battery_read();
+  }
   while (Serial.available()) {
     handle_command(Serial.read());
     last = millis();
