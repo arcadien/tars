@@ -23,3 +23,10 @@
 **Dependencies:** [TECH-POWER-CELL-001](technical.md#tech-power-cell-001)
 **Description:** The charger charges at constant current and then at constant voltage, with a final voltage of 4.20 V ± 1 % (4.158–4.242 V) at the cell terminals, and stops on its own at the end of the charge. Acceptance (bench): from a half-empty cell, the charge ends with B+ between 4.158 and 4.242 V and the charge current falls to ≤ 10 % of the set current, then stops.
 
+
+### TECH-POWER-PROTECT-001
+**Title:** Hardware protection of the pack against over-discharge, overcharge and overcurrent
+**Status:** validated
+**Dependencies:** [TECH-POWER-CELL-001](technical.md#tech-power-cell-001)
+**Description:** A hardware circuit, independent of the firmware, disconnects the pack on over-discharge (2.4 V ± 0.1 V), overcharge and overcurrent. It is a last resort: the firmware cut-off ([FUNC-POWER-CUTOFF-001](functional.md#func-power-cutoff-001)) is at least 0.8 V higher. Acceptance (bench, bench supply in place of the cells): lowering the supply opens the pack output between 2.3 and 2.5 V.
+
