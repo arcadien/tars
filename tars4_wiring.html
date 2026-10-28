@@ -1,0 +1,416 @@
+<title>TARS4 câblage</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@600&display=swap">
+<style>
+/* Layout: the drawing (to scale, mm) takes the full width, legend and wire counts below it in two columns; on
+   narrow screens the drawing keeps a readable size and scrolls sideways. */
+:root {
+  --paper: #f3f4f1; --sheet: #fbfbf9; --ink: #1d2226; --muted: #5e676d; --rule: #c9cec9;
+  --col: #e4e7e2; --col-edge: #7b858a; --part: #d3d9d4; --pcb: #bfd6c6; --cell: #c6d3ea; --screen: #2a2f35;
+  --splint: #e9dcc0;
+  --b-pow: #f6d5c6; --b-ctrl: #cfe2f5; --b-spi: #cdebd6; --b-i2c: #f6d0e0; --b-i2s0: #ddd2f6; --b-i2s1: #f1daf4; --b-sd: #ecefc2; --b-io: #fbe6b6; --b-spk: #dfe3e6; --b-dist: #e9dfd0;
+  --w-pos: #d0352c; --w-neg: #262b30; --w-sys: #df8500; --w-gnd: #2c68cf; --w-spi: #1c9653; --w-i2s: #8b4bd0; --w-spk: #7c8a93; --w-3v3: #0f8f96; --w-i2c: #c2185b; --w-en: #8d6e00; --w-sd: #9e9d24;
+  --k-red: #d7262b; --k-blk: #1b1b1d; --k-yel: #f5c400; --k-grn: #23964a; --k-blu: #2a62d6; --k-wht: #fbfbf7; --k-org: #f07800; --k-brn: #8a5326; --k-pur: #8e44c4; --k-gry: #9aa3a8;
+  --casing: #4c555b; --ring: #1d2226;
+  --f-display: "IBM Plex Sans Condensed", "Arial Narrow", sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #15191c; --sheet: #1b2024; --ink: #e5e8e6; --muted: #98a2a7; --rule: #3a4248;
+  --col: #252b30; --col-edge: #77838a; --part: #353d43; --pcb: #2e4a39; --cell: #2f3f5c; --screen: #0b0d0f;
+  --splint: #4a412c;
+  --b-pow: #5b3d33; --b-ctrl: #2f4659; --b-spi: #2d4a37; --b-i2c: #573247; --b-i2s0: #43395e; --b-i2s1: #54395a; --b-sd: #4a4b2b; --b-io: #5a4925; --b-spk: #3a4045; --b-dist: #4a4235;
+  --w-pos: #ff5a4f; --w-neg: #d7dcdf; --w-sys: #ffa630; --w-gnd: #5b95ff; --w-spi: #3cc77c; --w-i2s: #b27cff; --w-spk: #9aa8b0; --w-3v3: #3fd0d6; --w-i2c: #ff6fa8; --w-en: #e0c050; --w-sd: #d4e157;
+  --casing: #aab4ba; --ring: #e5e8e6;
+  color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #15191c; --sheet: #1b2024; --ink: #e5e8e6; --muted: #98a2a7; --rule: #3a4248;
+  --col: #252b30; --col-edge: #77838a; --part: #353d43; --pcb: #2e4a39; --cell: #2f3f5c; --screen: #0b0d0f;
+  --splint: #4a412c;
+  --b-pow: #5b3d33; --b-ctrl: #2f4659; --b-spi: #2d4a37; --b-i2c: #573247; --b-i2s0: #43395e; --b-i2s1: #54395a; --b-sd: #4a4b2b; --b-io: #5a4925; --b-spk: #3a4045; --b-dist: #4a4235;
+  --w-pos: #ff5a4f; --w-neg: #d7dcdf; --w-sys: #ffa630; --w-gnd: #5b95ff; --w-spi: #3cc77c; --w-i2s: #b27cff; --w-spk: #9aa8b0; --w-3v3: #3fd0d6; --w-i2c: #ff6fa8; --w-en: #e0c050; --w-sd: #d4e157;
+  --casing: #aab4ba; --ring: #e5e8e6;
+  color-scheme: dark }
+body { background: var(--paper); color: var(--ink); font: 15px/1.5 var(--f-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px 40px; }
+.wrap { max-width: 1600px; margin: 0 auto; display: grid; gap: 24px; }
+header h1 { font: 600 28px/1.1 var(--f-display); margin: 0; letter-spacing: .01em; text-wrap: balance; }
+header p { margin: 6px 0 0; color: var(--muted); max-width: 70ch; }
+.grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: start; }
+.sheet { background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; overflow-x: auto; }
+.sheet svg { display: block; width: min(100%, 1250px); min-width: 900px; height: auto; margin: 0 auto; }
+aside { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 20px 32px; min-width: 0; align-items: start; }
+aside .notes { display: grid; gap: 10px; }
+aside h2 { font: 600 13px/1.2 var(--f-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 8px; }
+.legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.legend li { display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: center; }
+.legend i { height: 0; border-top: 3px solid; display: block; }
+.legend i.b { border-top-width: 6px; }
+.legend.sw i { height: 14px; border: 1px solid var(--col-edge); border-radius: 2px; }
+.legend i.k { height: 7px; border: 0; box-shadow: 0 0 0 1px var(--casing); border-radius: 1px; }
+.legend i.k.b { height: 13px; }
+.legend small { color: var(--muted); display: block; font-size: 12.5px; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 13.5px; }
+th, td { text-align: left; padding: 5px 6px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font: 600 12px var(--f-mono); color: var(--muted); }
+td.n { font: 600 14px var(--f-mono); white-space: nowrap; }
+.note { font-size: 13.5px; color: var(--ink); margin: 0; padding-left: 12px; border-left: 3px solid var(--w-pos); }
+.note + .note { border-left-color: var(--rule); }
+/* svg */
+.t { font-family: var(--f-mono); fill: var(--ink); paint-order: stroke; stroke: var(--sheet); stroke-width: .7px; stroke-linejoin: round; }
+.t.m { fill: var(--muted); }
+.t.h { font-family: var(--f-display); font-weight: 600; }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>TARS4 — câblage, vue de dos</h1>
+    <p>TARS couché sur le ventre, couvercles retirés. Vu de dos, la jambe gauche est à droite du dessin. Cotes en mm, à l'échelle ; les fils sont schématiques (ils passent derrière les cartes, côté couvercle).</p>
+  </header>
+  <div class="grid">
+    <div class="sheet"><svg id="d" viewBox="-30 -20 184 292" role="img" aria-label="Vue de dos de TARS4 avec cellules, chargeur, LOLIN S3 Mini, écrans, haut-parleur, ampli, lecteur microSD et fils"></svg></div>
+    <aside>
+      <section>
+        <h2>Fils : couleurs réelles des lots</h2>
+        <p class="note"><b>Alimentation en paires</b> : <b>rouge / noir</b> pour la batterie et le 5 V (B+/B−, VUSB, VPATH, VSYS et leur GND ; chaque rail porte une <b>bague de couleur</b> aux deux bouts, sur le + et sur son GND : aucune = B+ / B−, blanche = OUT+, jaune = VPATH, orange = VSYS, violette = VUSB), <b>blanc / bleu</b> pour le 3V3 régulé et son GND logique ; le bleu ne sert qu'à ce GND, jamais à un signal. 30 AWG, kit 10 couleurs : <b>une couleur par rôle de signal</b>, la même sur chaque tronçon ; des <b>bagues de gaine thermo</b> aux deux bouts (traits en travers sur le dessin) distinguent les bus : aucune = écrans / mesures, <b>1</b> = I2S (ampli et micro) et PIR, <b>2</b> = I2C, <b>3</b> = microSD. Les serflex colorés du lot peuvent remplacer les bagues aux extrémités, jamais à moins de 25–30 mm d'un bout de tube. 26 AWG pour l'alimentation (traits épais).</p>
+        <ul class="legend">
+          <li><i class="k" style="background:var(--k-wht)"></i><span>blanc (3V3)<small>tout le 3V3, comme en industrie : 30 AWG pour les écrans et capteurs, 26 AWG du TPS63020 → P1 → S3 ; toujours en paire avec un bleu</small></span></li>
+          <li><i class="k" style="background:var(--k-blk)"></i><span>noir (26 AWG)<small>B− du pack ; GND des rails rouges, avec la même bague de couleur que leur +</small></span></li>
+          <li><i class="k" style="background:var(--k-yel)"></i><span>jaune (horloges)<small>SCK · BCLK, MIC_BCLK (1) · SCL (2) · SD_CLK (3)</small></span></li>
+          <li><i class="k" style="background:var(--k-grn)"></i><span>vert (données)<small>MOSI · DIN, MIC_SD (1) · SDA (2) · SD_D0 (3)</small></span></li>
+          <li><i class="k" style="background:var(--k-blu)"></i><span>bleu (GND régulé)<small>26 AWG : GND logique TPS63020 → P1 → S3 · 30 AWG : GND des écrans et capteurs, GND de la microSD (3 bagues, torsadé avec CLK)</small></span></li>
+          <li><i class="k" style="background:var(--k-red)"></i><span>rouge<small>30 AWG (états) : DC, INT1 · PIR, sortie de l'AM312 (1) · 26 AWG : rails batterie / 5 V, une bague de couleur par rail : aucune = B+ du pack, blanche = OUT+ du TP4056, jaune = VPATH, orange = VSYS (étoile, TPS63020, ampli), violette = VUSB</small></span></li>
+          <li><i class="k" style="background:var(--k-org)"></i><span>orange<small>RST, USB_DET</small></span></li>
+          <li><i class="k" style="background:var(--k-brn)"></i><span>marron<small>BL_EN, VBAT/2 · AMP_SD (1) · SD_EN (3)</small></span></li>
+          <li><i class="k" style="background:var(--k-pur)"></i><span>violet (sélection / trame)<small>CS1, CS2 · LRC, MIC_WS (1) · SD_CMD (3)</small></span></li>
+          <li><i class="k" style="background:var(--k-gry)"></i><span>gris (26 AWG)<small>fils du haut-parleur, + marqué au feutre</small></span></li>
+        </ul>
+      </section>
+      <section>
+        <h2>Réseaux</h2>
+        <ul class="legend">
+          <li><i class="k b" style="background:linear-gradient(var(--k-red) 0% 50%,var(--k-blk) 50% 100%)"></i><span>B+ / B− pack<small>2 × 18650 en parallèle, paire torsadée, cellule droite → chargeur par les 3 tubes</small></span></li>
+          <li><i class="k b" style="background:linear-gradient(var(--k-red) 0% 50%,var(--k-blk) 50% 100%)"></i><span>+VSYS / GND<small>cellules (TP4056 OUT+ via AO3401A) ou secteur (prise micro-USB au pied via D1 1N5822) → interrupteur au sol → étoile sur la plaquette du partage de charge (z ≈ 171) → TPS63020 (3,3 V) ; paire VSYS/GND dédiée et torsadée → ampli VIN. GND = TP4056 OUT− (≠ B−, le DW01 est entre les deux)</small></span></li>
+          <li><i class="k b" style="background:var(--k-wht)"></i><span>3V3 / GND logique<small>sortie du TPS63020 (jambe G) → P1 → broche 3V3 de la S3 (26 AWG blanc / bleu) ; écrans, RTC, accéléromètre, micro, capteurs en 30 AWG blanc / bleu ; microSD en local</small></span></li>
+          <li><i class="k b" style="background:linear-gradient(var(--k-yel) 0% 20%,var(--k-grn) 20% 40%,var(--k-red) 40% 60%,var(--k-pur) 60% 80%,var(--k-org) 80% 100%)"></i><span>SPI écran ×5<small>SCK, MOSI, DC, CS, RST par écran ; SCK séparé sur le support de la S3 (R12 → écran 1, R19 → écran 2, 47 Ω), sans T sur P1</small></span></li>
+          <li><i class="k b" style="background:linear-gradient(var(--k-yel) 0% 33%,var(--k-pur) 33% 67%,var(--k-grn) 67% 100%)"></i><span>I2S ×3 (1 bague)<small>I2S0 : BCLK, LRC, DIN → ampli (tube central) ; I2S1 : SCK, WS, SD ← micro, en local (L/R du micro à GND)</small></span></li>
+          <li><i class="k b" style="background:linear-gradient(var(--k-yel) 0% 50%,var(--k-grn) 50% 100%)"></i><span>I2C ×2 (2 bagues)<small>en chaîne : S3 → ADXL345 (0x53) → tube central → P2 → tube droit → BME280 (0x76) et DS3231 (0x68, EEPROM 0x57) dans la jambe droite ; pull-ups déjà sur les cartes ; SQW non câblé</small></span></li>
+          <li><i class="k b" style="background:linear-gradient(var(--k-yel) 0% 33%,var(--k-pur) 33% 67%,var(--k-grn) 67% 100%)"></i><span>microSD ×3 (3 bagues)<small>SDMMC 1 bit : CLK (33 Ω côté S3), CMD, D0 → lecteur dans la jambe gauche, + 3V3 coupé en veille par Q5 (SD_EN, GPIO36) et un GND dédié depuis P1 (torsadé avec CLK) ; pull-ups 10 k (vers le 3V3 coupé) sur CMD, D0, D1, D2, D3 si le lecteur n'en a pas ; 10 µF + 100 nF au lecteur ; 10 MHz</small></span></li>
+          <li><i class="k" style="background:var(--k-brn)"></i><span>BL_EN · AMP_SD<small>GPIO7 → BLK des 2 écrans (rétroéclairage, PWM possible) ; GPIO4 → R10 1 k + R18 10 k sur P2 → SD de l'ampli (éteint au démarrage et en veille). Pas la pastille EN (reset) de la S3</small></span></li>
+          <li><i class="k b" style="background:linear-gradient(var(--k-wht) 0% 33%,var(--k-red) 33% 67%,var(--k-blu) 67% 100%)"></i><span>Détecteur de mouvement<small>AM312 derrière un trou Ø10 en façade (haut du milieu D, z ≈ 233), 1,25 mm à droite de l'axe de la colonne ; R17 1 k sur P2 (sous l'écran 2), 3 fils vers le capteur ; PIR (actif haut, rouge 1 bague) repasse par le tube central vers GPIO3</small></span></li>
+          <li><i class="k b" style="background:linear-gradient(var(--k-brn) 0% 50%,var(--k-org) 50% 100%)"></i><span>VBAT/2 (marron) · USB_DET (orange)<small>diviseurs sur la plaquette du partage de charge → GPIO1 / GPIO21, par le tube gauche</small></span></li>
+          <li><i class="k b" style="background:linear-gradient(var(--k-yel) 0% 50%,var(--k-grn) 50% 100%)"></i><span>Capteur météo<small>BME280 (I2C 0x76) dans la jambe droite, l'endroit le plus froid (z ≈ 190), capteur face à un évent Ø1,5 en façade ; SDA / SCL / 3V3 / GND depuis P2 par le tube droit, avec le DS3231 (z ≈ 107)</small></span></li>
+        </ul>
+      </section>
+      <section>
+        <h2>Cartes (couleur = bus)</h2>
+        <ul class="legend sw">
+          <li><i style="background:var(--b-pow)"></i><span>Alimentation<small>TP4056 (+ D3, C9), partage de charge, F1 / F2, TPS63020</small></span></li>
+          <li><i style="background:var(--b-ctrl)"></i><span>Cerveau<small>LOLIN S3 Mini</small></span></li>
+          <li><i style="background:var(--screen);outline:2px solid var(--b-spi);outline-offset:-2px"></i><span>SPI<small>écrans 1 et 2 (cadre vert)</small></span></li>
+          <li><i style="background:var(--b-i2c)"></i><span>I2C<small>DS3231, ADXL345, BME280</small></span></li>
+          <li><i style="background:var(--b-i2s0)"></i><span>I2S0<small>MAX98357A (ampli)</small></span></li>
+          <li><i style="background:var(--b-i2s1)"></i><span>I2S1<small>INMP441 (micro)</small></span></li>
+          <li><i style="background:var(--b-sd)"></i><span>SDMMC<small>lecteur microSD</small></span></li>
+          <li><i style="background:var(--b-io)"></i><span>GPIO<small>AM312 (R17 sur P2)</small></span></li>
+          <li><i style="background:var(--b-dist)"></i><span>Répartition<small>plaques P1 / P2</small></span></li>
+          <li><i style="background:var(--b-spk)"></i><span>Haut-parleur</span></li>
+        </ul>
+      </section>
+      <section>
+        <h2>Fils par tube (8 / 7 mm, fils silicone : alimentation 26 AWG Ø1,5, signaux et alimentation des écrans / capteurs en 30 AWG Ø0,8)</h2>
+        <table>
+          <tr><th>Articulation</th><th>Fils</th><th>Contenu</th></tr>
+          <tr><td>jambe G ↔ milieu G</td><td class="n">13</td><td>B+, B−, VBAT/2 (→ GPIO1), USB_DET (→ GPIO21), SD_EN (GPIO36 → Q5), GND logique et 3V3 du TPS63020 (→ P1), VSYS + GND de l'ampli, microSD : CLK, CMD, D0, GND · ~37 %</td></tr>
+          <tr><td>milieu G ↔ milieu D</td><td class="n">19</td><td>B+, B−, VSYS + GND de l'ampli, écran 2 : SPI ×5 (SCK direct depuis R19 sur le support), 3V3, GND, BL_EN, AMP_SD, I2S ×3, PIR (détecteur de mouvement), SDA / SCL (vers la jambe droite) · alésage Ø7 rempli à ~38 % (4 × 26 + 15 × 30 AWG). Deux GND : celui de l'ampli (paire VSYS/GND, retour direct à l'étoile) et le GND logique de l'écran 2 (depuis P1)</td></tr>
+          <tr><td>milieu D ↔ jambe D</td><td class="n">6</td><td>B+, B−, SDA, SCL, 3V3, GND (DS3231 + BME280) · ~14 %</td></tr>
+        </table>
+      </section>
+      <section>
+        <h2>Connecteurs (tout se démonte : banc d'essai d'abord, aucune soudure à refaire)</h2>
+        <table>
+          <tr><th>Réf.</th><th>Module ↔ faisceau</th><th>Type · détrompage</th><th>Où (z en mm)</th></tr>
+          <tr><td class="n">socle</td><td>LOLIN S3 Mini ↔ son support</td><td>2 barrettes femelles 2 × 8</td><td>milieu G, 8–43 : on sort S3 + support par l'arrière sur leur boucle de fils, on débranche la S3</td></tr>
+          <tr><td class="n">X1</td><td>écran 1</td><td>Dupont 1 × 8 sur barrette <b>coudée</b> au dos, broches vers le bas · nervure de 1 mm collée sur la face côté couvercle du boîtier</td><td>milieu G, à plat au dos de l'écran, 205–223</td></tr>
+          <tr><td class="n">X2</td><td>ADXL345</td><td>Dupont 1 × 8 (5 fils) · broche INT2 retirée, case bouchée</td><td>milieu G, bord gauche, 103–124</td></tr>
+          <tr><td class="n">X3</td><td>INMP441</td><td>queue + Dupont 1 × 6 en ligne (5 fils) · 6<sup>e</sup> case bouchée côté femelle, vide côté mâle</td><td>milieu G, contre le couvercle, 103–131</td></tr>
+          <tr><td class="n">X4</td><td>écran 2</td><td>comme X1</td><td>milieu D, 205–223</td></tr>
+          <tr><td class="n">X5</td><td>MAX98357A</td><td>deux boîtiers : 1 × 4 (LRC, BCLK, DIN, GAIN retirée et bouchée) + 1 × 3 (SD, GND, VIN ; à l'envers : SD et VIN s'échangent à travers R10, sans dégât)</td><td>milieu D, bord haut de l'ampli, ~93</td></tr>
+          <tr><td class="n">X6</td><td>haut-parleur</td><td>Dupont 1 × 2 (barrette à la place du bornier)</td><td>milieu D, bord bas de l'ampli, ~78</td></tr>
+          <tr><td class="n">X7</td><td>AM312</td><td>queue + Dupont 1 × 4 en ligne (3 fils) · case vide bouchée</td><td>milieu D, contre le couvercle à côté de l'écran, 191–225</td></tr>
+          <tr><td class="n">X8</td><td>DS3231</td><td>Dupont 1 × 6 sur ses broches coudées (4 fils) · broche 32K retirée, case bouchée</td><td>jambe D, au-dessus de la carte, 145–166</td></tr>
+          <tr><td class="n">X9</td><td>BME280</td><td>Dupont 1 × 4 sur ses broches · sans détrompeur : à l'envers, rien ne casse (bus I2C bloqué)</td><td>jambe D, bord haut, ~204</td></tr>
+          <tr><td class="n">X10</td><td>J1 + SW1 ↔ bloc alim (VUSB, GND, VPATH, VSYS)</td><td>JST-XH 4 en ligne (détrompé) : le câble du port de charge et celui de l'inter. dans un seul boîtier</td><td>jambe G, rangé au-dessus du TP4056, rangée avant, 144–166</td></tr>
+          <tr><td class="n">X12</td><td>cellule gauche ↔ bloc alim</td><td>JST-XH 2 en ligne (femelle côté cellule)</td><td>jambe G, au-dessus du TP4056, 144–166</td></tr>
+          <tr><td class="n">X16</td><td>cellule droite ↔ bloc alim (par les 3 tubes)</td><td>JST-XH 2 en ligne (femelle côté cellule) ; jonction des deux cellules sur les pastilles B+ / B− du TP4056</td><td>jambe G, au-dessus de la plaquette du partage de charge, 180–202</td></tr>
+          <tr><td class="n">X13</td><td>bloc alim ↔ tubes (VSYS / GND ampli, 3V3, GND logique)</td><td>JST-XH 4 en ligne</td><td>jambe G, au-dessus du TP4056, 144–166</td></tr>
+          <tr><td class="n">X14</td><td>bloc alim ↔ tubes (VBAT/2, USB_DET, SD_EN)</td><td>JST-XH 3 en ligne</td><td>jambe G, au-dessus du TP4056, rangée avant, 144–166</td></tr>
+          <tr><td class="n">X15</td><td>lecteur microSD</td><td>queue + Dupont 1 × 6 en ligne (5 fils) · case vide bouchée</td><td>jambe G, couloir avant, 107–141</td></tr>
+        </table>
+        <p class="note">Le faisceau est soudé une fois (P1, P2, support de la S3, plaquette du partage de charge, plaques des cellules, fils des tubes) ; chaque module s'y branche. TP4056 + partage de charge + TPS63020 forment un bloc alim soudé et testé sur banc, relié par X10–X14, rangés dans la cavité libre au-dessus du TP4056 (visibles de l'arrière, couvercle ouvert) ; on glisse les cartes une par une avec 4–5 cm de boucle. Côté femelle des paires en ligne = côté faisceau alimenté. On ne branche / débranche qu'interrupteur coupé, chargeur et USB-C de la S3 débranchés. Boucle de 3 à 5 cm à chaque module pour le sortir par l'arrière avant de le débrancher. Volumes vérifiés dans le modèle et dessinés en orange dans les coupes (renders/tars4_column_sections.svg).</p>
+      </section>
+      <section class="notes"><h2>Notes</h2>
+      <p class="note">Alimentation : TPS63020 (abaisseur-élévateur, 3,3 V, EN à VIN, PS/SYNC à GND) dans la jambe gauche, 3,3 V en direct sur la broche 3V3 de la S3. Coupure logicielle à 3,3 V sur B+ (VBAT/2 sur GPIO1). Le régulateur interne de la S3 ne sert que sur USB. Firmware : ignorer la coupure si B+ &lt; 2,5 V ou si USB_DET est haut (S3 alimentée par l'USB du PC, interrupteur coupé), et garder BL_EN et AMP_SD bas tant que la tension n'est pas validée.</p>
+      <p class="note">Fusibles réarmables F1, F2 (PPTC 30 V, 1,6 A) sur le + de chaque cellule, à plat sur l'étagère haute de chaque jambe (z 100,5–103,7) ; D3 (TVS) et C9 (22 µF) sur les pastilles IN du TP4056, R_PROG 2,4 k (charge 0,5 A) ; paires torsadées B+/B−, VSYS/GND de l'ampli et CLK/GND de la microSD ; tubes ébavurés, gaine thermo aux sorties de tube.</p>
+      <p class="note">BL_EN (GPIO7) ne pilote que le rétroéclairage (BLK) des deux écrans : PWM possible. R4 10 k le tient bas au démarrage ; PWM à ~20 kHz. L'AM312 a son propre filtre sur P2 (R21 100 Ω + C12 10 µF tantale), et P2 son découplage (C10 10 µF + C11 100 nF). AMP_SD (GPIO4) a son propre fil : R10 1 k en série et R18 10 k vers GND sur P2, l'ampli reste éteint au démarrage et en veille ; haut → canal gauche : envoyer le même échantillon sur les deux canaux.</p>
+      <p class="note">Secteur : un chargeur USB sur la prise micro-USB du pied gauche alimente TARS (≈ 4,7 V sur VSYS) pendant que les cellules se chargent seules.</p>
+      <p class="note">Avant de relier les deux cellules : même modèle, même âge, tensions égales à 0,05 V près.</p>
+      <p class="note">La broche VBUS de la S3 ne reçoit plus que son USB-C : le 5 V du PC ne remonte jamais vers les cellules, on flashe interrupteur allumé ou coupé.</p>
+      <p class="note">ADXL345 et micro dans la colonne du contrôleur, câblés en local ; DS3231 et BME280 dans la jambe droite, par le tube droit (I2C ×2, 3V3, GND depuis P2). Chaque module se branche par un connecteur (voir le tableau ci-dessus).</p>
+      <p class="note">DS3231 ZS-042 avec une CR2032 (non rechargeable) : retirer la résistance de charge (200 Ω) ou la diode près du support de pile, sinon la carte tente de charger la pile.</p>
+      <p class="note">ADXL345 en I2C : CS → 3V3, SDO → GND (adresse 0x53) ; INT1 → GPIO2 pour le réveil au tap. Picots coupés à ras côté paroi.</p>
+      <p class="note">Micro INMP441 : côté puce contre la paroi, le trou du boîtier métallique en face du trou Ø1 percé dans la rainure verticale. Joint en mousse adhésive autour, jamais de colle sur le trou.</p>
+      <p class="note">microSD : lecteur 3,3 V sans régulateur, à plat dans la jambe gauche (z ≈ 117), sous le TPS63020 et le TP4056 (z ≈ 125 / 136), prise vers le couvercle ; la carte entre par la fente du couvercle de jambe gauche (pièce lid_leg_sd), sans ouvrir. ~30 cm de fil depuis la S3 : SDMMC à 10 MHz, R11 33 Ω sur CLK. GPIO libres au choix (la matrice de l'ESP32-S3 route le SDMMC partout). Son 3V3 passe par Q5 (AO3401A, R22 100 k sur la grille) sur la plaquette du partage de charge : coupé en veille, GPIO36 (SD_EN) bas = allumé ; passer CLK / CMD / D0 en entrée avant de couper.</p>
+      <p class="note">Interrupteur encastré dans le sol, levier 0,5 mm en retrait : se bascule avec une pointe de stylo par la fente.</p>
+      <p class="note">Le RST de l'écran 2 traverse le tube (oublié dans l'ancien décompte de 6 fils SPI).</p>
+      </section>
+    </aside>
+  </div>
+</div>
+
+<script>
+// Geometry from tars4.scad (D = 31). Front coordinates: x from the left seen from the FRONT, z from the floor.
+const cw = 30.4, wall = 1.6, H = 248, P = 238.4, cx = [0, 31.2, 62.4, 93.6], c = cw / 2;
+const X = x => 124 - x;            // back view: mirror left/right
+const Y = z => 250 - z;
+const svg = document.getElementById('d');
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, a, parent = svg) { const e = document.createElementNS(NS, tag); for (const k in a) e.setAttribute(k, a[k]); parent.appendChild(e); return e; }
+function box(x0, z0, w, h, fill, stroke = 'var(--col-edge)', sw = .25, dash) {
+  const a = { x: X(x0 + w), y: Y(z0 + h), width: w, height: h, fill, stroke, 'stroke-width': sw };
+  if (dash) a['stroke-dasharray'] = dash;
+  return el('rect', a);
+}
+function text(x, z, s, size = 2.6, cls = 't', anchor = 'middle', rot) {
+  const a = { x: X(x), y: Y(z), 'font-size': size, 'text-anchor': anchor, class: cls, 'dominant-baseline': 'middle' };
+  if (rot) a.transform = `rotate(${rot} ${X(x)} ${Y(z)})`;
+  el('text', a).textContent = s;
+}
+// Wires are drawn in the real colours of the wire kits (30 AWG: 8 colours, one per signal role; 26 AWG power), each
+// on a dark casing so white / yellow stay visible; a bundle is its wires side by side. Heat-shrink rings (bus marks)
+// are drawn as bars across the wire near both ends: 1 = I2S / PIR, 2 = I2C, 3 = microSD.
+const K = n => `var(--k-${n})`, A26 = .62, A30 = .4;
+function line(pts, color, w, cap = 'butt') {
+  el('polyline', { points: pts.map(([x, z]) => `${X(x)},${Y(z)}`).join(' '), fill: 'none', stroke: color, 'stroke-width': w, 'stroke-linejoin': 'round', 'stroke-linecap': cap });
+}
+function offsetPts(pts, d) {   // parallel polyline at distance d (mitred corners)
+  const nrm = (a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], l = Math.hypot(dx, dz); return [-dz / l, dx / l]; };
+  return pts.map((p, i) => {
+    const n1 = nrm(pts[Math.max(i - 1, 0)], pts[Math.max(i, 1)]), n2 = nrm(pts[Math.min(i, pts.length - 2)], pts[Math.min(i + 1, pts.length - 1)]);
+    const k = d / (1 + n1[0] * n2[0] + n1[1] * n2[1]);
+    return [p[0] + (n1[0] + n2[0]) * k, p[1] + (n1[1] + n2[1]) * k];
+  });
+}
+function ringMarks(pts, off, half, n) {
+  [[pts[0], pts[1]], [pts[pts.length - 1], pts[pts.length - 2]]].forEach(([a, b]) => {
+    const dx = b[0] - a[0], dz = b[1] - a[1], l = Math.hypot(dx, dz), u = [dx / l, dz / l], nv = [-u[1], u[0]];
+    for (let k = 0; k < n; k++) {
+      const t = Math.min(1.4 + k * .75, l / 2), c0 = [a[0] + u[0] * t + nv[0] * off, a[1] + u[1] * t + nv[1] * off];
+      line([[c0[0] - nv[0] * half, c0[1] - nv[1] * half], [c0[0] + nv[0] * half, c0[1] + nv[1] * half]], 'var(--ring)', .3);
+    }
+  });
+}
+// power rails sharing the red / black pair: one coloured heat-shrink band near each end (K colour)
+function bandMarks(pts, off, w, col) {
+  [[pts[0], pts[1]], [pts[pts.length - 1], pts[pts.length - 2]]].forEach(([a, b]) => {
+    const dx = b[0] - a[0], dz = b[1] - a[1], l = Math.hypot(dx, dz), u = [dx / l, dz / l], nv = [-u[1], u[0]];
+    const t0 = Math.min(1.2, l / 3), t1 = Math.min(2.6, l / 2);
+    const p = t => [a[0] + u[0] * t + nv[0] * off, a[1] + u[1] * t + nv[1] * off];
+    line([p(t0), p(t1)], 'var(--ring)', w + .5);
+    line([p(t0 + .1), p(t1 - .1)], col, w + .25);
+  });
+}
+// bundle(points, colours, rings, gauge width): rings = one number for every wire, or one per wire; a K() colour
+// instead of a number = a coloured power band
+function bundle(pts, cols, rings = 0, w = A30) {
+  const g = w + .08, n = cols.length;
+  line(pts, 'var(--casing)', n * g + .14);
+  cols.forEach((col, i) => {
+    const off = (i - (n - 1) / 2) * g, r = Array.isArray(rings) ? rings[i] : rings;
+    line(off ? offsetPts(pts, off) : pts, col, w);
+    if (typeof r === 'string') bandMarks(pts, off, w, r);
+    else if (r) ringMarks(pts, off, w / 2 + .35, r);
+  });
+}
+function wire(pts, color, w = A30, rings = 0) { bundle(pts, [color], rings, w); }
+function dashedW(pts, color, w) { el('polyline', { points: pts.map(([x, z]) => `${X(x)},${Y(z)}`).join(' '), fill: 'none', stroke: color, 'stroke-width': w, 'stroke-linejoin': 'round' }); }
+function dot(x, z, color = 'var(--casing)') { el('circle', { cx: X(x), cy: Y(z), r: .6, fill: color, stroke: 'var(--casing)', 'stroke-width': .15 }); }
+
+// height scale
+for (let z = 0; z <= 250; z += 50) {
+  el('line', { x1: X(124) - 4, x2: X(124) - 1.5, y1: Y(z), y2: Y(z), stroke: 'var(--muted)', 'stroke-width': .25 });
+  text(124 + 5, z, String(z), 2.4, 't m', 'end');
+}
+el('line', { x1: X(124) - 2.75, x2: X(124) - 2.75, y1: Y(0), y2: Y(250), stroke: 'var(--muted)', 'stroke-width': .2 });
+
+// columns, interiors, lid bosses, splints
+const legRows = [25.7, 103, 186, 210.8], midRows = [4.6, 99.2, 135.9];
+const seam = [158.7, 66.2, 66.2, 158.7];
+const names = ['jambe gauche', 'milieu gauche', 'milieu droit', 'jambe droite'];
+cx.forEach((x0, i) => {
+  const mid = i === 1 || i === 2;
+  box(x0, 0, cw, H, 'var(--col)', 'var(--col-edge)', .4);
+  box(x0 + wall, wall, cw - 2 * wall, H - 2 * wall, 'var(--sheet)', 'var(--rule)', .2);
+  box(x0 + wall + .15, seam[i] - 10, cw - 2 * wall - .3, 20, 'var(--splint)', 'none');
+  text(x0 + c, seam[i] - 7.5, 'éclisse · joint ' + seam[i], 1.9, 't m');
+  const bosses = [[c, 243.4], ...[4.6, 25.8].flatMap(bx => (mid ? midRows : legRows).map(z => [bx, z]))];
+  bosses.forEach(([bx, z]) => el('circle', { cx: X(x0 + bx), cy: Y(z), r: 3.5, fill: 'var(--col)', stroke: 'var(--col-edge)', 'stroke-width': .2 }));
+  text(x0 + c, 255.5, names[i], 2.5, 't h');
+  text(x0 + c, 252, 'col' + i, 2, 't m');
+});
+
+// parts
+[0, 3].forEach(i => {   // 18650 cells (bottom shelf 22-24.5, cell 29.7-94.7, top shelf 96.5)
+  box(cx[i] + c - 9.3, 29.7, 18.6, 65, 'var(--cell)', 'var(--col-edge)', .3);
+  // contact plates on their shelves: spring (-) below, button (+) above
+  box(cx[i] + c - 7.5, 22.9, 15, 1.6, 'var(--col)'); box(cx[i] + c - 6.5, 24.5, 13, 1.2, 'var(--w-spk)', 'none');
+  box(cx[i] + c - 2.5, 25.7, 5, 4, 'none', 'var(--w-spk)', .35, '.6 .4');
+  box(cx[i] + c - 6.5, 95.3, 13, 1.2, 'var(--w-spk)', 'none'); box(cx[i] + c - 7.5, 96.5, 15, 1.6, 'var(--col)');
+  text(cx[i] + c, 62, '18650', 2.8, 't h');
+  text(cx[i] + c, 91.5, '+', 3); text(cx[i] + c, 33, '−', 3);
+});
+// power leg: charge port in the foot, buck-boost / TP4056 / power-path board lying flat higher up (seen edge-on)
+box(cx[0] + c - 7.5, 2.6, 15, 13, 'var(--b-pow)'); text(cx[0] + c, 10.5, 'micro-USB', 1.8, 't h'); text(cx[0] + c, 7.2, 'charge', 1.4, 't m');
+box(cx[0] + c - 13.1, 124.7, 26.2, 1.6, 'var(--b-pow)'); box(cx[0] + c - 4, 126.3, 8, 4, 'var(--part)');
+text(cx[0] + c, 121.7, 'TPS63020 → 3,3 V', 1.6, 't h');
+box(cx[0] + c - 13, 135.9, 26, 1.6, 'var(--b-pow)'); box(cx[0] + c - 9, 137.5, 7, 3.3, 'var(--part)');
+text(cx[0] + c + 4, 145.4, 'TP4056 + DW01', 1.7, 't h'); text(cx[0] + c + 4, 142.6, 'D3 + C9 · R_PROG 2,4 k', 1.2, 't m');
+box(cx[0] + c - 13.3, 170.8, 26.6, 1.6, 'var(--b-pow)'); box(cx[0] + c - 5, 172.4, 10, 6, 'var(--part)');
+text(cx[0] + c, 182, 'partage de charge', 1.6, 't h'); text(cx[0] + c, 179.6, 'étoile de masse', 1.3, 't m');
+box(cx[1] + c - 12.8, 8.1, 25.6, 34.4, 'var(--b-ctrl)'); text(cx[1] + c, 26, 'LOLIN', 2.6, 't h'); text(cx[1] + c, 22.5, 'S3 Mini', 2.6, 't h'); text(cx[1] + c, 18, 'cerveau unique', 1.8, 't m');
+box(cx[1] + c - 6.7, 76.7, 13.4, 18, 'none', 'var(--col-edge)', .3, '1 .8'); text(cx[1] + c, 85.7, 'logement libre', 1.8, 't m');
+// AM312 motion sensor at the top of the right middle column, above the screen, 1.25 right of the axis (R17 on P2)
+el('circle', { cx: X(cx[2] + c + 1.25), cy: Y(232.9), r: 6, fill: 'var(--b-io)', stroke: 'var(--col-edge)', 'stroke-width': .3 });
+text(cx[2] + c + 1.25, 232.4, 'AM312', 2, 't h');
+[1, 2].forEach((i, k) => {
+  box(cx[i] + c - 13.5, 182.1, 27, 42, 'var(--screen)', 'var(--b-spi)', 1.2);
+  el('text', { x: X(cx[i] + c), y: Y(203), 'font-size': 2.6, 'text-anchor': 'middle', 'dominant-baseline': 'middle', fill: '#e5e8e6', 'font-family': 'var(--f-mono)' }).textContent = 'écran ' + (k + 1);
+  el('text', { x: X(cx[i] + c), y: Y(199), 'font-size': 1.8, 'text-anchor': 'middle', 'dominant-baseline': 'middle', fill: '#9aa3a8', 'font-family': 'var(--f-mono)' }).textContent = '1.3" CS';
+});
+// sensors on the inner front wall of col1, each just above a lid screw row
+box(cx[1] + c - 5, 127.7, 10, 10, 'var(--b-i2s1)'); text(cx[1] + c, 132.7, 'INMP441', 1.6, 't m');
+box(cx[1] + c - 7.675, 103.2, 15.35, 20.34, 'var(--b-i2c)'); text(cx[1] + c, 116, 'ADXL345', 2.2, 't h'); text(cx[1] + c, 112.5, 'accéléro', 1.8, 't m');
+box(cx[2] + c - 11, 30, 22, 39, 'var(--b-spk)'); text(cx[2] + c, 52, 'HP', 2.8, 't h'); text(cx[2] + c, 48, '39×22×10', 1.8, 't m');
+box(cx[2] + c - 9.7, 76.7, 19.4, 18, 'var(--b-i2s0)'); text(cx[2] + c, 85.7, 'MAX98357A', 2.2, 't h');
+// right leg (the cool one): RTC above the top cell shelf, weather sensor above the third screw row
+box(cx[3] + c - 11.09, 107, 22.18, 38.33, 'var(--b-i2c)'); text(cx[3] + c, 129, 'DS3231', 2.6, 't h'); text(cx[3] + c, 125, 'RTC + CR2032', 1.8, 't m');
+box(cx[3] + c - 5.75, 190, 11.5, 15, 'var(--b-i2c)'); text(cx[3] + c, 198.5, 'BME280', 1.9, 't h'); text(cx[3] + c, 195, 'évent Ø1,5', 1.3, 't m');
+
+// distribution boards P1 / P2 below the screens (the bus splits happen there, see the schematic)
+[[1, 'P1 répartiteur'], [2, 'P2 · AMP_SD, 3V3, GND, I2C, PIR']].forEach(([i, l]) => { box(cx[i] + c - 12, 139.9, 24, 32, 'var(--b-dist)', 'var(--col-edge)', .35, '1 .7').setAttribute('fill-opacity', .4); text(cx[i] + c, 137.6, l, 1.5, 't m'); });
+
+// microSD reader, left leg: board lying flat (seen edge-on), socket on top, side grooves
+[[cx[0] + wall, 5.8], [cx[0] + cw - wall - 5.8, 5.8]].forEach(([x0, w]) => box(x0, 114.9, w, 6.5, 'var(--col)', 'var(--col-edge)', .2));
+box(cx[0] + c - 9, 116.5, 18, 1.6, 'var(--b-sd)'); box(cx[0] + c - 7, 118.1, 14, 2, 'var(--b-sd)');
+text(cx[0] + c, 112.5, 'microSD · fente au dos', 1.5, 't h');
+
+// pivot tubes (top pivot only, z 238.4)
+for (let k = 0; k < 3; k++) {
+  const a = cx[k] + cw - wall - 5, b = cx[k + 1] + wall + 5;
+  box(a, P - 4, b - a, 8, 'none', '#b8902a', .45);
+}
+text(30.8, 246.5, '12', 2.4, 't h'); text(62, 246.5, '19', 2.4, 't h'); text(93.2, 246.5, '6', 2.4, 't h');
+
+// floor items (below z = 0)
+box(cx[0] + c - 5.8, -4.5, 11.6, 2.6, 'var(--pcb)'); text(cx[0] + c, -3.2, 'µUSB', 1.7);
+box(cx[0] + c - 6.5, -11, 13, 3.6, 'var(--part)'); text(cx[0] + c, -9.2, 'inter.', 1.7);
+text(cx[0] + c, -14.5, 'sol : charge + inter. (stylo)', 1.8, 't m');
+box(cx[1] + c - 5.8, -4.5, 11.6, 2.6, 'var(--pcb)'); text(cx[1] + c, -3.2, 'USB-C', 1.7);
+text(cx[1] + c, -8, 'sol : flash (inter. indifférent)', 1.8, 't m');
+box(cx[3] + c - 6, -4.5, 12, 2.6, 'none', 'var(--rule)', .25, '1 .8'); text(cx[3] + c, -8, 'sol : rien', 1.8, 't m');
+
+// wires (26 AWG: red B+ / VUSB / VPATH / VSYS with black B− / GND, rails told apart by a coloured band, white 3V3 /
+// blue logic GND to P1 and the S3;
+// 30 AWG: white 3V3 (VCC is white, as in industry) / blue GND of the screens and sensors, signals by role, see the legend)
+const L = { pP: P + 3.3, pN: P + 2.2, sys: P + 1.1, gnd: P, v33: P - 1.1, spi: P - 2.2, i2s: P - 3.3 };
+// VUSB (red, purple band): charge port → TP4056 IN+ and the power-path board (Q1 gate, D1, R1, R15 / R16)
+wire([[11, 15.6], [11, 18], [3.6, 18], [3.6, 170.8]], K('red'), A26, K('pur')); wire([[3.6, 137.5], [5, 137.5]], K('red'), A26); dot(3.6, 137.5, K('red'));
+text(2.6, 60, 'VUSB', 1.3, 't', 'middle', -90);
+// pack B+: TP4056 B+ → left cell + (F1) and through the three tubes to the right cell + (F2)
+wire([[21, 96.5], [21, 135.9]], K('red'), A26);
+wire([[21, 128], [28, 128], [28, L.pP], [95.6, L.pP], [95.6, 101], [103, 101], [103, 96.5]], K('red'), A26); dot(21, 128, K('red'));
+box(19.8, 100.5, 2.4, 3.2, 'var(--b-pow)', 'var(--w-pos)', .3); text(17.2, 102.1, 'F1', 1.4, 't h');
+box(101.8, 98, 2.4, 2.4, 'var(--b-pow)', 'var(--w-pos)', .3); text(99.6, 99.2, 'F2', 1.4, 't h');
+// pack B−: bottom contacts → TP4056 B−
+wire([[c, 24.5], [c, 23.4], [19.5, 23.4], [19.5, 135.9]], K('blk'), A26);
+wire([[19.5, 120], [27, 120], [27, L.pN], [96.8, L.pN], [96.8, 120], [105, 120], [105, 23.4], [cx[3] + c, 23.4], [cx[3] + c, 24.5]], K('blk'), A26); dot(19.5, 120, K('blk'));
+// TP4056 OUT+ / OUT− → power-path board (Q1, star): red / black, white band
+wire([[25, 137.5], [25, 170.8]], K('red'), A26, K('wht')); wire([[26.5, 137.5], [26.5, 170.8]], K('blk'), A26, K('wht'));
+// VPATH (red, yellow band) down to the floor switch, VSYS (red, orange band) back up to the star
+wire([[7.6, 170.8], [7.6, -9.2], [cx[0] + c - 6.5, -9.2]], K('red'), A26, K('yel'));
+wire([[cx[0] + c + 6.5, -9.2], [23, -9.2], [23, 170.8]], K('red'), A26, K('org'));
+// star → TPS63020 (its own VSYS / GND pair)
+wire([[22, 170.8], [22, 126.3]], K('red'), A26, K('org')); wire([[24, 170.8], [24, 126.3]], K('blk'), A26, K('org'));
+// star → amplifier VIN (own twisted VSYS / GND pair through the left and middle tubes; orange band ≠ the cell's B+ / B−)
+wire([[22, 178.4], [22, 180], [26, 180], [26, L.sys], [65.3, L.sys], [65.3, 97.5], [78, 97.5], [78, 94.7]], K('red'), A26, K('org'));
+wire([[24, 178.4], [24, 179], [27.3, 179], [27.3, L.gnd], [66.4, L.gnd], [66.4, 99], [82, 99], [82, 94.7]], K('blk'), A26, K('org'));
+// 3V3: TPS63020 → left tube → P1 → S3 3V pin (26 AWG white); screens and sensors in 30 AWG white
+wire([[16.5, 126.3], [16.5, L.v33], [55.2, L.v33]], K('wht'), A26);
+wire([[55.2, L.v33], [55.2, 54.5], [46, 54.5], [46, 42.5]], K('wht'), A26);
+wire([[55.2, L.v33], [69.5, L.v33], [69.5, 224.1]], K('wht'));
+wire([[55.2, 180], [54, 180], [54, 182.1]], K('wht')); dot(55.2, 180, K('wht')); dot(55.2, L.v33, K('wht'));
+// logic GND: TPS63020 GND pad → left tube → P1 → S3 G (26 AWG blue); screens and sensors in 30 AWG blue
+wire([[14.5, 126.3], [14.5, P - 3.9], [34.6, P - 3.9]], K('blu'), A26);
+wire([[34.6, P - 3.9], [34.6, 48], [38, 48], [38, 42.3]], K('blu'), A26);
+wire([[34.6, P - 3.9], [67.8, P - 3.9], [67.8, 224.1]], K('blu'));
+wire([[34.6, 179], [36.5, 179], [36.5, 182.1]], K('blu')); dot(34.6, 179, K('blu')); dot(34.6, P - 3.9, K('blu'));
+// VBAT/2 (B+ divider R2 / R3) and USB_DET (R15 / R16) from the power-path board → GPIO1 / GPIO21
+wire([[12.6, 172.4], [13.6, 172.4], [13.6, P + 3.9], [41.5, P + 3.9], [41.5, 42.5]], K('brn')); text(41.5, 92, 'VBAT/2', 1.4, 't', 'middle', -90);
+wire([[12.6, 174.5], [12.3, 174.5], [12.3, P + 4.6], [42.2, P + 4.6], [42.2, 42.5]], K('org')); text(42.2, 100, 'USB_DET', 1.3, 't', 'middle', -90);
+// SPI ×5 (SCK yellow, MOSI green, DC red, CS purple, RST orange): screen 1 locally, screen 2 through the middle tube
+const SPI = [K('yel'), K('grn'), K('red'), K('pur'), K('org')];
+bundle([[52, 42.3], [52, 50], [56.6, 50], [56.6, 182.1]], SPI);
+bundle([[55, 42.3], [55, 51.5], [58.4, 51.5], [58.4, L.spi], [72, L.spi], [72, 224.1]], SPI);
+// I2S0 to the amp (BCLK yellow, LRC purple, DIN green, 1 ring)
+const I2S = [K('yel'), K('pur'), K('grn')];
+bundle([[49, 42.3], [49, 53], [59.6, 53], [59.6, L.i2s], [64.2, L.i2s], [64.2, 96], [72.5, 96], [72.5, 94.7]], I2S, 1);
+// I2C chain (SCL yellow, SDA green, 2 rings): S3 → ADXL345 → middle tube → P2 → right tube → BME280 and DS3231
+const I2C = [K('yel'), K('grn')];
+bundle([[40, 42.3], [40, 123.5]], I2C, 2); dot(40, 113);
+bundle([[40, 123.5], [40, 186], [47.4, 186], [47.4, P - 5.6], [73.6, P - 5.6], [73.6, 171.9]], I2C, 2);
+bundle([[76, 171.9], [76, P - 6.3], [100.8, P - 6.3], [100.8, 145.3]], I2C, 2); dot(100.8, 197.5);
+bundle([[100.8, 197.5], [103, 197.5]], I2C);
+text(47.4, 205, 'I2C ×2 → P2', 1.3, 't', 'middle', -90); text(100.8, 170, 'I2C ×2', 1.3, 't', 'middle', -90);
+// sensor power: col1 from the 3V3 / GND lanes (P1), right leg from P2 through the right tube
+wire([[55.2, 112], [54.075, 112]], K('wht')); dot(55.2, 112, K('wht'));
+wire([[34.6, 115], [38.725, 115]], K('blu')); dot(34.6, 115, K('blu'));
+wire([[88, 165], [88, P - 1.1], [99.4, P - 1.1], [99.4, 145.3]], K('wht')); wire([[99.4, 196], [103, 196]], K('wht')); dot(99.4, 196, K('wht'));
+wire([[89.2, 163], [89.2, P], [98.2, P], [98.2, 145.3]], K('blu')); wire([[98.2, 194.5], [103, 194.5]], K('blu')); dot(98.2, 194.5, K('blu'));
+// microphone on I2S1 (MIC_BCLK yellow, MIC_WS purple, MIC_SD green, 1 ring; local), power from the lanes
+bundle([[50.5, 42.3], [50.5, 127.7]], I2S, 1);
+wire([[55.2, 135], [51.4, 135]], K('wht')); dot(55.2, 135, K('wht'));
+wire([[34.6, 133], [41.4, 133]], K('blu')); dot(34.6, 133, K('blu'));
+// BL_EN (brown): one GPIO → BLK of screen 1 (local) and of screen 2 (through the middle tube)
+wire([[58, 42.3], [58, 44], [61.4, 44], [61.4, P - 4.4], [63.6, P - 4.4], [63.6, 180]], K('brn'));
+wire([[61.4, 180], [59.4, 180], [59.4, 182.1]], K('brn')); dot(61.4, 180, K('brn'));
+wire([[63.6, 180], [64.8, 180], [64.8, 182.1]], K('brn')); dot(63.6, 180, K('brn'));
+// AMP_SD (brown, 1 ring): GPIO4 → middle tube → P2 (R10 in series, R18 to GND) → amplifier SD
+wire([[53.5, 42.3], [53.5, 45.5], [60.5, 45.5], [60.5, P + 4.3], [81, P + 4.3], [81, 171.9]], K('brn'), A30, 1);
+wire([[81, 139.9], [81, 101], [70.5, 101], [70.5, 94.7]], K('brn'), A30, 1); text(81, 120, 'AMP_SD', 1.2, 't', 'middle', -90);
+// motion sensor: 3 wires from P2 (R17) up to the AM312 (3V3 white, OUT red 1 ring, GND blue), PIR back through the middle tube to GPIO3
+bundle([[83.6, 168], [86.4, 168], [86.4, 228], [83.6, 228]], [K('wht'), K('red'), K('blu')], [0, 1, 0]); text(87.8, 200, '3 fils → AM312', 1.3, 't', 'middle', -90);
+wire([[71.6, 160], [70.8, 160], [70.8, P - 4.9], [45.2, P - 4.9], [45.2, 42.5]], K('red'), A30, 1);
+text(45.2, 64, 'PIR → GPIO3', 1.3, 't', 'middle', -90);
+// amp → speaker (the speaker's own leads)
+wire([[75, 76.7], [75, 69]], K('gry')); wire([[80, 76.7], [80, 69]], K('gry'));
+
+// microSD (3 rings): CLK yellow, CMD purple, D0 green up the left middle column and through the left tube; 3V3 local
+// from the TPS63020 (white), GND blue from P1, twisted with CLK
+bundle([[43, 42.3], [43, P - 2.2], [20.5, P - 2.2], [20.5, 120.1]], [K('yel'), K('pur'), K('grn')], 3);
+wire([[18, 124.7], [18, 120.1]], K('wht'));
+wire([[44.5, 171.9], [44.5, P - 3.3], [21.8, P - 3.3], [21.8, 120.1]], K('blu'), A30, 3);
+text(43, 70, 'SD ×3', 1.8, 't', 'middle', -90);
+
+// bundle labels
+text(56.6, 120, 'SPI ×5 → écran 1', 1.8, 't', 'middle', -90);
+text(58.4, 150, 'SPI ×5 → écran 2', 1.8, 't', 'middle', -90);
+text(59.6, 110, 'I2S ×3', 1.8, 't', 'middle', -90);
+text(40, 75, 'I2C ×2', 1.8, 't', 'middle', -90);
+text(27.5, 210, 'B+ B− · paire ampli', 1.8, 't', 'middle', -90);
+text(96.2, 215, 'B+ B− · I2C · 3V3 · GND', 1.6, 't', 'middle', -90);
+
+// orientation note
+text(62, -18.5, '← droite de TARS · vue de dos · gauche de TARS →', 2, 't m');
+</script>

@@ -1,0 +1,713 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1661" width="960" height="1661" font-family="IBM Plex Sans, Segoe UI, sans-serif">
+<rect width="960" height="1661" fill="#fbfbf9"/>
+<text x="100" y="34" font-size="22" font-weight="600" fill="#1d2226" font-family="IBM Plex Sans Condensed, Arial Narrow, sans-serif">P1 · répartiteur du milieu gauche</text>
+<text x="100" y="56" font-size="12.5" fill="#5e676d">plaque à bandes, 24 × 32 mm, 9 × 12 trous, bandes horizontales · debout sous l'écran 1, z 139,9–171,9</text>
+<text x="100" y="82" font-size="13" font-weight="600" fill="#1d2226">côté composants</text>
+<rect x="100" y="112" width="300.0" height="400.0" rx="4" fill="#efe3c6" stroke="#9c8a62" stroke-width="1.2"/>
+<text x="123.0" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">A</text>
+<text x="154.75" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">B</text>
+<text x="186.5" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">C</text>
+<text x="218.25" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">D</text>
+<text x="250.0" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">E</text>
+<text x="281.75" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">F</text>
+<text x="313.5" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">G</text>
+<text x="345.25" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">H</text>
+<text x="377.0" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">I</text>
+<text x="92" y="490.125" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">1</text>
+<text x="92" y="458.375" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">2</text>
+<text x="92" y="426.625" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">3</text>
+<text x="92" y="394.875" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">4</text>
+<text x="92" y="363.125" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">5</text>
+<text x="92" y="331.375" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">6</text>
+<text x="92" y="299.625" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">7</text>
+<text x="92" y="267.875" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">8</text>
+<text x="92" y="236.125" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">9</text>
+<text x="92" y="204.375" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">10</text>
+<text x="92" y="172.625" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">11</text>
+<text x="92" y="140.875" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">12</text>
+<text x="74" y="172.625" font-size="10.5" text-anchor="end" fill="#1d2226" font-weight="600">GND</text>
+<text x="74" y="204.375" font-size="10.5" text-anchor="end" fill="#1d2226" font-weight="600">GND</text>
+<text x="74" y="236.125" font-size="10.5" text-anchor="end" fill="#1d2226" font-weight="600">3V3</text>
+<text x="74" y="267.875" font-size="10.5" text-anchor="end" fill="#1d2226" font-weight="600">BL_EN</text>
+<text x="74" y="299.625" font-size="10.5" text-anchor="end" fill="#1d2226" font-weight="600">DC</text>
+<text x="74" y="331.375" font-size="10.5" text-anchor="end" fill="#1d2226" font-weight="600">RST</text>
+<text x="74" y="363.125" font-size="10.5" text-anchor="end" fill="#1d2226" font-weight="600">MOSI</text>
+<circle cx="123.0" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="123.0" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="123.0" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="123.0" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="123.0" cy="359.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="123.0" cy="327.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="123.0" cy="296.125" r="6.35" fill="#6f5f3e"/>
+<circle cx="123.0" cy="264.375" r="6.35" fill="#6f5f3e"/>
+<circle cx="123.0" cy="232.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="123.0" cy="200.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="123.0" cy="169.125" r="6.35" fill="#b9a47a"/>
+<circle cx="123.0" cy="137.375" r="6.35" fill="#b9a47a"/>
+<circle cx="154.75" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="154.75" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="154.75" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="154.75" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="154.75" cy="359.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="154.75" cy="327.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="154.75" cy="296.125" r="6.35" fill="#6f5f3e"/>
+<circle cx="154.75" cy="264.375" r="6.35" fill="#6f5f3e"/>
+<circle cx="154.75" cy="232.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="154.75" cy="200.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="154.75" cy="169.125" r="6.35" fill="#6f5f3e"/>
+<circle cx="154.75" cy="137.375" r="6.35" fill="#b9a47a"/>
+<circle cx="186.5" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="186.5" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="186.5" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="186.5" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="186.5" cy="359.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="186.5" cy="327.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="186.5" cy="296.125" r="6.35" fill="#6f5f3e"/>
+<circle cx="186.5" cy="264.375" r="6.35" fill="#6f5f3e"/>
+<circle cx="186.5" cy="232.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="186.5" cy="200.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="186.5" cy="169.125" r="6.35" fill="#6f5f3e"/>
+<circle cx="186.5" cy="137.375" r="6.35" fill="#b9a47a"/>
+<circle cx="218.25" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="218.25" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="218.25" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="218.25" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="218.25" cy="359.625" r="6.35" fill="#b9a47a"/>
+<circle cx="218.25" cy="327.875" r="6.35" fill="#b9a47a"/>
+<circle cx="218.25" cy="296.125" r="6.35" fill="#b9a47a"/>
+<circle cx="218.25" cy="264.375" r="6.35" fill="#b9a47a"/>
+<circle cx="218.25" cy="232.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="218.25" cy="200.875" r="6.35" fill="#b9a47a"/>
+<circle cx="218.25" cy="169.125" r="6.35" fill="#6f5f3e"/>
+<circle cx="218.25" cy="137.375" r="6.35" fill="#b9a47a"/>
+<circle cx="250.0" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="250.0" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="250.0" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="250.0" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="250.0" cy="359.625" r="6.35" fill="#b9a47a"/>
+<circle cx="250.0" cy="327.875" r="6.35" fill="#b9a47a"/>
+<circle cx="250.0" cy="296.125" r="6.35" fill="#b9a47a"/>
+<circle cx="250.0" cy="264.375" r="6.35" fill="#6f5f3e"/>
+<circle cx="250.0" cy="232.625" r="6.35" fill="#b9a47a"/>
+<circle cx="250.0" cy="200.875" r="6.35" fill="#b9a47a"/>
+<circle cx="250.0" cy="169.125" r="6.35" fill="#6f5f3e"/>
+<circle cx="250.0" cy="137.375" r="6.35" fill="#b9a47a"/>
+<circle cx="281.75" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="281.75" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="281.75" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="281.75" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="281.75" cy="359.625" r="6.35" fill="#b9a47a"/>
+<circle cx="281.75" cy="327.875" r="6.35" fill="#b9a47a"/>
+<circle cx="281.75" cy="296.125" r="6.35" fill="#b9a47a"/>
+<circle cx="281.75" cy="264.375" r="6.35" fill="#b9a47a"/>
+<circle cx="281.75" cy="232.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="281.75" cy="200.875" r="6.35" fill="#b9a47a"/>
+<circle cx="281.75" cy="169.125" r="6.35" fill="#b9a47a"/>
+<circle cx="281.75" cy="137.375" r="6.35" fill="#b9a47a"/>
+<circle cx="313.5" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="313.5" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="313.5" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="313.5" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="313.5" cy="359.625" r="6.35" fill="#b9a47a"/>
+<circle cx="313.5" cy="327.875" r="6.35" fill="#b9a47a"/>
+<circle cx="313.5" cy="296.125" r="6.35" fill="#b9a47a"/>
+<circle cx="313.5" cy="264.375" r="6.35" fill="#b9a47a"/>
+<circle cx="313.5" cy="232.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="313.5" cy="200.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="313.5" cy="169.125" r="6.35" fill="#b9a47a"/>
+<circle cx="313.5" cy="137.375" r="6.35" fill="#b9a47a"/>
+<circle cx="345.25" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="345.25" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="345.25" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="345.25" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="345.25" cy="359.625" r="6.35" fill="#b9a47a"/>
+<circle cx="345.25" cy="327.875" r="6.35" fill="#b9a47a"/>
+<circle cx="345.25" cy="296.125" r="6.35" fill="#b9a47a"/>
+<circle cx="345.25" cy="264.375" r="6.35" fill="#b9a47a"/>
+<circle cx="345.25" cy="232.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="345.25" cy="200.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="345.25" cy="169.125" r="6.35" fill="#b9a47a"/>
+<circle cx="345.25" cy="137.375" r="6.35" fill="#b9a47a"/>
+<circle cx="377.0" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="377.0" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="377.0" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="377.0" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="377.0" cy="359.625" r="6.35" fill="#b9a47a"/>
+<circle cx="377.0" cy="327.875" r="6.35" fill="#b9a47a"/>
+<circle cx="377.0" cy="296.125" r="6.35" fill="#b9a47a"/>
+<circle cx="377.0" cy="264.375" r="6.35" fill="#b9a47a"/>
+<circle cx="377.0" cy="232.625" r="6.35" fill="#b9a47a"/>
+<circle cx="377.0" cy="200.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="377.0" cy="169.125" r="6.35" fill="#6f5f3e"/>
+<circle cx="377.0" cy="137.375" r="6.35" fill="#b9a47a"/>
+<polyline points="377.0,200.875 377.0,169.125" fill="none" stroke="#3a4248" stroke-width="3.4" stroke-linecap="round"/>
+<polyline points="377.0,200.875 377.0,169.125" fill="none" stroke="#e8ecee" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="250.0" y1="264.375" x2="250.0" y2="169.125" stroke="#7d868b" stroke-width="2"/>
+<rect x="215.075" y="201.75" width="69.85" height="30.0" rx="12.0" fill="#d8c08e" stroke="#5e676d" stroke-width="1" transform="rotate(-90.0 250.0 216.75)"/>
+<text x="250.0" y="220.75" font-size="10.5" text-anchor="middle" fill="#1d2226" font-weight="600" transform="rotate(-90.0 250.0 216.75)">R4 10 k</text>
+<circle cx="313.5" cy="216.75" r="31.25" fill="#3d6aa8" fill-opacity=".85" stroke="#28466f" stroke-width="1"/>
+<text x="313.5" y="236.625" font-size="12" text-anchor="middle" fill="#ffffff" font-weight="700">+</text>
+<text x="313.5" y="182.5" font-size="10" text-anchor="middle" fill="#1d2226" font-weight="600" paint-order="stroke" stroke="#fbfbf9" stroke-width="3">C2</text>
+<rect x="315.25" y="201.75" width="60.0" height="30.0" rx="13.750000000000002" fill="#e0a43a" stroke="#8a5e15" stroke-width="1" transform="rotate(-90.0 345.25 216.75)"/>
+<text x="345.25" y="220.25" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600">C3</text>
+<circle cx="123.0" cy="200.875" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="123.0" cy="200.875" r="8.572500000000002" fill="#2a62d6"/>
+<text x="123.0" y="204.275" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">1</text>
+<circle cx="154.75" cy="200.875" r="12.095" fill="#3a4248"/>
+<circle cx="154.75" cy="200.875" r="10.795" fill="#2a62d6"/>
+<text x="154.75" y="204.275" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">2</text>
+<circle cx="186.5" cy="200.875" r="12.095" fill="#3a4248"/>
+<circle cx="186.5" cy="200.875" r="10.795" fill="#2a62d6"/>
+<text x="186.5" y="204.275" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">3</text>
+<circle cx="154.75" cy="169.125" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="154.75" cy="169.125" r="8.572500000000002" fill="#2a62d6"/>
+<line x1="144.1775" y1="163.5525" x2="148.1775" y2="163.5525" stroke="#1d2226" stroke-width="1.6"/>
+<line x1="144.1775" y1="166.7525" x2="148.1775" y2="166.7525" stroke="#1d2226" stroke-width="1.6"/>
+<line x1="144.1775" y1="169.95250000000001" x2="148.1775" y2="169.95250000000001" stroke="#1d2226" stroke-width="1.6"/>
+<text x="154.75" y="172.525" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">4</text>
+<circle cx="186.5" cy="169.125" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="186.5" cy="169.125" r="8.572500000000002" fill="#2a62d6"/>
+<text x="186.5" y="172.525" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">5</text>
+<circle cx="218.25" cy="169.125" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="218.25" cy="169.125" r="8.572500000000002" fill="#2a62d6"/>
+<text x="218.25" y="172.525" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">6</text>
+<circle cx="123.0" cy="232.625" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="123.0" cy="232.625" r="8.572500000000002" fill="#fbfbf7"/>
+<text x="123.0" y="236.025" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">7</text>
+<circle cx="154.75" cy="232.625" r="12.095" fill="#3a4248"/>
+<circle cx="154.75" cy="232.625" r="10.795" fill="#fbfbf7"/>
+<text x="154.75" y="236.025" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">8</text>
+<circle cx="186.5" cy="232.625" r="12.095" fill="#3a4248"/>
+<circle cx="186.5" cy="232.625" r="10.795" fill="#fbfbf7"/>
+<text x="186.5" y="236.025" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">9</text>
+<circle cx="218.25" cy="232.625" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="218.25" cy="232.625" r="8.572500000000002" fill="#fbfbf7"/>
+<text x="218.25" y="236.025" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">10</text>
+<circle cx="281.75" cy="232.625" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="281.75" cy="232.625" r="8.572500000000002" fill="#fbfbf7"/>
+<text x="281.75" y="236.025" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">11</text>
+<circle cx="123.0" cy="264.375" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="123.0" cy="264.375" r="8.572500000000002" fill="#8a5326"/>
+<text x="123.0" y="267.775" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">12</text>
+<circle cx="154.75" cy="264.375" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="154.75" cy="264.375" r="8.572500000000002" fill="#8a5326"/>
+<text x="154.75" y="267.775" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">13</text>
+<circle cx="186.5" cy="264.375" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="186.5" cy="264.375" r="8.572500000000002" fill="#8a5326"/>
+<text x="186.5" y="267.775" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">14</text>
+<circle cx="123.0" cy="296.125" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="123.0" cy="296.125" r="8.572500000000002" fill="#d7262b"/>
+<text x="123.0" y="299.525" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">15</text>
+<circle cx="154.75" cy="296.125" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="154.75" cy="296.125" r="8.572500000000002" fill="#d7262b"/>
+<text x="154.75" y="299.525" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">16</text>
+<circle cx="186.5" cy="296.125" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="186.5" cy="296.125" r="8.572500000000002" fill="#d7262b"/>
+<text x="186.5" y="299.525" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">17</text>
+<circle cx="123.0" cy="327.875" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="123.0" cy="327.875" r="8.572500000000002" fill="#f07800"/>
+<text x="123.0" y="331.275" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">18</text>
+<circle cx="154.75" cy="327.875" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="154.75" cy="327.875" r="8.572500000000002" fill="#f07800"/>
+<text x="154.75" y="331.275" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">19</text>
+<circle cx="186.5" cy="327.875" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="186.5" cy="327.875" r="8.572500000000002" fill="#f07800"/>
+<text x="186.5" y="331.275" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">20</text>
+<circle cx="123.0" cy="359.625" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="123.0" cy="359.625" r="8.572500000000002" fill="#23964a"/>
+<text x="123.0" y="363.025" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">21</text>
+<circle cx="154.75" cy="359.625" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="154.75" cy="359.625" r="8.572500000000002" fill="#23964a"/>
+<text x="154.75" y="363.025" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">22</text>
+<circle cx="186.5" cy="359.625" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="186.5" cy="359.625" r="8.572500000000002" fill="#23964a"/>
+<text x="186.5" y="363.025" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">23</text>
+<text x="490.0" y="82" font-size="13" font-weight="600" fill="#1d2226">côté soudures (miroir)</text>
+<rect x="490.0" y="112" width="300.0" height="400.0" rx="4" fill="#e2cfa3" stroke="#9c8a62" stroke-width="1.2"/>
+<text x="767.0" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">A</text>
+<text x="735.25" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">B</text>
+<text x="703.5" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">C</text>
+<text x="671.75" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">D</text>
+<text x="640.0" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">E</text>
+<text x="608.25" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">F</text>
+<text x="576.5" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">G</text>
+<text x="544.75" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">H</text>
+<text x="513.0" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">I</text>
+<text x="798.0" y="490.125" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">1</text>
+<text x="798.0" y="458.375" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">2</text>
+<text x="798.0" y="426.625" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">3</text>
+<text x="798.0" y="394.875" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">4</text>
+<text x="798.0" y="363.125" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">5</text>
+<text x="798.0" y="331.375" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">6</text>
+<text x="798.0" y="299.625" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">7</text>
+<text x="798.0" y="267.875" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">8</text>
+<text x="798.0" y="236.125" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">9</text>
+<text x="798.0" y="204.375" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">10</text>
+<text x="798.0" y="172.625" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">11</text>
+<text x="798.0" y="140.875" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">12</text>
+<rect x="498.7125" y="474.56" width="282.57500000000005" height="24.130000000000003" rx="2" fill="#c98a4b"/>
+<rect x="498.7125" y="442.81" width="282.57500000000005" height="24.130000000000003" rx="2" fill="#c98a4b"/>
+<rect x="498.7125" y="411.06" width="282.57500000000005" height="24.130000000000003" rx="2" fill="#c98a4b"/>
+<rect x="498.7125" y="379.31" width="282.57500000000005" height="24.130000000000003" rx="2" fill="#c98a4b"/>
+<rect x="498.7125" y="347.56" width="282.57500000000005" height="24.130000000000003" rx="2" fill="#c98a4b"/>
+<text x="493.315" y="363.625" font-size="10.5" text-anchor="end" fill="#1d2226" font-weight="600">MOSI</text>
+<rect x="498.7125" y="315.81" width="282.57500000000005" height="24.130000000000003" rx="2" fill="#c98a4b"/>
+<text x="493.315" y="331.875" font-size="10.5" text-anchor="end" fill="#1d2226" font-weight="600">RST</text>
+<rect x="498.7125" y="284.06" width="282.57500000000005" height="24.130000000000003" rx="2" fill="#c98a4b"/>
+<text x="493.315" y="300.125" font-size="10.5" text-anchor="end" fill="#1d2226" font-weight="600">DC</text>
+<rect x="498.7125" y="252.31" width="282.57500000000005" height="24.130000000000003" rx="2" fill="#c98a4b"/>
+<text x="493.315" y="268.375" font-size="10.5" text-anchor="end" fill="#1d2226" font-weight="600">BL_EN</text>
+<rect x="498.7125" y="220.56" width="282.57500000000005" height="24.130000000000003" rx="2" fill="#c98a4b"/>
+<text x="493.315" y="236.625" font-size="10.5" text-anchor="end" fill="#1d2226" font-weight="600">3V3</text>
+<rect x="498.7125" y="188.81" width="282.57500000000005" height="24.130000000000003" rx="2" fill="#c98a4b"/>
+<text x="493.315" y="204.875" font-size="10.5" text-anchor="end" fill="#1d2226" font-weight="600">GND</text>
+<rect x="498.7125" y="157.06" width="282.57500000000005" height="24.130000000000003" rx="2" fill="#c98a4b"/>
+<text x="493.315" y="173.125" font-size="10.5" text-anchor="end" fill="#1d2226" font-weight="600">GND</text>
+<rect x="498.7125" y="125.31" width="282.57500000000005" height="24.130000000000003" rx="2" fill="#c98a4b"/>
+<circle cx="767.0" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="767.0" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="767.0" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="767.0" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="767.0" cy="359.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="767.0" cy="327.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="767.0" cy="296.125" r="6.35" fill="#6f5f3e"/>
+<circle cx="767.0" cy="264.375" r="6.35" fill="#6f5f3e"/>
+<circle cx="767.0" cy="232.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="767.0" cy="200.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="767.0" cy="169.125" r="6.35" fill="#b9a47a"/>
+<circle cx="767.0" cy="137.375" r="6.35" fill="#b9a47a"/>
+<circle cx="735.25" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="735.25" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="735.25" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="735.25" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="735.25" cy="359.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="735.25" cy="327.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="735.25" cy="296.125" r="6.35" fill="#6f5f3e"/>
+<circle cx="735.25" cy="264.375" r="6.35" fill="#6f5f3e"/>
+<circle cx="735.25" cy="232.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="735.25" cy="200.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="735.25" cy="169.125" r="6.35" fill="#6f5f3e"/>
+<circle cx="735.25" cy="137.375" r="6.35" fill="#b9a47a"/>
+<circle cx="703.5" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="703.5" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="703.5" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="703.5" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="703.5" cy="359.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="703.5" cy="327.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="703.5" cy="296.125" r="6.35" fill="#6f5f3e"/>
+<circle cx="703.5" cy="264.375" r="6.35" fill="#6f5f3e"/>
+<circle cx="703.5" cy="232.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="703.5" cy="200.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="703.5" cy="169.125" r="6.35" fill="#6f5f3e"/>
+<circle cx="703.5" cy="137.375" r="6.35" fill="#b9a47a"/>
+<circle cx="671.75" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="671.75" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="671.75" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="671.75" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="671.75" cy="359.625" r="6.35" fill="#b9a47a"/>
+<circle cx="671.75" cy="327.875" r="6.35" fill="#b9a47a"/>
+<circle cx="671.75" cy="296.125" r="6.35" fill="#b9a47a"/>
+<circle cx="671.75" cy="264.375" r="6.35" fill="#b9a47a"/>
+<circle cx="671.75" cy="232.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="671.75" cy="200.875" r="6.35" fill="#b9a47a"/>
+<circle cx="671.75" cy="169.125" r="6.35" fill="#6f5f3e"/>
+<circle cx="671.75" cy="137.375" r="6.35" fill="#b9a47a"/>
+<circle cx="640.0" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="640.0" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="640.0" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="640.0" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="640.0" cy="359.625" r="6.35" fill="#b9a47a"/>
+<circle cx="640.0" cy="327.875" r="6.35" fill="#b9a47a"/>
+<circle cx="640.0" cy="296.125" r="6.35" fill="#b9a47a"/>
+<circle cx="640.0" cy="264.375" r="6.35" fill="#6f5f3e"/>
+<circle cx="640.0" cy="232.625" r="6.35" fill="#b9a47a"/>
+<circle cx="640.0" cy="200.875" r="6.35" fill="#b9a47a"/>
+<circle cx="640.0" cy="169.125" r="6.35" fill="#6f5f3e"/>
+<circle cx="640.0" cy="137.375" r="6.35" fill="#b9a47a"/>
+<circle cx="608.25" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="608.25" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="608.25" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="608.25" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="608.25" cy="359.625" r="6.35" fill="#b9a47a"/>
+<circle cx="608.25" cy="327.875" r="6.35" fill="#b9a47a"/>
+<circle cx="608.25" cy="296.125" r="6.35" fill="#b9a47a"/>
+<circle cx="608.25" cy="264.375" r="6.35" fill="#b9a47a"/>
+<circle cx="608.25" cy="232.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="608.25" cy="200.875" r="6.35" fill="#b9a47a"/>
+<circle cx="608.25" cy="169.125" r="6.35" fill="#b9a47a"/>
+<circle cx="608.25" cy="137.375" r="6.35" fill="#b9a47a"/>
+<circle cx="576.5" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="576.5" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="576.5" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="576.5" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="576.5" cy="359.625" r="6.35" fill="#b9a47a"/>
+<circle cx="576.5" cy="327.875" r="6.35" fill="#b9a47a"/>
+<circle cx="576.5" cy="296.125" r="6.35" fill="#b9a47a"/>
+<circle cx="576.5" cy="264.375" r="6.35" fill="#b9a47a"/>
+<circle cx="576.5" cy="232.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="576.5" cy="200.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="576.5" cy="169.125" r="6.35" fill="#b9a47a"/>
+<circle cx="576.5" cy="137.375" r="6.35" fill="#b9a47a"/>
+<circle cx="544.75" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="544.75" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="544.75" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="544.75" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="544.75" cy="359.625" r="6.35" fill="#b9a47a"/>
+<circle cx="544.75" cy="327.875" r="6.35" fill="#b9a47a"/>
+<circle cx="544.75" cy="296.125" r="6.35" fill="#b9a47a"/>
+<circle cx="544.75" cy="264.375" r="6.35" fill="#b9a47a"/>
+<circle cx="544.75" cy="232.625" r="6.35" fill="#6f5f3e"/>
+<circle cx="544.75" cy="200.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="544.75" cy="169.125" r="6.35" fill="#b9a47a"/>
+<circle cx="544.75" cy="137.375" r="6.35" fill="#b9a47a"/>
+<circle cx="513.0" cy="486.625" r="6.35" fill="#b9a47a"/>
+<circle cx="513.0" cy="454.875" r="6.35" fill="#b9a47a"/>
+<circle cx="513.0" cy="423.125" r="6.35" fill="#b9a47a"/>
+<circle cx="513.0" cy="391.375" r="6.35" fill="#b9a47a"/>
+<circle cx="513.0" cy="359.625" r="6.35" fill="#b9a47a"/>
+<circle cx="513.0" cy="327.875" r="6.35" fill="#b9a47a"/>
+<circle cx="513.0" cy="296.125" r="6.35" fill="#b9a47a"/>
+<circle cx="513.0" cy="264.375" r="6.35" fill="#b9a47a"/>
+<circle cx="513.0" cy="232.625" r="6.35" fill="#b9a47a"/>
+<circle cx="513.0" cy="200.875" r="6.35" fill="#6f5f3e"/>
+<circle cx="513.0" cy="169.125" r="6.35" fill="#6f5f3e"/>
+<circle cx="513.0" cy="137.375" r="6.35" fill="#b9a47a"/>
+<circle cx="513.0" cy="200.875" r="7.62" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="513.0" cy="169.125" r="7.62" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="640.0" cy="264.375" r="6.984999999999999" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="640.0" cy="169.125" r="6.984999999999999" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="576.5" cy="232.625" r="6.984999999999999" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="576.5" cy="200.875" r="6.984999999999999" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="544.75" cy="232.625" r="6.984999999999999" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="544.75" cy="200.875" r="6.984999999999999" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="767.0" cy="200.875" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="767.0" cy="200.875" r="8.572500000000002" fill="#2a62d6"/>
+<text x="767.0" y="204.275" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">1</text>
+<circle cx="735.25" cy="200.875" r="12.095" fill="#3a4248"/>
+<circle cx="735.25" cy="200.875" r="10.795" fill="#2a62d6"/>
+<text x="735.25" y="204.275" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">2</text>
+<circle cx="703.5" cy="200.875" r="12.095" fill="#3a4248"/>
+<circle cx="703.5" cy="200.875" r="10.795" fill="#2a62d6"/>
+<text x="703.5" y="204.275" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">3</text>
+<circle cx="735.25" cy="169.125" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="735.25" cy="169.125" r="8.572500000000002" fill="#2a62d6"/>
+<line x1="724.6775" y1="163.5525" x2="728.6775" y2="163.5525" stroke="#1d2226" stroke-width="1.6"/>
+<line x1="724.6775" y1="166.7525" x2="728.6775" y2="166.7525" stroke="#1d2226" stroke-width="1.6"/>
+<line x1="724.6775" y1="169.95250000000001" x2="728.6775" y2="169.95250000000001" stroke="#1d2226" stroke-width="1.6"/>
+<text x="735.25" y="172.525" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">4</text>
+<circle cx="703.5" cy="169.125" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="703.5" cy="169.125" r="8.572500000000002" fill="#2a62d6"/>
+<text x="703.5" y="172.525" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">5</text>
+<circle cx="671.75" cy="169.125" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="671.75" cy="169.125" r="8.572500000000002" fill="#2a62d6"/>
+<text x="671.75" y="172.525" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">6</text>
+<circle cx="767.0" cy="232.625" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="767.0" cy="232.625" r="8.572500000000002" fill="#fbfbf7"/>
+<text x="767.0" y="236.025" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">7</text>
+<circle cx="735.25" cy="232.625" r="12.095" fill="#3a4248"/>
+<circle cx="735.25" cy="232.625" r="10.795" fill="#fbfbf7"/>
+<text x="735.25" y="236.025" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">8</text>
+<circle cx="703.5" cy="232.625" r="12.095" fill="#3a4248"/>
+<circle cx="703.5" cy="232.625" r="10.795" fill="#fbfbf7"/>
+<text x="703.5" y="236.025" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">9</text>
+<circle cx="671.75" cy="232.625" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="671.75" cy="232.625" r="8.572500000000002" fill="#fbfbf7"/>
+<text x="671.75" y="236.025" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">10</text>
+<circle cx="608.25" cy="232.625" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="608.25" cy="232.625" r="8.572500000000002" fill="#fbfbf7"/>
+<text x="608.25" y="236.025" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">11</text>
+<circle cx="767.0" cy="264.375" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="767.0" cy="264.375" r="8.572500000000002" fill="#8a5326"/>
+<text x="767.0" y="267.775" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">12</text>
+<circle cx="735.25" cy="264.375" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="735.25" cy="264.375" r="8.572500000000002" fill="#8a5326"/>
+<text x="735.25" y="267.775" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">13</text>
+<circle cx="703.5" cy="264.375" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="703.5" cy="264.375" r="8.572500000000002" fill="#8a5326"/>
+<text x="703.5" y="267.775" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">14</text>
+<circle cx="767.0" cy="296.125" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="767.0" cy="296.125" r="8.572500000000002" fill="#d7262b"/>
+<text x="767.0" y="299.525" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">15</text>
+<circle cx="735.25" cy="296.125" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="735.25" cy="296.125" r="8.572500000000002" fill="#d7262b"/>
+<text x="735.25" y="299.525" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">16</text>
+<circle cx="703.5" cy="296.125" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="703.5" cy="296.125" r="8.572500000000002" fill="#d7262b"/>
+<text x="703.5" y="299.525" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">17</text>
+<circle cx="767.0" cy="327.875" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="767.0" cy="327.875" r="8.572500000000002" fill="#f07800"/>
+<text x="767.0" y="331.275" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">18</text>
+<circle cx="735.25" cy="327.875" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="735.25" cy="327.875" r="8.572500000000002" fill="#f07800"/>
+<text x="735.25" y="331.275" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">19</text>
+<circle cx="703.5" cy="327.875" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="703.5" cy="327.875" r="8.572500000000002" fill="#f07800"/>
+<text x="703.5" y="331.275" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">20</text>
+<circle cx="767.0" cy="359.625" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="767.0" cy="359.625" r="8.572500000000002" fill="#23964a"/>
+<text x="767.0" y="363.025" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">21</text>
+<circle cx="735.25" cy="359.625" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="735.25" cy="359.625" r="8.572500000000002" fill="#23964a"/>
+<text x="735.25" y="363.025" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">22</text>
+<circle cx="703.5" cy="359.625" r="9.872500000000002" fill="#3a4248"/>
+<circle cx="703.5" cy="359.625" r="8.572500000000002" fill="#23964a"/>
+<text x="703.5" y="363.025" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">23</text>
+<text x="100" y="558.0" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">CONNECTEURS (CÔTÉ FAISCEAU, BROCHE 1 À GAUCHE ; N° = FIL DE CETTE PLAQUE)</text>
+<text x="100" y="588.0" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X1</tspan> écran 1 · Dupont 1 × 8 sur barrette coudée</text>
+<rect x="100" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<path d="M100 596.0 l7 0 l-7 7 z" fill="#1d2226"/>
+<circle cx="122.0" cy="613.0" r="10" fill="#3a4248"/><circle cx="122.0" cy="613.0" r="8.7" fill="#2a62d6"/>
+<text x="122.0" y="616.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">1</text>
+<text x="122.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">GND</text>
+<rect x="146" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="168.0" cy="613.0" r="10" fill="#3a4248"/><circle cx="168.0" cy="613.0" r="8.7" fill="#fbfbf7"/>
+<text x="168.0" y="616.5" font-size="9.5" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">7</text>
+<text x="168.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">VCC</text>
+<rect x="192" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<text x="214.0" y="617.0" font-size="8.5" text-anchor="middle" fill="#5e676d">SCK1</text>
+<text x="214.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">SCL</text>
+<rect x="238" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="260.0" cy="613.0" r="10" fill="#3a4248"/><circle cx="260.0" cy="613.0" r="8.7" fill="#23964a"/>
+<text x="260.0" y="616.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">22</text>
+<text x="260.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">SDA</text>
+<rect x="284" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="306.0" cy="613.0" r="10" fill="#3a4248"/><circle cx="306.0" cy="613.0" r="8.7" fill="#f07800"/>
+<text x="306.0" y="616.5" font-size="9.5" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">19</text>
+<text x="306.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">RES</text>
+<rect x="330" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="352.0" cy="613.0" r="10" fill="#3a4248"/><circle cx="352.0" cy="613.0" r="8.7" fill="#d7262b"/>
+<text x="352.0" y="616.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">16</text>
+<text x="352.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">DC</text>
+<rect x="376" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<text x="398.0" y="617.0" font-size="8.5" text-anchor="middle" fill="#5e676d">CS1</text>
+<text x="398.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">CS</text>
+<rect x="422" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="444.0" cy="613.0" r="10" fill="#3a4248"/><circle cx="444.0" cy="613.0" r="8.7" fill="#8a5326"/>
+<text x="444.0" y="616.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">13</text>
+<text x="444.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">BLK</text>
+<text x="502" y="588.0" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X3</tspan> INMP441 · queue + Dupont 1 × 6 en ligne</text>
+<rect x="502" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<path d="M502 596.0 l7 0 l-7 7 z" fill="#1d2226"/>
+<text x="524.0" y="617.0" font-size="8.5" text-anchor="middle" fill="#5e676d">MIC_BCLK</text>
+<text x="524.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">SCK</text>
+<rect x="548" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<text x="570.0" y="617.0" font-size="8.5" text-anchor="middle" fill="#5e676d">MIC_WS</text>
+<text x="570.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">WS</text>
+<rect x="594" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<text x="616.0" y="617.0" font-size="8.5" text-anchor="middle" fill="#5e676d">MIC_SD</text>
+<text x="616.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">SD</text>
+<rect x="640" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="662.0" cy="613.0" r="10" fill="#3a4248"/><circle cx="662.0" cy="613.0" r="8.7" fill="#fbfbf7"/>
+<text x="662.0" y="616.5" font-size="9.5" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">10</text>
+<text x="662.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">VDD</text>
+<rect x="686" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="708.0" cy="613.0" r="10" fill="#3a4248"/><circle cx="708.0" cy="613.0" r="8.7" fill="#2a62d6"/>
+<text x="708.0" y="616.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">6</text>
+<text x="708.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">GND</text>
+<rect x="732" y="596.0" width="44" height="34" rx="3" fill="#d5d8da" stroke="#7d868b" stroke-width="1"/>
+<text x="754.0" y="617.0" font-size="9.5" text-anchor="middle" fill="#5e676d">bouché</text>
+<text x="754.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">—</text>
+<text x="100" y="680.0" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X4</tspan> écran 2 · Dupont 1 × 8 sur barrette coudée</text>
+<rect x="100" y="688.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<path d="M100 688.0 l7 0 l-7 7 z" fill="#1d2226"/>
+<text x="122.0" y="709.0" font-size="8.5" text-anchor="middle" fill="#5e676d">GND</text>
+<text x="122.0" y="736.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">GND</text>
+<rect x="146" y="688.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<text x="168.0" y="709.0" font-size="8.5" text-anchor="middle" fill="#5e676d">3V3</text>
+<text x="168.0" y="736.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">VCC</text>
+<rect x="192" y="688.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<text x="214.0" y="709.0" font-size="8.5" text-anchor="middle" fill="#5e676d">SCK2</text>
+<text x="214.0" y="736.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">SCL</text>
+<rect x="238" y="688.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="260.0" cy="705.0" r="10" fill="#3a4248"/><circle cx="260.0" cy="705.0" r="8.7" fill="#23964a"/>
+<text x="260.0" y="708.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">23</text>
+<text x="260.0" y="736.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">SDA</text>
+<rect x="284" y="688.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="306.0" cy="705.0" r="10" fill="#3a4248"/><circle cx="306.0" cy="705.0" r="8.7" fill="#f07800"/>
+<text x="306.0" y="708.5" font-size="9.5" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">20</text>
+<text x="306.0" y="736.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">RES</text>
+<rect x="330" y="688.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="352.0" cy="705.0" r="10" fill="#3a4248"/><circle cx="352.0" cy="705.0" r="8.7" fill="#d7262b"/>
+<text x="352.0" y="708.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">17</text>
+<text x="352.0" y="736.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">DC</text>
+<rect x="376" y="688.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<text x="398.0" y="709.0" font-size="8.5" text-anchor="middle" fill="#5e676d">CS2</text>
+<text x="398.0" y="736.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">CS</text>
+<rect x="422" y="688.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="444.0" cy="705.0" r="10" fill="#3a4248"/><circle cx="444.0" cy="705.0" r="8.7" fill="#8a5326"/>
+<text x="444.0" y="708.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">14</text>
+<text x="444.0" y="736.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">BLK</text>
+<text x="502" y="680.0" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X13</tspan> sorties du bloc alim · JST-XH 4 en ligne</text>
+<rect x="502" y="688.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<path d="M502 688.0 l7 0 l-7 7 z" fill="#1d2226"/>
+<text x="524.0" y="709.0" font-size="8.5" text-anchor="middle" fill="#5e676d">VSYS</text>
+<text x="524.0" y="736.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">VSYS</text>
+<rect x="548" y="688.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<text x="570.0" y="709.0" font-size="8.5" text-anchor="middle" fill="#5e676d">GND</text>
+<text x="570.0" y="736.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">GND amp</text>
+<rect x="594" y="688.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="616.0" cy="705.0" r="10" fill="#3a4248"/><circle cx="616.0" cy="705.0" r="8.7" fill="#fbfbf7"/>
+<text x="616.0" y="708.5" font-size="9.5" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">9</text>
+<text x="616.0" y="736.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">3V3</text>
+<rect x="640" y="688.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="662.0" cy="705.0" r="10" fill="#3a4248"/><circle cx="662.0" cy="705.0" r="8.7" fill="#2a62d6"/>
+<text x="662.0" y="708.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">3</text>
+<text x="662.0" y="736.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">GND log</text>
+<text x="100" y="772.0" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X15</tspan> microSD · queue + Dupont 1 × 6 en ligne</text>
+<rect x="100" y="780.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<path d="M100 780.0 l7 0 l-7 7 z" fill="#1d2226"/>
+<text x="122.0" y="801.0" font-size="8.5" text-anchor="middle" fill="#5e676d">SD_CLK</text>
+<text x="122.0" y="828.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">CLK</text>
+<rect x="146" y="780.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<text x="168.0" y="801.0" font-size="8.5" text-anchor="middle" fill="#5e676d">SD_CMD</text>
+<text x="168.0" y="828.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">CMD</text>
+<rect x="192" y="780.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<text x="214.0" y="801.0" font-size="8.5" text-anchor="middle" fill="#5e676d">SD_D0</text>
+<text x="214.0" y="828.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">D0</text>
+<rect x="238" y="780.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<text x="260.0" y="801.0" font-size="8.5" text-anchor="middle" fill="#5e676d">SD_3V3</text>
+<text x="260.0" y="828.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">3V3</text>
+<rect x="284" y="780.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="306.0" cy="797.0" r="10" fill="#3a4248"/><circle cx="306.0" cy="797.0" r="8.7" fill="#2a62d6"/>
+<text x="306.0" y="800.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">4</text>
+<text x="306.0" y="828.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">GND</text>
+<rect x="330" y="780.0" width="44" height="34" rx="3" fill="#d5d8da" stroke="#7d868b" stroke-width="1"/>
+<text x="352.0" y="801.0" font-size="9.5" text-anchor="middle" fill="#5e676d">bouché</text>
+<text x="352.0" y="828.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">—</text>
+<text x="100" y="874.0" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">COMPOSANTS</text>
+<text x="100" y="892.0" font-size="12" fill="#1d2226"><tspan font-weight="600">R4 10 k</tspan><tspan x="250" font-family="IBM Plex Mono, monospace" font-size="11">1 E8 (BL_EN) · 2 E11 (GND)</tspan></text>
+<text x="250" y="907.0" font-size="11" fill="#5e676d">BL_EN → GND, couchée (pas 7,62)</text>
+<text x="100" y="923.0" font-size="12" fill="#1d2226"><tspan font-weight="600">C2 10 µF 16 V</tspan><tspan x="250" font-family="IBM Plex Mono, monospace" font-size="11">+ G9 (3V3) · - G10 (GND)</tspan></text>
+<text x="250" y="938.0" font-size="11" fill="#5e676d">tantale 16 V, + en G9 (3V3) ; ou céramique X5R / X7R ≥ 6,3 V, pas 2,54</text>
+<text x="100" y="954.0" font-size="12" fill="#1d2226"><tspan font-weight="600">C3 100 nF</tspan><tspan x="250" font-family="IBM Plex Mono, monospace" font-size="11">1 H9 (3V3) · 2 H10 (GND)</tspan></text>
+<text x="250" y="969.0" font-size="11" fill="#5e676d">découplage, céramique (en dépannage : film au pas de 5,08 en H9–H11)</text>
+<text x="100" y="995.0" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">LIENS</text>
+<text x="100" y="1013.0" font-size="12" fill="#1d2226"><tspan font-weight="600">lien côté composants</tspan><tspan x="250" font-family="IBM Plex Mono, monospace" font-size="11">I10–I11</tspan></text>
+<text x="250" y="1028.0" font-size="11" fill="#5e676d">GND 10–11</text>
+<text x="100" y="1054.0" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">FILS (N° DU DESSIN · TROU · SIGNAL · FIL · AUTRE BOUT : ● SOUDÉ, D DUPONT, XH JST-XH, F / M · VERS)</text>
+<circle cx="108" cy="1068.0" r="6.5" fill="#2a62d6" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1072.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 1  A10  GND</text>
+<text x="290" y="1072.0" font-size="11.5" fill="#5e676d">bleu 30 AWG</text>
+<rect x="484.5" y="1061.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="492" y="1071.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
+<text x="510" y="1072.0" font-size="11.5" fill="#1d2226">X1 écran 1 GND  [X1 br. 1]</text>
+<circle cx="108" cy="1085.0" r="6.5" fill="#2a62d6" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1089.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 2  B10  GND</text>
+<text x="290" y="1089.0" font-size="11.5" fill="#5e676d">bleu 26 AWG</text>
+<circle cx="492" cy="1085.0" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
+<text x="510" y="1089.0" font-size="11.5" fill="#1d2226">S3 G (J5)</text>
+<circle cx="108" cy="1102.0" r="6.5" fill="#2a62d6" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1106.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 3  C10  GND</text>
+<text x="290" y="1106.0" font-size="11.5" fill="#5e676d">bleu 26 AWG</text>
+<rect x="481.0" y="1095.5" width="22" height="13" rx="2" fill="#f07800"/><text x="492" y="1105.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">XHM</text>
+<text x="510" y="1106.0" font-size="11.5" fill="#1d2226">tube gauche → TPS63020 GND (X13)  [X13 br. 4]</text>
+<circle cx="108" cy="1119.0" r="6.5" fill="#2a62d6" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1123.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 4  B11  GND</text>
+<text x="290" y="1123.0" font-size="11.5" fill="#5e676d">bleu 30 AWG, 3 bagues</text>
+<rect x="484.5" y="1112.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="492" y="1122.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
+<text x="510" y="1123.0" font-size="11.5" fill="#1d2226">tube gauche → X15 microSD GND (torsadé avec CLK)  [X15 br. 5]</text>
+<circle cx="108" cy="1136.0" r="6.5" fill="#2a62d6" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1140.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 5  C11  GND</text>
+<text x="290" y="1140.0" font-size="11.5" fill="#5e676d">bleu 30 AWG</text>
+<circle cx="492" cy="1136.0" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
+<text x="510" y="1140.0" font-size="11.5" fill="#1d2226">tube central → P2 GND</text>
+<circle cx="108" cy="1153.0" r="6.5" fill="#2a62d6" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1157.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 6  D11  GND</text>
+<text x="290" y="1157.0" font-size="11.5" fill="#5e676d">bleu 30 AWG</text>
+<rect x="484.5" y="1146.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="492" y="1156.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
+<text x="510" y="1157.0" font-size="11.5" fill="#1d2226">X3 micro GND (→ ADXL345)  [X3 br. 5]</text>
+<circle cx="108" cy="1170.0" r="6.5" fill="#fbfbf7" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1174.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 7  A9  3V3</text>
+<text x="290" y="1174.0" font-size="11.5" fill="#5e676d">blanc 30 AWG</text>
+<rect x="484.5" y="1163.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="492" y="1173.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
+<text x="510" y="1174.0" font-size="11.5" fill="#1d2226">X1 écran 1 VCC  [X1 br. 2]</text>
+<circle cx="108" cy="1187.0" r="6.5" fill="#fbfbf7" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1191.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 8  B9  3V3</text>
+<text x="290" y="1191.0" font-size="11.5" fill="#5e676d">blanc 26 AWG</text>
+<circle cx="492" cy="1187.0" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
+<text x="510" y="1191.0" font-size="11.5" fill="#1d2226">S3 3V (A4)</text>
+<circle cx="108" cy="1204.0" r="6.5" fill="#fbfbf7" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1208.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 9  C9  3V3</text>
+<text x="290" y="1208.0" font-size="11.5" fill="#5e676d">blanc 26 AWG</text>
+<rect x="481.0" y="1197.5" width="22" height="13" rx="2" fill="#f07800"/><text x="492" y="1207.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">XHM</text>
+<text x="510" y="1208.0" font-size="11.5" fill="#1d2226">tube gauche → TPS63020 VOUT (X13)  [X13 br. 3]</text>
+<circle cx="108" cy="1221.0" r="6.5" fill="#fbfbf7" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1225.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">10  D9  3V3</text>
+<text x="290" y="1225.0" font-size="11.5" fill="#5e676d">blanc 30 AWG</text>
+<rect x="484.5" y="1214.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="492" y="1224.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
+<text x="510" y="1225.0" font-size="11.5" fill="#1d2226">X3 micro VDD (→ ADXL345)  [X3 br. 4]</text>
+<circle cx="108" cy="1238.0" r="6.5" fill="#fbfbf7" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1242.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">11  F9  3V3</text>
+<text x="290" y="1242.0" font-size="11.5" fill="#5e676d">blanc 30 AWG</text>
+<circle cx="492" cy="1238.0" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
+<text x="510" y="1242.0" font-size="11.5" fill="#1d2226">tube central → P2 3V3</text>
+<circle cx="108" cy="1255.0" r="6.5" fill="#8a5326" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1259.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">12  A8  BL_EN</text>
+<text x="290" y="1259.0" font-size="11.5" fill="#5e676d">marron 30 AWG</text>
+<circle cx="492" cy="1255.0" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
+<text x="510" y="1259.0" font-size="11.5" fill="#1d2226">S3 IO7 (B7)</text>
+<circle cx="108" cy="1272.0" r="6.5" fill="#8a5326" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1276.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">13  B8  BL_EN</text>
+<text x="290" y="1276.0" font-size="11.5" fill="#5e676d">marron 30 AWG</text>
+<rect x="484.5" y="1265.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="492" y="1275.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
+<text x="510" y="1276.0" font-size="11.5" fill="#1d2226">X1 écran 1 BLK  [X1 br. 8]</text>
+<circle cx="108" cy="1289.0" r="6.5" fill="#8a5326" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1293.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">14  C8  BL_EN</text>
+<text x="290" y="1293.0" font-size="11.5" fill="#5e676d">marron 30 AWG</text>
+<rect x="484.5" y="1282.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="492" y="1292.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
+<text x="510" y="1293.0" font-size="11.5" fill="#1d2226">tube central → X4 écran 2 BLK  [X4 br. 8]</text>
+<circle cx="108" cy="1306.0" r="6.5" fill="#d7262b" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1310.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">15  A7  DC</text>
+<text x="290" y="1310.0" font-size="11.5" fill="#5e676d">rouge 30 AWG</text>
+<circle cx="492" cy="1306.0" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
+<text x="510" y="1310.0" font-size="11.5" fill="#1d2226">S3 IO13 (A7)</text>
+<circle cx="108" cy="1323.0" r="6.5" fill="#d7262b" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1327.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">16  B7  DC</text>
+<text x="290" y="1327.0" font-size="11.5" fill="#5e676d">rouge 30 AWG</text>
+<rect x="484.5" y="1316.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="492" y="1326.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
+<text x="510" y="1327.0" font-size="11.5" fill="#1d2226">X1 écran 1 DC  [X1 br. 6]</text>
+<circle cx="108" cy="1340.0" r="6.5" fill="#d7262b" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1344.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">17  C7  DC</text>
+<text x="290" y="1344.0" font-size="11.5" fill="#5e676d">rouge 30 AWG</text>
+<rect x="484.5" y="1333.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="492" y="1343.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
+<text x="510" y="1344.0" font-size="11.5" fill="#1d2226">tube central → X4 écran 2 DC  [X4 br. 6]</text>
+<circle cx="108" cy="1357.0" r="6.5" fill="#f07800" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1361.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">18  A6  RST</text>
+<text x="290" y="1361.0" font-size="11.5" fill="#5e676d">orange 30 AWG</text>
+<circle cx="492" cy="1357.0" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
+<text x="510" y="1361.0" font-size="11.5" fill="#1d2226">S3 IO8 (B6)</text>
+<circle cx="108" cy="1374.0" r="6.5" fill="#f07800" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1378.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">19  B6  RST</text>
+<text x="290" y="1378.0" font-size="11.5" fill="#5e676d">orange 30 AWG</text>
+<rect x="484.5" y="1367.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="492" y="1377.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
+<text x="510" y="1378.0" font-size="11.5" fill="#1d2226">X1 écran 1 RES  [X1 br. 5]</text>
+<circle cx="108" cy="1391.0" r="6.5" fill="#f07800" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1395.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">20  C6  RST</text>
+<text x="290" y="1395.0" font-size="11.5" fill="#5e676d">orange 30 AWG</text>
+<rect x="484.5" y="1384.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="492" y="1394.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
+<text x="510" y="1395.0" font-size="11.5" fill="#1d2226">tube central → X4 écran 2 RES  [X4 br. 5]</text>
+<circle cx="108" cy="1408.0" r="6.5" fill="#23964a" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1412.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">21  A5  MOSI</text>
+<text x="290" y="1412.0" font-size="11.5" fill="#5e676d">vert 30 AWG</text>
+<circle cx="492" cy="1408.0" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
+<text x="510" y="1412.0" font-size="11.5" fill="#1d2226">S3 IO11 (C10, après R20)</text>
+<circle cx="108" cy="1425.0" r="6.5" fill="#23964a" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1429.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">22  B5  MOSI</text>
+<text x="290" y="1429.0" font-size="11.5" fill="#5e676d">vert 30 AWG</text>
+<rect x="484.5" y="1418.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="492" y="1428.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
+<text x="510" y="1429.0" font-size="11.5" fill="#1d2226">X1 écran 1 SDA  [X1 br. 4]</text>
+<circle cx="108" cy="1442.0" r="6.5" fill="#23964a" stroke="#3a4248" stroke-width="1.3"/>
+<text x="122" y="1446.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">23  C5  MOSI</text>
+<text x="290" y="1446.0" font-size="11.5" fill="#5e676d">vert 30 AWG</text>
+<rect x="484.5" y="1435.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="492" y="1445.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
+<text x="510" y="1446.0" font-size="11.5" fill="#1d2226">tube central → X4 écran 2 SDA  [X4 br. 4]</text>
+<text x="100" y="1473.0" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">NOTES</text>
+<text x="100" y="1491.0" font-size="11.5" fill="#1d2226">bords gauche et droit : pattes du couvercle et butées (≈ 1,5 mm), pas de trou utilisé en colonne A / I sur les</text>
+<text x="100" y="1506.0" font-size="11.5" fill="#1d2226">rangées 1 et 12</text>
+<text x="100" y="1524.0" font-size="11.5" fill="#1d2226">Bandes 1–4 et 12 libres (réserve : Q2 / Q3 si le BLK des écrans tire le courant des LED). Aucune coupe.</text>
+<text x="100" y="1542.0" font-size="11.5" fill="#1d2226">Fils passés par le côté composants, soudés côté cuivre ; 26 AWG dans les trous de 1 mm sans forcer. Colonnes A</text>
+<text x="100" y="1557.0" font-size="11.5" fill="#1d2226">et I : seulement du 30 AWG, replié vers l'intérieur dès la sortie du trou (les butées avant couvrent 1,5 mm de</text>
+<text x="100" y="1572.0" font-size="11.5" fill="#1d2226">chaque bord).</text>
+<text x="100" y="1590.0" font-size="11.5" fill="#1d2226">Hauteur des pièces ≤ 9 mm côté composants (10,4 mm jusqu'à la paroi avant).</text>
+<text x="100" y="1608.0" font-size="11.5" fill="#1d2226">Lien nu I10–I11 côté composants : les bandes 10 et 11 forment un seul GND (11 trous de soudure pour 6 fils GND</text>
+<text x="100" y="1623.0" font-size="11.5" fill="#1d2226">et 3 pattes).</text>
+</svg>

@@ -1,0 +1,663 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 988 1717" width="988" height="1717" font-family="IBM Plex Sans, Segoe UI, sans-serif">
+<rect width="988" height="1717" fill="#fbfbf9"/>
+<text x="60" y="34" font-size="22" font-weight="600" fill="#1d2226" font-family="IBM Plex Sans Condensed, Arial Narrow, sans-serif">P4 · plaquette du partage de charge</text>
+<text x="60" y="56" font-size="12.5" fill="#5e676d">plaque à pastilles simple face, 26,6 × 20 mm, 10 × 8 trous · à plat dans la jambe gauche, z 170,8, composants en haut</text>
+<text x="60" y="82" font-size="13" font-weight="600" fill="#1d2226">côté composants</text>
+<rect x="60" y="112" width="399.0" height="300" rx="4" fill="#efe3c6" stroke="#9c8a62" stroke-width="1.2"/>
+<text x="88.05000000000001" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">A</text>
+<text x="126.15000000000002" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">B</text>
+<text x="164.25" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">C</text>
+<text x="202.35000000000002" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">D</text>
+<text x="240.45000000000002" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">E</text>
+<text x="278.55" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">F</text>
+<text x="316.65" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">G</text>
+<text x="354.75000000000006" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">H</text>
+<text x="392.85" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">I</text>
+<text x="430.95" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">J</text>
+<text x="52" y="398.85" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">1</text>
+<text x="52" y="360.75" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">2</text>
+<text x="52" y="322.65" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">3</text>
+<text x="52" y="284.54999999999995" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">4</text>
+<text x="52" y="246.45000000000002" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">5</text>
+<text x="52" y="208.35000000000002" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">6</text>
+<text x="52" y="170.24999999999997" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">7</text>
+<text x="52" y="132.14999999999998" font-size="10.5" text-anchor="end" fill="#5e676d" font-family="IBM Plex Mono, monospace">8</text>
+<rect x="411.9" y="300.09999999999997" width="38.1" height="38.1" fill="#d9d2f0" opacity=".55"/>
+<rect x="411.9" y="261.99999999999994" width="38.1" height="38.1" fill="#d9d2f0" opacity=".55"/>
+<rect x="411.9" y="223.9" width="38.1" height="38.1" fill="#d9d2f0" opacity=".55"/>
+<rect x="411.9" y="185.8" width="38.1" height="38.1" fill="#d9d2f0" opacity=".55"/>
+<circle cx="88.05000000000001" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="88.05000000000001" cy="357.25" r="7.62" fill="#b9a47a"/>
+<circle cx="88.05000000000001" cy="319.15" r="7.62" fill="#b9a47a"/>
+<circle cx="88.05000000000001" cy="281.04999999999995" r="7.62" fill="#b9a47a"/>
+<circle cx="88.05000000000001" cy="242.95000000000002" r="7.62" fill="#6f5f3e"/>
+<circle cx="88.05000000000001" cy="204.85000000000002" r="7.62" fill="#6f5f3e"/>
+<circle cx="88.05000000000001" cy="166.74999999999997" r="7.62" fill="#6f5f3e"/>
+<circle cx="88.05000000000001" cy="128.64999999999998" r="7.62" fill="#6f5f3e"/>
+<circle cx="126.15000000000002" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="126.15000000000002" cy="357.25" r="7.62" fill="#6f5f3e"/>
+<circle cx="126.15000000000002" cy="319.15" r="7.62" fill="#b9a47a"/>
+<circle cx="126.15000000000002" cy="281.04999999999995" r="7.62" fill="#6f5f3e"/>
+<circle cx="126.15000000000002" cy="242.95000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="126.15000000000002" cy="204.85000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="126.15000000000002" cy="166.74999999999997" r="7.62" fill="#b9a47a"/>
+<circle cx="126.15000000000002" cy="128.64999999999998" r="7.62" fill="#b9a47a"/>
+<circle cx="164.25" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="164.25" cy="357.25" r="7.62" fill="#b9a47a"/>
+<circle cx="164.25" cy="319.15" r="7.62" fill="#6f5f3e"/>
+<circle cx="164.25" cy="281.04999999999995" r="7.62" fill="#b9a47a"/>
+<circle cx="164.25" cy="242.95000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="164.25" cy="204.85000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="164.25" cy="166.74999999999997" r="7.62" fill="#b9a47a"/>
+<circle cx="164.25" cy="128.64999999999998" r="7.62" fill="#b9a47a"/>
+<circle cx="202.35000000000002" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="202.35000000000002" cy="357.25" r="7.62" fill="#b9a47a"/>
+<circle cx="202.35000000000002" cy="319.15" r="7.62" fill="#6f5f3e"/>
+<circle cx="202.35000000000002" cy="281.04999999999995" r="7.62" fill="#b9a47a"/>
+<circle cx="202.35000000000002" cy="242.95000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="202.35000000000002" cy="204.85000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="202.35000000000002" cy="166.74999999999997" r="7.62" fill="#b9a47a"/>
+<circle cx="202.35000000000002" cy="128.64999999999998" r="7.62" fill="#b9a47a"/>
+<circle cx="240.45000000000002" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="240.45000000000002" cy="357.25" r="7.62" fill="#6f5f3e"/>
+<circle cx="240.45000000000002" cy="319.15" r="7.62" fill="#b9a47a"/>
+<circle cx="240.45000000000002" cy="281.04999999999995" r="7.62" fill="#b9a47a"/>
+<circle cx="240.45000000000002" cy="242.95000000000002" r="7.62" fill="#6f5f3e"/>
+<circle cx="240.45000000000002" cy="204.85000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="240.45000000000002" cy="166.74999999999997" r="7.62" fill="#b9a47a"/>
+<circle cx="240.45000000000002" cy="128.64999999999998" r="7.62" fill="#b9a47a"/>
+<circle cx="278.55" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="278.55" cy="357.25" r="7.62" fill="#6f5f3e"/>
+<circle cx="278.55" cy="319.15" r="7.62" fill="#b9a47a"/>
+<circle cx="278.55" cy="281.04999999999995" r="7.62" fill="#b9a47a"/>
+<circle cx="278.55" cy="242.95000000000002" r="7.62" fill="#6f5f3e"/>
+<circle cx="278.55" cy="204.85000000000002" r="7.62" fill="#6f5f3e"/>
+<circle cx="278.55" cy="166.74999999999997" r="7.62" fill="#6f5f3e"/>
+<circle cx="278.55" cy="128.64999999999998" r="7.62" fill="#6f5f3e"/>
+<circle cx="316.65" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="316.65" cy="357.25" r="7.62" fill="#6f5f3e"/>
+<circle cx="316.65" cy="319.15" r="7.62" fill="#6f5f3e"/>
+<circle cx="316.65" cy="281.04999999999995" r="7.62" fill="#6f5f3e"/>
+<circle cx="316.65" cy="242.95000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="316.65" cy="204.85000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="316.65" cy="166.74999999999997" r="7.62" fill="#6f5f3e"/>
+<circle cx="316.65" cy="128.64999999999998" r="7.62" fill="#b9a47a"/>
+<circle cx="354.75000000000006" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="354.75000000000006" cy="357.25" r="7.62" fill="#b9a47a"/>
+<circle cx="354.75000000000006" cy="319.15" r="7.62" fill="#b9a47a"/>
+<circle cx="354.75000000000006" cy="281.04999999999995" r="7.62" fill="#b9a47a"/>
+<circle cx="354.75000000000006" cy="242.95000000000002" r="7.62" fill="#6f5f3e"/>
+<circle cx="354.75000000000006" cy="204.85000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="354.75000000000006" cy="166.74999999999997" r="7.62" fill="#b9a47a"/>
+<circle cx="354.75000000000006" cy="128.64999999999998" r="7.62" fill="#6f5f3e"/>
+<circle cx="392.85" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="392.85" cy="357.25" r="7.62" fill="#b9a47a"/>
+<circle cx="392.85" cy="319.15" r="7.62" fill="#b9a47a"/>
+<circle cx="392.85" cy="281.04999999999995" r="7.62" fill="#6f5f3e"/>
+<circle cx="392.85" cy="242.95000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="392.85" cy="204.85000000000002" r="7.62" fill="#6f5f3e"/>
+<circle cx="392.85" cy="166.74999999999997" r="7.62" fill="#b9a47a"/>
+<circle cx="392.85" cy="128.64999999999998" r="7.62" fill="#b9a47a"/>
+<circle cx="430.95" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="430.95" cy="357.25" r="7.62" fill="#b9a47a"/>
+<circle cx="430.95" cy="319.15" r="7.62" fill="#6f5f3e"/>
+<circle cx="430.95" cy="281.04999999999995" r="7.62" fill="#6f5f3e"/>
+<circle cx="430.95" cy="242.95000000000002" r="7.62" fill="#6f5f3e"/>
+<circle cx="430.95" cy="204.85000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="430.95" cy="166.74999999999997" r="7.62" fill="#b9a47a"/>
+<circle cx="430.95" cy="128.64999999999998" r="7.62" fill="#6f5f3e"/>
+<line x1="88.05000000000001" y1="166.74999999999997" x2="278.55" y2="166.74999999999997" stroke="#7d868b" stroke-width="2"/>
+<rect x="112.05000000000001" y="126.99999999999997" width="142.5" height="79.5" rx="31.8" fill="#2d3136" stroke="#5e676d" stroke-width="1" transform="rotate(0.0 183.3 166.74999999999997)"/>
+<rect x="115.05000000000001" y="126.99999999999997" width="6" height="79.5" fill="#c9ced1" transform="rotate(0.0 118.05000000000001 166.74999999999997)"/>
+<text x="183.3" y="170.74999999999997" font-size="10.5" text-anchor="middle" fill="#ffffff" font-weight="600" transform="rotate(0.0 183.3 166.74999999999997)">D1 1N5822</text>
+<rect x="141.75" y="231.70000000000002" width="45" height="22.5" rx="2" fill="#23272b"/>
+<polyline points="150.0,260.20000000000005 88.05000000000001,242.95000000000002" fill="none" stroke="#3a4248" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="150.0,260.20000000000005 88.05000000000001,242.95000000000002" fill="none" stroke="#7fb3e6" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="178.5,260.20000000000005 240.45000000000002,242.95000000000002" fill="none" stroke="#3a4248" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="178.5,260.20000000000005 240.45000000000002,242.95000000000002" fill="none" stroke="#7fb3e6" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="164.25,225.70000000000002 126.15000000000002,204.85000000000002 126.15000000000002,281.04999999999995" fill="none" stroke="#3a4248" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="164.25,225.70000000000002 126.15000000000002,204.85000000000002 126.15000000000002,281.04999999999995" fill="none" stroke="#7fb3e6" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="161.75" y="223.20000000000002" width="5" height="5" fill="#c9ced1" stroke="#5e676d" stroke-width=".8"/>
+<text x="164.25" y="220.20000000000002" font-size="10" text-anchor="middle" fill="#1d2226" font-weight="700" paint-order="stroke" stroke="#fbfbf9" stroke-width="3">D</text>
+<rect x="176.0" y="257.70000000000005" width="5" height="5" fill="#c9ced1" stroke="#5e676d" stroke-width=".8"/>
+<text x="178.5" y="272.70000000000005" font-size="10" text-anchor="middle" fill="#1d2226" font-weight="700" paint-order="stroke" stroke="#fbfbf9" stroke-width="3">G</text>
+<rect x="147.5" y="257.70000000000005" width="5" height="5" fill="#c9ced1" stroke="#5e676d" stroke-width=".8"/>
+<text x="150.0" y="272.70000000000005" font-size="10" text-anchor="middle" fill="#1d2226" font-weight="700" paint-order="stroke" stroke="#fbfbf9" stroke-width="3">S</text>
+<text x="164.25" y="246.15" font-size="8" text-anchor="middle" fill="#ffffff" font-weight="600">Q1</text>
+<line x1="278.55" y1="242.95000000000002" x2="278.55" y2="357.25" stroke="#7d868b" stroke-width="2"/>
+<rect x="236.64000000000001" y="282.1" width="83.81999999999998" height="36.0" rx="14.4" fill="#d8c08e" stroke="#5e676d" stroke-width="1" transform="rotate(90.0 278.55 300.1)"/>
+<text x="278.55" y="304.1" font-size="10.5" text-anchor="middle" fill="#1d2226" font-weight="600" transform="rotate(90.0 278.55 300.1)">R15 68 k</text>
+<line x1="240.45000000000002" y1="357.25" x2="126.15000000000002" y2="357.25" stroke="#7d868b" stroke-width="2"/>
+<rect x="141.39000000000001" y="339.25" width="83.82" height="36.0" rx="14.4" fill="#d8c08e" stroke="#5e676d" stroke-width="1" transform="rotate(180.0 183.3 357.25)"/>
+<text x="183.3" y="361.25" font-size="10.5" text-anchor="middle" fill="#1d2226" font-weight="600" transform="rotate(0.0 183.3 357.25)">R16 100 k</text>
+<line x1="316.65" y1="166.74999999999997" x2="316.65" y2="281.04999999999995" stroke="#7d868b" stroke-width="2"/>
+<rect x="274.74" y="205.89999999999998" width="83.81999999999998" height="36.0" rx="14.4" fill="#d8c08e" stroke="#5e676d" stroke-width="1" transform="rotate(90.0 316.65 223.89999999999998)"/>
+<text x="316.65" y="227.89999999999998" font-size="10.5" text-anchor="middle" fill="#1d2226" font-weight="600" transform="rotate(90.0 316.65 223.89999999999998)">R1 10 k</text>
+<line x1="392.85" y1="281.04999999999995" x2="392.85" y2="395.35" stroke="#7d868b" stroke-width="2"/>
+<rect x="350.94" y="320.2" width="83.82000000000006" height="36.0" rx="14.4" fill="#d8c08e" stroke="#5e676d" stroke-width="1" transform="rotate(90.0 392.85 338.2)"/>
+<text x="392.85" y="342.2" font-size="10.5" text-anchor="middle" fill="#1d2226" font-weight="600" transform="rotate(90.0 392.85 338.2)">R3 1 M</text>
+<line x1="430.95" y1="128.64999999999998" x2="430.95" y2="242.95000000000002" stroke="#7d868b" stroke-width="2"/>
+<rect x="389.03999999999996" y="167.8" width="83.82000000000004" height="36.0" rx="14.4" fill="#d8c08e" stroke="#5e676d" stroke-width="1" transform="rotate(90.0 430.95 185.8)"/>
+<text x="430.95" y="189.8" font-size="10.5" text-anchor="middle" fill="#1d2226" font-weight="600" transform="rotate(90.0 430.95 185.8)">R2 1 M</text>
+<line x1="354.75000000000006" y1="128.64999999999998" x2="354.75000000000006" y2="242.95000000000002" stroke="#7d868b" stroke-width="2"/>
+<rect x="312.84000000000003" y="167.8" width="83.82000000000004" height="36.0" rx="14.4" fill="#d8c08e" stroke="#5e676d" stroke-width="1" transform="rotate(90.0 354.75000000000006 185.8)"/>
+<text x="354.75000000000006" y="189.8" font-size="10.5" text-anchor="middle" fill="#1d2226" font-weight="600" transform="rotate(90.0 354.75000000000006 185.8)">R22 100 k</text>
+<rect x="381.6" y="144.24999999999997" width="22.5" height="45" rx="2" fill="#23272b"/>
+<polyline points="375.6,152.49999999999997 354.75000000000006,128.64999999999998" fill="none" stroke="#3a4248" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="375.6,152.49999999999997 354.75000000000006,128.64999999999998" fill="none" stroke="#7fb3e6" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="375.6,180.99999999999997 354.75000000000006,242.95000000000002" fill="none" stroke="#3a4248" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="375.6,180.99999999999997 354.75000000000006,242.95000000000002" fill="none" stroke="#7fb3e6" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="410.1,166.74999999999997 392.85,204.85000000000002" fill="none" stroke="#3a4248" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="410.1,166.74999999999997 392.85,204.85000000000002" fill="none" stroke="#7fb3e6" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="407.6" y="164.24999999999997" width="5" height="5" fill="#c9ced1" stroke="#5e676d" stroke-width=".8"/>
+<text x="419.1" y="161.24999999999997" font-size="10" text-anchor="middle" fill="#1d2226" font-weight="700" paint-order="stroke" stroke="#fbfbf9" stroke-width="3">D</text>
+<rect x="373.1" y="178.49999999999997" width="5" height="5" fill="#c9ced1" stroke="#5e676d" stroke-width=".8"/>
+<text x="375.6" y="175.49999999999997" font-size="10" text-anchor="middle" fill="#1d2226" font-weight="700" paint-order="stroke" stroke="#fbfbf9" stroke-width="3">G</text>
+<rect x="373.1" y="149.99999999999997" width="5" height="5" fill="#c9ced1" stroke="#5e676d" stroke-width=".8"/>
+<text x="375.6" y="146.99999999999997" font-size="10" text-anchor="middle" fill="#1d2226" font-weight="700" paint-order="stroke" stroke="#fbfbf9" stroke-width="3">S</text>
+<text x="392.85" y="169.94999999999996" font-size="8" text-anchor="middle" fill="#ffffff" font-weight="600">Q5</text>
+<text x="549.0" y="82" font-size="13" font-weight="600" fill="#1d2226">côté soudures (miroir)</text>
+<rect x="549.0" y="112" width="399.0" height="300" rx="4" fill="#e2cfa3" stroke="#9c8a62" stroke-width="1.2"/>
+<text x="919.95" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">A</text>
+<text x="881.85" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">B</text>
+<text x="843.75" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">C</text>
+<text x="805.65" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">D</text>
+<text x="767.55" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">E</text>
+<text x="729.45" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">F</text>
+<text x="691.35" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">G</text>
+<text x="653.25" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">H</text>
+<text x="615.15" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">I</text>
+<text x="577.0500000000001" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">J</text>
+<text x="956.0" y="398.85" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">1</text>
+<text x="956.0" y="360.75" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">2</text>
+<text x="956.0" y="322.65" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">3</text>
+<text x="956.0" y="284.54999999999995" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">4</text>
+<text x="956.0" y="246.45000000000002" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">5</text>
+<text x="956.0" y="208.35000000000002" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">6</text>
+<text x="956.0" y="170.24999999999997" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">7</text>
+<text x="956.0" y="132.14999999999998" font-size="10.5" text-anchor="start" fill="#5e676d" font-family="IBM Plex Mono, monospace">8</text>
+<rect x="558.0000000000001" y="300.09999999999997" width="38.1" height="38.1" fill="#d9d2f0" opacity=".55"/>
+<rect x="558.0000000000001" y="261.99999999999994" width="38.1" height="38.1" fill="#d9d2f0" opacity=".55"/>
+<rect x="558.0000000000001" y="223.9" width="38.1" height="38.1" fill="#d9d2f0" opacity=".55"/>
+<rect x="558.0000000000001" y="185.8" width="38.1" height="38.1" fill="#d9d2f0" opacity=".55"/>
+<circle cx="919.95" cy="395.35" r="13.716" fill="#c98a4b"/>
+<circle cx="919.95" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="919.95" cy="357.25" r="13.716" fill="#c98a4b"/>
+<circle cx="919.95" cy="357.25" r="7.62" fill="#b9a47a"/>
+<circle cx="919.95" cy="319.15" r="13.716" fill="#c98a4b"/>
+<circle cx="919.95" cy="319.15" r="7.62" fill="#b9a47a"/>
+<circle cx="919.95" cy="281.04999999999995" r="13.716" fill="#c98a4b"/>
+<circle cx="919.95" cy="281.04999999999995" r="7.62" fill="#b9a47a"/>
+<circle cx="919.95" cy="242.95000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="919.95" cy="242.95000000000002" r="7.62" fill="#6f5f3e"/>
+<circle cx="919.95" cy="204.85000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="919.95" cy="204.85000000000002" r="7.62" fill="#6f5f3e"/>
+<circle cx="919.95" cy="166.74999999999997" r="13.716" fill="#c98a4b"/>
+<circle cx="919.95" cy="166.74999999999997" r="7.62" fill="#6f5f3e"/>
+<circle cx="919.95" cy="128.64999999999998" r="13.716" fill="#c98a4b"/>
+<circle cx="919.95" cy="128.64999999999998" r="7.62" fill="#6f5f3e"/>
+<circle cx="881.85" cy="395.35" r="13.716" fill="#c98a4b"/>
+<circle cx="881.85" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="881.85" cy="357.25" r="13.716" fill="#c98a4b"/>
+<circle cx="881.85" cy="357.25" r="7.62" fill="#6f5f3e"/>
+<circle cx="881.85" cy="319.15" r="13.716" fill="#c98a4b"/>
+<circle cx="881.85" cy="319.15" r="7.62" fill="#b9a47a"/>
+<circle cx="881.85" cy="281.04999999999995" r="13.716" fill="#c98a4b"/>
+<circle cx="881.85" cy="281.04999999999995" r="7.62" fill="#6f5f3e"/>
+<circle cx="881.85" cy="242.95000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="881.85" cy="242.95000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="881.85" cy="204.85000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="881.85" cy="204.85000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="881.85" cy="166.74999999999997" r="13.716" fill="#c98a4b"/>
+<circle cx="881.85" cy="166.74999999999997" r="7.62" fill="#b9a47a"/>
+<circle cx="881.85" cy="128.64999999999998" r="13.716" fill="#c98a4b"/>
+<circle cx="881.85" cy="128.64999999999998" r="7.62" fill="#b9a47a"/>
+<circle cx="843.75" cy="395.35" r="13.716" fill="#c98a4b"/>
+<circle cx="843.75" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="843.75" cy="357.25" r="13.716" fill="#c98a4b"/>
+<circle cx="843.75" cy="357.25" r="7.62" fill="#b9a47a"/>
+<circle cx="843.75" cy="319.15" r="13.716" fill="#c98a4b"/>
+<circle cx="843.75" cy="319.15" r="7.62" fill="#6f5f3e"/>
+<circle cx="843.75" cy="281.04999999999995" r="13.716" fill="#c98a4b"/>
+<circle cx="843.75" cy="281.04999999999995" r="7.62" fill="#b9a47a"/>
+<circle cx="843.75" cy="242.95000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="843.75" cy="242.95000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="843.75" cy="204.85000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="843.75" cy="204.85000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="843.75" cy="166.74999999999997" r="13.716" fill="#c98a4b"/>
+<circle cx="843.75" cy="166.74999999999997" r="7.62" fill="#b9a47a"/>
+<circle cx="843.75" cy="128.64999999999998" r="13.716" fill="#c98a4b"/>
+<circle cx="843.75" cy="128.64999999999998" r="7.62" fill="#b9a47a"/>
+<circle cx="805.65" cy="395.35" r="13.716" fill="#c98a4b"/>
+<circle cx="805.65" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="805.65" cy="357.25" r="13.716" fill="#c98a4b"/>
+<circle cx="805.65" cy="357.25" r="7.62" fill="#b9a47a"/>
+<circle cx="805.65" cy="319.15" r="13.716" fill="#c98a4b"/>
+<circle cx="805.65" cy="319.15" r="7.62" fill="#6f5f3e"/>
+<circle cx="805.65" cy="281.04999999999995" r="13.716" fill="#c98a4b"/>
+<circle cx="805.65" cy="281.04999999999995" r="7.62" fill="#b9a47a"/>
+<circle cx="805.65" cy="242.95000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="805.65" cy="242.95000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="805.65" cy="204.85000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="805.65" cy="204.85000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="805.65" cy="166.74999999999997" r="13.716" fill="#c98a4b"/>
+<circle cx="805.65" cy="166.74999999999997" r="7.62" fill="#b9a47a"/>
+<circle cx="805.65" cy="128.64999999999998" r="13.716" fill="#c98a4b"/>
+<circle cx="805.65" cy="128.64999999999998" r="7.62" fill="#b9a47a"/>
+<circle cx="767.55" cy="395.35" r="13.716" fill="#c98a4b"/>
+<circle cx="767.55" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="767.55" cy="357.25" r="13.716" fill="#c98a4b"/>
+<circle cx="767.55" cy="357.25" r="7.62" fill="#6f5f3e"/>
+<circle cx="767.55" cy="319.15" r="13.716" fill="#c98a4b"/>
+<circle cx="767.55" cy="319.15" r="7.62" fill="#b9a47a"/>
+<circle cx="767.55" cy="281.04999999999995" r="13.716" fill="#c98a4b"/>
+<circle cx="767.55" cy="281.04999999999995" r="7.62" fill="#b9a47a"/>
+<circle cx="767.55" cy="242.95000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="767.55" cy="242.95000000000002" r="7.62" fill="#6f5f3e"/>
+<circle cx="767.55" cy="204.85000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="767.55" cy="204.85000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="767.55" cy="166.74999999999997" r="13.716" fill="#c98a4b"/>
+<circle cx="767.55" cy="166.74999999999997" r="7.62" fill="#b9a47a"/>
+<circle cx="767.55" cy="128.64999999999998" r="13.716" fill="#c98a4b"/>
+<circle cx="767.55" cy="128.64999999999998" r="7.62" fill="#b9a47a"/>
+<circle cx="729.45" cy="395.35" r="13.716" fill="#c98a4b"/>
+<circle cx="729.45" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="729.45" cy="357.25" r="13.716" fill="#c98a4b"/>
+<circle cx="729.45" cy="357.25" r="7.62" fill="#6f5f3e"/>
+<circle cx="729.45" cy="319.15" r="13.716" fill="#c98a4b"/>
+<circle cx="729.45" cy="319.15" r="7.62" fill="#b9a47a"/>
+<circle cx="729.45" cy="281.04999999999995" r="13.716" fill="#c98a4b"/>
+<circle cx="729.45" cy="281.04999999999995" r="7.62" fill="#b9a47a"/>
+<circle cx="729.45" cy="242.95000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="729.45" cy="242.95000000000002" r="7.62" fill="#6f5f3e"/>
+<circle cx="729.45" cy="204.85000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="729.45" cy="204.85000000000002" r="7.62" fill="#6f5f3e"/>
+<circle cx="729.45" cy="166.74999999999997" r="13.716" fill="#c98a4b"/>
+<circle cx="729.45" cy="166.74999999999997" r="7.62" fill="#6f5f3e"/>
+<circle cx="729.45" cy="128.64999999999998" r="13.716" fill="#c98a4b"/>
+<circle cx="729.45" cy="128.64999999999998" r="7.62" fill="#6f5f3e"/>
+<circle cx="691.35" cy="395.35" r="13.716" fill="#c98a4b"/>
+<circle cx="691.35" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="691.35" cy="357.25" r="13.716" fill="#c98a4b"/>
+<circle cx="691.35" cy="357.25" r="7.62" fill="#6f5f3e"/>
+<circle cx="691.35" cy="319.15" r="13.716" fill="#c98a4b"/>
+<circle cx="691.35" cy="319.15" r="7.62" fill="#6f5f3e"/>
+<circle cx="691.35" cy="281.04999999999995" r="13.716" fill="#c98a4b"/>
+<circle cx="691.35" cy="281.04999999999995" r="7.62" fill="#6f5f3e"/>
+<circle cx="691.35" cy="242.95000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="691.35" cy="242.95000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="691.35" cy="204.85000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="691.35" cy="204.85000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="691.35" cy="166.74999999999997" r="13.716" fill="#c98a4b"/>
+<circle cx="691.35" cy="166.74999999999997" r="7.62" fill="#6f5f3e"/>
+<circle cx="691.35" cy="128.64999999999998" r="13.716" fill="#c98a4b"/>
+<circle cx="691.35" cy="128.64999999999998" r="7.62" fill="#b9a47a"/>
+<circle cx="653.25" cy="395.35" r="13.716" fill="#c98a4b"/>
+<circle cx="653.25" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="653.25" cy="357.25" r="13.716" fill="#c98a4b"/>
+<circle cx="653.25" cy="357.25" r="7.62" fill="#b9a47a"/>
+<circle cx="653.25" cy="319.15" r="13.716" fill="#c98a4b"/>
+<circle cx="653.25" cy="319.15" r="7.62" fill="#b9a47a"/>
+<circle cx="653.25" cy="281.04999999999995" r="13.716" fill="#c98a4b"/>
+<circle cx="653.25" cy="281.04999999999995" r="7.62" fill="#b9a47a"/>
+<circle cx="653.25" cy="242.95000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="653.25" cy="242.95000000000002" r="7.62" fill="#6f5f3e"/>
+<circle cx="653.25" cy="204.85000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="653.25" cy="204.85000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="653.25" cy="166.74999999999997" r="13.716" fill="#c98a4b"/>
+<circle cx="653.25" cy="166.74999999999997" r="7.62" fill="#b9a47a"/>
+<circle cx="653.25" cy="128.64999999999998" r="13.716" fill="#c98a4b"/>
+<circle cx="653.25" cy="128.64999999999998" r="7.62" fill="#6f5f3e"/>
+<circle cx="615.15" cy="395.35" r="13.716" fill="#c98a4b"/>
+<circle cx="615.15" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="615.15" cy="357.25" r="13.716" fill="#c98a4b"/>
+<circle cx="615.15" cy="357.25" r="7.62" fill="#b9a47a"/>
+<circle cx="615.15" cy="319.15" r="13.716" fill="#c98a4b"/>
+<circle cx="615.15" cy="319.15" r="7.62" fill="#b9a47a"/>
+<circle cx="615.15" cy="281.04999999999995" r="13.716" fill="#c98a4b"/>
+<circle cx="615.15" cy="281.04999999999995" r="7.62" fill="#6f5f3e"/>
+<circle cx="615.15" cy="242.95000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="615.15" cy="242.95000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="615.15" cy="204.85000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="615.15" cy="204.85000000000002" r="7.62" fill="#6f5f3e"/>
+<circle cx="615.15" cy="166.74999999999997" r="13.716" fill="#c98a4b"/>
+<circle cx="615.15" cy="166.74999999999997" r="7.62" fill="#b9a47a"/>
+<circle cx="615.15" cy="128.64999999999998" r="13.716" fill="#c98a4b"/>
+<circle cx="615.15" cy="128.64999999999998" r="7.62" fill="#b9a47a"/>
+<circle cx="577.0500000000001" cy="395.35" r="13.716" fill="#c98a4b"/>
+<circle cx="577.0500000000001" cy="395.35" r="7.62" fill="#6f5f3e"/>
+<circle cx="577.0500000000001" cy="357.25" r="13.716" fill="#c98a4b"/>
+<circle cx="577.0500000000001" cy="357.25" r="7.62" fill="#b9a47a"/>
+<circle cx="577.0500000000001" cy="319.15" r="13.716" fill="#c98a4b"/>
+<circle cx="577.0500000000001" cy="319.15" r="7.62" fill="#6f5f3e"/>
+<circle cx="577.0500000000001" cy="281.04999999999995" r="13.716" fill="#c98a4b"/>
+<circle cx="577.0500000000001" cy="281.04999999999995" r="7.62" fill="#6f5f3e"/>
+<circle cx="577.0500000000001" cy="242.95000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="577.0500000000001" cy="242.95000000000002" r="7.62" fill="#6f5f3e"/>
+<circle cx="577.0500000000001" cy="204.85000000000002" r="13.716" fill="#c98a4b"/>
+<circle cx="577.0500000000001" cy="204.85000000000002" r="7.62" fill="#b9a47a"/>
+<circle cx="577.0500000000001" cy="166.74999999999997" r="13.716" fill="#c98a4b"/>
+<circle cx="577.0500000000001" cy="166.74999999999997" r="7.62" fill="#b9a47a"/>
+<circle cx="577.0500000000001" cy="128.64999999999998" r="13.716" fill="#c98a4b"/>
+<circle cx="577.0500000000001" cy="128.64999999999998" r="7.62" fill="#6f5f3e"/>
+<polyline points="919.95,128.64999999999998 919.95,166.74999999999997 919.95,204.85000000000002 919.95,242.95000000000002" fill="none" stroke="#a9b0b4" stroke-width="16.002" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="919.95" cy="128.64999999999998" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="919.95" cy="166.74999999999997" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="919.95" cy="204.85000000000002" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="919.95" cy="242.95000000000002" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<polyline points="729.45,128.64999999999998 729.45,166.74999999999997 729.45,204.85000000000002 729.45,242.95000000000002" fill="none" stroke="#a9b0b4" stroke-width="16.002" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="729.45" cy="128.64999999999998" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="729.45" cy="166.74999999999997" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="729.45" cy="204.85000000000002" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="729.45" cy="242.95000000000002" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<polyline points="729.45,242.95000000000002 767.55,242.95000000000002" fill="none" stroke="#a9b0b4" stroke-width="16.002" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="729.45" cy="242.95000000000002" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="767.55" cy="242.95000000000002" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<polyline points="729.45,166.74999999999997 691.35,166.74999999999997" fill="none" stroke="#a9b0b4" stroke-width="16.002" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="729.45" cy="166.74999999999997" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="691.35" cy="166.74999999999997" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<polyline points="843.75,319.15 805.65,319.15" fill="none" stroke="#a9b0b4" stroke-width="16.002" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="843.75" cy="319.15" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="805.65" cy="319.15" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<polyline points="767.55,357.25 729.45,357.25" fill="none" stroke="#a9b0b4" stroke-width="16.002" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="767.55" cy="357.25" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="729.45" cy="357.25" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<polyline points="881.85,357.25 881.85,395.35" fill="none" stroke="#a9b0b4" stroke-width="16.002" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="881.85" cy="357.25" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="881.85" cy="395.35" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<polyline points="691.35,281.04999999999995 691.35,319.15 691.35,357.25 691.35,395.35" fill="none" stroke="#a9b0b4" stroke-width="16.002" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="691.35" cy="281.04999999999995" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="691.35" cy="319.15" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="691.35" cy="357.25" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="691.35" cy="395.35" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<polyline points="919.95,395.35 881.85,395.35 843.75,395.35 805.65,395.35 767.55,395.35 729.45,395.35 691.35,395.35 653.25,395.35 615.15,395.35 577.0500000000001,395.35" fill="none" stroke="#8e979c" stroke-width="3.2" stroke-linecap="round"/>
+<polyline points="919.95,395.35 881.85,395.35 843.75,395.35 805.65,395.35 767.55,395.35 729.45,395.35 691.35,395.35 653.25,395.35 615.15,395.35 577.0500000000001,395.35" fill="none" stroke="#d5dadc" stroke-width="1.4" stroke-linecap="round"/>
+<circle cx="919.95" cy="395.35" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="881.85" cy="395.35" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="843.75" cy="395.35" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="805.65" cy="395.35" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="767.55" cy="395.35" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="729.45" cy="395.35" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="691.35" cy="395.35" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="653.25" cy="395.35" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="615.15" cy="395.35" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="577.0500000000001" cy="395.35" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<polyline points="577.0500000000001,242.95000000000002 577.0500000000001,281.04999999999995" fill="none" stroke="#a9b0b4" stroke-width="16.002" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="577.0500000000001" cy="242.95000000000002" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="577.0500000000001" cy="281.04999999999995" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<polyline points="615.15,281.04999999999995 577.0500000000001,281.04999999999995" fill="none" stroke="#a9b0b4" stroke-width="16.002" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="615.15" cy="281.04999999999995" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="577.0500000000001" cy="281.04999999999995" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<polyline points="577.0500000000001,281.04999999999995 577.0500000000001,319.15" fill="none" stroke="#a9b0b4" stroke-width="16.002" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="577.0500000000001" cy="281.04999999999995" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="577.0500000000001" cy="319.15" r="9.144" fill="#cfd5d8" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="919.95" cy="166.74999999999997" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="729.45" cy="166.74999999999997" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="919.95" cy="242.95000000000002" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="767.55" cy="242.95000000000002" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="881.85" cy="281.04999999999995" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="729.45" cy="242.95000000000002" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="729.45" cy="357.25" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="767.55" cy="357.25" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="881.85" cy="357.25" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="691.35" cy="166.74999999999997" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="691.35" cy="281.04999999999995" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="615.15" cy="281.04999999999995" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="615.15" cy="395.35" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="577.0500000000001" cy="128.64999999999998" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="577.0500000000001" cy="242.95000000000002" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="653.25" cy="128.64999999999998" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="653.25" cy="242.95000000000002" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="653.25" cy="128.64999999999998" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="653.25" cy="242.95000000000002" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="615.15" cy="204.85000000000002" r="8.382" fill="#dfe3e5" stroke="#7d868b" stroke-width=".8"/>
+<circle cx="729.45" cy="128.64999999999998" r="14.254000000000001" fill="#3a4248"/>
+<circle cx="729.45" cy="128.64999999999998" r="12.954" fill="#d7262b"/>
+<rect x="711.4960000000001" y="114.69599999999997" width="9" height="6" fill="#8e44c4" stroke="#1d2226" stroke-width="1"/>
+<text x="729.45" y="132.04999999999998" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">1</text>
+<circle cx="881.85" cy="281.04999999999995" r="14.254000000000001" fill="#3a4248"/>
+<circle cx="881.85" cy="281.04999999999995" r="12.954" fill="#d7262b"/>
+<rect x="863.8960000000001" y="267.09599999999995" width="9" height="6" fill="#fbfbf7" stroke="#1d2226" stroke-width="1"/>
+<text x="881.85" y="284.44999999999993" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">2</text>
+<circle cx="919.95" cy="128.64999999999998" r="14.254000000000001" fill="#3a4248"/>
+<circle cx="919.95" cy="128.64999999999998" r="12.954" fill="#d7262b"/>
+<rect x="901.9960000000001" y="114.69599999999997" width="9" height="6" fill="#f5c400" stroke="#1d2226" stroke-width="1"/>
+<text x="919.95" y="132.04999999999998" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">3</text>
+<circle cx="805.65" cy="319.15" r="14.254000000000001" fill="#3a4248"/>
+<circle cx="805.65" cy="319.15" r="12.954" fill="#d7262b"/>
+<rect x="787.696" y="305.19599999999997" width="9" height="6" fill="#f07800" stroke="#1d2226" stroke-width="1"/>
+<text x="805.65" y="322.54999999999995" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">4</text>
+<circle cx="843.75" cy="319.15" r="14.254000000000001" fill="#3a4248"/>
+<circle cx="843.75" cy="319.15" r="12.954" fill="#d7262b"/>
+<rect x="825.796" y="305.19599999999997" width="9" height="6" fill="#f07800" stroke="#1d2226" stroke-width="1"/>
+<text x="843.75" y="322.54999999999995" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">5</text>
+<circle cx="862.8" cy="300.09999999999997" r="14.254000000000001" fill="#3a4248"/>
+<circle cx="862.8" cy="300.09999999999997" r="12.954" fill="#d7262b"/>
+<rect x="844.846" y="286.14599999999996" width="9" height="6" fill="#f07800" stroke="#1d2226" stroke-width="1"/>
+<text x="862.8" y="303.49999999999994" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">6</text>
+<circle cx="843.75" cy="395.35" r="14.254000000000001" fill="#3a4248"/>
+<circle cx="843.75" cy="395.35" r="12.954" fill="#1b1b1d"/>
+<rect x="825.796" y="381.396" width="9" height="6" fill="#fbfbf7" stroke="#1d2226" stroke-width="1"/>
+<text x="843.75" y="398.75" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">7</text>
+<circle cx="805.65" cy="395.35" r="14.254000000000001" fill="#3a4248"/>
+<circle cx="805.65" cy="395.35" r="12.954" fill="#1b1b1d"/>
+<rect x="787.696" y="381.396" width="9" height="6" fill="#f07800" stroke="#1d2226" stroke-width="1"/>
+<text x="805.65" y="398.75" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">8</text>
+<circle cx="767.55" cy="395.35" r="14.254000000000001" fill="#3a4248"/>
+<circle cx="767.55" cy="395.35" r="12.954" fill="#1b1b1d"/>
+<rect x="749.596" y="381.396" width="9" height="6" fill="#f07800" stroke="#1d2226" stroke-width="1"/>
+<text x="767.55" y="398.75" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">9</text>
+<circle cx="577.0500000000001" cy="128.64999999999998" r="11.587000000000002" fill="#3a4248"/>
+<circle cx="577.0500000000001" cy="128.64999999999998" r="10.287" fill="#d7262b"/>
+<text x="577.0500000000001" y="132.04999999999998" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">10</text>
+<circle cx="577.0500000000001" cy="319.15" r="11.587000000000002" fill="#3a4248"/>
+<circle cx="577.0500000000001" cy="319.15" r="10.287" fill="#8a5326"/>
+<text x="577.0500000000001" y="322.54999999999995" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">11</text>
+<circle cx="767.55" cy="357.25" r="11.587000000000002" fill="#3a4248"/>
+<circle cx="767.55" cy="357.25" r="10.287" fill="#f07800"/>
+<text x="767.55" y="360.65" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">12</text>
+<circle cx="653.25" cy="128.64999999999998" r="11.587000000000002" fill="#3a4248"/>
+<circle cx="653.25" cy="128.64999999999998" r="10.287" fill="#fbfbf7"/>
+<text x="653.25" y="132.04999999999998" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">13</text>
+<circle cx="615.15" cy="204.85000000000002" r="11.587000000000002" fill="#3a4248"/>
+<circle cx="615.15" cy="204.85000000000002" r="10.287" fill="#fbfbf7"/>
+<line x1="602.8629999999999" y1="197.56300000000002" x2="606.8629999999999" y2="197.56300000000002" stroke="#1d2226" stroke-width="1.6"/>
+<line x1="602.8629999999999" y1="200.763" x2="606.8629999999999" y2="200.763" stroke="#1d2226" stroke-width="1.6"/>
+<line x1="602.8629999999999" y1="203.96300000000002" x2="606.8629999999999" y2="203.96300000000002" stroke="#1d2226" stroke-width="1.6"/>
+<text x="615.15" y="208.25000000000003" font-size="9" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">14</text>
+<circle cx="653.25" cy="242.95000000000002" r="11.587000000000002" fill="#3a4248"/>
+<circle cx="653.25" cy="242.95000000000002" r="10.287" fill="#8a5326"/>
+<line x1="640.963" y1="235.663" x2="644.963" y2="235.663" stroke="#1d2226" stroke-width="1.6"/>
+<line x1="640.963" y1="238.863" x2="644.963" y2="238.863" stroke="#1d2226" stroke-width="1.6"/>
+<line x1="640.963" y1="242.06300000000002" x2="644.963" y2="242.06300000000002" stroke="#1d2226" stroke-width="1.6"/>
+<text x="653.25" y="246.35000000000002" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">15</text>
+<text x="60" y="458" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">CONNECTEURS (CÔTÉ FAISCEAU, BROCHE 1 À GAUCHE ; N° = FIL DE CETTE PLAQUE)</text>
+<text x="60" y="488" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X10</tspan> J1 + SW1 · JST-XH 4 en ligne</text>
+<rect x="60" y="496" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<path d="M60 496 l7 0 l-7 7 z" fill="#1d2226"/>
+<text x="82.0" y="517" font-size="8.5" text-anchor="middle" fill="#5e676d">VUSB</text>
+<text x="82.0" y="544" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">VUSB</text>
+<rect x="106" y="496" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<text x="128.0" y="517" font-size="8.5" text-anchor="middle" fill="#5e676d">GND</text>
+<text x="128.0" y="544" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">GND</text>
+<rect x="152" y="496" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="174.0" cy="513" r="10" fill="#3a4248"/><circle cx="174.0" cy="513" r="8.7" fill="#d7262b"/>
+<text x="174.0" y="516.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">3</text>
+<text x="174.0" y="544" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">VPATH</text>
+<rect x="198" y="496" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="220.0" cy="513" r="10" fill="#3a4248"/><circle cx="220.0" cy="513" r="8.7" fill="#d7262b"/>
+<text x="220.0" y="516.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">4</text>
+<text x="220.0" y="544" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">VSYS</text>
+<text x="298.8" y="488" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X13</tspan> sorties du bloc alim · JST-XH 4 en ligne</text>
+<rect x="298.8" y="496" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<path d="M298.8 496 l7 0 l-7 7 z" fill="#1d2226"/>
+<circle cx="320.8" cy="513" r="10" fill="#3a4248"/><circle cx="320.8" cy="513" r="8.7" fill="#d7262b"/>
+<text x="320.8" y="516.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">6</text>
+<text x="320.8" y="544" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">VSYS</text>
+<rect x="344.8" y="496" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="366.8" cy="513" r="10" fill="#3a4248"/><circle cx="366.8" cy="513" r="8.7" fill="#1b1b1d"/>
+<text x="366.8" y="516.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">9</text>
+<text x="366.8" y="544" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">GND amp</text>
+<rect x="390.8" y="496" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<text x="412.8" y="517" font-size="8.5" text-anchor="middle" fill="#5e676d">3V3</text>
+<text x="412.8" y="544" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">3V3</text>
+<rect x="436.8" y="496" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<text x="458.8" y="517" font-size="8.5" text-anchor="middle" fill="#5e676d">GND</text>
+<text x="458.8" y="544" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">GND log</text>
+<text x="614.4000000000001" y="488" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X14</tspan> mesures · JST-XH 3 en ligne</text>
+<rect x="614.4000000000001" y="496" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<path d="M614.4000000000001 496 l7 0 l-7 7 z" fill="#1d2226"/>
+<circle cx="636.4000000000001" cy="513" r="10" fill="#3a4248"/><circle cx="636.4000000000001" cy="513" r="8.7" fill="#8a5326"/>
+<text x="636.4000000000001" y="516.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">11</text>
+<text x="636.4000000000001" y="544" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">VBAT/2</text>
+<rect x="660.4000000000001" y="496" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="682.4000000000001" cy="513" r="10" fill="#3a4248"/><circle cx="682.4000000000001" cy="513" r="8.7" fill="#f07800"/>
+<text x="682.4000000000001" y="516.5" font-size="9.5" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">12</text>
+<text x="682.4000000000001" y="544" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">USB_DET</text>
+<rect x="706.4000000000001" y="496" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="728.4000000000001" cy="513" r="10" fill="#3a4248"/><circle cx="728.4000000000001" cy="513" r="8.7" fill="#8a5326"/>
+<text x="728.4000000000001" y="516.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">15</text>
+<text x="728.4000000000001" y="544" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">SD_EN</text>
+<text x="60" y="580" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X15</tspan> microSD · queue + Dupont 1 × 6 en ligne</text>
+<rect x="60" y="588" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<path d="M60 588 l7 0 l-7 7 z" fill="#1d2226"/>
+<text x="82.0" y="609" font-size="8.5" text-anchor="middle" fill="#5e676d">SD_CLK</text>
+<text x="82.0" y="636" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">CLK</text>
+<rect x="106" y="588" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<text x="128.0" y="609" font-size="8.5" text-anchor="middle" fill="#5e676d">SD_CMD</text>
+<text x="128.0" y="636" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">CMD</text>
+<rect x="152" y="588" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<text x="174.0" y="609" font-size="8.5" text-anchor="middle" fill="#5e676d">SD_D0</text>
+<text x="174.0" y="636" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">D0</text>
+<rect x="198" y="588" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="220.0" cy="605" r="10" fill="#3a4248"/><circle cx="220.0" cy="605" r="8.7" fill="#fbfbf7"/>
+<text x="220.0" y="608.5" font-size="9.5" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">14</text>
+<text x="220.0" y="636" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">3V3</text>
+<rect x="244" y="588" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<text x="266.0" y="609" font-size="8.5" text-anchor="middle" fill="#5e676d">GND</text>
+<text x="266.0" y="636" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">GND</text>
+<rect x="290" y="588" width="44" height="34" rx="3" fill="#d5d8da" stroke="#7d868b" stroke-width="1"/>
+<text x="312.0" y="609" font-size="9.5" text-anchor="middle" fill="#5e676d">bouché</text>
+<text x="312.0" y="636" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">—</text>
+<text x="60" y="682" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">COMPOSANTS</text>
+<text x="60" y="700" font-size="12" fill="#1d2226"><tspan font-weight="600">D1 1N5822</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">K A7 (VPATH) · A F7 (VUSB)</tspan></text>
+<text x="210" y="715" font-size="11" fill="#5e676d">couchée, anneau côté A7 (axe à 3,6 mm du bord arrière) ; trous percés à 1,3 mm, pattes pliées à la pince plate</text>
+<text x="60" y="731" font-size="12" fill="#1d2226"><tspan font-weight="600">Q1 AO3401A</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">S A5 (VPATH) · G E5 (VUSB) · D B4 (OUT+)</tspan></text>
+<text x="210" y="746" font-size="11" fill="#5e676d">collé pattes en l'air sur C5–D5, D vers l'arrière : G à l'est (→ E5), S à l'ouest (→ A5), D contourne par l'ouest jusqu'à B4</text>
+<text x="60" y="762" font-size="12" fill="#1d2226"><tspan font-weight="600">R15 68 k</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">1 F5 (VUSB) · 2 F2 (USB_DET)</tspan></text>
+<text x="210" y="777" font-size="11" fill="#5e676d">VUSB → USB_DET</text>
+<text x="60" y="793" font-size="12" fill="#1d2226"><tspan font-weight="600">R16 100 k</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">1 E2 (USB_DET) · 2 B2 (GND)</tspan></text>
+<text x="210" y="808" font-size="11" fill="#5e676d">USB_DET → GND</text>
+<text x="60" y="824" font-size="12" fill="#1d2226"><tspan font-weight="600">R1 10 k</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">1 G7 (VUSB) · 2 G4 (GND)</tspan></text>
+<text x="210" y="839" font-size="11" fill="#5e676d">grille de Q1 → GND</text>
+<text x="60" y="855" font-size="12" fill="#1d2226"><tspan font-weight="600">R3 1 M</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">1 I4 (VBAT/2) · 2 I1 (GND)</tspan></text>
+<text x="210" y="870" font-size="11" fill="#5e676d">VBAT/2 → GND</text>
+<text x="60" y="886" font-size="12" fill="#1d2226"><tspan font-weight="600">R2 1 M</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">1 J8 (B+) · 2 J5 (VBAT/2)</tspan></text>
+<text x="210" y="901" font-size="11" fill="#5e676d">B+ → VBAT/2, 1/8 W (Ø1,8) de préférence : corps sur J7–J6, sous la lèvre de la rainure</text>
+<text x="60" y="917" font-size="12" fill="#1d2226"><tspan font-weight="600">R22 100 k</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">1 H8 (3V3) · 2 H5 (SD_EN)</tspan></text>
+<text x="210" y="932" font-size="11" fill="#5e676d">grille de Q5 → 3V3</text>
+<text x="60" y="948" font-size="12" fill="#1d2226"><tspan font-weight="600">Q5 AO3401A</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">S H8 (3V3) · G H5 (SD_EN) · D I6 (SD_3V3)</tspan></text>
+<text x="210" y="963" font-size="11" fill="#5e676d">collé pattes en l'air sur I7, D vers la droite : S vers l'arrière (→ H8), G vers l'avant (→ H5), D redescend en I6</text>
+<text x="60" y="989" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">LIAISONS CÔTÉ SOUDURES</text>
+<text x="60" y="1007" font-size="12" fill="#1d2226"><tspan font-weight="600">pont</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">A8–A7–A6–A5</tspan></text>
+<text x="60" y="1022" font-size="12" fill="#1d2226"><tspan font-weight="600">pont</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">F8–F7–F6–F5</tspan></text>
+<text x="60" y="1037" font-size="12" fill="#1d2226"><tspan font-weight="600">pont</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">F5–E5</tspan></text>
+<text x="60" y="1052" font-size="12" fill="#1d2226"><tspan font-weight="600">pont</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">F7–G7</tspan></text>
+<text x="60" y="1067" font-size="12" fill="#1d2226"><tspan font-weight="600">pont</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">C3–D3</tspan></text>
+<text x="60" y="1082" font-size="12" fill="#1d2226"><tspan font-weight="600">pont</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">E2–F2</tspan></text>
+<text x="60" y="1097" font-size="12" fill="#1d2226"><tspan font-weight="600">pont</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">B2–B1</tspan></text>
+<text x="60" y="1112" font-size="12" fill="#1d2226"><tspan font-weight="600">pont</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">G4–G3–G2–G1</tspan></text>
+<text x="60" y="1127" font-size="12" fill="#1d2226"><tspan font-weight="600">bus nu</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">A1 … J1</tspan></text>
+<text x="210" y="1142" font-size="11" fill="#5e676d">GND</text>
+<text x="60" y="1158" font-size="12" fill="#1d2226"><tspan font-weight="600">pont</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">J5–J4</tspan></text>
+<text x="60" y="1173" font-size="12" fill="#1d2226"><tspan font-weight="600">pont</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">I4–J4</tspan></text>
+<text x="60" y="1188" font-size="12" fill="#1d2226"><tspan font-weight="600">pont</tspan><tspan x="210" font-family="IBM Plex Mono, monospace" font-size="11">J4–J3</tspan></text>
+<text x="60" y="1213" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">FILS (N° DU DESSIN · TROU · SIGNAL · FIL · AUTRE BOUT : ● SOUDÉ, D DUPONT, XH JST-XH, F / M · VERS)</text>
+<circle cx="68" cy="1227" r="6.5" fill="#d7262b" stroke="#3a4248" stroke-width="1.3"/>
+<text x="82" y="1231" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 1  F8  VUSB</text>
+<text x="250" y="1231" font-size="11.5" fill="#5e676d">rouge 26 AWG, bague violette</text>
+<circle cx="452" cy="1227" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
+<text x="470" y="1231" font-size="11.5" fill="#1d2226">TP4056 IN+ (VUSB)</text>
+<circle cx="68" cy="1244" r="6.5" fill="#d7262b" stroke="#3a4248" stroke-width="1.3"/>
+<text x="82" y="1248" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 2  B4  OUT+</text>
+<text x="250" y="1248" font-size="11.5" fill="#5e676d">rouge 26 AWG, bague blanche</text>
+<circle cx="452" cy="1244" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
+<text x="470" y="1248" font-size="11.5" fill="#1d2226">TP4056 OUT+</text>
+<circle cx="68" cy="1261" r="6.5" fill="#d7262b" stroke="#3a4248" stroke-width="1.3"/>
+<text x="82" y="1265" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 3  A8  VPATH</text>
+<text x="250" y="1265" font-size="11.5" fill="#5e676d">rouge 26 AWG, bague jaune</text>
+<rect x="441.0" y="1254.5" width="22" height="13" rx="2" fill="#f07800"/><text x="452" y="1264.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">XHF</text>
+<text x="470" y="1265" font-size="11.5" fill="#1d2226">X10 → interrupteur SW1 (VPATH)  [X10 br. 3]</text>
+<circle cx="68" cy="1278" r="6.5" fill="#d7262b" stroke="#3a4248" stroke-width="1.3"/>
+<text x="82" y="1282" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 4  D3  VSYS</text>
+<text x="250" y="1282" font-size="11.5" fill="#5e676d">rouge 26 AWG, bague orange</text>
+<rect x="441.0" y="1271.5" width="22" height="13" rx="2" fill="#f07800"/><text x="452" y="1281.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">XHF</text>
+<text x="470" y="1282" font-size="11.5" fill="#1d2226">X10 ← interrupteur SW1 (VSYS)  [X10 br. 4]</text>
+<circle cx="68" cy="1295" r="6.5" fill="#d7262b" stroke="#3a4248" stroke-width="1.3"/>
+<text x="82" y="1299" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 5  C3  VSYS</text>
+<text x="250" y="1299" font-size="11.5" fill="#5e676d">rouge 26 AWG, bague orange</text>
+<circle cx="452" cy="1295" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
+<text x="470" y="1299" font-size="11.5" fill="#1d2226">TPS63020 VIN</text>
+<circle cx="68" cy="1312" r="6.5" fill="#d7262b" stroke="#3a4248" stroke-width="1.3"/>
+<text x="82" y="1316" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 6  C3  VSYS</text>
+<text x="250" y="1316" font-size="11.5" fill="#5e676d">rouge 26 AWG, bague orange</text>
+<rect x="441.0" y="1305.5" width="22" height="13" rx="2" fill="#f07800"/><text x="452" y="1315.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">XHF</text>
+<text x="470" y="1316" font-size="11.5" fill="#1d2226">X13 → ampli VIN (paire torsadée)  [X13 br. 1]</text>
+<circle cx="68" cy="1329" r="6.5" fill="#1b1b1d" stroke="#3a4248" stroke-width="1.3"/>
+<text x="82" y="1333" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 7  C1  GND</text>
+<text x="250" y="1333" font-size="11.5" fill="#5e676d">noir 26 AWG, bague blanche</text>
+<circle cx="452" cy="1329" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
+<text x="470" y="1333" font-size="11.5" fill="#1d2226">TP4056 OUT−</text>
+<circle cx="68" cy="1346" r="6.5" fill="#1b1b1d" stroke="#3a4248" stroke-width="1.3"/>
+<text x="82" y="1350" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 8  D1  GND</text>
+<text x="250" y="1350" font-size="11.5" fill="#5e676d">noir 26 AWG, bague orange</text>
+<circle cx="452" cy="1346" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
+<text x="470" y="1350" font-size="11.5" fill="#1d2226">TPS63020 GND</text>
+<circle cx="68" cy="1363" r="6.5" fill="#1b1b1d" stroke="#3a4248" stroke-width="1.3"/>
+<text x="82" y="1367" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 9  E1  GND</text>
+<text x="250" y="1367" font-size="11.5" fill="#5e676d">noir 26 AWG, bague orange</text>
+<rect x="441.0" y="1356.5" width="22" height="13" rx="2" fill="#f07800"/><text x="452" y="1366.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">XHF</text>
+<text x="470" y="1367" font-size="11.5" fill="#1d2226">X13 → ampli GND (paire torsadée)  [X13 br. 2]</text>
+<circle cx="68" cy="1380" r="6.5" fill="#d7262b" stroke="#3a4248" stroke-width="1.3"/>
+<text x="82" y="1384" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">10  J8  B+</text>
+<text x="250" y="1384" font-size="11.5" fill="#5e676d">rouge 30 AWG</text>
+<circle cx="452" cy="1380" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
+<text x="470" y="1384" font-size="11.5" fill="#1d2226">TP4056 B+ (mesure)</text>
+<circle cx="68" cy="1397" r="6.5" fill="#8a5326" stroke="#3a4248" stroke-width="1.3"/>
+<text x="82" y="1401" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">11  J3  VBAT/2</text>
+<text x="250" y="1401" font-size="11.5" fill="#5e676d">marron 30 AWG</text>
+<rect x="441.0" y="1390.5" width="22" height="13" rx="2" fill="#f07800"/><text x="452" y="1400.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">XHF</text>
+<text x="470" y="1401" font-size="11.5" fill="#1d2226">X14 → tube gauche → S3 IO1  [X14 br. 1]</text>
+<circle cx="68" cy="1414" r="6.5" fill="#f07800" stroke="#3a4248" stroke-width="1.3"/>
+<text x="82" y="1418" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">12  E2  USB_DET</text>
+<text x="250" y="1418" font-size="11.5" fill="#5e676d">orange 30 AWG</text>
+<rect x="441.0" y="1407.5" width="22" height="13" rx="2" fill="#f07800"/><text x="452" y="1417.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">XHF</text>
+<text x="470" y="1418" font-size="11.5" fill="#1d2226">X14 → tube gauche → S3 IO21  [X14 br. 2]</text>
+<circle cx="68" cy="1431" r="6.5" fill="#fbfbf7" stroke="#3a4248" stroke-width="1.3"/>
+<text x="82" y="1435" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">13  H8  3V3</text>
+<text x="250" y="1435" font-size="11.5" fill="#5e676d">blanc 30 AWG</text>
+<circle cx="452" cy="1431" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
+<text x="470" y="1435" font-size="11.5" fill="#1d2226">TPS63020 VOUT</text>
+<circle cx="68" cy="1448" r="6.5" fill="#fbfbf7" stroke="#3a4248" stroke-width="1.3"/>
+<text x="82" y="1452" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">14  I6  SD_3V3</text>
+<text x="250" y="1452" font-size="11.5" fill="#5e676d">blanc 30 AWG, 3 bagues</text>
+<rect x="444.5" y="1441.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="452" y="1451.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
+<text x="470" y="1452" font-size="11.5" fill="#1d2226">X15 → lecteur microSD VCC  [X15 br. 4]</text>
+<circle cx="68" cy="1465" r="6.5" fill="#8a5326" stroke="#3a4248" stroke-width="1.3"/>
+<text x="82" y="1469" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">15  H5  SD_EN</text>
+<text x="250" y="1469" font-size="11.5" fill="#5e676d">marron 30 AWG, 3 bagues</text>
+<rect x="441.0" y="1458.5" width="22" height="13" rx="2" fill="#f07800"/><text x="452" y="1468.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">XHF</text>
+<text x="470" y="1469" font-size="11.5" fill="#1d2226">X14 → tube gauche → S3 IO36  [X14 br. 3]</text>
+<text x="60" y="1496" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">NOTES</text>
+<text x="60" y="1514" font-size="11.5" fill="#1d2226">colonne J, rangées 3–6 : l'attache de toron (z 179) passe 4 mm au-dessus : seulement des pièces couchées</text>
+<text x="60" y="1532" font-size="11.5" fill="#1d2226">Plaque simple face, cuivre en dessous : pas de cuivre sous Q1 / Q5 ni sous les corps des pièces.</text>
+<text x="60" y="1550" font-size="11.5" fill="#1d2226">Pièces couchées (1/4 W, pas 7,62 ; R2 en 1/8 W), D1 couchée (Ø5,3) : hauteur ≤ 6 mm. Q1 et Q5 (SOT-23) collés</text>
+<text x="60" y="1565" font-size="11.5" fill="#1d2226">pattes en l'air dans le sens dessiné (vu de dessus, retourné : G / S / D sur le croquis), reliés par du fil à</text>
+<text x="60" y="1580" font-size="11.5" fill="#1d2226">wrapper isolé 30 AWG (Kynar), dénudé 2 mm à chaque bout (une touche de fer chacun) ; colle par-dessus une fois</text>
+<text x="60" y="1595" font-size="11.5" fill="#1d2226">testés.</text>
+<text x="60" y="1613" font-size="11.5" fill="#1d2226">Le dessous porte le bus GND (fil étamé le long de la rangée 1 : l'étoile de masse), les ponts et tous les fils,</text>
+<text x="60" y="1628" font-size="11.5" fill="#1d2226">qui partent vers l'avant (rangée 1) puis montent ou descendent dans le couloir de façade.</text>
+<text x="60" y="1646" font-size="11.5" fill="#1d2226">Trous laissés vides entre les nets d'alimentation et la masse / les GPIO : ne pas les combler de soudure.</text>
+<text x="60" y="1664" font-size="11.5" fill="#1d2226">Contrôle vers GND, sans les modules : VUSB ≈ 9,4 kΩ (R1 ∥ R15 + R16), USB_DET ≈ 44 kΩ, VBAT/2 ≈ 1 MΩ, B+ ≈ 2 MΩ,</text>
+<text x="60" y="1679" font-size="11.5" fill="#1d2226">VPATH / VSYS / OUT+ > 1 MΩ ; OUT+ ↔ VSYS et OUT+ ↔ VPATH ouverts.</text>
+</svg>

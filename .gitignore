@@ -1,0 +1,8 @@
+# snapshots and per-file backups stay on the Synology share, not in git
+backups/
+*.bak-*
+# make check outputs (gcode, slice results, logs)
+build/
+__pycache__/
+tools/harness_geometry.json
+result.json
