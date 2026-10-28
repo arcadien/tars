@@ -280,8 +280,8 @@ sd, sdh = module("microSD_3V3", P("CLK", "CMD", "D0", "D1", "D2", "D3", "VCC", "
 
 # ---------------- power (fully wired) ----------------
 VU, PATH = 35.56, 55.88            # VUSB line, power path line (OUTP -> Q1 -> VPATH -> SW1 -> VSYS)
-note("ALIMENTATION — étoile de masse sur la plaquette du partage de charge (jambe G)", 15.24, 17.78, 2)
-note("VUSB (J1 : breakout micro-USB au pied de la jambe G ; D3 + C9 sur les pastilles IN du TP4056)", 12.7, 33.02, 1.27)
+note("POWER — ground star on the power-path board (left leg)", 15.24, 17.78, 2)
+note("VUSB (J1: micro-USB breakout at the foot of the left leg; D3 + C9 on the TP4056 IN pads)", 12.7, 33.02, 1.27)
 place("Device:D_Zener", "D3", "SMAJ5.0A (TVS)", 20.32, 46.99, {"1": "VUSB", "2": "GND"}, rot=270, txt=((20.32, 62.23), (20.32, 64.77)))
 place("Device:C_Polarized", "C9", "22µ 16V", 12.7, 46.99, {"1": "VUSB", "2": "GND"}, txt=((12.7, 57.15), (12.7, 59.69)))
 place("Device:R", "R1", "10k", 30.48, 46.99, {"1": "VUSB", "2": "GND"})
@@ -336,7 +336,7 @@ W((104.14, 83.82), "F1.1"); W((124.46, 83.82), "F2.1")
 W("F1.2", "BT1.1"); W("F2.2", "BT2.1")
 W("U1.B-", (88.9, 71.12), (88.9, 111.76), (104.14, 111.76), (124.46, 111.76))
 W((104.14, 111.76), "BT1.2"); W((124.46, 111.76), "BT2.2")
-note("R15 / R16 : chargeur branché → USB_DET ≈ 3 V (GPIO21, réveil).", 15.24, 134.62, 1.27)
+note("R15 / R16: charger plugged in → USB_DET ≈ 3 V (GPIO21, wake-up).", 15.24, 134.62, 1.27)
 
 # ---------------- controller + peripherals, fully wired ----------------
 # The S3 sits between two wiring channels; every net has its own vertical track there. The left column (screens,
@@ -344,9 +344,9 @@ note("R15 / R16 : chargeur branché → USB_DET ≈ 3 V (GPIO21, réveil).", 15.
 # it as usual. Peripheral pin rows sit on odd multiples of 2.54 and the S3 rows on even ones, lanes on x.27 /
 # x.73, so no two horizontal wires of different nets ever share a line.
 S3X, S3Y = 271.78, 200.66
-note("CERVEAU — LOLIN S3 Mini (milieu G)", 248.92, 17.78, 2)
-note("ÉCRANS, CAPTEURS I2C →", 132.08, 139.7, 1.5)
-note("SON, MICRO, microSD", 345.44, 17.78, 2)
+note("BRAIN — LOLIN S3 Mini (left middle)", 248.92, 17.78, 2)
+note("SCREENS, I2C SENSORS →", 132.08, 139.7, 1.5)
+note("SOUND, MIC, microSD", 345.44, 17.78, 2)
 mod(s3, s3h, "U2", "LOLIN S3 Mini", S3X, S3Y, {
     "EN": "NC", "1": "VBAT_2", "2": "INT1", "3": "PIR", "4": "AMP_SD_S3", "5": "SDA", "12": "SCK_S3", "6": "SCL", "13": "DC",
     "7": "BL_EN", "11": "MOSI_S3", "8": "RST", "10": "CS1", "9": "CS2", "3V": "+3V3", "14": "MIC_BCLK",
@@ -355,12 +355,12 @@ mod(s3, s3h, "U2", "LOLIN S3 Mini", S3X, S3Y, {
 row = lambda r: r2(S3Y - 38.1 + 5.08 * r)
 # 33 ohm series resistors right at the S3 pins; SCK split on the carrier: R12 -> screen 1, R19 -> screen 2 (own wire
 # through the middle tube, no T at P1)
-place("Device:R", "R12", "47 (support)", S3X - 24.13, row(6), {"1": "SCK_S3", "2": "SCK1"}, rot=270, dy=2.54)
+place("Device:R", "R12", "47 (carrier)", S3X - 24.13, row(6), {"1": "SCK_S3", "2": "SCK1"}, rot=270, dy=2.54)
 W("U2.12", "R12.1")
-place("Device:R", "R20", "33 (support)", S3X - 24.13, row(10), {"1": "MOSI_S3", "2": "MOSI"}, rot=270, dy=2.54)
+place("Device:R", "R20", "33 (carrier)", S3X - 24.13, row(10), {"1": "MOSI_S3", "2": "MOSI"}, rot=270, dy=2.54)
 W("U2.11", "R20.1")
 LANE_K = 257.81
-place("Device:R", "R19", "47 (support)", 245.11, LANE_K, {"1": "SCK_S3", "2": "SCK2"}, rot=270,
+place("Device:R", "R19", "47 (carrier)", 245.11, LANE_K, {"1": "SCK_S3", "2": "SCK2"}, rot=270,
       txt=((245.11, LANE_K - 2.54), (245.11, LANE_K + 2.54)))
 T((252.73, row(6)))
 W((252.73, row(6)), (252.73, LANE_K), "R19.1")
@@ -374,17 +374,17 @@ XR = [r2(S3X + 33.02 + 2.54 * k) for k in range(13)]     # right channel tracks
 PXL, PXR, PXJ = r2(XL[-1] - 15.24 - 12.7), r2(XR[-1] + 15.24 + 12.7), r2(XR[-1] + 15.24 + 12.7 + 48.26)
 LCD = lambda cs, sck: {"GND": "GND", "VCC": "+3V3", "SCL": sck, "SDA": "MOSI", "RES": "RST", "DC": "DC", "CS": cs, "BLK": "BL_EN"}
 modm = lambda lib_id, h2, ref, value, X, Y, nets: place(lib_id, ref, value, X, Y, nets, mirror="y", dy=h2 + 1.27)
-modm(lcd, lcdh, "U3", "Écran 1 (milieu G)", PXL, 152.4, LCD("CS1", "SCK1"))
-modm(lcd, lcdh, "U4", "Écran 2 (milieu D)", PXL, 203.2, LCD("CS2", "SCK2"))
-modm(rtc, rtch, "U7", "DS3231 ZS-042 (jambe D)", PXL, 248.92, {"32K": "NC", "SQW": "NC", "SCL": "SCL", "SDA": "SDA", "VCC": "+3V3", "GND": "GND"})
+modm(lcd, lcdh, "U3", "Screen 1 (left middle)", PXL, 152.4, LCD("CS1", "SCK1"))
+modm(lcd, lcdh, "U4", "Screen 2 (right middle)", PXL, 203.2, LCD("CS2", "SCK2"))
+modm(rtc, rtch, "U7", "DS3231 ZS-042 (right leg)", PXL, 248.92, {"32K": "NC", "SQW": "NC", "SCL": "SCL", "SDA": "SDA", "VCC": "+3V3", "GND": "GND"})
 modm(acc, acch, "U8", "ADXL345 GY-291", PXL, 294.64, {"GND": "GND", "VCC": "+3V3", "CS": "+3V3", "INT1": "INT1", "INT2": "NC", "SDO": "GND", "SDA": "SDA", "SCL": "SCL"})
-modm(bme, bmeh, "U11", "BME280 (jambe D)", PXL, 340.36, {"VCC": "+3V3", "GND": "GND", "SCL": "SCL", "SDA": "SDA"})
+modm(bme, bmeh, "U11", "BME280 (right leg)", PXL, 340.36, {"VCC": "+3V3", "GND": "GND", "SCL": "SCL", "SDA": "SDA"})
 v = stub("U8.VCC")                                         # CS high = I2C mode: tie it to VCC
 W(stub("U8.CS"), v)
 PW("+3V3", v, "r")
-mod(amp, amph, "U5", "MAX98357A (milieu D)", PXR, 160.02, {"LRC": "LRC", "BCLK": "BCLK", "DIN": "DIN", "GAIN": "NC", "SD": "AMP_SD", "GND": "GND", "VIN": "VSYS", "OUT+": "SPK+", "OUT-": "SPK-"})
-mod(mic, mich, "U6", "INMP441 (milieu G)", PXR, 213.36, {"SCK": "MIC_BCLK", "WS": "MIC_WS", "SD": "MIC_SD", "L/R": "GND", "VDD": "+3V3", "GND": "GND"})
-mod(sd, sdh, "J2", "microSD (jambe G)", PXJ, 279.4, {"CLK": "SD_CLK", "CMD": "SD_CMD", "D0": "SD_D0", "D1": "SD_D1", "D2": "SD_D2", "D3": "SD_D3", "VCC": "SD_3V3", "GND": "GND"})
+mod(amp, amph, "U5", "MAX98357A (right middle)", PXR, 160.02, {"LRC": "LRC", "BCLK": "BCLK", "DIN": "DIN", "GAIN": "NC", "SD": "AMP_SD", "GND": "GND", "VIN": "VSYS", "OUT+": "SPK+", "OUT-": "SPK-"})
+mod(mic, mich, "U6", "INMP441 (left middle)", PXR, 213.36, {"SCK": "MIC_BCLK", "WS": "MIC_WS", "SD": "MIC_SD", "L/R": "GND", "VDD": "+3V3", "GND": "GND"})
+mod(sd, sdh, "J2", "microSD (left leg)", PXJ, 279.4, {"CLK": "SD_CLK", "CMD": "SD_CMD", "D0": "SD_D0", "D1": "SD_D1", "D2": "SD_D2", "D3": "SD_D3", "VCC": "SD_3V3", "GND": "GND"})
 
 # BL_EN pull-down R4 (P1) and the amplifier's own shutdown line (GPIO4 -> R10 1 k -> SD, R18 10 k to GND, both on P2)
 # sit under the S3
@@ -432,7 +432,7 @@ PW("GND", pt("C12.2"), "l")
 PW("GND", stub("U10.GND"))
 W("R17.1", (XL[13], LANE_P))
 bus(["U2.3"], XL[13], [LANE_P])
-note("U10 : trou en façade en haut (milieu D), R17 sur P2 ; U7, U11 dans la jambe D (SQW non câblé).", 30.48, 356.87, 1.27)
+note("U10: front hole at the top (right middle), R17 on P2; U7, U11 in the right leg (SQW not wired).", 30.48, 356.87, 1.27)
 # right channel
 bus(["R13.2", "U5.BCLK"], XR[0])
 bus(["R14.2", "U5.LRC"], XR[1])
@@ -499,17 +499,17 @@ place("Device:C_Polarized", "C10", "10µ tant. (P2)", 116.84, 190.5, {"1": "+3V3
 place("Device:C", "C11", "0.1µ (P2)", 142.24, 190.5, {"1": "+3V3", "2": "GND"})
 rail(["C1.1", "C2.1", "C3.1", "C10.1", "C11.1"], 2.54, "+3V3", left=None)
 rail(["C1.2", "C2.2", "C3.2", "C10.2", "C11.2"], 2.54, "GND", left=None)
-note("C1 (tantale CMS 7343 couché sous la S3) sur son support, C2 / C3 sur la bande 3V3 de P1, C10 / C11 sur P2 ; plans renders/tars4_board_*.svg.", 30.48, 203.2, 1.27)
+note("C1 (SMD 7343 tantalum lying under the S3) on its carrier, C2 / C3 on the P1 3V3 strip, C10 / C11 on P2; plans renders/tars4_board_*.svg.", 30.48, 203.2, 1.27)
 
 NY = 365.76
 for i, t in enumerate([
-        "Q1 + D1 + R1 : partage de charge (secteur / batterie). R2 / R3 (1M, sur B+ : la vraie tension des cellules, même sur secteur) sur la plaquette ; C6 (GPIO1) et C8 (GPIO21) aux broches de la S3. Q5 + R22 sur la plaquette : microSD coupée en veille (GPIO36 bas = allumée).",
-        "U9 : EN relié à VIN, PS/SYNC à GND (ne jamais le mettre à l'état haut). Sa paire VSYS/GND part de l'étoile ; le GND logique vers P1 part de sa pastille GND.",
-        "S3 : V (VBUS) = USB-C de la S3 seulement. EN = reset de la S3 (≠ BL_EN). Séries 33 Ω côté S3 (R20 sur MOSI) ; SCK séparé sur le support : R12 → écran 1, R19 → écran 2 (fil direct dans le tube), 47 Ω (jusqu'à 100 si l'image sautille).",
-        "BL_EN (GPIO7) : rétroéclairage des deux écrans seulement (PWM possible). AMP_SD (GPIO4) : R10 1k + R18 10k sur P2 → SD de l'ampli (éteint au démarrage et en veille). P1 / P2 : plaques à bandes sous les écrans. I2C en chaîne : S3 → ADXL345 → tube central → P2 → tube droit → DS3231 + BME280 (jambe D) ; alim des capteurs P1 → micro → ADXL345, P2 → jambe D.",
-        "LED : retirer toutes les LED d'état alimentées par la batterie (ZS-042, TPS63020, GY-291, lecteur microSD…) ; garder celles de charge du TP4056.",
-        "Fils silicone : alimentation en 26 AWG (B+/B−, paire ampli, 3V3 et GND vers P1), signaux et alimentation des écrans / capteurs en 30 AWG. Tubes : 13 / 19 / 6 fils.",
-        "Connecteurs X1–X15 (Dupont détrompés / JST) entre chaque module et le faisceau, S3 enfichée sur un support : non dessinés, voir tars4_wiring.html. D3 : TVS unidirectionnelle (symbole Zener). Un croisement sans point n'est pas une connexion. Généré par tools/kicad_sch_gen.py (netlist vérifiée à chaque génération)."]):
+        "Q1 + D1 + R1: power path (mains / battery). R2 / R3 (1M, on B+: the real cell voltage, even on mains) on the power-path board; C6 (GPIO1) and C8 (GPIO21) at the S3 pins. Q5 + R22 on the power-path board: microSD cut in sleep (GPIO36 low = on).",
+        "U9: EN tied to VIN, PS/SYNC to GND (never drive it high). Its VSYS/GND pair leaves from the star; the logic GND to P1 leaves from its GND pad.",
+        "S3: V (VBUS) = the S3 USB-C only. EN = S3 reset (≠ BL_EN). 33 Ω series at the S3 (R20 on MOSI); SCK split on the carrier: R12 → screen 1, R19 → screen 2 (direct wire in the tube), 47 Ω (up to 100 if the image jitters).",
+        "BL_EN (GPIO7): backlight of both screens only (PWM possible). AMP_SD (GPIO4): R10 1k + R18 10k on P2 → amplifier SD (off at boot and in sleep). P1 / P2: stripboards under the screens. I2C chain: S3 → ADXL345 → middle tube → P2 → right tube → DS3231 + BME280 (right leg); sensor supply P1 → mic → ADXL345, P2 → right leg.",
+        "LEDs: remove every status LED fed by the battery (ZS-042, TPS63020, GY-291, microSD reader…); keep the TP4056 charge LEDs.",
+        "Silicone wire: power in 26 AWG (B+/B−, amplifier pair, 3V3 and GND to P1), signals and screen / sensor supply in 30 AWG. Tubes: 13 / 19 / 6 wires.",
+        "Connectors X1–X15 (keyed Dupont / JST) between each module and the harness, S3 plugged into a carrier: not drawn, see tars4_wiring.html. D3: unidirectional TVS (Zener symbol). A crossing without a dot is not a connection. Generated by tools/kicad_sch_gen.py (netlist checked at every generation)."]):
     note(t, 15.24, NY + 5.08 * i, 1.5 if i < 6 else 1.27)
 
 finish()
@@ -557,7 +557,7 @@ doc = f"""(kicad_sch
 	(generator_version "10.0")
 	(uuid "{ROOT_UUID}")
 	(paper "A2")
-	(title_block (title "TARS4 — électronique") (date "2026-10-21") (rev "3") (comment 1 "LOLIN S3 Mini, TPS63020, 2 × 18650"))
+	(title_block (title "TARS4 — electronics") (date "2026-10-21") (rev "3") (comment 1 "LOLIN S3 Mini, TPS63020, 2 × 18650"))
 	(lib_symbols
 {lib_symbols}
 	)
