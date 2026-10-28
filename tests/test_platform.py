@@ -14,6 +14,19 @@ def s3_pin(sch, gpio):
     return sch.net(sch.refs('LOLIN_S3_Mini')[0], str(gpio))
 
 
+@pytest.mark.req('PLAT-POWER-CHARGE-001')
+@pytest.mark.xfail(strict=True, reason='J1 is only a text note in the schematic so far; remove this mark once it is drawn')
+def test_plat_power_charge_001_breakout_feeds_the_charger_in_pads(sch):
+    # Given the protected TP4056 module and the micro-USB breakout J1
+    u, = sch.refs('TP4056_DW01')
+    j, = sch.refs('microUSB_breakout')
+    # Then the breakout's VBUS / GND are on the module's IN+ / IN- pads
+    assert sch.net(j, 'VBUS') == sch.net(u, 'IN+') and sch.net(j, 'GND') == sch.net(u, 'IN-')
+    # And OUT+ is the only charger output: it feeds only the power-path P-MOSFET
+    others = {r for r, _ in sch.pins(u, 'OUT+')} - {u}
+    assert len(others) == 1 and sch.parts[others.pop()] == 'Q_PMOS'
+
+
 @pytest.mark.req('PLAT-POWER-HOTPLUG-001')
 def test_plat_power_hotplug_001_tvs_and_capacitor_across_vusb(sch):
     # Given VUSB (the TP4056 IN+ pads)
