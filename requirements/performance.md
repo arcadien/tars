@@ -37,3 +37,10 @@
 **Dependencies:** [FUNC-POWER-CHARGE-001](functional.md#func-power-charge-001), [FUNC-POWER-PATH-001](functional.md#func-power-path-001)
 **Description:** While charging at the maximum charge current, the outer wall of the PLA leg next to the charger stays ≤ 45 °C (PLA softens at ~55–60 °C). Lids are closed and the ambient is 20–25 °C. Two cases: robot off, and robot running at a 1 A load on the external supply. Acceptance (bench, thermocouple or IR thermometer on the wall, at 15 min and at 30 min): every reading ≤ 45 °C.
 
+
+### PERF-POWER-MAINS-001
+**Title:** External supply voltage under the maximum combined load
+**Status:** validated
+**Dependencies:** [FUNC-POWER-PATH-001](functional.md#func-power-path-001)
+**Description:** With a 5 V ≥ 2 A supply, the battery charging at maximum current and a 1 A system load, the voltage at the charger input stays ≥ 4.60 V for 30 min. Acceptance (bench, multimeter at the charger IN pads, readings every 5 min).
+
