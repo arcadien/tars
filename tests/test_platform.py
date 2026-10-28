@@ -67,3 +67,15 @@ def test_plat_power_monitor_001_vbat_divider_on_gpio1(sch):
     assert sch.value('R3') == '1M' and set(sch.between('R3')) == {mid, 'GND'}
     # And C6 is a 100 nF ceramic (non-polarised symbol) from GPIO1 to GND
     assert sch.parts['C6'] == 'C' and sch.value('C6') == '0.1µ' and set(sch.between('C6')) == {mid, 'GND'}
+
+
+@pytest.mark.req('PLAT-POWER-DETECT-001')
+def test_plat_power_detect_001_usb_det_divider_on_gpio21(sch):
+    # Given VUSB and the USB_DET net
+    det = sch.net('R16', '1')
+    # Then GPIO21 is on USB_DET
+    assert s3_pin(sch, 21) == det == '/USB_DET'
+    # And R15 68k runs from VUSB, R16 100k and C8 100 nF to GND
+    assert sch.value('R15') == '68k' and set(sch.between('R15')) == {vusb(sch), det}
+    assert sch.value('R16') == '100k' and set(sch.between('R16')) == {det, 'GND'}
+    assert sch.value('C8') == '0.1µ' and set(sch.between('C8')) == {det, 'GND'}
