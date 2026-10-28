@@ -72,3 +72,10 @@
 **Dependencies:** [FUNC-POWER-DETECT-001](functional.md#func-power-detect-001), [FUNC-POWER-SWITCH-001](functional.md#func-power-switch-001)
 **Description:** With the power switch on, connecting the external supply wakes the controller from deep sleep, including after a low-battery shutdown ([FUNC-POWER-CUTOFF-002](functional.md#func-power-cutoff-002)). With the switch off, plugging in only charges the battery ([FUNC-POWER-SWITCH-002](functional.md#func-power-switch-002)): the robot stays off. Acceptance (on-target, bench): switch on, controller in deep sleep, supply unplugged: plugging it in wakes the controller within 1 s and the wake cause reported is the supply-detect source; switch off: plugging it in leaves the controller unpowered (system rail < 0.1 V).
 
+
+### FUNC-POWER-VSENSE-001
+**Title:** Firmware detects that the system rail is powered
+**Status:** validated
+**Dependencies:** none
+**Description:** The firmware knows whether the system rail (after the power switch) is powered, independently of the battery voltage and of the external supply. This covers the case "switch off, controller powered from the programming port". Acceptance (on-target Unity test, bench supply on the system rail): the flag is true for 3.0–5.0 V, false below 1.0 V, and it follows a switch toggle within 100 ms.
+
