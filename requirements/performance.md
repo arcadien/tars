@@ -23,3 +23,10 @@
 **Dependencies:** [FUNC-POWER-PATH-001](functional.md#func-power-path-001)
 **Description:** At a 110 mA system load, the system rail is within 0.10 V of the battery voltage on battery, and within 0.50 V of the external-supply voltage on the external supply. Acceptance (bench, multimeter, 33 Ω load, switch on): both drops are measured and within limits; a 0.5–0.7 V drop on battery fails.
 
+
+### PERF-POWER-CHARGE-001
+**Title:** Full charge time
+**Status:** validated
+**Dependencies:** [FUNC-POWER-CHARGE-001](functional.md#func-power-charge-001)
+**Description:** A full charge of the pack, from the 3.30 V cut-off to the end of charge, with the robot switched off, takes ≤ 12 h at the 0.5 A charge current, or ≤ 16 h if the 0.33 A fallback (R_PROG 3.6 kΩ) is used. The choice between them (and D13) is made after E-M8. Acceptance (bench): timed charge of the assembled pack from 3.30 V (rested) to end of charge, against the limit for the current fitted.
+
