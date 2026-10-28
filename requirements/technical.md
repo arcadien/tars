@@ -30,3 +30,10 @@
 **Dependencies:** [TECH-POWER-CELL-001](technical.md#tech-power-cell-001)
 **Description:** A hardware circuit, independent of the firmware, disconnects the pack on over-discharge (2.4 V ± 0.1 V), overcharge and overcurrent. It is a last resort: the firmware cut-off ([FUNC-POWER-CUTOFF-001](functional.md#func-power-cutoff-001)) is at least 0.8 V higher. Acceptance (bench, bench supply in place of the cells): lowering the supply opens the pack output between 2.3 and 2.5 V.
 
+
+### TECH-POWER-PROTECT-002
+**Title:** Resettable fuse on each cell branch
+**Status:** validated
+**Dependencies:** [TECH-POWER-CELL-001](technical.md#tech-power-cell-001)
+**Description:** The pack protection circuit only guards the pack's negative output, not a short in the cell wires that run through the rotating pivot tubes. So each cell's positive lead carries its own resettable fuse, placed next to the cell's + contact. Acceptance: pytest on the schematic (one polyfuse in series between each cell + and BAT+); visual check that each fuse sits in the cell bay.
+
