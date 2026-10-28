@@ -42,6 +42,8 @@ jobs:
           sudo apt-get update -q
           sudo apt-get install -y -q --no-install-recommends kicad ghostscript
 
+      - uses: astral-sh/setup-uv@v6   # uvx pytest: requirement acceptance tests (erc stage)
+
       - name: Checks
         run: |
           openscad --version
