@@ -138,3 +138,10 @@ derives_from: [FUNC-POWER-GATE-001](functional.md#func-power-gate-001)
 derives_from: [TECH-POWER-SLEEP-001](technical.md#tech-power-sleep-001)
 **Description:** The power or status LEDs are removed from the ZS-042, the TPS63020 module, the GY-291 and the microSD breakout, and the S3 Mini's RGB LED (GPIO47) is removed too. The TP4056 charge LEDs stay (they run on USB power only). Acceptance: bench visual checklist, signed off in the bring-up notes, plus a deep-sleep current measurement ([PERF-POWER-SLEEP-001](performance.md#perf-power-sleep-001)).
 
+
+### PLAT-POWER-SLEEP-002
+**Title:** DS3231 32 kHz output disabled
+**Status:** validated
+**Dependencies:** none
+derives_from: [TECH-POWER-SLEEP-001](technical.md#tech-power-sleep-001)
+**Description:** At start-up the firmware clears the EN32kHz bit (bit 3) of the DS3231's control/status register 0x0F, and leaves the other bits unchanged. Acceptance (on-target Unity test): after initialisation, reading register 0x0F gives bit 3 = 0, and the other bits are the same as before.
