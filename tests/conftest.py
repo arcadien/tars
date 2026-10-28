@@ -41,6 +41,14 @@ class Netlist:
         """{pin: net} of every connected pin of `ref`"""
         return {p: name for (r, p), name in self.net_of.items() if r == ref}
 
+    def between(self, ref):
+        """the nets on pins 1 and 2 of a two-pin part (for a polarised capacitor: (+, -))"""
+        return self.net(ref, '1'), self.net(ref, '2')
+
+    def value(self, ref):
+        """first word of the value field: '10k (P1)' -> '10k'"""
+        return self.values[ref].split()[0]
+
     def refs(self, part):
         """references of the parts drawn with library symbol `part` (e.g. 'TP4056_DW01', 'Polyfuse')"""
         return sorted(r for r, p in self.parts.items() if p == part)
