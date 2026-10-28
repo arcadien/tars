@@ -14,6 +14,30 @@ TARS robot, `tars4` variant. `README.md` is the project documentation; `mechanic
 - Requirements: draft a whole domain for review; keep a requirement `draft` while a bench measurement is pending;
   a PLAT requirement is validated only after its FUNC / TECH parent.
 
+## Change workflow (RBD, mandatory)
+Every change goes through RBD: a validated requirement first (`req(ID):` commit, draft → validated with me), then its
+tests where they apply, then the change in a `<feat|tech|perf|ui|conf|fix>(ID):` commit. The `commit-msg` hook
+(`make hook`) refuses a commit touching `mechanical/` or `hardware/` without a validated requirement ID. Only
+`docs:` / `plan:` / `refactor:` changes outside those folders skip it.
+
+A change in `mechanical/` also requires, in the same change:
+- `make check` clean: no OpenSCAD WARNING, every plate on its bed (Ender 3 220 × 220 halves, CR-10 one-piece);
+- any new overhang over 45° flagged to me (Orca preview or `make check-overhang`);
+- renders regenerated, with connector detail on every leg and in the open views;
+- the Orca projects: warn me, then `tools/update_orca_project.py` on `mechanical/3mf/tars4.3mf` (and the CR-10 one); a
+  new or removed part also updates `tools/build4.sh`, the mapping in `update_orca_project.py` and `CONTRIBUTING.md`;
+- wire lengths (harness guide) regenerated when a module, connector or route moves;
+- README (parts table, sizes), `hardware/measurements.md` (MEASURE values), `open_questions.md` updated.
+
+A change in `hardware/` also requires, in the same change:
+- `tools/kicad_sch_gen.py` updated and run: netlist check OK, ERC clean, `hardware/kicad/tars4_schematic.pdf` exported;
+- `tools/boards.py` plans updated (its net check against the schematic passes), `tools/harness.py` wires (both ends
+  typed soldered / Dupont / JST-XH, lengths), `hardware/tars4_wiring.html` + SVG, `hardware/tars4_schematic.html`;
+- colour code and resistor-at-the-board rules respected;
+- `hardware/power_budget.md` (a row per module: estimate now, measurement later), `hardware/shopping_list.md`
+  (stock parts only), README (BOM, signals, bring-up checklist), `open_questions.md`;
+- the mechanical checks above when the change needs room in the model (new module, connector, board).
+
 ## Language
 - Requirements (`requirements/*.md`) and all documentation are written in **English**: README, markdown notes,
   generated guides and diagrams, code comments, commit messages.

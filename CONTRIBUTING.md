@@ -15,6 +15,23 @@ the tools are installed.
 | KiCad 10 AppImage in `~/bin` | schematic ERC (`make check`) | only needed when `hardware/kicad/` changes; `KICAD=/path/to/kicad.AppImage` overrides |
 | OrcaSlicer | slicing `mechanical/3mf/tars4.3mf` | by hand, at the end |
 
+## Workflow (RBD)
+
+Every change starts from a requirement in `requirements/` (see the README, *Requirements*):
+
+1. **Requirement**: write it (or find it), status `draft`; once agreed, set `**Status:** validated` and commit it alone
+   as `req(<ID>): <title>`. References to other requirements are markdown links.
+2. **Tests** where they apply (firmware: Unity, tag `// req: <ID>`; tools: pytest, `@pytest.mark.req('<ID>')`), commit
+   `test(<ID>): …`.
+3. **Change**, commit `<feat|tech|perf|ui|conf|fix>(<ID>): …`. Run `make hook` once: the `commit-msg` hook refuses a
+   commit that touches `mechanical/` or `hardware/` without a validated requirement ID, the `pre-commit` hook runs
+   `make check`.
+
+A change in `mechanical/` or `hardware/` brings extra checks and updates in the same commit; the lists are in
+`CLAUDE.md`, *Change workflow*. In short: `make check` clean, Orca projects refreshed (never regenerated), renders and
+harness guide regenerated, schematic + ERC + board plans + wiring pages for electrical changes, and the README,
+`hardware/power_budget.md`, `hardware/shopping_list.md`, `hardware/measurements.md`, `open_questions.md` kept in step.
+
 ## Mechanical
 
 Everything that gets printed lives in `mechanical/`:
@@ -78,7 +95,7 @@ A **new** part has no object in the Orca project yet: import its STL in Orca by 
 
 ```sh
 git add -A
-git commit -m "feat: …"        # the pre-commit hook runs `make check`
+git commit -m "feat(MECH-…-001): …"   # validated requirement ID (commit-msg hook); pre-commit runs `make check`
 ```
 
 - The hook refuses the commit if the check fails, or if it rewrote tracked files (STL, renders, guide): `git add`

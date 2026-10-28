@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# git commit-msg hook (installed by `make hook`): every commit that touches mechanical/ or hardware/ must name the
+# validated requirement it implements, as `<type>(<ID>): <subject>` with type feat, tech, perf, ui, conf or fix
+# (RBD). The ID must exist in requirements/*.md with **Status:** validated. Merge commits are not checked.
+set -uo pipefail
+cd "$(git rev-parse --show-toplevel)"
+[ -f "$(git rev-parse --git-dir)/MERGE_HEAD" ] && exit 0
+files=$(git diff --cached --name-only | grep -E '^(mechanical|hardware)/' || true)
+[ -z "$files" ] && exit 0
+subject=$(grep -v '^#' "$1" | head -1)
+id=$(printf '%s' "$subject" | sed -nE 's/^(feat|tech|perf|ui|conf|fix)\(([A-Z]+-[A-Z0-9-]+-[0-9]{3})\): .+/\2/p')
+if [ -z "$id" ]; then
+    echo "commit-msg: this commit changes mechanical/ or hardware/:"
+    echo "$files" | head -5 | sed 's/^/   /'
+    echo "  its subject must be '<feat|tech|perf|ui|conf|fix>(<REQ-ID>): ...' naming a validated requirement (RBD)"
+    exit 1
+fi
+status=$(awk -v id="### $id" '$0 == id { f = 1; next } f && /^### / { exit } f && /^\*\*Status:\*\*/ { print $2; exit }' requirements/*.md)
+if [ "$status" != "validated" ]; then
+    echo "commit-msg: requirement $id is ${status:-missing} in requirements/, it must be validated first"
+    exit 1
+fi
