@@ -10,3 +10,7 @@ result.json
 # print files are build outputs of tars4.scad (TECH-BUILD-ARTIFACTS-001): `make check-stl`, `tools/build4.sh 3mf`
 mechanical/stl/
 mechanical/3mf/tars4_plate*.3mf
+mechanical/3mf/tars4_cr10_plate.3mf
+# KiCad local files: automatic backups, per-user window / view settings
+hardware/kicad/*-backups/
+*.kicad_prl

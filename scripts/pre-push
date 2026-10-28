@@ -4,6 +4,13 @@
 # Skip once with `git push --no-verify`.
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
+# the check reads the working tree: with uncommitted changes in its inputs it would not test what is pushed
+dirty=$(git status --porcelain -- mechanical/scad tools scripts)
+if [ -n "$dirty" ]; then
+    echo "pre-push: uncommitted changes in the check's inputs, commit or stash them, then push again:"
+    echo "$dirty" | sed 's/^/   /'
+    exit 1
+fi
 before=$(git diff --name-only | sort)
 scripts/check.sh stl renders || { echo "pre-push: check failed, push refused"; exit 1; }
 after=$(git diff --name-only | sort)

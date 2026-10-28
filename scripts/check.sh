@@ -5,8 +5,8 @@
 #        in Orca). The pre-commit hook runs the fast stages (model erc docs), the pre-push hook the slow ones (stl renders).
 #   model     tars4.scad evaluated without any export (seconds): fails on any OpenSCAD WARNING / ERROR (model checks)
 #   stl       every printable part to STL (Ender 3 halves, CR-10 one-piece parts, trial prints; mechanical/stl/, not in
-#             git) + the raw 3MF plates (written to build/plates); fails on any OpenSCAD WARNING /
-#             ERROR (connector clashes, fit checks, ...) or a raw layout off its 220 x 220 bed
+#             git) + the raw 3MF plates, Ender 3 and CR-10 (written to build/plates); fails on any OpenSCAD WARNING /
+#             ERROR (connector clashes, fit checks, ...) or a raw layout off its bed (Ender 3 220 x 220, CR-10 300 x 300)
 #   overhang  scripts/overhang.py (uv, trimesh): faces > 50 deg from vertical over 2 cm2, unless a narrow bridge or
 #             listed in scripts/overhang_allow.json with the reason it prints without support
 #   orca      scripts/orca_check.py: refreshes the meshes of the saved Orca projects (tars4.3mf on the Ender 3,
@@ -19,14 +19,15 @@
 # build/check/<stage>.sum, written after the stage passes). FORCE=1 runs everything. Geometry changes (tars4.scad)
 # trigger stl → renders → docs (wire lengths); a wire colour change only docs; the schematic only erc.
 # Logs go to build/check/<stage>.log. ORCA=/path/to/OrcaSlicer.AppImage and KICAD=/path/to/kicad.AppImage override
-# the tool lookup.
+# the tool lookup; otherwise KiCad is the newest ~/bin/kicad-*.AppImage, else `kicad-cli` on the PATH, and Ghostscript
+# is `gs`, else `gswin64c` (Windows).
 set -uo pipefail
 cd "$(dirname "$0")/.."
 LOG=build/check
 mkdir -p "$LOG"
 STAGES=${*:-model stl erc renders docs}
 KICAD=${KICAD:-$(ls ~/bin/kicad-*.AppImage 2>/dev/null | sort | tail -1)}
-LIBS=~/.local/share/OpenSCAD/libraries
+GS=$(command -v gs || command -v gswin64c)
 ORCA_PRESETS=~/.config/OrcaSlicer/user/default
 FAILED=()
 T0=$(date +%s)
@@ -35,13 +36,13 @@ T0=$(date +%s)
 inputs() {
     case $1 in
         model) echo mechanical/scad/*.scad ;;
-        stl) echo mechanical/scad/tars4.scad tools/build4.sh tools/stl2_3mf.py $LIBS/*.scad ;;
+        stl) echo mechanical/scad/*.scad tools/build4.sh tools/stl2_3mf.py ;;
         overhang) echo mechanical/stl/tars4_*.stl scripts/overhang.py scripts/overhang_allow.json ;;
         orca) echo mechanical/stl/tars4_*.stl mechanical/3mf/tars4.3mf mechanical/3mf/tars4_cr10.3mf scripts/orca_check.py scripts/orca_profile.py \
                    tools/update_orca_project.py tools/stl2_3mf.py "$ORCA_PRESETS"/machine/*.json "$ORCA_PRESETS"/process/*.json ;;
         erc) echo hardware/kicad/*.kicad_sch hardware/kicad/*.kicad_sym hardware/kicad/*.kicad_pro hardware/kicad/sym-lib-table ;;
-        renders) echo mechanical/scad/tars4.scad tools/build4.sh $LIBS/*.scad scripts/check_renders.py ;;
-        docs) echo mechanical/scad/tars4.scad tools/boards.py tools/harness.py tools/html2pdf.py tools/wiring_svg.js hardware/tars4_wiring.html ;;
+        renders) echo mechanical/scad/*.scad tools/build4.sh scripts/check_renders.py ;;
+        docs) echo mechanical/scad/*.scad tools/boards.py tools/kicad_sch_gen.py tools/harness.py tools/html2pdf.py tools/wiring_svg.js hardware/tars4_wiring.html ;;
     esac
 }
 
@@ -61,10 +62,10 @@ stage_model() {
 }
 
 stage_stl() {
-    tools/build4.sh stl && tools/build4.sh cr10stl && tools/build4.sh tests || return 1
-    # raw Ender 3 plates go to build/plates: checked for fit, the repo copies are only rewritten on request
-    PLATE_DIR=build/plates tools/build4.sh 3mf | tee "$LOG/3mf.out"
-    ! grep -q "WARNING" "$LOG/3mf.out"
+    tools/build4.sh stl && tools/build4.sh tests || return 1
+    # CR-10 one-piece parts + their plate, then the raw Ender 3 plates, to build/plates: checked for fit on their bed
+    { PLATE_DIR=build/plates tools/build4.sh cr10 && PLATE_DIR=build/plates tools/build4.sh 3mf; } | tee "$LOG/3mf.out"
+    [ "${PIPESTATUS[0]}" = 0 ] && ! grep -q "WARNING" "$LOG/3mf.out"
 }
 
 stage_overhang() {
@@ -76,8 +77,10 @@ stage_orca() {
 }
 
 stage_erc() {
-    [ -n "$KICAD" ] || { echo "KiCad AppImage not found in ~/bin (set KICAD=...)"; return 1; }
-    "$KICAD" kicad-cli sch erc --severity-all --format json -o "$LOG/erc.json" hardware/kicad/tars4.kicad_sch || return 1
+    local cli=(kicad-cli)
+    [ -n "$KICAD" ] && cli=("$KICAD" kicad-cli)
+    command -v "${cli[0]}" >/dev/null || { echo "KiCad not found: kicad-cli on the PATH or a kicad AppImage in ~/bin (KICAD=...)"; return 1; }
+    "${cli[@]}" sch erc --severity-all --format json -o "$LOG/erc.json" hardware/kicad/tars4.kicad_sch || return 1
     python3 -I - "$LOG/erc.json" <<'EOF'
 import json, sys
 d = json.load(open(sys.argv[1]))
@@ -109,7 +112,7 @@ stage_docs() {
     done
     # harness PDF: no blank page (ghostscript ink coverage, every page must carry some ink)
     if [ -s hardware/tars4_harness.pdf ]; then
-        gs -q -o - -sDEVICE=inkcov hardware/tars4_harness.pdf | awk '{ n++; if ($1 + $2 + $3 + $4 < 0.0005) { print "RENDER hardware/tars4_harness.pdf: page " n " is blank"; b = 1 } }
+        "$GS" -q -o - -sDEVICE=inkcov hardware/tars4_harness.pdf | awk '{ n++; if ($1 + $2 + $3 + $4 < 0.0005) { print "RENDER hardware/tars4_harness.pdf: page " n " is blank"; b = 1 } }
             END { print "harness pdf: " n " pages"; exit b }' || bad=1
     fi
     return $bad
