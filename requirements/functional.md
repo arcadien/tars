@@ -44,3 +44,10 @@
 **Dependencies:** [PERF-POWER-MONITOR-001](performance.md#perf-power-monitor-001)
 **Description:** The firmware measures the voltage at the battery terminals (not the system rail), both on battery and with the external supply connected. Acceptance (on-target Unity test + multimeter): on battery and on the external supply, the value the firmware reports is the B+ voltage within the accuracy of [PERF-POWER-MONITOR-001](performance.md#perf-power-monitor-001); on the external supply it does not follow the system rail (~4.7 V).
 
+
+### FUNC-POWER-MONITOR-002
+**Title:** Battery level classification ("hunger")
+**Status:** validated
+**Dependencies:** [FUNC-POWER-MONITOR-001](functional.md#func-power-monitor-001), [CONF-POWER-THRESH-001](configuration.md#conf-power-thresh-001)
+**Description:** On battery, the firmware averages the battery voltage over a 60 s sliding window and classifies it as: fed (≥ 3.90 V), peckish (3.70–3.90 V), hungry (3.50–3.70 V), starving (3.30–3.50 V), empty (≤ 3.30 V). The 60 s average is the only hysteresis: there is no extra band, so one sample (a Wi-Fi or amplifier peak) cannot change the level. Acceptance (native Unity test with injected samples): each band gives its level at the boundaries; a 2 s dip of 0.3 V inside a stable window does not change the level.
+
