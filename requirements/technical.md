@@ -79,3 +79,10 @@
 **Dependencies:** none
 **Description:** All 3.3 V loads (controller, screens, sensors, storage card) are fed by one regulated rail, made from the system rail by a buck-boost converter that regulates whether the input is above or below 3.3 V (2.5 V cells up to the ~4.7 V of the external supply). No linear regulator is fed from the system rail. Acceptance: pytest on the schematic (every 3V3 load pin is on the +3V3 net; one regulator sourcing it, input on VSYS).
 
+
+### TECH-POWER-REG-002
+**Title:** The 3.3 V rail tolerates a second source from the controller's LDO
+**Status:** validated
+**Dependencies:** [TECH-POWER-REG-001](technical.md#tech-power-reg-001), [TECH-POWER-VBUS-001](technical.md#tech-power-vbus-001)
+**Description:** When a host is plugged into the programming port, the controller's on-board LDO also drives the 3.3 V rail. The main regulator must then not sink current from the rail into the system rail. Acceptance (bench): switch on, on battery, host plugged in with the controller idle: the main regulator's input current stays ≥ 0, and the 3.3 V rail stays within [PERF-POWER-REG-001](performance.md#perf-power-reg-001).
+
