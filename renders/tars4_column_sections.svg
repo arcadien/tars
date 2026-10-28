@@ -105,23 +105,23 @@ M 6.09999,-141 L 3.5,-141 L 3.5,-107 L 6.09999,-107 z
 <polyline points="108.4,100.7 155.2,100.7 159.2,100.7" fill="none" stroke="#a8862a" stroke-width=".8"/>
 <text x="162.2" y="104.7" font-size="11.5" fill="#1d2226">brass tube 8/7</text>
 <polyline points="138.2,253.0 155.2,253.0 159.2,253.0" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="162.2" y="257.0" font-size="11.5" fill="#1d2226">X16 cellule droite → bloc alim · XH 2</text>
+<text x="162.2" y="257.0" font-size="11.5" fill="#1d2226">X16 right cell → power block · XH 2</text>
 <polyline points="139.1,305.0 155.2,305.0 159.2,305.0" fill="none" stroke="#9a7432" stroke-width=".8"/>
 <text x="162.2" y="309.0" font-size="11.5" fill="#1d2226">power-path board</text>
 <polyline points="118.0,368.6 155.2,368.6 159.2,368.6" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="162.2" y="372.6" font-size="11.5" fill="#1d2226">X10 J1 + SW1 ↔ bloc alim · XH 4</text>
+<text x="162.2" y="372.6" font-size="11.5" fill="#1d2226">X10 J1 + SW1 ↔ power block · XH 4</text>
 <polyline points="118.0,368.6 155.2,368.6 159.2,382.6" fill="none" stroke="#c2560a" stroke-width=".8"/>
 <text x="162.2" y="386.6" font-size="11.5" fill="#1d2226">X14 VBAT/2, USB_DET, SD_EN · XH 3</text>
 <polyline points="138.2,368.6 155.2,368.6 159.2,396.6" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="162.2" y="400.6" font-size="11.5" fill="#1d2226">X12 cellule gauche → bloc alim · XH 2</text>
+<text x="162.2" y="400.6" font-size="11.5" fill="#1d2226">X12 left cell → power block · XH 2</text>
 <polyline points="138.2,368.6 155.2,368.6 159.2,410.6" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="162.2" y="414.6" font-size="11.5" fill="#1d2226">X13 bloc alim → tubes · XH 4</text>
+<text x="162.2" y="414.6" font-size="11.5" fill="#1d2226">X13 power block → tubes · XH 4</text>
 <polyline points="139.1,418.0 155.2,418.0 159.2,424.6" fill="none" stroke="#2e7d3a" stroke-width=".8"/>
 <text x="162.2" y="428.6" font-size="11.5" fill="#1d2226">TP4056 + DW01</text>
 <polyline points="139.1,455.9 155.2,455.9 159.2,455.9" fill="none" stroke="#6b4bb0" stroke-width=".8"/>
 <text x="162.2" y="459.9" font-size="11.5" fill="#1d2226">TPS63020</text>
 <polyline points="65.5,466.8 155.2,466.8 159.2,469.9" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="162.2" y="473.9" font-size="11.5" fill="#1d2226">X15 microSD · queue + 5 br. (+1)</text>
+<text x="162.2" y="473.9" font-size="11.5" fill="#1d2226">X15 microSD · pigtail + 5 p. (+1)</text>
 <polyline points="132.7,485.2 155.2,485.2 159.2,485.2" fill="none" stroke="#2f8a6c" stroke-width=".8"/>
 <text x="162.2" y="489.2" font-size="11.5" fill="#1d2226">microSD reader</text>
 <polyline points="129.2,638.2 155.2,638.2 159.2,638.2" fill="none" stroke="#a07a10" stroke-width=".8"/>
@@ -219,7 +219,7 @@ M 28.4,-131 L 25.8,-131 L 25.8,-103 L 28.4,-103 z
 <polyline points="483.4,100.7 530.2,100.7 534.2,100.7" fill="none" stroke="#a8862a" stroke-width=".8"/>
 <text x="537.2" y="104.7" font-size="11.5" fill="#1d2226">brass tube 8/7</text>
 <polyline points="462.9,172.8 530.2,172.8 534.2,172.8" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="537.2" y="176.8" font-size="11.5" fill="#1d2226">X1 écran 1 · 8 br. coudées</text>
+<text x="537.2" y="176.8" font-size="11.5" fill="#1d2226">X1 screen 1 · 8 p. right-angle</text>
 <polyline points="436.7,210.1 530.2,210.1 534.2,210.1" fill="none" stroke="#111" stroke-width=".8"/>
 <text x="537.2" y="214.1" font-size="11.5" fill="#1d2226">screen</text>
 <polyline points="464.5,364.7 530.2,364.7 534.2,364.7" fill="none" stroke="#a0622a" stroke-width=".8"/>
@@ -227,9 +227,9 @@ M 28.4,-131 L 25.8,-131 L 25.8,-103 L 28.4,-103 z
 <polyline points="434.4,438.9 530.2,438.9 534.2,438.9" fill="none" stroke="#7c7d1f" stroke-width=".8"/>
 <text x="537.2" y="442.9" font-size="11.5" fill="#1d2226">INMP441</text>
 <polyline points="511.9,489.2 530.2,489.2 534.2,489.2" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="537.2" y="493.2" font-size="11.5" fill="#1d2226">X3 INMP441 · queue + 5 br. (+1)</text>
+<text x="537.2" y="493.2" font-size="11.5" fill="#1d2226">X3 INMP441 · pigtail + 5 p. (+1)</text>
 <polyline points="500.7,500.4 530.2,500.4 534.2,503.2" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="537.2" y="507.2" font-size="11.5" fill="#1d2226">X2 ADXL345 · 8 br. (5 fils, INT2 retirée)</text>
+<text x="537.2" y="507.2" font-size="11.5" fill="#1d2226">X2 ADXL345 · 8 p. (5 wires, INT2 removed)</text>
 <polyline points="435.1,500.8 530.2,500.8 534.2,517.2" fill="none" stroke="#b0303b" stroke-width=".8"/>
 <text x="537.2" y="521.2" font-size="11.5" fill="#1d2226">ADXL345</text>
 <polyline points="456.5,782.3 530.2,782.3 534.2,782.3" fill="none" stroke="#1f7f80" stroke-width=".8"/>
@@ -338,19 +338,19 @@ M 28.4,-226.212 L 25.8,-226.212 L 25.8,-192.212 L 28.4,-192.212 z
 <polyline points="853.3,117.6 905.2,117.6 909.2,117.6" fill="none" stroke="#888" stroke-width=".8"/>
 <text x="912.2" y="121.6" font-size="11.5" fill="#1d2226">AM312</text>
 <polyline points="837.9,172.8 905.2,172.8 909.2,172.8" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="912.2" y="176.8" font-size="11.5" fill="#1d2226">X4 écran 2 · 8 br. coudées</text>
+<text x="912.2" y="176.8" font-size="11.5" fill="#1d2226">X4 screen 2 · 8 p. right-angle</text>
 <polyline points="886.9,194.1 905.2,194.1 909.2,194.1" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="912.2" y="198.1" font-size="11.5" fill="#1d2226">X7 AM312 · queue + 3 br. (+1)</text>
+<text x="912.2" y="198.1" font-size="11.5" fill="#1d2226">X7 AM312 · pigtail + 3 p. (+1)</text>
 <polyline points="811.7,210.1 905.2,210.1 909.2,210.1" fill="none" stroke="#111" stroke-width=".8"/>
 <text x="912.2" y="214.1" font-size="11.5" fill="#1d2226">screen</text>
 <polyline points="839.5,364.7 905.2,364.7 909.2,364.7" fill="none" stroke="#a0622a" stroke-width=".8"/>
 <text x="912.2" y="368.7" font-size="11.5" fill="#1d2226">P1 / P2 (stripboards)</text>
 <polyline points="875.7,564.7 905.2,564.7 909.2,564.7" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="912.2" y="568.7" font-size="11.5" fill="#1d2226">X5 MAX98357A · 4 + 3 br. (GAIN retirée)</text>
+<text x="912.2" y="568.7" font-size="11.5" fill="#1d2226">X5 MAX98357A · 4 + 3 p. (GAIN removed)</text>
 <polyline points="810.1,589.3 905.2,589.3 909.2,589.3" fill="none" stroke="#7b3a99" stroke-width=".8"/>
 <text x="912.2" y="593.3" font-size="11.5" fill="#1d2226">MAX98357A</text>
 <polyline points="875.7,613.9 905.2,613.9 909.2,613.9" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="912.2" y="617.9" font-size="11.5" fill="#1d2226">X6 haut-parleur · 2 br.</text>
+<text x="912.2" y="617.9" font-size="11.5" fill="#1d2226">X6 speaker · 2 p.</text>
 <polyline points="838.7,705.3 905.2,705.3 909.2,705.3" fill="none" stroke="#555" stroke-width=".8"/>
 <text x="912.2" y="709.3" font-size="11.5" fill="#1d2226">speaker</text>
 <text x="1220.6" y="28" font-size="17" font-weight="600" text-anchor="middle" fill="#1d2226">Right leg</text>
@@ -427,11 +427,11 @@ M 24.7,-204.8 L 4.2,-204.8 L 4.2,-202.2 L 24.7,-202.2 z
 <polyline points="1233.4,100.7 1280.2,100.7 1284.2,100.7" fill="none" stroke="#a8862a" stroke-width=".8"/>
 <text x="1287.2" y="104.7" font-size="11.5" fill="#1d2226">brass tube 8/7</text>
 <polyline points="1250.0,212.4 1280.2,212.4 1284.2,212.4" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="1287.2" y="216.4" font-size="11.5" fill="#1d2226">X9 BME280 · 4 br.</text>
+<text x="1287.2" y="216.4" font-size="11.5" fill="#1d2226">X9 BME280 · 4 p.</text>
 <polyline points="1184.4,233.2 1280.2,233.2 1284.2,233.2" fill="none" stroke="#9a3aa8" stroke-width=".8"/>
 <text x="1287.2" y="237.2" font-size="11.5" fill="#1d2226">BME280</text>
 <polyline points="1207.8,365.7 1280.2,365.7 1284.2,365.7" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="1287.2" y="369.7" font-size="11.5" fill="#1d2226">X8 DS3231 · 6 br. coudées (4 fils, 32K retirée)</text>
+<text x="1287.2" y="369.7" font-size="11.5" fill="#1d2226">X8 DS3231 · 6 p. right-angle (4 wires, 32K removed)</text>
 <polyline points="1216.4,459.9 1280.2,459.9 1284.2,459.9" fill="none" stroke="#2c3f8a" stroke-width=".8"/>
 <text x="1287.2" y="463.9" font-size="11.5" fill="#1d2226">DS3231 (ZS-042)</text>
 <polyline points="1254.2,638.2 1280.2,638.2 1284.2,638.2" fill="none" stroke="#a07a10" stroke-width=".8"/>
