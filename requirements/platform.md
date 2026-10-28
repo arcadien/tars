@@ -82,3 +82,11 @@ derives_from: [TECH-POWER-REG-002](technical.md#tech-power-reg-002)
 derives_from: [TECH-POWER-REG-001](technical.md#tech-power-reg-001)
 **Description:** C1, a 220 µF polymer tantalum (Panasonic 10TPE220ML, 10 V, ESR ≤ 25 mΩ), sits at the S3 Mini's 3V pin on the carrier, about 35 cm of wire away from the TPS63020, with + on 3V3. Acceptance: pytest on the schematic (C1 between +3V3 and GND at the S3); bench polarity check before the first power-up.
 
+
+### PLAT-POWER-DIST-001
+**Title:** MAX98357A fed from its own VSYS pair, with C7 470 µF
+**Status:** validated
+**Dependencies:** [TECH-POWER-GROUND-001](technical.md#tech-power-ground-001)
+derives_from: [TECH-POWER-DIST-001](technical.md#tech-power-dist-001)
+**Description:** The MAX98357A's VIN / GND get their own twisted VSYS / GND pair from the star point, with C7 470 µF at VIN (+ on VIN). The amplifier's GND goes to system GND, never to B−. Acceptance: pytest on the schematic and harness (amplifier VIN on VSYS, GND on GND, C7 across them); bench: VIN = VSYS, C7 polarity checked.
+
