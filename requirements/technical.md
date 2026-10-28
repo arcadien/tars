@@ -80,3 +80,10 @@
 **Status:** validated
 **Dependencies:** [PERF-POWER-SLEEP-001](performance.md#perf-power-sleep-001)
 **Description:** No status LED or free-running clock output that draws current permanently is fed from the battery or from rails fed by the battery. LEDs fed only from the external supply (charger status) are allowed. Acceptance: visual inspection against the bring-up checklist, plus the deep-sleep current of [PERF-POWER-SLEEP-001](performance.md#perf-power-sleep-001).
+
+### TECH-BUILD-ARTIFACTS-001
+**Title:** Print files are generated from the model, not versioned
+**Status:** validated
+**Dependencies:** none
+**Description:** The STL parts (`mechanical/stl/`) and the raw plates (`mechanical/3mf/tars4_plate*.3mf`) are build outputs of `mechanical/scad/tars4.scad`: git ignores them, and they are regenerated on demand before a print (`make check-stl`, `tools/build4.sh 3mf`). The hand-arranged Orca projects (`mechanical/3mf/tars4.3mf`, `tars4_cr10.3mf`), the renders and the wiring / harness / schematic documents stay versioned. The OpenSCAD version used for the exports is pinned, in [CONTRIBUTING.md](../CONTRIBUTING.md) and in CI. Acceptance: `git ls-files mechanical/stl 'mechanical/3mf/tars4_plate*'` is empty and both paths are in `.gitignore`; on a fresh clone, `make check-stl` produces every part listed in `tools/build4.sh` with no OpenSCAD WARNING and every plate on its bed.
+
