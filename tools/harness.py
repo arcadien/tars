@@ -142,7 +142,7 @@ STEPS = [
 def geometry():
     """positions read from tars4.scad (openscad echo), cached in tools/harness_geometry.json for machines without it"""
     keys = ('col_w D H wall gap lid_y d1_x d1_z0 carrier_back_y hub_y hub_z0 pp_z0 charger_z0 bk_z0 bk_y1 usbb_z0 shelf_z '
-            'fuse_z0 sw_y spk_z0 spk_front_y charger bk spk').split()
+            'fuse_z0 sw_y usbb_y0 spk_z0 spk_front_y charger bk spk').split()
     q = '\\"'                       # an escaped quote inside the SCAD string
     items = [(k, k) for k in keys] + [('pivot_z', 'pivot_z[0]'), ('conn_names', '[for (c = CONN) c[1]]'),
                                       ('conn_box', '[for (c = CONN) [c[0], c[3], c[4]]]')]
@@ -187,7 +187,7 @@ def where(e, g):
     if m == 'TPS63020':
         return 0, cw / 2, g['bk_y1'] - g['bk'][1] / 2, g['bk_z0'] + 1
     if m.startswith('J1'):
-        return 0, cw / 2, g['wall'] + 3, g['usbb_z0'] + 6
+        return 0, g['wall'] + 3, g['usbb_y0'] + 2, g['usbb_z0'] + 7
     if m.startswith('SW1'):
         return 0, cw / 2, g['sw_y'], 8
     if m.endswith(' cell'):

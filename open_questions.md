@@ -26,6 +26,7 @@ lid `lid_mid_left` · D10 Q5 on the microSD 3V3 (GPIO36) · D11 switch kept · D
 | T1 | **Tube test3** (teardrop bores, G7.95 / 8.0 / 8.05, R8.05 / 8.1 / 8.15) | print and measure → `tube_od` 7.93 + clearances + teardrop pivots, then **one single** STL pass + `tools/update_orca_project.py` on `mechanical/3mf/tars4.3mf`. Don't print the columns before |
 | D13 | **Switching charger instead of the TP4056** | TP4056 kept for now (500 mA, R_PROG 2.4k). If E-M8 runs too hot: R_PROG 3.6k (330 mA) or the lower left leg in PETG; alternative TP5100 1 A + separate DW01. IP2312: doesn't fit flat (34.4 × 15) |
 | E-M8 | **TP4056 temperature** (PLA legs) | measure the wall after 15 and 30 min of charge: > 45 °C → R_PROG 3.6k. Copper RPi heatsink ≤ ~3 mm + 0.5–1 mm thermal pad between chip and heatsink, never between board and PLA |
+| CP1 | **Charge port at the heel** (branch `mech-usb-heel`, [PLAT-MECH-CHARGEPORT-001](requirements/platform.md#plat-mech-chargeport-001)) | modelled with `usbb_out` 1.0 and `usbb_rec` 7.5 × 2.6 still MEASURE: measure the breakout's receptacle (mouth past the PCB edge, shell width × height), update the model; **the branch is merged only after these measurements** |
 | VS1 | **VSYS sense** (PLAT-POWER-VSENSE-001, branch `rbd`) | small NPN (BC547 / 2N3904 / 2N2222 / S8050…) + 1 M / 1 M base divider, collector to GPIO37: to add to the schematic, carrier and harness once the POWER requirements are validated |
 
 ## 4. Remaining measurements
