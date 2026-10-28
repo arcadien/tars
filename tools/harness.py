@@ -14,7 +14,7 @@ import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from boards import BOARDS, CONNS, KIT, FR, XH, CCOL, P, gender, pin_no, rings_text  # noqa: E402
+from boards import BOARDS, CONNS, KIT, NAME, XH, CCOL, P, gender, pin_no, rings_text  # noqa: E402
 import json  # noqa: E402
 import tempfile  # noqa: E402
 
@@ -25,11 +25,11 @@ TOL = 3         # cut length = estimate + TOL, cm
 
 BCOL = {'s3': 1, 'p1': 1, 'p2': 2, 'power': 0}
 BNAME = {'s3': 'P3', 'p1': 'P1', 'p2': 'P2', 'power': 'P4'}   # P = hand-wired board, X = connector, else a module
-BSUB = {'s3': 'support de la S3', 'p1': 'répartiteur du milieu G', 'p2': 'répartiteur du milieu D', 'power': 'partage de charge'}
-FRAME = {'P': ('#2f8f5b', 'plaque'), 'M': ('#8e44c4', 'module'), 'D': ('#2a62d6', 'Dupont'), 'XH': ('#f07800', 'JST-XH')}
+BSUB = {'s3': 'S3 carrier', 'p1': 'left middle distribution', 'p2': 'right middle distribution', 'power': 'power path'}
+FRAME = {'P': ('#2f8f5b', 'board'), 'M': ('#8e44c4', 'module'), 'D': ('#2a62d6', 'Dupont'), 'XH': ('#f07800', 'JST-XH')}
 BSTEP = {'power': 1, 's3': 3, 'p1': 4, 'p2': 6}
-TUBE = {0: 'tube gauche', 1: 'tube central', 2: 'tube droit'}
-COLNAME = ['jambe gauche', 'milieu gauche', 'milieu droit', 'jambe droite']
+TUBE = {0: 'left tube', 1: 'middle tube', 2: 'right tube'}
+COLNAME = ['left leg', 'left middle', 'right middle', 'right leg']
 # board-to-board wires: listed on both drawings, one wire
 PAIRS = [('s3', 'A4', 'p1', 'B9'), ('s3', 'J5', 'p1', 'B10'), ('s3', 'A7', 'p1', 'A7'), ('s3', 'C10', 'p1', 'A5'),
          ('s3', 'B7', 'p1', 'A8'), ('s3', 'B6', 'p1', 'A6'), ('s3', 'A9', 'p2', 'A11'), ('s3', 'B10', 'p2', 'A4'),
@@ -46,7 +46,7 @@ def C(t, g):
             'X10': 1 if g == 'F' else 2, 'X12': 1 if g == 'M' else 2, 'X16': 1 if g == 'M' else 2,
             'X13': 1 if g == 'F' else 5, 'X14': 1 if g == 'F' else 5}[ref]
     kind = 'XH' if ref in XH else 'D'
-    return dict(kind=kind, block=f'{ref} {g}', sub=f'côté {"femelle" if g == "F" else "mâle"} · {CONNS[ref][0].split(" · ")[0]}', frame=kind,
+    return dict(kind=kind, block=f'{ref} {g}', sub=f'{"female" if g == "F" else "male"} side · {CONNS[ref][0].split(" · ")[0]}', frame=kind,
                 port=f'{pin_no(ref, pin)} {pin}', col=CCOL[ref],
                 step=step, ref=ref, pin=pin, g=g)
 
@@ -55,85 +55,85 @@ def C(t, g):
 EXTRA = [
     ('red', 26, 'purple', 'VUSB', S('TP4056', 'IN+', 0, 1), C('X10.VUSB', 'F'), 1, ''),
     ('black', 26, 'purple', 'GND', S('TP4056', 'IN−', 0, 1), C('X10.GND', 'F'), 1, ''),
-    ('white', 26, 0, '3V3', S('TPS63020', 'VOUT', 0, 1), C('X13.3V3', 'F'), 1, 'le long du fil GND logique'),
-    ('blue', 26, 0, 'GND', S('TPS63020', 'GND', 0, 1), C('X13.GND log', 'F'), 1, 'GND logique, le long du 3V3'),
-    ('red', 26, 0, 'B+', S('TP4056', 'B+', 0, 1), C('X12.B+', 'M'), 1, 'jonction des cellules : deux fils soudés sur la pastille B+'),
-    ('black', 26, 0, 'B−', S('TP4056', 'B−', 0, 1), C('X12.B−', 'M'), 1, 'jonction des cellules : deux fils soudés sur la pastille B−'),
-    ('red', 26, 0, 'B+', S('TP4056', 'B+', 0, 1), C('X16.B+', 'M'), 1, 'vers X16, garé au-dessus de la plaquette alim'),
+    ('white', 26, 0, '3V3', S('TPS63020', 'VOUT', 0, 1), C('X13.3V3', 'F'), 1, 'along the logic GND wire'),
+    ('blue', 26, 0, 'GND', S('TPS63020', 'GND', 0, 1), C('X13.GND log', 'F'), 1, 'logic GND, along the 3V3'),
+    ('red', 26, 0, 'B+', S('TP4056', 'B+', 0, 1), C('X12.B+', 'M'), 1, 'cell junction: two wires soldered on the B+ pad'),
+    ('black', 26, 0, 'B−', S('TP4056', 'B−', 0, 1), C('X12.B−', 'M'), 1, 'cell junction: two wires soldered on the B− pad'),
+    ('red', 26, 0, 'B+', S('TP4056', 'B+', 0, 1), C('X16.B+', 'M'), 1, 'to X16, parked above the power-path board'),
     ('black', 26, 0, 'B−', S('TP4056', 'B−', 0, 1), C('X16.B−', 'M'), 1, ''),
-    ('red', 26, 'purple', 'VUSB', S('J1 micro-USB', 'VBUS', 0, 2), C('X10.VUSB', 'M'), 2, 'torsadé avec le GND'),
+    ('red', 26, 'purple', 'VUSB', S('J1 micro-USB', 'VBUS', 0, 2), C('X10.VUSB', 'M'), 2, 'twisted with the GND'),
     ('black', 26, 'purple', 'GND', S('J1 micro-USB', 'GND', 0, 2), C('X10.GND', 'M'), 2, ''),
-    ('red', 26, 'yellow', 'VPATH', S('SW1 inter.', 'patte du bout', 0, 2), C('X10.VPATH', 'M'), 2, ''),
-    ('red', 26, 'orange', 'VSYS', S('SW1 inter.', 'patte centrale', 0, 2), C('X10.VSYS', 'M'), 2, ''),
-    ('red', 26, 0, 'B+', S('cellule gauche', 'F1 (plaque +)', 0, 2), C('X12.B+', 'F'), 2, 'torsadé avec B−'),
-    ('black', 26, 0, 'B−', S('cellule gauche', 'plaque −', 0, 2), C('X12.B−', 'F'), 2, ''),
-    ('red', 26, 0, 'B+', S('cellule droite', 'F2 (plaque +)', 3, 7), C('X16.B+', 'F'), 7,
-     'X16 serti à l\'étape 2, bout nu enfilé dans les 3 tubes, soudé sur F2 à l\'étape 7 ; torsadé avec B−'),
-    ('black', 26, 0, 'B−', S('cellule droite', 'plaque −', 3, 7), C('X16.B−', 'F'), 7,
-     'comme B+ ; torsadé avec B+'),
-    ('white', 30, 0, '3V3', C('X3.VDD', 'F'), C('X2.VCC', 'F'), 4, 'contact double dans X3 (avec le fil de P1)'),
-    ('blue', 30, 0, 'GND', C('X3.GND', 'F'), C('X2.GND', 'F'), 4, 'contact double dans X3 (avec le fil de P1)'),
-    ('yellow', 30, 1, 'MIC_BCLK', S('INMP441', 'SCK', 1, 4), C('X3.SCK', 'M'), 4, 'queue de 5–6 cm'),
+    ('red', 26, 'yellow', 'VPATH', S('SW1 switch', 'end lug', 0, 2), C('X10.VPATH', 'M'), 2, ''),
+    ('red', 26, 'orange', 'VSYS', S('SW1 switch', 'centre lug', 0, 2), C('X10.VSYS', 'M'), 2, ''),
+    ('red', 26, 0, 'B+', S('left cell', 'F1 (+ plate)', 0, 2), C('X12.B+', 'F'), 2, 'twisted with B−'),
+    ('black', 26, 0, 'B−', S('left cell', '− plate', 0, 2), C('X12.B−', 'F'), 2, ''),
+    ('red', 26, 0, 'B+', S('right cell', 'F2 (+ plate)', 3, 7), C('X16.B+', 'F'), 7,
+     'X16 crimped at step 2, bare end threaded through the 3 tubes, soldered on F2 at step 7; twisted with B−'),
+    ('black', 26, 0, 'B−', S('right cell', '− plate', 3, 7), C('X16.B−', 'F'), 7,
+     'as B+; twisted with B+'),
+    ('white', 30, 0, '3V3', C('X3.VDD', 'F'), C('X2.VCC', 'F'), 4, 'double contact in X3 (with the wire from P1)'),
+    ('blue', 30, 0, 'GND', C('X3.GND', 'F'), C('X2.GND', 'F'), 4, 'double contact in X3 (with the wire from P1)'),
+    ('yellow', 30, 1, 'MIC_BCLK', S('INMP441', 'SCK', 1, 4), C('X3.SCK', 'M'), 4, '5–6 cm pigtail'),
     ('purple', 30, 1, 'MIC_WS', S('INMP441', 'WS', 1, 4), C('X3.WS', 'M'), 4, ''),
     ('green', 30, 1, 'MIC_SD', S('INMP441', 'SD', 1, 4), C('X3.SD', 'M'), 4, ''),
     ('white', 30, 0, '3V3', S('INMP441', 'VDD', 1, 4), C('X3.VDD', 'M'), 4, ''),
-    ('blue', 30, 0, 'GND', S('INMP441', 'GND', 1, 4), C('X3.GND', 'M'), 4, 'L/R ponté au GND sur la carte'),
-    ('yellow', 30, 3, 'SD_CLK', S('lecteur microSD', 'CLK', 0, 5), C('X15.CLK', 'M'), 5, 'queue de 5–6 cm'),
-    ('purple', 30, 3, 'SD_CMD', S('lecteur microSD', 'CMD', 0, 5), C('X15.CMD', 'M'), 5, ''),
-    ('green', 30, 3, 'SD_D0', S('lecteur microSD', 'D0', 0, 5), C('X15.D0', 'M'), 5, ''),
-    ('white', 30, 3, 'SD_3V3', S('lecteur microSD', 'VCC', 0, 5), C('X15.3V3', 'M'), 5, ''),
-    ('blue', 30, 3, 'GND', S('lecteur microSD', 'GND', 0, 5), C('X15.GND', 'M'), 5, ''),
+    ('blue', 30, 0, 'GND', S('INMP441', 'GND', 1, 4), C('X3.GND', 'M'), 4, 'L/R bridged to GND on the board'),
+    ('yellow', 30, 3, 'SD_CLK', S('microSD reader', 'CLK', 0, 5), C('X15.CLK', 'M'), 5, '5–6 cm pigtail'),
+    ('purple', 30, 3, 'SD_CMD', S('microSD reader', 'CMD', 0, 5), C('X15.CMD', 'M'), 5, ''),
+    ('green', 30, 3, 'SD_D0', S('microSD reader', 'D0', 0, 5), C('X15.D0', 'M'), 5, ''),
+    ('white', 30, 3, 'SD_3V3', S('microSD reader', 'VCC', 0, 5), C('X15.3V3', 'M'), 5, ''),
+    ('blue', 30, 3, 'GND', S('microSD reader', 'GND', 0, 5), C('X15.GND', 'M'), 5, ''),
     ('red', 26, 'orange', 'VSYS', C('X13.VSYS', 'M'), C('X5.VIN', 'F'), 6,
-     'paire de l\'ampli : enfilée dans le tube gauche à l\'étape 5, bout X5 serti ici ; torsadée avec son GND'),
-    ('black', 26, 'orange', 'GND', C('X13.GND amp', 'M'), C('X5.GND', 'F'), 6, 'torsadé avec VSYS ; la bague orange le distingue de la paire B+ / B− de la cellule droite dans les tubes'),
-    ('grey', 26, 0, 'SPK+', S('haut-parleur', '+', 2, 6), C('X6.+', 'F'), 6, '+ marqué au feutre aux deux bouts'),
-    ('grey', 26, 0, 'SPK−', S('haut-parleur', '−', 2, 6), C('X6.−', 'F'), 6, ''),
-    ('white', 30, 0, 'PIR_VDD', S('AM312', 'VIN', 2, 6), C('X7.VIN', 'M'), 6, 'queue de 5–6 cm'),
+     'amplifier pair: threaded through the left tube at step 5, X5 end crimped here; twisted with its GND'),
+    ('black', 26, 'orange', 'GND', C('X13.GND amp', 'M'), C('X5.GND', 'F'), 6, 'twisted with VSYS; the orange band tells it from the right cell B+ / B− pair in the tubes'),
+    ('grey', 26, 0, 'SPK+', S('speaker', '+', 2, 6), C('X6.+', 'F'), 6, '+ marked with a pen at both ends'),
+    ('grey', 26, 0, 'SPK−', S('speaker', '−', 2, 6), C('X6.−', 'F'), 6, ''),
+    ('white', 30, 0, 'PIR_VDD', S('AM312', 'VIN', 2, 6), C('X7.VIN', 'M'), 6, '5–6 cm pigtail'),
     ('red', 30, 1, 'PIR_OUT', S('AM312', 'OUT', 2, 6), C('X7.OUT', 'M'), 6, ''),
     ('blue', 30, 0, 'GND', S('AM312', 'GND', 2, 6), C('X7.GND', 'M'), 6, ''),
 ]
 
 STEPS = [
-    (1, 'Bloc alim, sur l\'établi', 'jambe gauche : TP4056, plaquette du partage de charge, TPS63020 soudés ensemble',
-     ['Plaquette du partage de charge : composants, ponts et bus GND d\'après renders/tars4_board_power.svg (Q1 / Q5 au fil à wrapper).',
-      'TP4056 : R_PROG remplacée par 2,4 k, puis essai seul : alim de labo 3,7 V sur B+ / B−, courant < 10 µA. Polarités : C9 + sur IN+, D3 bande (cathode) sur IN+ (à l\'envers, elle court-circuite le 5 V). TPS63020 : EN relié à VIN, PS/SYNC au GND.',
-      'Pastilles chargées (soudures à ≥ 0,65 mm du bout de la carte) : épisser 1 cm avant la pastille les deux fils VUSB d\'IN+ (vers X10 et vers la plaquette), les deux B+ (vers X12 et X16, avec le fil de mesure B+ vers la plaquette) et les deux B− : un seul conducteur par pastille, à côté de C9 / D3.',
-      'Souder les fils ci-dessous (boucles de 4–5 cm entre les trois cartes), puis sertir les contacts XH et les glisser dans X10, X12, X13 et X14.',
-      'X12 et X16 côté bloc (M) : tant qu\'ils ne sont pas branchés, coiffés d\'un boîtier XH femelle vide. Leurs broches portent B+ / B− dès qu\'une cellule est branchée, jusqu\'à l\'étape 7.'],
-     ['Alimentation de labo 3,7 V sur X12 (côté bloc, M) : OUT+ ≈ B+ ; courant sans USB noté (la fuite de D1 s\'ajoute à celle du TP4056 : quelques dizaines de µA possibles).',
-      'X10 cases 3–4 pontées (l\'inter. simulé) : VSYS ≈ B+ ; 3,3 V sur X13 case 3 ; VBAT/2 ≈ B+ / 2 sur X14 case 1.',
-      '5 V sur X10 cases 1–2 : LED de charge, USB_DET ≈ 3 V sur X14 case 2, Q1 bloqué.']),
-    (2, 'Port de charge, interrupteur, cellules', 'les câbles du pied et des cellules jusqu\'à X10, X12 et X16',
-     ['Souder F1 sur la plaque + gauche (F2 sur la droite à l\'étape 7). Jamais de soudure sur une cellule.',
-      'Fils de la cellule droite : assez longs pour traverser les trois tubes (longueur du tableau, déjà + 3 cm, présentée sur TARS avant de couper). Sertir maintenant X16 (femelle) ; le bout côté cellule droite reste nu.'],
-     ['Cellule gauche seule : X12 branché, inter. fermé, VSYS ≈ B+.',
-      'Chargeur sur J1 : LED de charge ; débranché : VUSB < 0,5 V en ~1 s.']),
-    (3, 'Support de la S3', 'les 27 fils du contrôleur, soudés côté support',
-     ['Plan renders/tars4_board_s3.svg : barrettes 2 × 8 (contact V retiré, barrettes collées), composants debout, ponts, bus GND, cavaliers.',
-      'Souder les 27 fils côté support seulement, assez longs (boucle de service 6–8 cm + trajet). L\'autre bout reste nu : il est terminé à l\'étape indiquée.'],
-     ['Avant toute mise sous tension : chaque bout encore libre coiffé d\'une gaine thermo fermée (rétreinte, bout pincé à chaud).', 'S3 retirée : chaque fil ↔ sa broche à l\'ohmmètre, GND isolé de 3V3 et des signaux.',
-      'S3 enfichée, USB du PC : programme de test flashé, la S3 démarre.']),
-    (4, 'P1 et le milieu gauche', 'écran 1, micro, accéléromètre',
-     ['Plan renders/tars4_board_p1.svg. Barrette coudée 1 × 8 au dos de l\'écran 1 (X1). ADXL345 : barrette droite, INT2 retirée et sa case bouchée (X2).',
-      'INMP441 : queue de 5 fils (contacts mâles, X3) ; L/R ponté au GND sur sa carte.',
-      'X2 SDA et SCL : contact double, sertir ensemble (sans replier) le fil de la S3 et celui qui part vers P2 (bout nu, soudé à l\'étape 6).'],
-     ['Avant toute mise sous tension : chaque bout encore libre coiffé d\'une gaine thermo fermée (rétreinte, bout pincé à chaud).', 'S3 sur l\'USB, inter. coupé : l\'écran 1 affiche, le micro donne des échantillons I2S, l\'ADXL345 répond en 0x53 et INT1 bascule.']),
-    (5, 'Tube gauche : bloc alim ↔ milieu gauche, microSD', 'tout ce qui traverse le tube gauche',
-     ['Enfiler le tube laiton gauche sur les fils listés AVANT de sertir le bout opposé. La paire de l\'ampli (étape 6) et la paire de la cellule droite (étape 2) traversent aussi ce tube : les enfiler en même temps.',
-      'Lecteur microSD : C4 10 µF tantale couché à plat (+ sur VCC ; ~6,6 mm seulement jusqu\'au TPS63020) et C5 100 nF sur ses broches VCC / GND ; sans pull-ups sur le lecteur, R5–R9 10 k de CMD, D0, D1, D2 et D3 vers VCC (SD_3V3). Puis queue de 5 fils (contacts mâles, X15).'],
-     ['Avant toute mise sous tension : chaque bout encore libre coiffé d\'une gaine thermo fermée (rétreinte, bout pincé à chaud).', 'Sans USB, inter. fermé : la S3 démarre sur les cellules (3,3 V sur le support).',
-      'VBAT/2 et USB_DET lus par la S3 ; la microSD est lue ; SD_EN haut coupe son 3,3 V.']),
-    (6, 'Tube central et milieu droit', 'écran 2, ampli, haut-parleur, AM312, P2',
-     ['Plan renders/tars4_board_p2.svg. Barrette coudée au dos de l\'écran 2 (X4). Ampli : barrettes 1 × 4 (GAIN retirée) + 1 × 3 (X5), barrette 2 broches à la place du bornier (X6), C7 + sur VIN, bande (−) au GND.',
-      'AM312 : queue de 3 fils (contacts mâles, X7), pattes du breakout recoupées à ras, breakout glissé dans une chaussette de gaine thermo (il passe à 5 mm de la sortie du tube central). Enfiler le tube central avant de sertir.'],
-     ['Avant toute mise sous tension : chaque bout encore libre coiffé d\'une gaine thermo fermée (rétreinte, bout pincé à chaud).', 'L\'écran 2 affiche ; son dans le haut-parleur ; AMP_SD bas coupe l\'ampli ; PIR monte quand on passe la main.']),
-    (7, 'Tube droit et jambe droite', 'DS3231, BME280, cellule droite',
-     ['DS3231 : barrette coudée, 32K retirée, résistance de charge de la pile retirée. BME280 : barrette 1 × 4, LED retirée.',
-      'Enfiler le tube droit. F2 sur la plaque + droite, puis souder les deux fils de la cellule droite (étape 2).',
-      'X9 : chaque contact reçoit deux fils (P2 + la suite vers X8), sertis ensemble sans replier.',
-      'Tube droit : torsader SDA avec GND et SCL avec 3V3 (bus I2C long, à côté de SCK / BCLK).'],
-     ['Scan I2C : 0x53 (ADXL345), 0x57 (EEPROM du DS3231), 0x68 (DS3231), 0x76 ou 0x77 (BME280).',
-      'Avant de brancher la cellule droite (X16) : même tension que la gauche à 0,05 V près.']),
+    (1, 'Power block, on the bench', 'left leg: TP4056, power-path board, TPS63020 soldered together',
+     ['Power-path board: parts, bridges and GND bus per renders/tars4_board_power.svg (Q1 / Q5 with wire-wrap wire).',
+      'TP4056: R_PROG replaced by 2.4 k, then tested alone: 3.7 V bench supply on B+ / B−, current < 10 µA. Polarities: C9 + on IN+, D3 band (cathode) on IN+ (reversed, it shorts the 5 V). TPS63020: EN tied to VIN, PS/SYNC to GND.',
+      'Crowded pads (joints ≥ 0.65 mm from the board end): splice 1 cm before the pad the two VUSB wires of IN+ (to X10 and to the power-path board), the two B+ (to X12 and X16, with the B+ sense wire to the power-path board) and the two B−: a single conductor per pad, next to C9 / D3.',
+      'Solder the wires below (4–5 cm loops between the three boards), then crimp the XH contacts and slide them into X10, X12, X13 and X14.',
+      'X12 and X16 on the block side (M): while unplugged, capped with an empty female XH housing. Their pins carry B+ / B− as soon as a cell is plugged in, until step 7.'],
+     ['3.7 V bench supply on X12 (block side, M): OUT+ ≈ B+; current without USB noted (D1 leakage adds to the TP4056 one: a few tens of µA possible; power_budget.md).',
+      'X10 cavities 3–4 bridged (switch simulated): VSYS ≈ B+; 3.3 V on X13 cavity 3; VBAT/2 ≈ B+ / 2 on X14 cavity 1.',
+      '5 V on X10 cavities 1–2: charge LED, USB_DET ≈ 3 V on X14 cavity 2, Q1 off.']),
+    (2, 'Charge port, switch, cells', 'the foot and cell cables up to X10, X12 and X16',
+     ['Solder F1 on the left + plate (F2 on the right one at step 7). Never solder on a cell.',
+      'Right cell wires: long enough to cross the three tubes (length from the table, already + 3 cm, offered up on TARS before cutting). Crimp X16 (female) now; the right cell end stays bare.'],
+     ['Left cell alone: X12 plugged in, switch on, VSYS ≈ B+.',
+      'Charger on J1: charge LED; unplugged: VUSB < 0.5 V within ~1 s.']),
+    (3, 'S3 carrier', 'the 27 controller wires, soldered on the carrier side',
+     ['Plan renders/tars4_board_s3.svg: 2 × 8 headers (V contact removed, headers glued), standing parts, bridges, GND bus, jumpers.',
+      'Solder the 27 wires on the carrier side only, long enough (6–8 cm service loop + route). The other end stays bare: it is finished at the step shown.'],
+     ['Before any power-up: every still-free end capped with closed heat-shrink (shrunk, end pinched while hot).', 'S3 removed: each wire ↔ its pin with the ohmmeter, GND isolated from 3V3 and the signals.',
+      'S3 plugged in, PC USB: test program flashed, the S3 boots.']),
+    (4, 'P1 and the left middle', 'screen 1, mic, accelerometer',
+     ['Plan renders/tars4_board_p1.svg. 1 × 8 right-angle header on the back of screen 1 (X1). ADXL345: straight header, INT2 removed and its cavity plugged (X2).',
+      'INMP441: 5-wire pigtail (male contacts, X3); L/R bridged to GND on its board.',
+      'X2 SDA and SCL: double contact, crimp together (without folding back) the S3 wire and the one leaving for P2 (bare end, soldered at step 6).'],
+     ['Before any power-up: every still-free end capped with closed heat-shrink (shrunk, end pinched while hot).', 'S3 on USB, switch off: screen 1 displays, the mic gives I2S samples, the ADXL345 answers at 0x53 and INT1 toggles.']),
+    (5, 'Left tube: power block ↔ left middle, microSD', 'everything crossing the left tube',
+     ['Thread the left brass tube onto the listed wires BEFORE crimping the far end. The amplifier pair (step 6) and the right cell pair (step 2) also cross this tube: thread them at the same time.',
+      'microSD reader: C4 10 µF tantalum lying flat (+ on VCC; only ~6.6 mm up to the TPS63020) and C5 100 nF on its VCC / GND pins; without pull-ups on the reader, R5–R9 10 k from CMD, D0, D1, D2 and D3 to VCC (SD_3V3). Then a 5-wire pigtail (male contacts, X15).'],
+     ['Before any power-up: every still-free end capped with closed heat-shrink (shrunk, end pinched while hot).', 'Without USB, switch on: the S3 boots from the cells (3.3 V on the carrier).',
+      'VBAT/2 and USB_DET read by the S3; the microSD is read; SD_EN high cuts its 3.3 V.']),
+    (6, 'Middle tube and right middle', 'screen 2, amplifier, speaker, AM312, P2',
+     ['Plan renders/tars4_board_p2.svg. Right-angle header on the back of screen 2 (X4). Amplifier: 1 × 4 (GAIN removed) + 1 × 3 headers (X5), 2-pin header instead of the screw terminal (X6), C7 + on VIN, band (−) to GND.',
+      'AM312: 3-wire pigtail (male contacts, X7), breakout pins trimmed flush, breakout slipped into a heat-shrink sock (it passes 5 mm from the middle tube exit). Thread the middle tube before crimping.'],
+     ['Before any power-up: every still-free end capped with closed heat-shrink (shrunk, end pinched while hot).', 'Screen 2 displays; sound in the speaker; AMP_SD low cuts the amplifier; PIR rises when a hand passes.']),
+    (7, 'Right tube and right leg', 'DS3231, BME280, right cell',
+     ['DS3231: right-angle header, 32K removed, coin-cell charging resistor removed. BME280: 1 × 4 header, LED removed.',
+      'Thread the right tube. F2 on the right + plate, then solder the two right cell wires (step 2).',
+      'X9: each contact takes two wires (P2 + the continuation to X8), crimped together without folding back.',
+      'Right tube: twist SDA with GND and SCL with 3V3 (long I2C bus, next to SCK / BCLK).'],
+     ['I2C scan: 0x53 (ADXL345), 0x57 (DS3231 EEPROM), 0x68 (DS3231), 0x76 or 0x77 (BME280).',
+      'Before plugging in the right cell (X16): same voltage as the left one within 0.05 V.']),
 ]
 
 
@@ -188,9 +188,9 @@ def where(e, g):
         return 0, cw / 2, g['wall'] + 3, g['usbb_z0'] + 6
     if m.startswith('SW1'):
         return 0, cw / 2, g['sw_y'], 8
-    if m.startswith('cellule'):
+    if m.endswith(' cell'):
         return col, cw / 2, D / 2, g['fuse_z0'] + 1 if '+' in e['port'] else g['shelf_z'] - 1
-    if m == 'haut-parleur':
+    if m == 'speaker':
         return 2, cw / 2, g['spk_front_y'] + g['spk'][1], g['spk_z0'] + g['spk'][2] / 2
     return None
 
@@ -253,7 +253,7 @@ def collect():
             wires.append(dict(colr=colr, awg=g, rings=rings, net=net, A=A, B=B, note=''))
             if len(tg) > 1:   # chained on to a second connector: a jumper from the first contact
                 wires.append(dict(colr=colr, awg=g, rings=rings, net=net, A=C(tg[0], 'F'), B=C(tg[1], 'F'),
-                                  note=f'contact double dans {tg[0].split(".")[0]} (avec le fil de P2)'))
+                                  note=f'double contact in {tg[0].split(".")[0]} (with the wire from P2)'))
     for colr, g, rings, net, A, B, step, note in EXTRA:
         wires.append(dict(colr=colr, awg=g, rings=rings, net=net, A=A, B=B, note=note, step=step))
     for w in wires:
@@ -290,7 +290,7 @@ def sym_html(e):
 def end_text(e):
     if e['kind'] == 'S':
         if 'board' in e:
-            return f'<b>{e["block"]}</b> {e["sub"]} · trou {e["port"]} <small>(fil {e["plan"]} du plan)</small>'
+            return f'<b>{e["block"]}</b> {e["sub"]} · hole {e["port"]} <small>(wire {e["plan"]} of the plan)</small>'
         return f'{e["block"]} · {e["port"]}'
     title = CONNS[e['ref']][0].split(' · ')[0]
     return f'<b>{e["ref"]}</b> {title} · case {e["port"]}'
@@ -319,13 +319,13 @@ def diagrams(step, wires):
     one = diagram(step, done, started)
     if max(pt_size(one, False), pt_size(one, True)) < 6.5:
         sets = sorted({tuple(w['tubes']) for w in done + started}, key=lambda t: (len(t), t))
-        cross = [(f'fils par {" + ".join(t)}' if t else 'fils locaux', [w for w in done if tuple(w['tubes']) == t],
+        cross = [(f'wires through {" + ".join(t)}' if t else 'local wires', [w for w in done if tuple(w['tubes']) == t],
                   [w for w in started if tuple(w['tubes']) == t]) for t in sets]
         best = lambda d, st: max(pt_size(diagram(step, d, st), False), pt_size(diagram(step, d, st), True))
         merged = []
         for what, d, st in cross:   # put small groups together while the text stays at 7 pt or more
             if merged and best(merged[-1][1] + d, merged[-1][2] + st) >= 7:
-                merged[-1] = (merged[-1][0] + ', ' + what.replace('fils ', ''), merged[-1][1] + d, merged[-1][2] + st)
+                merged[-1] = (merged[-1][0] + ', ' + what.replace('wires ', ''), merged[-1][1] + d, merged[-1][2] + st)
             else:
                 merged.append((what, d, st))
         if len(merged) > 1:
@@ -334,7 +334,7 @@ def diagrams(step, wires):
     for k, (what, d, st) in enumerate(parts, 1):
         svg = one if len(parts) == 1 else diagram(step, d, st)
         portrait = pt_size(svg, True) > pt_size(svg, False) * 1.08
-        cap = f'schéma {k}/{len(parts)} : {what}' if len(parts) > 1 else 'schéma'
+        cap = f'diagram {k}/{len(parts)}: {what}' if len(parts) > 1 else 'diagram'
         out.append((cap, svg, portrait))
     return out
 
@@ -390,7 +390,7 @@ def diagram(step, done, started):
             out.append(f'<text x="{x0}" y="{py + 4}" class="pt">{esc(e["port"])}</text>')
             out.append(f'<text x="{x0 + 70}" y="{py + 4}" class="pt m">{esc(w["net"])}</text>')
             if stub:
-                out.append(f'<text x="{x0 + 128}" y="{py + 4}" class="ps">→ ét. {w["step"]}</text>')
+                out.append(f'<text x="{x0 + 128}" y="{py + 4}" class="ps">→ st. {w["step"]}</text>')
             out.append(f'<text x="{x + BW - 30 if right else x + 30}" y="{py + 4}" class="pw" text-anchor="{"end" if right else "start"}">W{w["n"]}</text>')
         lane_y[lane] = y + h + 22
     H = max(lane_y.values()) + 10
@@ -431,7 +431,7 @@ def diagram(step, done, started):
         ln.append(f'<path d="M{x2} {y - 5} l{6 if r else -6} 5 l{-6 if r else 6} 5" fill="none" stroke="var(--ink)" stroke-width="1.6"/>')
         sy.append(sym(e['kind'], e.get('g', ''), x + (-15 if r else 15), y))
     W += 150
-    return (f'<svg viewBox="0 0 {W} {H}" width="{W}" role="img" aria-label="Étape {step} : fils et leurs bouts">'
+    return (f'<svg viewBox="0 0 {W} {H}" width="{W}" role="img" aria-label="Step {step}: wires and their ends">'
             + ''.join(bg) + ''.join(ln) + ''.join(out) + ''.join(sy) + '</svg>')
 
 
@@ -442,12 +442,12 @@ def table(ws, show_step=False):
         tubes = ' + '.join(w['tubes']) or '—'
         extra = f'<br><small>{esc(w["note"])}</small>' if w['note'] else ''
         st = f'<td class="n">{w["start"]}{"→" + str(w["step"]) if w["start"] != w["step"] else ""}</td>' if show_step else ''
-        rows.append(f'<tr><td class="n">W{w["n"]}</td>{st}<td>{wire_swatch(w)} {FR[w["colr"]]} {w["awg"]} AWG{rg}</td>'
+        rows.append(f'<tr><td class="n">W{w["n"]}</td>{st}<td>{wire_swatch(w)} {NAME[w["colr"]]} {w["awg"]} AWG{rg}</td>'
                     f'<td class="m">{esc(w["net"])}</td><td>{sym_html(w["A"])} {end_text(w["A"])}</td>'
                     f'<td>{sym_html(w["B"])} {end_text(w["B"])}{extra}</td><td>{tubes}</td><td class="n">{w["len"]}<small> → {w["cut"]}</small></td></tr>')
-    st = '<th>étape</th>' if show_step else ''
-    return (f'<div class="tbl"><table><tr><th>fil</th>{st}<th>couleur</th><th>signal</th><th>bout A</th><th>bout B</th>'
-            f'<th>tubes</th><th>long. cm<br><small>estimée → à couper</small></th></tr>{"".join(rows)}</table></div>')
+    st = '<th>step</th>' if show_step else ''
+    return (f'<div class="tbl"><table><tr><th>wire</th>{st}<th>colour</th><th>signal</th><th>end A</th><th>end B</th>'
+            f'<th>tubes</th><th>length cm<br><small>estimated → to cut</small></th></tr>{"".join(rows)}</table></div>')
 
 
 def page(wires):
@@ -457,21 +457,21 @@ def page(wires):
         started = [w for w in wires if w['start'] == n and w['step'] > n]
         crimp = sorted({(e['ref'], e['g']) for w in done for e in (w['A'], w['B']) if e['kind'] != 'S'},
                        key=lambda r: (int(r[0][1:]), r[1]))
-        crimp_txt = ', '.join(f'{r} {g}' for r, g in crimp) or 'aucun'
+        crimp_txt = ', '.join(f'{r} {g}' for r, g in crimp) or 'none'
         st = ''
         if started:
-            st = (f'<h4>Fils commencés ici, terminés plus tard ({len(started)})</h4>'
-                  f'<p class="small">Un seul bout maintenant ; l\'autre reste nu jusqu\'à l\'étape indiquée.</p>{table(started, True)}')
+            st = (f'<h4>Wires started here, finished later ({len(started)})</h4>'
+                  f'<p class="small">One end only now; the other stays bare until the step shown.</p>{table(started, True)}')
         steps.append(f'''
   <section class="step" id="e{n}">
     <h2><span class="num">{n}</span> {esc(title)}</h2>
-    <p class="sub">{esc(sub)} · {len(done)} fils terminés · boîtiers à remplir : {crimp_txt}</p>
+    <p class="sub">{esc(sub)} · {len(done)} wires finished · housings to fill: {crimp_txt}</p>
     <div class="cols">
-      <div><h4>Avant</h4><ol>{"".join(f"<li>{esc(p)}</li>" for p in prep)}</ol></div>
-      <div><h4>Test sur l'établi</h4><ul class="tests">{"".join(f"<li>{esc(t)}</li>" for t in tests)}</ul></div>
+      <div><h4>Before</h4><ol>{"".join(f"<li>{esc(p)}</li>" for p in prep)}</ol></div>
+      <div><h4>Bench test</h4><ul class="tests">{"".join(f"<li>{esc(t)}</li>" for t in tests)}</ul></div>
     </div>
-    {"".join(f'<div class="sheet{" portrait" if pr else ""}"><p class="cap">Étape {n} · {esc(title)} : {cap}</p>{svg}</div>' for cap, svg, pr in diagrams(n, wires))}
-    <h4>Fils terminés à cette étape ({len(done)})</h4>
+    {"".join(f'<div class="sheet{" portrait" if pr else ""}"><p class="cap">Step {n} · {esc(title)}: {cap}</p>{svg}</div>' for cap, svg, pr in diagrams(n, wires))}
+    <h4>Wires finished at this step ({len(done)})</h4>
     {table(done)}
     {st}
   </section>''')
@@ -479,7 +479,7 @@ def page(wires):
     for ref in sorted(CONNS, key=lambda r: int(r[1:])):
         title, pins = CONNS[ref]
         cells = ''.join('<span class="gap"></span>' if p == '|' else
-                        f'<span class="cell{" key" if net == "key" else ""}"><b>{esc(p)}</b><small>{"bouché" if net == "key" else esc(net or "vide")}</small></span>'
+                        f'<span class="cell{" key" if net == "key" else ""}"><b>{esc(p)}</b><small>{"plugged" if net == "key" else esc(net or "empty")}</small></span>'
                         for p, net in pins)
         kind = 'x' if ref in XH else 'd'
         conn_cards.append(f'<div class="card"><p><span class="e {kind}">{ref}</span> {esc(title)}</p><div class="pins">{cells}</div></div>')
@@ -488,15 +488,15 @@ def page(wires):
     tot = {}
     for w in wires:
         tot[(w['awg'], w['colr'])] = tot.get((w['awg'], w['colr']), 0) + w['cut']
-    rows = ''.join(f'<tr><td>{wire_swatch(dict(awg=g, colr=c, rings=0))} {FR[c]}</td><td class="n">{g} AWG</td>'
+    rows = ''.join(f'<tr><td>{wire_swatch(dict(awg=g, colr=c, rings=0))} {NAME[c]}</td><td class="n">{g} AWG</td>'
                    f'<td class="n">{sum(1 for w in wires if (w["awg"], w["colr"]) == (g, c))}</td><td class="n">{v / 100:.2f} m</td></tr>'
                    for (g, c), v in sorted(tot.items(), key=lambda kv: (-kv[0][0], -kv[1])))
     t30 = sum(v for (g, _), v in tot.items() if g == 30) / 100
     t26 = sum(v for (g, _), v in tot.items() if g == 26) / 100
-    totals = (f'<div class="tbl"><table><tr><th>couleur</th><th>section</th><th>fils</th><th>à couper</th></tr>{rows}'
+    totals = (f'<div class="tbl"><table><tr><th>colour</th><th>gauge</th><th>wires</th><th>to cut</th></tr>{rows}'
               f'<tr><td><b>total 30 AWG</b></td><td></td><td></td><td class="n">{t30:.2f} m</td></tr>'
               f'<tr><td><b>total 26 AWG</b></td><td></td><td></td><td class="n">{t26:.2f} m</td></tr></table></div>')
-    return f'''<title>TARS4 guide de câblage</title>
+    return f'''<title>TARS4 wiring guide</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@600&display=swap">
@@ -598,41 +598,41 @@ svg .ps {{ font: 600 11px var(--f-mono); fill: #c0392b; }}
 </style>
 <div class="wrap">
   <header>
-    <h1>TARS4 — guide de câblage</h1>
-    <p class="lead">Les {len(wires)} fils de TARS ({n26} en 26 AWG, le reste en 30 AWG), dans l'ordre de montage. Chaque étape se teste
-    sur l'établi avant la suivante ; tout se fait hors de TARS, la mise en place vient à la fin. Les plans des plaques
-    (renders/tars4_board_*.svg) donnent le trou par trou, ce guide donne les deux bouts de chaque fil.</p>
+    <h1>TARS4 — wiring guide</h1>
+    <p class="lead">The {len(wires)} TARS wires ({n26} in 26 AWG, the rest in 30 AWG), in build order. Each step is tested
+    on the bench before the next; everything is done outside TARS, fitting comes at the end. The board plans
+    (renders/tars4_board_*.svg) give hole by hole, this guide gives both ends of every wire.</p>
   </header>
   <section>
-    <h3>Code des bouts de fil (le même sur les plans des plaques)</h3>
+    <h3>Wire end code (the same on the board plans)</h3>
     <div class="legend">
-      <div><span class="e s">●</span><span><b>Soudé</b> : sur un trou de plaque (plan indiqué) ou sur une pastille / patte de module. Étamer le fil, souder, gaine sur la soudure si elle est à l'air.</span></div>
-      <div><span class="e d">DF</span><span><b>Dupont, contact femelle</b> serti (SN-28B, 30 AWG replié en deux ; deux fils dans un contact : ensemble, sans replier), glissé dans le boîtier Xn à la case indiquée (case 1 = broche 1, point de peinture).</span></div>
-      <div><span class="e d">DM</span><span><b>Dupont, contact mâle</b> : le côté module d'une paire en ligne (queues de X3, X7, X15).</span></div>
-      <div><span class="e x">XHF</span><span><b>JST-XH femelle</b> serti, côté bloc alim (X10, X13, X14) ou côté cellules (X12).</span></div>
-      <div><span class="e x">XHM</span><span><b>JST-XH mâle</b> serti, l'autre côté de la paire.</span></div>
-      <div><span class="sw" style="background:#f07800"><i></i><i></i></span><span><b>Couleur du fil</b>, épais = 26 AWG, traits = bagues noires de gaine thermo aux deux bouts (1 = I2S / PIR, 2 = I2C, 3 = microSD).</span></div>
-      <div><span class="sw big" style="background:#d7262b"><i class="band" style="background:#f07800"></i></span><span><b>Paires d'alimentation</b> : rouge / noir = batterie et 5 V, blanc / bleu = 3V3 régulé. Les rails qui partagent le rouge / noir portent une <b>bague de couleur</b> (10 mm de gaine thermo de couleur, rétractée à 2–3 cm de chaque bout, la même sur le + et sur son GND) : aucune = B+ / B− des cellules, <b>blanche</b> = OUT+ / OUT− du TP4056, <b>jaune</b> = VPATH, <b>orange</b> = VSYS, <b>violette</b> = VUSB. Enfiler la bague avant de souder ou de sertir.</span></div>
+      <div><span class="e s">●</span><span><b>Soldered</b>: on a board hole (plan shown) or on a module pad / lead. Tin the wire, solder, heat-shrink over the joint if it is exposed.</span></div>
+      <div><span class="e d">DF</span><span><b>Dupont, female contact</b> crimped (SN-28B, 30 AWG folded in two; two wires in one contact: together, without folding), slid into housing Xn at the cavity shown (cavity 1 = pin 1, paint dot).</span></div>
+      <div><span class="e d">DM</span><span><b>Dupont, male contact</b>: the module side of an inline pair (pigtails of X3, X7, X15).</span></div>
+      <div><span class="e x">XHF</span><span><b>JST-XH female</b> crimped, on the power block side (X10, X13, X14) or the cell side (X12).</span></div>
+      <div><span class="e x">XHM</span><span><b>JST-XH male</b> crimped, the other side of the pair.</span></div>
+      <div><span class="sw" style="background:#f07800"><i></i><i></i></span><span><b>Wire colour</b>, thick = 26 AWG, strokes = black heat-shrink rings at both ends (1 = I2S / PIR, 2 = I2C, 3 = microSD).</span></div>
+      <div><span class="sw big" style="background:#d7262b"><i class="band" style="background:#f07800"></i></span><span><b>Power pairs</b>: red / black = battery and 5 V, white / blue = regulated 3V3. Rails sharing red / black carry a <b>coloured band</b> (10 mm of coloured heat-shrink, shrunk 2–3 cm from each end, the same on the + and on its GND): none = cell B+ / B−, <b>white</b> = TP4056 OUT+ / OUT−, <b>yellow</b> = VPATH, <b>orange</b> = VSYS, <b>purple</b> = VUSB. Slip the band on before soldering or crimping.</span></div>
     </div>
   </section>
   <section>
-    <h3>Blocs des schémas (couleur du cadre)</h3>
+    <h3>Diagram blocks (frame colour)</h3>
     <div class="legend frames">
-      <div><span class="fr" style="border-color:#2f8f5b">P</span><span><b>Plaque câblée à la main</b> : P1, P2 (plaques à bandes), P3 support de la S3, P4 partage de charge (plaques à pastilles) ; plans renders/tars4_board_*.svg.</span></div>
-      <div><span class="fr" style="border-color:#8e44c4">M</span><span><b>Module ou pièce</b> sous son nom : TP4056, TPS63020, INMP441, AM312, lecteur microSD, interrupteur, cellules, haut-parleur…</span></div>
-      <div><span class="fr" style="border-color:#2a62d6">X</span><span><b>Connecteur Dupont</b>, un côté (femelle ou mâle) ; les cases sont numérotées depuis la broche 1.</span></div>
-      <div><span class="fr" style="border-color:#f07800">X</span><span><b>Connecteur JST-XH</b>, un côté (femelle ou mâle).</span></div>
+      <div><span class="fr" style="border-color:#2f8f5b">P</span><span><b>Hand-wired board</b>: P1, P2 (stripboards), P3 S3 carrier, P4 power path (pad perfboards); plans renders/tars4_board_*.svg.</span></div>
+      <div><span class="fr" style="border-color:#8e44c4">M</span><span><b>Module or part</b> under its name: TP4056, TPS63020, INMP441, AM312, microSD reader, switch, cells, speaker…</span></div>
+      <div><span class="fr" style="border-color:#2a62d6">X</span><span><b>Dupont connector</b>, one side (female or male); cavities are numbered from pin 1.</span></div>
+      <div><span class="fr" style="border-color:#f07800">X</span><span><b>JST-XH connector</b>, one side (female or male).</span></div>
     </div>
   </section>
-  <nav><h3>Étapes</h3><ol>{"".join(f'<li><a href="#e{n}">{n}. {esc(t)}</a></li>' for n, t, *_ in STEPS)}<li><a href="#long">Longueurs</a></li><li><a href="#tous">Liste complète</a></li><li><a href="#conn">Connecteurs</a></li></ol></nav>
-  <p class="small">Dans les schémas, TARS est vu de face (jambe gauche à gauche), une colonne par colonne de TARS, les tubes entre elles. Un bloc = une plaque, un module ou un côté de connecteur ; chaque ligne = un bout de fil. Un fil commencé à une étape et terminé plus tard sort du bloc avec une flèche « → étape n ».</p>
+  <nav><h3>Steps</h3><ol>{"".join(f'<li><a href="#e{n}">{n}. {esc(t)}</a></li>' for n, t, *_ in STEPS)}<li><a href="#long">Lengths</a></li><li><a href="#tous">Full list</a></li><li><a href="#conn">Connectors</a></li></ol></nav>
+  <p class="small">In the diagrams, TARS is seen from the front (left leg on the left), one column per TARS column, the tubes between them. A block = a board, a module or one side of a connector; each line = one wire end. A wire started at one step and finished later leaves the block with an arrow "→ st. n".</p>
   {"".join(steps)}
-  <section class="step" id="long"><h2>Longueurs de fil</h2>
-    <p class="sub">Tirées du modèle 3D (tars4.scad) : trajet d'un bout à l'autre le long de la colonne, par le pivot (z {geo_pz:.0f}) quand le fil change de colonne, +10 % pour les courbes, + boucle de service à chaque bout (7 cm au support P3, 4 cm aux connecteurs, 2–3 cm aux plaques et modules), + 3 cm par tube (rotation des jambes). Longueur à couper = estimée + {TOL} cm ; les queues des modules font {PIGTAIL} cm. Couper au moment du montage, après avoir présenté le fil dans TARS si possible.</p>
+  <section class="step" id="long"><h2>Wire lengths</h2>
+    <p class="sub">Taken from the 3D model (tars4.scad): route from one end to the other along the column, through the pivot (z {geo_pz:.0f}) when the wire changes column, +10 % for bends, + service loop at each end (7 cm at the P3 carrier, 4 cm at connectors, 2–3 cm at boards and modules), + 3 cm per tube (leg rotation). Length to cut = estimated + {TOL} cm; module pigtails are {PIGTAIL} cm. Cut at assembly time, after offering the wire up in TARS if possible.</p>
     {totals}
   </section>
-  <section class="step" id="tous"><h2>Liste complète des fils</h2><p class="sub">étape où il est commencé → terminé</p>{table(wires, True)}</section>
-  <section id="conn"><h3>Connecteurs (côté faisceau, case 1 à gauche)</h3><div class="cards">{"".join(conn_cards)}</div></section>
+  <section class="step" id="tous"><h2>Full wire list</h2><p class="sub">step where it is started → finished</p>{table(wires, True)}</section>
+  <section id="conn"><h3>Connectors (harness side, cavity 1 on the left)</h3><div class="cards">{"".join(conn_cards)}</div></section>
 </div>
 '''
 

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 914" width="1500" height="914" font-family="IBM Plex Sans, Segoe UI, sans-serif">
 <rect width="1500" height="914" fill="#fbfbf9"/>
 <defs><pattern id="hatch" width="1.2" height="1.2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="1.2" height="1.2" fill="#f6ebc4"/><line x1="0" y1="0" x2="0" y2="1.2" stroke="#c9a640" stroke-width=".35"/></pattern></defs>
-<text x="95.6" y="28" font-size="17" font-weight="600" text-anchor="middle" fill="#1d2226">Jambe gauche</text>
+<text x="95.6" y="28" font-size="17" font-weight="600" text-anchor="middle" fill="#1d2226">Left leg</text>
 <text x="46" y="50" font-size="11" fill="#5e676d">avant</text><text x="145.2" y="50" font-size="11" text-anchor="end" fill="#5e676d">couvercle</text>
 <g transform="translate(46,863.6) scale(3.2)">
 <path d="
@@ -18,10 +18,10 @@ M 9.6,-0 L 19.1,-0 L 19.1,-1.61 L 19.1,-1.61 L 19.1,-5.65 L 17.75,-5.65
 M 29,-0 L 31,-0 L 31,-1.6 L 29,-1.6 z
 " fill="#d9d8d3" stroke="#8e8c86" stroke-width="0.15" fill-rule="evenodd"/>
 <path d="
-M 28.1,-126.6 L 29.4,-126.6 L 29.4,-120.2 L 31,-120.2 L 31,-141 L 29.4,-141
- L 29.4,-139.8 L 28.1,-139.8 L 28.1,-137.8 L 29.4,-137.8 L 29.4,-128.6 L 28.1,-128.6
+M 28.1,-126.5 L 29.4,-126.5 L 29.4,-120.1 L 31,-120.1 L 31,-141 L 29.4,-141
+ L 29.4,-139 L 28.1,-139 L 28.1,-137 L 29.4,-137 L 29.4,-128.5 L 28.1,-128.5
  z
-M 29.4,-1.8 L 31,-1.8 L 31,-118 L 29.4,-118 z
+M 29.4,-1.8 L 31,-1.8 L 31,-117.9 L 29.4,-117.9 z
 M 29.4,-142.5 L 31,-142.5 L 31,-144 L 29.4,-144 z
 M 29.4,-145.5 L 31,-145.5 L 31,-147 L 29.4,-147 z
 M 29.4,-148.5 L 31,-148.5 L 31,-217 L 29.4,-217 z
@@ -33,10 +33,10 @@ M 29.4,-230.5 L 31,-230.5 L 31,-241.95 L 29.4,-241.95 z
 M 29.4,-244.85 L 31,-244.85 L 31,-246.2 L 29.4,-246.2 z
 " fill="#a9a7a1" stroke="#6e6c66" stroke-width="0.15" fill-rule="evenodd"/>
 <path d="
-M 29.1,-181.42 L 9.09999,-181.42 L 9.09999,-178.42 L 29.1,-178.42 z
-M 29.1,-146 L 12.1,-146 L 12.1,-143 L 29.1,-143 z
-M 29.1,-133.3 L 11.7,-133.3 L 11.7,-130.3 L 29.1,-130.3 z
-M 9.39999,-15.6 L 4.39999,-15.6 L 4.39999,-2.59999 L 9.39999,-2.59999 z
+M 29.1,-181.32 L 9.09999,-181.32 L 9.09999,-178.32 L 29.1,-178.32 z
+M 29.1,-145.7 L 11.95,-145.7 L 11.95,-142.7 L 29.1,-142.7 z
+M 29.1,-133.2 L 11.4,-133.2 L 11.4,-130.2 L 29.1,-130.2 z
+M 9.29999,-18.6 L 4.29999,-18.6 L 4.29999,-2.59999 L 9.29999,-2.59999 z
 " fill="url(#hatch)" stroke="none" stroke-width="0.15" fill-rule="evenodd"/>
 <path d="
 M 28.8,-94.7 L 10.2,-94.7 L 10.2,-29.7 L 28.8,-29.7 z
@@ -46,26 +46,26 @@ M 28.5,-96.5 L 10.5,-96.5 L 10.5,-95.3 L 28.5,-95.3 z
 M 28.5,-25.7 L 10.5,-25.7 L 10.5,-24.5 L 28.5,-24.5 z
 " fill="#c9c9c9" fill-opacity=".85" stroke="#888" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 29.1,-143 L 12.1,-143 L 12.1,-135.9 L 29.1,-135.9 z
+M 29.1,-142.7 L 11.95,-142.7 L 11.95,-135.8 L 29.1,-135.8 z
 " fill="#9fd3a5" fill-opacity=".85" stroke="#2e7d3a" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 29.1,-178.42 L 9.09999,-178.42 L 9.09999,-170.82 L 29.1,-170.82 z
+M 29.1,-178.32 L 9.09999,-178.32 L 9.09999,-170.82 L 29.1,-170.82 z
 " fill="#e3c99a" fill-opacity=".85" stroke="#9a7432" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
 M 24.85,-18.89 L 17.95,-18.89 L 17.95,-0.5 L 24.85,-0.5 z
 " fill="#555" fill-opacity=".85" stroke="#222" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 28.6,-118.1 L 29.1,-118.1 L 29.1,-120.1 L 14.1,-120.1 L 14.1,-118.1 L 10.6,-118.1
- L 10.6,-116.5 L 28.6,-116.5 z
+M 24.3,-118 L 27.1,-118 L 27.1,-120 L 15.6,-120 L 15.6,-118 L 6.09999,-118
+ L 6.09999,-116.5 L 24.3,-116.5 z
 " fill="#a8d8c8" fill-opacity=".85" stroke="#2f8a6c" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 29.1,-130.3 L 11.7,-130.3 L 11.7,-124.7 L 29.1,-124.7 z
+M 29.1,-130.2 L 11.4,-130.2 L 11.4,-124.6 L 29.1,-124.6 z
 " fill="#c9b5e8" fill-opacity=".85" stroke="#6b4bb0" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 24,-103.7 L 9.99998,-103.7 L 9.99998,-100.5 L 24,-100.5 z
+M 26,-71.7 L 9.99998,-71.7 L 9.99998,-69.2 L 26,-69.2 z
 " fill="#f2c14e" fill-opacity=".85" stroke="#a07a10" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 4.39999,-15.6 L 2.79999,-15.6 L 2.79999,-2.59999 L 4.39999,-2.59999 z
+M 4.29999,-18.6 L 2.79999,-18.6 L 2.79999,-2.59999 L 4.29999,-2.59999 z
 " fill="#9a9a9a" fill-opacity=".85" stroke="#444" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
 M 16.0221,-234.434 L 16.5353,-234.536 L 17.0307,-234.704 L 17.5,-234.936 L 17.935,-235.227 L 18.3284,-235.572
@@ -79,19 +79,19 @@ M 16.0221,-234.434 L 16.5353,-234.536 L 17.0307,-234.704 L 17.5,-234.936 L 17.93
  z
 " fill="#e8c766" fill-opacity=".85" stroke="#a8862a" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 22.5,-166 L 16.7,-166 L 16.7,-144 L 22.5,-144 z
+M 22.5,-165.7 L 16.7,-165.7 L 16.7,-143.7 L 22.5,-143.7 z
 " fill="#ff9b3d" fill-opacity=".85" stroke="#c2560a" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 28.8,-166 L 23,-166 L 23,-144 L 28.8,-144 z
+M 28.8,-165.7 L 23,-165.7 L 23,-143.7 L 28.8,-143.7 z
 " fill="#ff9b3d" fill-opacity=".85" stroke="#c2560a" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 28.8,-166 L 23,-166 L 23,-144 L 28.8,-144 z
+M 28.8,-165.7 L 23,-165.7 L 23,-143.7 L 28.8,-143.7 z
 " fill="#ff9b3d" fill-opacity=".85" stroke="#c2560a" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 22.5,-166 L 16.7,-166 L 16.7,-144 L 22.5,-144 z
+M 22.5,-165.7 L 16.7,-165.7 L 16.7,-143.7 L 22.5,-143.7 z
 " fill="#ff9b3d" fill-opacity=".85" stroke="#c2560a" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 28.8,-201.92 L 23,-201.92 L 23,-179.92 L 28.8,-179.92 z
+M 28.8,-201.82 L 23,-201.82 L 23,-179.82 L 28.8,-179.82 z
 " fill="#ff9b3d" fill-opacity=".85" stroke="#c2560a" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
 M 6.09999,-141 L 3.5,-141 L 3.5,-107 L 6.09999,-107 z
@@ -103,58 +103,58 @@ M 6.09999,-141 L 3.5,-141 L 3.5,-107 L 6.09999,-107 z
 <line x1="40" y1="383.6" x2="45" y2="383.6" stroke="#8e8c86"/><text x="37" y="387.6" font-size="10" text-anchor="end" fill="#5e676d">150</text>
 <line x1="40" y1="223.60000000000002" x2="45" y2="223.60000000000002" stroke="#8e8c86"/><text x="37" y="227.60000000000002" font-size="10" text-anchor="end" fill="#5e676d">200</text>
 <polyline points="108.4,100.7 155.2,100.7 159.2,100.7" fill="none" stroke="#a8862a" stroke-width=".8"/>
-<text x="162.2" y="104.7" font-size="11.5" fill="#1d2226">tube laiton 8/7</text>
-<polyline points="138.2,252.7 155.2,252.7 159.2,252.7" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="162.2" y="256.7" font-size="11.5" fill="#1d2226">X16 cellule droite → bloc alim · XH 2</text>
-<polyline points="139.1,304.8 155.2,304.8 159.2,304.8" fill="none" stroke="#9a7432" stroke-width=".8"/>
-<text x="162.2" y="308.8" font-size="11.5" fill="#1d2226">plaquette partage de charge</text>
-<polyline points="118.0,367.6 155.2,367.6 159.2,367.6" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="162.2" y="371.6" font-size="11.5" fill="#1d2226">X10 J1 + SW1 ↔ bloc alim · XH 4</text>
-<polyline points="118.0,367.6 155.2,367.6 159.2,381.6" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="162.2" y="385.6" font-size="11.5" fill="#1d2226">X14 VBAT/2, USB_DET, SD_EN · XH 3</text>
-<polyline points="138.2,367.6 155.2,367.6 159.2,395.6" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="162.2" y="399.6" font-size="11.5" fill="#1d2226">X12 cellule gauche → bloc alim · XH 2</text>
-<polyline points="138.2,367.6 155.2,367.6 159.2,409.6" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="162.2" y="413.6" font-size="11.5" fill="#1d2226">X13 bloc alim → tubes · XH 4</text>
-<polyline points="139.1,417.4 155.2,417.4 159.2,423.6" fill="none" stroke="#2e7d3a" stroke-width=".8"/>
-<text x="162.2" y="427.6" font-size="11.5" fill="#1d2226">TP4056 + DW01</text>
-<polyline points="139.1,455.6 155.2,455.6 159.2,455.6" fill="none" stroke="#6b4bb0" stroke-width=".8"/>
-<text x="162.2" y="459.6" font-size="11.5" fill="#1d2226">TPS63020</text>
-<polyline points="65.5,466.8 155.2,466.8 159.2,469.6" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="162.2" y="473.6" font-size="11.5" fill="#1d2226">X15 microSD · queue + 5 br. (+1)</text>
-<polyline points="139.1,485.0 155.2,485.0 159.2,485.0" fill="none" stroke="#2f8a6c" stroke-width=".8"/>
-<text x="162.2" y="489.0" font-size="11.5" fill="#1d2226">lecteur microSD</text>
-<polyline points="122.8,536.9 155.2,536.9 159.2,536.9" fill="none" stroke="#a07a10" stroke-width=".8"/>
-<text x="162.2" y="540.9" font-size="11.5" fill="#1d2226">fusible F1 / F2</text>
+<text x="162.2" y="104.7" font-size="11.5" fill="#1d2226">brass tube 8/7</text>
+<polyline points="138.2,253.0 155.2,253.0 159.2,253.0" fill="none" stroke="#c2560a" stroke-width=".8"/>
+<text x="162.2" y="257.0" font-size="11.5" fill="#1d2226">X16 right cell → power block · XH 2</text>
+<polyline points="139.1,305.0 155.2,305.0 159.2,305.0" fill="none" stroke="#9a7432" stroke-width=".8"/>
+<text x="162.2" y="309.0" font-size="11.5" fill="#1d2226">power-path board</text>
+<polyline points="118.0,368.6 155.2,368.6 159.2,368.6" fill="none" stroke="#c2560a" stroke-width=".8"/>
+<text x="162.2" y="372.6" font-size="11.5" fill="#1d2226">X10 J1 + SW1 ↔ power block · XH 4</text>
+<polyline points="118.0,368.6 155.2,368.6 159.2,382.6" fill="none" stroke="#c2560a" stroke-width=".8"/>
+<text x="162.2" y="386.6" font-size="11.5" fill="#1d2226">X14 VBAT/2, USB_DET, SD_EN · XH 3</text>
+<polyline points="138.2,368.6 155.2,368.6 159.2,396.6" fill="none" stroke="#c2560a" stroke-width=".8"/>
+<text x="162.2" y="400.6" font-size="11.5" fill="#1d2226">X12 left cell → power block · XH 2</text>
+<polyline points="138.2,368.6 155.2,368.6 159.2,410.6" fill="none" stroke="#c2560a" stroke-width=".8"/>
+<text x="162.2" y="414.6" font-size="11.5" fill="#1d2226">X13 power block → tubes · XH 4</text>
+<polyline points="139.1,418.0 155.2,418.0 159.2,424.6" fill="none" stroke="#2e7d3a" stroke-width=".8"/>
+<text x="162.2" y="428.6" font-size="11.5" fill="#1d2226">TP4056 + DW01</text>
+<polyline points="139.1,455.9 155.2,455.9 159.2,455.9" fill="none" stroke="#6b4bb0" stroke-width=".8"/>
+<text x="162.2" y="459.9" font-size="11.5" fill="#1d2226">TPS63020</text>
+<polyline points="65.5,466.8 155.2,466.8 159.2,469.9" fill="none" stroke="#c2560a" stroke-width=".8"/>
+<text x="162.2" y="473.9" font-size="11.5" fill="#1d2226">X15 microSD · pigtail + 5 p. (+1)</text>
+<polyline points="132.7,485.2 155.2,485.2 159.2,485.2" fill="none" stroke="#2f8a6c" stroke-width=".8"/>
+<text x="162.2" y="489.2" font-size="11.5" fill="#1d2226">microSD reader</text>
+<polyline points="129.2,638.2 155.2,638.2 159.2,638.2" fill="none" stroke="#a07a10" stroke-width=".8"/>
+<text x="162.2" y="642.2" font-size="11.5" fill="#1d2226">fuse F1 / F2</text>
 <polyline points="138.2,664.6 155.2,664.6 159.2,664.6" fill="none" stroke="#3d64b0" stroke-width=".8"/>
-<text x="162.2" y="668.6" font-size="11.5" fill="#1d2226">cellule 18650</text>
+<text x="162.2" y="668.6" font-size="11.5" fill="#1d2226">18650 cell</text>
 <polyline points="137.2,670.0 155.2,670.0 159.2,678.6" fill="none" stroke="#888" stroke-width=".8"/>
 <text x="162.2" y="682.6" font-size="11.5" fill="#1d2226">contacts</text>
-<polyline points="125.5,832.6 155.2,832.6 159.2,832.6" fill="none" stroke="#222" stroke-width=".8"/>
-<text x="162.2" y="836.6" font-size="11.5" fill="#1d2226">interrupteur</text>
-<polyline points="60.1,834.5 155.2,834.5 159.2,846.6" fill="none" stroke="#444" stroke-width=".8"/>
-<text x="162.2" y="850.6" font-size="11.5" fill="#1d2226">prise micro-USB</text>
-<text x="470.6" y="28" font-size="17" font-weight="600" text-anchor="middle" fill="#1d2226">Milieu gauche</text>
+<polyline points="59.8,829.7 155.2,829.7 159.2,829.7" fill="none" stroke="#444" stroke-width=".8"/>
+<text x="162.2" y="833.7" font-size="11.5" fill="#1d2226">micro-USB socket</text>
+<polyline points="125.5,832.6 155.2,832.6 159.2,843.7" fill="none" stroke="#222" stroke-width=".8"/>
+<text x="162.2" y="847.7" font-size="11.5" fill="#1d2226">switch</text>
+<text x="470.6" y="28" font-size="17" font-weight="600" text-anchor="middle" fill="#1d2226">Left middle</text>
 <text x="421" y="50" font-size="11" fill="#5e676d">avant</text><text x="520.2" y="50" font-size="11" text-anchor="end" fill="#5e676d">couvercle</text>
 <g transform="translate(421,863.6) scale(3.2)">
 <path d="
-M 0.4,-0 L 3.7,-0 L 3.7,-1.6 L 1.6,-1.6 L 1.6,-31.736 L 2.39,-31.736
+M 0.4,-0 L 4,-0 L 4,-1.6 L 1.6,-1.6 L 1.6,-31.736 L 2.39,-31.736
  L 2.39,-33.836 L 1.6,-33.046 L 1.6,-32.736 L 0.4,-32.736 z
 M 0.4,-66.216 L 1.6,-66.216 L 1.6,-95.016 L 5.89,-95.016 L 5.89,-96.616 L 1.6,-96.616
  L 1.6,-101.3 L 5.89,-101.3 L 5.89,-102.9 L 1.6,-102.9 L 1.6,-123.84 L 5.89,-123.84
  L 5.89,-125.44 L 1.6,-125.44 L 1.6,-125.804 L 5.69,-125.804 L 5.69,-127.404 L 1.6,-127.404
  L 1.6,-132.204 L 0.4,-132.204 z
 M 0.4,-133.204 L 1.6,-133.204 L 1.6,-138.004 L 5.69,-138.004 L 5.69,-139.604 L 1.6,-139.604
- L 1.6,-180.312 L 6.19,-180.312 L 6.19,-181.912 L 1.6,-181.912 L 1.6,-188.728 L 0.4,-188.728
+ L 1.6,-181.352 L 5.49,-181.352 L 5.49,-182.952 L 1.6,-182.952 L 1.6,-188.728 L 0.4,-188.728
  z
-M 0.4,-217.496 L 1.6,-217.496 L 1.6,-224.312 L 6.19,-224.312 L 6.19,-225.912 L 1.6,-225.912
+M 0.4,-217.496 L 1.6,-217.496 L 1.6,-225.472 L 5.49,-225.472 L 5.49,-227.072 L 1.6,-227.072
  L 1.6,-239.9 L 29.4,-239.9 L 29.4,-242.35 L 20.4,-242.35 L 20.4,-244.45 L 29.4,-244.45
  L 29.4,-246.4 L 31,-246.4 L 31,-248 L 0.4,-248 z
-M 12.7,-0 L 31,-0 L 31,-1.6 L 12.7,-1.6 z
+M 13,-0 L 31,-0 L 31,-1.6 L 13,-1.6 z
 " fill="#d9d8d3" stroke="#8e8c86" stroke-width="0.15" fill-rule="evenodd"/>
 <path d="
-M 21.3,-42.8 L 29.4,-42.8 L 29.4,-1.8 L 31,-1.8 L 31,-241.95 L 29.4,-241.95
- L 29.4,-51.8 L 29.39,-51.8 L 24.4,-46.81 L 24.4,-46.8 L 21.3,-46.8 z
+M 21.4,-43 L 29.4,-43 L 29.4,-1.8 L 31,-1.8 L 31,-241.95 L 29.4,-241.95
+ L 29.4,-52 L 29.39,-52 L 24.4,-47.01 L 24.4,-47 L 21.4,-47 z
 M 29.4,-244.85 L 31,-244.85 L 31,-246.2 L 29.4,-246.2 z
 " fill="#a9a7a1" stroke="#6e6c66" stroke-width="0.15" fill-rule="evenodd"/>
 <path d="
@@ -169,17 +169,17 @@ M 9.2,-137.704 L 4.2,-137.704 L 4.2,-127.704 L 9.2,-127.704 z
 M 9.39999,-123.54 L 4.39999,-123.54 L 4.39999,-103.2 L 9.39999,-103.2 z
 " fill="url(#hatch)" stroke="none" stroke-width="0.15" fill-rule="evenodd"/>
 <path d="
-M 5.59999,-224.112 L 1.59999,-224.112 L 1.59999,-182.112 L 5.59999,-182.112 z
+M 4.89999,-225.272 L 1.59999,-225.272 L 1.59999,-183.152 L 4.89999,-183.152 z
 " fill="#30343a" fill-opacity=".85" stroke="#111" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 10.8,-42.5 L 9.79999,-42.5 L 9.79999,-15.6 L 6.59999,-15.6 L 6.59999,-8.09999 L 10.8,-8.09999
+M 11.1,-42.7 L 10.1,-42.7 L 10.1,-15.6 L 6.89999,-15.6 L 6.89999,-8.09999 L 11.1,-8.09999
  z
 " fill="#9ed6d6" fill-opacity=".85" stroke="#1f7f80" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 21.8,-35.05 L 10.8,-35.05 L 10.8,-14.73 L 21.8,-14.73 z
+M 21.9,-35.05 L 11.1,-35.05 L 11.1,-14.73 L 21.9,-14.73 z
 " fill="#333" fill-opacity=".85" stroke="#000" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 23.4,-42.5 L 21.8,-42.5 L 21.8,-8.09999 L 23.4,-8.09999 z
+M 23.4,-42.7 L 21.9,-42.7 L 21.9,-8.09999 L 23.4,-8.09999 z
 " fill="#e6b98a" fill-opacity=".85" stroke="#a0622a" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
 M 13.6,-171.904 L 12,-171.904 L 12,-139.904 L 13.6,-139.904 z
@@ -202,7 +202,7 @@ M 16.0221,-234.434 L 16.5353,-234.536 L 17.0307,-234.704 L 17.5,-234.936 L 17.93
  z
 " fill="#e8c766" fill-opacity=".85" stroke="#a8862a" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 9.46999,-223.362 L 5.59999,-223.362 L 5.59999,-204.862 L 9.46999,-204.862 z
+M 13.1,-225.122 L 4.89999,-225.122 L 4.89999,-206.622 L 13.1,-206.622 z
 " fill="#ff9b3d" fill-opacity=".85" stroke="#c2560a" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
 M 24.9,-123.82 L 4.39999,-123.82 L 4.39999,-103.2 L 24.9,-103.2 z
@@ -217,49 +217,50 @@ M 28.4,-131 L 25.8,-131 L 25.8,-103 L 28.4,-103 z
 <line x1="415" y1="383.6" x2="420" y2="383.6" stroke="#8e8c86"/><text x="412" y="387.6" font-size="10" text-anchor="end" fill="#5e676d">150</text>
 <line x1="415" y1="223.60000000000002" x2="420" y2="223.60000000000002" stroke="#8e8c86"/><text x="412" y="227.60000000000002" font-size="10" text-anchor="end" fill="#5e676d">200</text>
 <polyline points="483.4,100.7 530.2,100.7 534.2,100.7" fill="none" stroke="#a8862a" stroke-width=".8"/>
-<text x="537.2" y="104.7" font-size="11.5" fill="#1d2226">tube laiton 8/7</text>
-<polyline points="451.3,178.4 530.2,178.4 534.2,178.4" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="537.2" y="182.4" font-size="11.5" fill="#1d2226">X1 écran 1 · 8 br. coudées</text>
-<polyline points="438.9,213.6 530.2,213.6 534.2,213.6" fill="none" stroke="#111" stroke-width=".8"/>
-<text x="537.2" y="217.6" font-size="11.5" fill="#1d2226">écran</text>
+<text x="537.2" y="104.7" font-size="11.5" fill="#1d2226">brass tube 8/7</text>
+<polyline points="462.9,172.8 530.2,172.8 534.2,172.8" fill="none" stroke="#c2560a" stroke-width=".8"/>
+<text x="537.2" y="176.8" font-size="11.5" fill="#1d2226">X1 screen 1 · 8 p. right-angle</text>
+<polyline points="436.7,210.1 530.2,210.1 534.2,210.1" fill="none" stroke="#111" stroke-width=".8"/>
+<text x="537.2" y="214.1" font-size="11.5" fill="#1d2226">screen</text>
 <polyline points="464.5,364.7 530.2,364.7 534.2,364.7" fill="none" stroke="#a0622a" stroke-width=".8"/>
-<text x="537.2" y="368.7" font-size="11.5" fill="#1d2226">P1 / P2 (plaques à bandes)</text>
+<text x="537.2" y="368.7" font-size="11.5" fill="#1d2226">P1 / P2 (stripboards)</text>
 <polyline points="434.4,438.9 530.2,438.9 534.2,438.9" fill="none" stroke="#7c7d1f" stroke-width=".8"/>
 <text x="537.2" y="442.9" font-size="11.5" fill="#1d2226">INMP441</text>
 <polyline points="511.9,489.2 530.2,489.2 534.2,489.2" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="537.2" y="493.2" font-size="11.5" fill="#1d2226">X3 INMP441 · queue + 5 br. (+1)</text>
+<text x="537.2" y="493.2" font-size="11.5" fill="#1d2226">X3 INMP441 · pigtail + 5 p. (+1)</text>
 <polyline points="500.7,500.4 530.2,500.4 534.2,503.2" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="537.2" y="507.2" font-size="11.5" fill="#1d2226">X2 ADXL345 · 8 br. (5 fils, INT2 retirée)</text>
+<text x="537.2" y="507.2" font-size="11.5" fill="#1d2226">X2 ADXL345 · 8 p. (5 wires, INT2 removed)</text>
 <polyline points="435.1,500.8 530.2,500.8 534.2,517.2" fill="none" stroke="#b0303b" stroke-width=".8"/>
 <text x="537.2" y="521.2" font-size="11.5" fill="#1d2226">ADXL345</text>
-<polyline points="455.6,782.6 530.2,782.6 534.2,782.6" fill="none" stroke="#1f7f80" stroke-width=".8"/>
-<text x="537.2" y="786.6" font-size="11.5" fill="#1d2226">LOLIN S3 Mini (enfichée)</text>
-<polyline points="495.9,782.6 530.2,782.6 534.2,796.6" fill="none" stroke="#a0622a" stroke-width=".8"/>
-<text x="537.2" y="800.6" font-size="11.5" fill="#1d2226">support de la S3 (fils soudés derrière)</text>
-<polyline points="490.8,784.0 530.2,784.0 534.2,810.6" fill="none" stroke="#000" stroke-width=".8"/>
-<text x="537.2" y="814.6" font-size="11.5" fill="#1d2226">barrettes femelles 2 × 8</text>
-<text x="845.6" y="28" font-size="17" font-weight="600" text-anchor="middle" fill="#1d2226">Milieu droit</text>
+<polyline points="456.5,782.3 530.2,782.3 534.2,782.3" fill="none" stroke="#1f7f80" stroke-width=".8"/>
+<text x="537.2" y="786.3" font-size="11.5" fill="#1d2226">LOLIN S3 Mini (plugged in)</text>
+<polyline points="495.9,782.3 530.2,782.3 534.2,796.3" fill="none" stroke="#a0622a" stroke-width=".8"/>
+<text x="537.2" y="800.3" font-size="11.5" fill="#1d2226">S3 carrier (wires soldered behind)</text>
+<polyline points="491.1,784.0 530.2,784.0 534.2,810.3" fill="none" stroke="#000" stroke-width=".8"/>
+<text x="537.2" y="814.3" font-size="11.5" fill="#1d2226">female 2 × 8 headers</text>
+<text x="845.6" y="28" font-size="17" font-weight="600" text-anchor="middle" fill="#1d2226">Right middle</text>
 <text x="796" y="50" font-size="11" fill="#5e676d">avant</text><text x="895.2" y="50" font-size="11" text-anchor="end" fill="#5e676d">couvercle</text>
 <g transform="translate(796,863.6) scale(3.2)">
 <path d="
-M 0.4,-0 L 3.7,-0 L 3.7,-1.6 L 1.6,-1.6 L 1.6,-28.976 L 3.35,-28.976
+M 0.4,-0 L 4,-0 L 4,-1.6 L 1.6,-1.6 L 1.6,-28.976 L 3.35,-28.976
  L 3.35,-32.736 L 2.39,-32.736 L 2.39,-33.836 L 1.6,-33.046 L 1.6,-32.736 L 0.4,-32.736
  z
 M 0.4,-66.216 L 1.6,-66.216 L 1.6,-95.016 L 5.89,-95.016 L 5.89,-96.616 L 1.6,-96.616
- L 1.6,-180.312 L 6.19,-180.312 L 6.19,-181.912 L 1.6,-181.912 L 1.6,-188.728 L 0.4,-188.728
+ L 1.6,-181.352 L 5.49,-181.352 L 5.49,-182.952 L 1.6,-182.952 L 1.6,-188.728 L 0.4,-188.728
  z
-M 0.4,-217.496 L 1.6,-217.496 L 1.6,-224.312 L 6.19,-224.312 L 6.19,-225.677 L 7.6,-225.677
- L 7.6,-226.898 L 1.6,-226.898 L 1.6,-227.915 L 0.4,-227.915 z
-M 0.4,-237.897 L 1.6,-237.897 L 1.6,-238.914 L 7.6,-238.914 L 7.6,-239.9 L 29.4,-239.9
+M 0.4,-217.496 L 1.6,-217.496 L 1.6,-225.472 L 5.49,-225.472 L 5.49,-225.743 L 6.7,-225.743
+ L 6.7,-226.964 L 5.49,-226.964 L 5.49,-227.072 L 1.6,-227.072 L 1.6,-227.422 L 0.4,-227.422
+ z
+M 0.4,-238.625 L 1.6,-238.625 L 1.6,-239.083 L 6.7,-239.083 L 6.7,-239.9 L 29.4,-239.9
  L 29.4,-242.35 L 20.4,-242.35 L 20.4,-244.45 L 29.4,-244.45 L 29.4,-246.4 L 31,-246.4
  L 31,-248 L 0.4,-248 z
-M 12.7,-0 L 31,-0 L 31,-1.6 L 12.7,-1.6 z
+M 13,-0 L 31,-0 L 31,-1.6 L 13,-1.6 z
 " fill="#d9d8d3" stroke="#8e8c86" stroke-width="0.15" fill-rule="evenodd"/>
 <path d="
-M 13.65,-46.5 L 21.3,-46.5 L 21.3,-42.8 L 29.4,-42.8 L 29.4,-1.8 L 31,-1.8
+M 13.65,-46.7 L 21.4,-46.7 L 21.4,-43 L 29.4,-43 L 29.4,-1.8 L 31,-1.8
  L 31,-241.95 L 29.4,-241.95 L 29.4,-67.976 L 29.39,-67.976 L 26.4,-64.986 L 26.4,-64.976
  L 13.65,-64.976 L 13.65,-59.976 L 26.4,-59.976 L 26.4,-59.966 L 29.39,-56.976 L 29.4,-56.976
- L 29.4,-54.5 L 29.39,-54.5 L 26.4,-51.51 L 26.4,-51.5 L 13.65,-51.5 z
+ L 29.4,-54.7 L 29.39,-54.7 L 26.4,-51.71 L 26.4,-51.7 L 13.65,-51.7 z
 M 29.4,-244.85 L 31,-244.85 L 31,-246.2 L 29.4,-246.2 z
 " fill="#a9a7a1" stroke="#6e6c66" stroke-width="0.15" fill-rule="evenodd"/>
 <path d="
@@ -283,7 +284,7 @@ M 23.6,-171.904 L 13.6,-171.904 L 13.6,-139.904 L 23.6,-139.904 z
 M 9.39999,-94.716 L 4.39999,-94.716 L 4.39999,-76.716 L 9.39999,-76.716 z
 " fill="url(#hatch)" stroke="none" stroke-width="0.15" fill-rule="evenodd"/>
 <path d="
-M 5.59999,-224.112 L 1.59999,-224.112 L 1.59999,-182.112 L 5.59999,-182.112 z
+M 4.89999,-225.272 L 1.59999,-225.272 L 1.59999,-183.152 L 4.89999,-183.152 z
 " fill="#30343a" fill-opacity=".85" stroke="#111" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
 M 13.6,-171.904 L 12,-171.904 L 12,-139.904 L 13.6,-139.904 z
@@ -295,11 +296,13 @@ M 13.35,-68.976 L 3.34999,-68.976 L 3.34999,-29.976 L 13.35,-29.976 z
 M 4.39999,-94.716 L 2.79999,-94.716 L 2.79999,-76.716 L 4.39999,-76.716 z
 " fill="#d2a8e3" fill-opacity=".85" stroke="#7b3a99" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 13.6,-238.906 L 1.59999,-238.906 L 1.59999,-237.906 L 1.0779,-237.863 L 0.564728,-237.736 L 0.0692596,-237.525
- L -0.399994,-237.236 L -0.835037,-236.873 L -1.22841,-236.442 L -1.57339,-235.95 L -1.86409,-235.406 L -2.0955,-234.819
- L -2.26369,-234.2 L -2.36577,-233.559 L -2.39999,-232.906 L -2.36577,-232.253 L -2.26369,-231.612 L -2.0955,-230.993
- L -1.86409,-230.406 L -1.57339,-229.862 L -1.22841,-229.37 L -0.835037,-228.939 L -0.399994,-228.576 L 0.0692596,-228.287
- L 0.564728,-228.076 L 1.0779,-227.949 L 1.59999,-227.906 L 1.59999,-226.906 L 13.6,-226.906 z
+M 5.7,-227.773 L 9.79999,-227.773 L 9.79999,-228.949 L 17.9,-228.949 L 17.9,-239.199 L 9.79999,-239.199
+ L 9.79999,-238.273 L 5.7,-238.273 L 5.7,-239.023 L 5.2,-239.023 L 3.53374,-238.821 L 2.86382,-238.619
+ L 2.3638,-238.417 L 1.95421,-238.215 L 1.604,-238.013 L 1.29718,-237.811 L 1.02414,-237.609 L 0.778641,-237.407
+ L 0.55629,-237.205 L 0.353928,-237.003 L 0.169113,-236.801 L 0,-236.598 L 0,-229.449 L 0.169113,-229.246
+ L 0.353928,-229.044 L 0.55629,-228.842 L 0.778641,-228.64 L 1.02414,-228.438 L 1.29718,-228.236 L 1.604,-228.034
+ L 1.95421,-227.832 L 2.3638,-227.63 L 2.86382,-227.428 L 3.53374,-227.226 L 5.2,-227.023 L 5.7,-227.023
+ z
 " fill="#f4f4ee" fill-opacity=".85" stroke="#888" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
 M 16.0221,-234.434 L 16.5353,-234.536 L 17.0307,-234.704 L 17.5,-234.936 L 17.935,-235.227 L 18.3284,-235.572
@@ -313,7 +316,7 @@ M 16.0221,-234.434 L 16.5353,-234.536 L 17.0307,-234.704 L 17.5,-234.936 L 17.93
  z
 " fill="#e8c766" fill-opacity=".85" stroke="#a8862a" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 9.46999,-223.362 L 5.59999,-223.362 L 5.59999,-204.862 L 9.46999,-204.862 z
+M 13.1,-225.122 L 4.89999,-225.122 L 4.89999,-206.622 L 13.1,-206.622 z
 " fill="#ff9b3d" fill-opacity=".85" stroke="#c2560a" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
 M 24.9,-94.716 L 4.39999,-94.716 L 4.39999,-92.116 L 24.9,-92.116 z
@@ -322,7 +325,7 @@ M 24.9,-94.716 L 4.39999,-94.716 L 4.39999,-92.116 L 24.9,-92.116 z
 M 24.9,-79.316 L 4.39999,-79.316 L 4.39999,-76.716 L 24.9,-76.716 z
 " fill="#ff9b3d" fill-opacity=".85" stroke="#c2560a" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 28.4,-225.112 L 25.8,-225.112 L 25.8,-191.112 L 28.4,-191.112 z
+M 28.4,-226.212 L 25.8,-226.212 L 25.8,-192.212 L 28.4,-192.212 z
 " fill="#ff9b3d" fill-opacity=".85" stroke="#c2560a" stroke-width="0.25" fill-rule="evenodd"/>
 </g>
 <line x1="790" y1="863.6" x2="795" y2="863.6" stroke="#8e8c86"/><text x="787" y="867.6" font-size="10" text-anchor="end" fill="#5e676d">0</text>
@@ -331,34 +334,34 @@ M 28.4,-225.112 L 25.8,-225.112 L 25.8,-191.112 L 28.4,-191.112 z
 <line x1="790" y1="383.6" x2="795" y2="383.6" stroke="#8e8c86"/><text x="787" y="387.6" font-size="10" text-anchor="end" fill="#5e676d">150</text>
 <line x1="790" y1="223.60000000000002" x2="795" y2="223.60000000000002" stroke="#8e8c86"/><text x="787" y="227.60000000000002" font-size="10" text-anchor="end" fill="#5e676d">200</text>
 <polyline points="858.4,100.7 905.2,100.7 909.2,100.7" fill="none" stroke="#a8862a" stroke-width=".8"/>
-<text x="912.2" y="104.7" font-size="11.5" fill="#1d2226">tube laiton 8/7</text>
-<polyline points="839.5,118.3 905.2,118.3 909.2,118.3" fill="none" stroke="#888" stroke-width=".8"/>
-<text x="912.2" y="122.3" font-size="11.5" fill="#1d2226">AM312</text>
-<polyline points="826.3,178.4 905.2,178.4 909.2,178.4" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="912.2" y="182.4" font-size="11.5" fill="#1d2226">X4 écran 2 · 8 br. coudées</text>
-<polyline points="886.9,197.6 905.2,197.6 909.2,197.6" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="912.2" y="201.6" font-size="11.5" fill="#1d2226">X7 AM312 · queue + 3 br. (+1)</text>
-<polyline points="813.9,213.6 905.2,213.6 909.2,213.6" fill="none" stroke="#111" stroke-width=".8"/>
-<text x="912.2" y="217.6" font-size="11.5" fill="#1d2226">écran</text>
+<text x="912.2" y="104.7" font-size="11.5" fill="#1d2226">brass tube 8/7</text>
+<polyline points="853.3,117.6 905.2,117.6 909.2,117.6" fill="none" stroke="#888" stroke-width=".8"/>
+<text x="912.2" y="121.6" font-size="11.5" fill="#1d2226">AM312</text>
+<polyline points="837.9,172.8 905.2,172.8 909.2,172.8" fill="none" stroke="#c2560a" stroke-width=".8"/>
+<text x="912.2" y="176.8" font-size="11.5" fill="#1d2226">X4 screen 2 · 8 p. right-angle</text>
+<polyline points="886.9,194.1 905.2,194.1 909.2,194.1" fill="none" stroke="#c2560a" stroke-width=".8"/>
+<text x="912.2" y="198.1" font-size="11.5" fill="#1d2226">X7 AM312 · pigtail + 3 p. (+1)</text>
+<polyline points="811.7,210.1 905.2,210.1 909.2,210.1" fill="none" stroke="#111" stroke-width=".8"/>
+<text x="912.2" y="214.1" font-size="11.5" fill="#1d2226">screen</text>
 <polyline points="839.5,364.7 905.2,364.7 909.2,364.7" fill="none" stroke="#a0622a" stroke-width=".8"/>
-<text x="912.2" y="368.7" font-size="11.5" fill="#1d2226">P1 / P2 (plaques à bandes)</text>
+<text x="912.2" y="368.7" font-size="11.5" fill="#1d2226">P1 / P2 (stripboards)</text>
 <polyline points="875.7,564.7 905.2,564.7 909.2,564.7" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="912.2" y="568.7" font-size="11.5" fill="#1d2226">X5 MAX98357A · 4 + 3 br. (GAIN retirée)</text>
+<text x="912.2" y="568.7" font-size="11.5" fill="#1d2226">X5 MAX98357A · 4 + 3 p. (GAIN removed)</text>
 <polyline points="810.1,589.3 905.2,589.3 909.2,589.3" fill="none" stroke="#7b3a99" stroke-width=".8"/>
 <text x="912.2" y="593.3" font-size="11.5" fill="#1d2226">MAX98357A</text>
 <polyline points="875.7,613.9 905.2,613.9 909.2,613.9" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="912.2" y="617.9" font-size="11.5" fill="#1d2226">X6 haut-parleur · 2 br.</text>
+<text x="912.2" y="617.9" font-size="11.5" fill="#1d2226">X6 speaker · 2 p.</text>
 <polyline points="838.7,705.3 905.2,705.3 909.2,705.3" fill="none" stroke="#555" stroke-width=".8"/>
-<text x="912.2" y="709.3" font-size="11.5" fill="#1d2226">haut-parleur</text>
-<text x="1220.6" y="28" font-size="17" font-weight="600" text-anchor="middle" fill="#1d2226">Jambe droite</text>
+<text x="912.2" y="709.3" font-size="11.5" fill="#1d2226">speaker</text>
+<text x="1220.6" y="28" font-size="17" font-weight="600" text-anchor="middle" fill="#1d2226">Right leg</text>
 <text x="1171" y="50" font-size="11" fill="#5e676d">avant</text><text x="1270.2" y="50" font-size="11" text-anchor="end" fill="#5e676d">couvercle</text>
 <g transform="translate(1171,863.6) scale(3.2)">
 <path d="
 M 0.4,-0 L 31,-0 L 31,-1.6 L 1.6,-1.6 L 1.6,-33.7 L 3.9,-33.7
  L 3.9,-38.7 L 1.6,-38.7 L 1.6,-85.7 L 3.9,-85.7 L 3.9,-90.7 L 1.6,-90.7
- L 1.6,-105.1 L 15.69,-105.1 L 15.69,-106.7 L 1.6,-106.7 L 1.6,-188.1 L 5.69,-188.1
- L 5.69,-189.7 L 1.6,-189.7 L 1.6,-196.75 L 0.4,-196.75 z
-M 0.4,-198.25 L 1.6,-198.25 L 1.6,-205.3 L 5.69,-205.3 L 5.69,-206.9 L 1.6,-206.9
+ L 1.6,-105.1 L 15.69,-105.1 L 15.69,-106.7 L 1.6,-106.7 L 1.6,-187.3 L 5.69,-187.3
+ L 5.69,-188.9 L 1.6,-188.9 L 1.6,-196.25 L 0.4,-196.25 z
+M 0.4,-197.75 L 1.6,-197.75 L 1.6,-205.1 L 5.69,-205.1 L 5.69,-206.7 L 1.6,-206.7
  L 1.6,-239.9 L 29.4,-239.9 L 29.4,-242.35 L 20.4,-242.35 L 20.4,-244.45 L 29.4,-244.45
  L 29.4,-246.4 L 31,-246.4 L 31,-248 L 0.4,-248 z
 M 9.48,-22 L 28.89,-22 L 28.89,-22.85 L 28.5,-22.85 L 28.5,-23.65 L 28.89,-23.65
@@ -379,7 +382,7 @@ M 29.4,-230.5 L 31,-230.5 L 31,-241.95 L 29.4,-241.95 z
 M 29.4,-244.85 L 31,-244.85 L 31,-246.2 L 29.4,-246.2 z
 " fill="#a9a7a1" stroke="#6e6c66" stroke-width="0.15" fill-rule="evenodd"/>
 <path d="
-M 9.2,-205 L 4.2,-205 L 4.2,-190 L 9.2,-190 z
+M 9.2,-204.8 L 4.2,-204.8 L 4.2,-189.2 L 9.2,-189.2 z
 M 19.2,-145.33 L 14.2,-145.33 L 14.2,-107 L 19.2,-107 z
 " fill="url(#hatch)" stroke="none" stroke-width="0.15" fill-rule="evenodd"/>
 <path d="
@@ -390,13 +393,13 @@ M 28.5,-96.5 L 10.5,-96.5 L 10.5,-95.3 L 28.5,-95.3 z
 M 28.5,-25.7 L 10.5,-25.7 L 10.5,-24.5 L 28.5,-24.5 z
 " fill="#c9c9c9" fill-opacity=".85" stroke="#888" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 24,-103.7 L 9.99998,-103.7 L 9.99998,-100.5 L 24,-100.5 z
+M 26,-71.7 L 9.99998,-71.7 L 9.99998,-69.2 L 26,-69.2 z
 " fill="#f2c14e" fill-opacity=".85" stroke="#a07a10" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
 M 14.2,-145.33 L 1.59999,-145.33 L 1.59999,-107 L 14.2,-107 z
 " fill="#a9b7e0" fill-opacity=".85" stroke="#2c3f8a" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 4.2,-205 L 1.59999,-205 L 1.59999,-190 L 4.2,-190 z
+M 4.2,-204.8 L 1.59999,-204.8 L 1.59999,-189.2 L 4.2,-189.2 z
 " fill="#e0b0e8" fill-opacity=".85" stroke="#9a3aa8" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
 M 16.0221,-234.434 L 16.5353,-234.536 L 17.0307,-234.704 L 17.5,-234.936 L 17.935,-235.227 L 18.3284,-235.572
@@ -410,10 +413,10 @@ M 16.0221,-234.434 L 16.5353,-234.536 L 17.0307,-234.704 L 17.5,-234.936 L 17.93
  z
 " fill="#e8c766" fill-opacity=".85" stroke="#a8862a" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 12.5,-165.83 L 9.89999,-165.83 L 9.89999,-145.33 L 12.5,-145.33 z
+M 11.5,-165.83 L 8.89999,-165.83 L 8.89999,-145.33 L 11.5,-145.33 z
 " fill="#ff9b3d" fill-opacity=".85" stroke="#c2560a" stroke-width="0.25" fill-rule="evenodd"/>
 <path d="
-M 24.7,-205 L 4.2,-205 L 4.2,-202.4 L 24.7,-202.4 z
+M 24.7,-204.8 L 4.2,-204.8 L 4.2,-202.2 L 24.7,-202.2 z
 " fill="#ff9b3d" fill-opacity=".85" stroke="#c2560a" stroke-width="0.25" fill-rule="evenodd"/>
 </g>
 <line x1="1165" y1="863.6" x2="1170" y2="863.6" stroke="#8e8c86"/><text x="1162" y="867.6" font-size="10" text-anchor="end" fill="#5e676d">0</text>
@@ -422,20 +425,20 @@ M 24.7,-205 L 4.2,-205 L 4.2,-202.4 L 24.7,-202.4 z
 <line x1="1165" y1="383.6" x2="1170" y2="383.6" stroke="#8e8c86"/><text x="1162" y="387.6" font-size="10" text-anchor="end" fill="#5e676d">150</text>
 <line x1="1165" y1="223.60000000000002" x2="1170" y2="223.60000000000002" stroke="#8e8c86"/><text x="1162" y="227.60000000000002" font-size="10" text-anchor="end" fill="#5e676d">200</text>
 <polyline points="1233.4,100.7 1280.2,100.7 1284.2,100.7" fill="none" stroke="#a8862a" stroke-width=".8"/>
-<text x="1287.2" y="104.7" font-size="11.5" fill="#1d2226">tube laiton 8/7</text>
-<polyline points="1250.0,211.8 1280.2,211.8 1284.2,211.8" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="1287.2" y="215.8" font-size="11.5" fill="#1d2226">X9 BME280 · 4 br.</text>
-<polyline points="1184.4,231.6 1280.2,231.6 1284.2,231.6" fill="none" stroke="#9a3aa8" stroke-width=".8"/>
-<text x="1287.2" y="235.6" font-size="11.5" fill="#1d2226">BME280</text>
-<polyline points="1211.0,365.7 1280.2,365.7 1284.2,365.7" fill="none" stroke="#c2560a" stroke-width=".8"/>
-<text x="1287.2" y="369.7" font-size="11.5" fill="#1d2226">X8 DS3231 · 6 br. coudées (4 fils, 32K retirée)</text>
+<text x="1287.2" y="104.7" font-size="11.5" fill="#1d2226">brass tube 8/7</text>
+<polyline points="1250.0,212.4 1280.2,212.4 1284.2,212.4" fill="none" stroke="#c2560a" stroke-width=".8"/>
+<text x="1287.2" y="216.4" font-size="11.5" fill="#1d2226">X9 BME280 · 4 p.</text>
+<polyline points="1184.4,233.2 1280.2,233.2 1284.2,233.2" fill="none" stroke="#9a3aa8" stroke-width=".8"/>
+<text x="1287.2" y="237.2" font-size="11.5" fill="#1d2226">BME280</text>
+<polyline points="1207.8,365.7 1280.2,365.7 1284.2,365.7" fill="none" stroke="#c2560a" stroke-width=".8"/>
+<text x="1287.2" y="369.7" font-size="11.5" fill="#1d2226">X8 DS3231 · 6 p. right-angle (4 wires, 32K removed)</text>
 <polyline points="1216.4,459.9 1280.2,459.9 1284.2,459.9" fill="none" stroke="#2c3f8a" stroke-width=".8"/>
 <text x="1287.2" y="463.9" font-size="11.5" fill="#1d2226">DS3231 (ZS-042)</text>
-<polyline points="1247.8,536.9 1280.2,536.9 1284.2,536.9" fill="none" stroke="#a07a10" stroke-width=".8"/>
-<text x="1287.2" y="540.9" font-size="11.5" fill="#1d2226">fusible F1 / F2</text>
+<polyline points="1254.2,638.2 1280.2,638.2 1284.2,638.2" fill="none" stroke="#a07a10" stroke-width=".8"/>
+<text x="1287.2" y="642.2" font-size="11.5" fill="#1d2226">fuse F1 / F2</text>
 <polyline points="1263.2,664.6 1280.2,664.6 1284.2,664.6" fill="none" stroke="#3d64b0" stroke-width=".8"/>
-<text x="1287.2" y="668.6" font-size="11.5" fill="#1d2226">cellule 18650</text>
+<text x="1287.2" y="668.6" font-size="11.5" fill="#1d2226">18650 cell</text>
 <polyline points="1262.2,670.0 1280.2,670.0 1284.2,678.6" fill="none" stroke="#888" stroke-width=".8"/>
 <text x="1287.2" y="682.6" font-size="11.5" fill="#1d2226">contacts</text>
-<text x="750.0" y="898" font-size="11.5" text-anchor="middle" fill="#5e676d">Coupe médiane, vue de la gauche de TARS (avant à gauche) · z en mm · orange : connecteurs X1–X15 emboîtés + pliage des fils · hachures : place réservée aux fils</text>
+<text x="750.0" y="898" font-size="11.5" text-anchor="middle" fill="#5e676d">Middle section, seen from the left of TARS (front on the left) · z in mm · orange: X1–X15 connectors mated + wire bends · hatching: room kept for the wires</text>
 </svg>

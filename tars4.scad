@@ -1249,23 +1249,23 @@ corridor = [[col_w / 2 - 6, 13.5, hub_z0 + hub_b[1] + 4], [col_w / 2 + 6, 25, pi
 park_z0 = charger_z0 + charger[2] + charger_h + 1;    // power block connectors: cavity above the TP4056, below the
 park_y = [lid_y - 0.6 - xh_inline[0], lid_y - 1.1 - 2 * xh_inline[0]]; // power-path board, two rows at the back
 CONN = [
-    scr_conn(1, "X1", "écran 1 · 8 br. coudées"),
-    on_board(1, "X2", "ADXL345 · 8 br. (5 fils, INT2 retirée)", acc_hdr_x, 8, wall + pcb_gap + acc[2], acc_z0, true),
-    inline(1, "X3", "INMP441 · queue + 5 br. (+1)", col_w - wall - 0.5 - dp_w(6), lid_y - 1 - dp_t, mid_rows[1] + lid_boss_d / 2 + 0.3, dp_w(6), dp_t, dp_inline, 2),
-    scr_conn(2, "X4", "écran 2 · 8 br. coudées"),
-    on_board(2, "X5", "MAX98357A · 4 + 3 br. (GAIN retirée)", col_w / 2, 7, wall + pcb_gap + amp[2], amp_z0 + amp[1] - 1.3),
-    on_board(2, "X6", "haut-parleur · 2 br.", col_w / 2, 2, wall + pcb_gap + amp[2], amp_z0 + 1.3),
-    inline(2, "X7", "AM312 · queue + 3 br. (+1)", wall + 3.5, lid_y - 1 - dp_t, scr_z - 12, dp_w(4), dp_t, dp_inline),
-    [3, "X8", "DS3231 · 6 br. coudées (4 fils, 32K retirée)", [col_w / 2 - dp_w(6) / 2, wall + rtc[2] - rtc_hdr_y - dp_t / 2, rtc_z0 + rtc[1]],
+    scr_conn(1, "X1", "screen 1 · 8 p. right-angle"),
+    on_board(1, "X2", "ADXL345 · 8 p. (5 wires, INT2 removed)", acc_hdr_x, 8, wall + pcb_gap + acc[2], acc_z0, true),
+    inline(1, "X3", "INMP441 · pigtail + 5 p. (+1)", col_w - wall - 0.5 - dp_w(6), lid_y - 1 - dp_t, mid_rows[1] + lid_boss_d / 2 + 0.3, dp_w(6), dp_t, dp_inline, 2),
+    scr_conn(2, "X4", "screen 2 · 8 p. right-angle"),
+    on_board(2, "X5", "MAX98357A · 4 + 3 p. (GAIN removed)", col_w / 2, 7, wall + pcb_gap + amp[2], amp_z0 + amp[1] - 1.3),
+    on_board(2, "X6", "speaker · 2 p.", col_w / 2, 2, wall + pcb_gap + amp[2], amp_z0 + 1.3),
+    inline(2, "X7", "AM312 · pigtail + 3 p. (+1)", wall + 3.5, lid_y - 1 - dp_t, scr_z - 12, dp_w(4), dp_t, dp_inline),
+    [3, "X8", "DS3231 · 6 p. right-angle (4 wires, 32K removed)", [col_w / 2 - dp_w(6) / 2, wall + rtc[2] - rtc_hdr_y - dp_t / 2, rtc_z0 + rtc[1]],
         [col_w / 2 + dp_w(6) / 2, wall + rtc[2] - rtc_hdr_y + dp_t / 2, rtc_z0 + rtc[1] + dp_on + bend]],
-    on_board(3, "X9", "BME280 · 4 br.", col_w / 2, 4, wall + bme_b[2], bme_z0 + bme_b[1] - 1.3),
-    inline(0, "X10", "J1 + SW1 ↔ bloc alim · XH 4", 3.5, park_y[1], park_z0, 12.4, xh_inline[0], xh_inline[1], 2),
-    inline(0, "X12", "cellule gauche → bloc alim · XH 2", 16.4, park_y[0], park_z0, 7.4, xh_inline[0], xh_inline[1], 2),
-    inline(0, "X13", "bloc alim → tubes · XH 4", 3.5, park_y[0], park_z0, 12.4, xh_inline[0], xh_inline[1], 2),
+    on_board(3, "X9", "BME280 · 4 p.", col_w / 2, 4, wall + bme_b[2], bme_z0 + bme_b[1] - 1.3),
+    inline(0, "X10", "J1 + SW1 ↔ power block · XH 4", 3.5, park_y[1], park_z0, 12.4, xh_inline[0], xh_inline[1], 2),
+    inline(0, "X12", "left cell → power block · XH 2", 16.4, park_y[0], park_z0, 7.4, xh_inline[0], xh_inline[1], 2),
+    inline(0, "X13", "power block → tubes · XH 4", 3.5, park_y[0], park_z0, 12.4, xh_inline[0], xh_inline[1], 2),
     inline(0, "X14", "VBAT/2, USB_DET, SD_EN · XH 3", 16.4, park_y[1], park_z0, 9.9, xh_inline[0], xh_inline[1], 2),
     // right cell: its pair comes down from the tubes, parked above the power-path board between the lid screw posts
-    inline(0, "X16", "cellule droite → bloc alim · XH 2", col_w / 2 - 3.7, park_y[0], pp_z0 + pp_b[2] + pp_parts + 1.5, 7.4, xh_inline[0], xh_inline[1], 2),
-    inline(0, "X15", "microSD · queue + 5 br. (+1)", col_w / 2 - dp_w(6) / 2, 3.5, leg_rows[1] + lid_boss_d / 2 + 0.5, dp_w(6), dp_t, dp_inline),
+    inline(0, "X16", "right cell → power block · XH 2", col_w / 2 - 3.7, park_y[0], pp_z0 + pp_b[2] + pp_parts + 1.5, 7.4, xh_inline[0], xh_inline[1], 2),
+    inline(0, "X15", "microSD · pigtail + 5 p. (+1)", col_w / 2 - dp_w(6) / 2, 3.5, leg_rows[1] + lid_boss_d / 2 + 0.5, dp_w(6), dp_t, dp_inline),
 ];
 
 // keep-out boxes of a column (solid parts and other modules): [what, min, max]
@@ -1274,47 +1274,47 @@ function both(k) = [k, mirx(k)];
 function standing(what, b, y1, z0, d, top_gap = 0) = concat( // board on the front wall + its slot (rails, stops)
     [[what, [col_w / 2 - b[0] / 2, wall, z0], [col_w / 2 + b[0] / 2, y1, z0 + b[1]]]],
     both([str(what, " (rail)"), [col_w / 2 - b[0] / 2 - 0.2 - rib, wall, z0 - 0.3 - rib], [col_w / 2 - b[0] / 2 - 0.2, wall + d, z0 + b[1] + 0.3 + rib]]),
-    both([str(what, " (butée haute)"), [col_w / 2 - b[0] / 2 - 0.2 - rib, wall, z0 + b[1] + 0.3], [col_w / 2 - top_gap / 2, wall + d, z0 + b[1] + 0.3 + rib]]));
+    both([str(what, " (top stop)"), [col_w / 2 - b[0] / 2 - 0.2 - rib, wall, z0 + b[1] + 0.3], [col_w / 2 - top_gap / 2, wall + d, z0 + b[1] + 0.3 + rib]]));
 function flat(what, b, z0, y0, parts, lip) = concat(
     [[what, [col_w / 2 - b[0] / 2, y0, z0], [col_w / 2 + b[0] / 2, y0 + b[1], z0 + b[2] + parts]]],
-    both([str(what, " (rainure)"), [wall, wall, z0 - rib], [col_w / 2 - b[0] / 2 + lip, lid_y - 0.5, z0 + b[2] + 0.3 + rib]]));
+    both([str(what, " (groove)"), [wall, wall, z0 - rib], [col_w / 2 - b[0] / 2 + lip, lid_y - 0.5, z0 + b[2] + 0.3 + rib]]));
 function kos(i) = let(mid = col_mid[i], zs = seam_z[i] - splint_h / 2, ze = seam_z[i] + splint_h / 2, st = splint_t + splint_clr,
                       sz0 = scr_z - scr_pcb[1] / 2, sz1 = scr_z + scr_pcb[1] / 2, ht = hub_z0 + hub_b[1]) concat(
-    [for (p = lid_bosses(mid)) ["vis du couvercle", [p[0] - lid_boss_d / 2, wall, p[1] - lid_boss_d / 2], [p[0] + lid_boss_d / 2, lid_y, p[1] + lid_boss_d / 2]]],
-    i < 3 ? [["bossage du pivot", [col_w - wall - pivot_boss_l, D / 2 - pivot_boss_d / 2, pivot_z[0] - pivot_boss_d / 2], [col_w - wall, D / 2 + pivot_boss_d / 2, pivot_z[0] + pivot_boss_d / 2]]] : [],
-    i > 0 ? [["bague / bout de tube", [wall, D / 2 - collar[0] / 2, pivot_z[0] - collar[0] / 2], [tube_end_x, D / 2 + collar[0] / 2, pivot_z[0] + collar[0] / 2]]] : [],
-    [["éclisse", [wall, wall, zs], [col_w - wall, wall + st, ze]]], both(["éclisse", [wall, wall, zs], [wall + st, lid_y - 1, ze]]),
+    [for (p = lid_bosses(mid)) ["lid screw", [p[0] - lid_boss_d / 2, wall, p[1] - lid_boss_d / 2], [p[0] + lid_boss_d / 2, lid_y, p[1] + lid_boss_d / 2]]],
+    i < 3 ? [["pivot boss", [col_w - wall - pivot_boss_l, D / 2 - pivot_boss_d / 2, pivot_z[0] - pivot_boss_d / 2], [col_w - wall, D / 2 + pivot_boss_d / 2, pivot_z[0] + pivot_boss_d / 2]]] : [],
+    i > 0 ? [["collar / tube end", [wall, D / 2 - collar[0] / 2, pivot_z[0] - collar[0] / 2], [tube_end_x, D / 2 + collar[0] / 2, pivot_z[0] + collar[0] / 2]]] : [],
+    [["splint", [wall, wall, zs], [col_w - wall, wall + st, ze]]], both(["splint", [wall, wall, zs], [wall + st, lid_y - 1, ze]]),
     ties ? [for (t = TIES) if (t[0] == i) tie_box(t)] : [],
     mid ? concat(
-        [["écran", [scr_x - scr_pcb[0] / 2, wall, sz0], [scr_x + scr_pcb[0] / 2, wall + scr_t, sz1]]],
-        both(["nervure d'écran", [wall, wall + scr_t + 0.2, sz0 + 1], [wall + clr + 0.1 + scr_rib, lid_y, sz1 - 1]]),
+        [["screen", [scr_x - scr_pcb[0] / 2, wall, sz0], [scr_x + scr_pcb[0] / 2, wall + scr_t, sz1]]],
+        both(["screen rib", [wall, wall + scr_t + 0.2, sz0 + 1], [wall + clr + 0.1 + scr_rib, lid_y, sz1 - 1]]),
         hub ? concat([["P1 / P2", [col_w / 2 - hub_b[0] / 2, hub_y - 1.6, hub_z0], [col_w / 2 + hub_b[0] / 2, hub_y + hub_b[2], ht]]],
-            both(["patte de P1 / P2", [wall, hub_y + hub_b[2], hub_z0 + 1 - 4], [col_w / 2 - hub_b[0] / 2 + hub_lip, lid_y, hub_z0 + 1 + hub_tab]]),
-            both(["patte de P1 / P2", [wall, hub_y + hub_b[2], ht - 1 - hub_tab], [col_w / 2 - hub_b[0] / 2 + hub_lip, lid_y, ht - 1 + 4]])) : [],
-        [["ergot du couvercle (S3)", [d1_x - 4, d1_lug_y, d1_z0 + d1[1] + 0.3], [d1_x + 4, lid_y, d1_z0 + d1[1] + 9.3]]],
-        [for (z = d1_holds) each both(["patte du couvercle (S3)", [wall, d1_hold_y, z], [d1_x - d1[0] / 2 + d1_rib + d1_notch[0], lid_y, z + d1_end]])],
-        sound ? [for (z = [d1_z0 + d1[1] + 4, spk_z0 + spk[2] - 9]) ["patte du haut-parleur", [col_w / 2 - 5, spk_front_y + spk[1] + 0.3, z - 3], [col_w / 2 + 5, lid_y, z + 8]]] : [],
-        i == 1 ? concat([["S3 + support + fils", [d1_x - d1[0] / 2, d1_back_y - d1_pcb_t - d1_usb_h, d1_z0], [d1_x + d1[0] / 2, lid_y, d1_z0 + d1[1]]]],
+            both(["P1 / P2 tab", [wall, hub_y + hub_b[2], hub_z0 + 1 - 4], [col_w / 2 - hub_b[0] / 2 + hub_lip, lid_y, hub_z0 + 1 + hub_tab]]),
+            both(["P1 / P2 tab", [wall, hub_y + hub_b[2], ht - 1 - hub_tab], [col_w / 2 - hub_b[0] / 2 + hub_lip, lid_y, ht - 1 + 4]])) : [],
+        [["lid lug (S3)", [d1_x - 4, d1_lug_y, d1_z0 + d1[1] + 0.3], [d1_x + 4, lid_y, d1_z0 + d1[1] + 9.3]]],
+        [for (z = d1_holds) each both(["lid tab (S3)", [wall, d1_hold_y, z], [d1_x - d1[0] / 2 + d1_rib + d1_notch[0], lid_y, z + d1_end]])],
+        sound ? [for (z = [d1_z0 + d1[1] + 4, spk_z0 + spk[2] - 9]) ["speaker tab", [col_w / 2 - 5, spk_front_y + spk[1] + 0.3, z - 3], [col_w / 2 + 5, lid_y, z + 8]]] : [],
+        i == 1 ? concat([["S3 + carrier + wires", [d1_x - d1[0] / 2, d1_back_y - d1_pcb_t - d1_usb_h, d1_z0], [d1_x + d1[0] / 2, lid_y, d1_z0 + d1[1]]]],
             sensors ? concat(standing("ADXL345", acc, wall + pcb_gap + acc[2], acc_z0, pcb_gap + acc[2] + 1.5),
                              [["INMP441", [col_w / 2 - mic[0] / 2, wall, mic_z0], [col_w / 2 + mic[0] / 2, wall + mic[2], mic_z0 + mic[1]]]]) : []) : [],
-        [["couloir des torons", corridor[0], corridor[1]]],
+        [["harness corridor", corridor[0], corridor[1]]],
         i == 2 && sound ? concat([["C7", [col_w / 2 - c7[1] / 2, c7_y, c7_z], [col_w / 2 + c7[1] / 2, c7_y + c7[0], c7_z + c7[0]]]],
-            [["haut-parleur", [col_w / 2 - spk[0] / 2, spk_front_y, spk_z0], [col_w / 2 + spk[0] / 2, spk_front_y + spk[1], spk_z0 + spk[2]]]],
+            [["speaker", [col_w / 2 - spk[0] / 2, spk_front_y, spk_z0], [col_w / 2 + spk[0] / 2, spk_front_y + spk[1], spk_z0 + spk[2]]]],
             standing("MAX98357A", amp, wall + pcb_gap + amp[2], amp_z0, pcb_gap + amp[2] + 1.5)) : [],
         i == 2 && pir ? [["AM312", [pir_x - pir_sleeve_d / 2, wall, pir_zc - pir_sleeve_d / 2], [pir_x + pir_sleeve_d / 2, pir_pcb_y0, pir_zc + pir_sleeve_d / 2]],
                          ["AM312 breakout", [pir_x + pir_pcb_fp[0], pir_pcb_y0, pir_zc + pir_pcb_fp[1]], [pir_x + pir_pcb_fp[2], pir_pcb_y0 + pir_pcb[1], pir_zc + pir_pcb_fp[3]]]] : [])
     : concat(
-        [["étagère du bas", [wall, wall + wire_slot[1], shelf_z - shelf_t], [col_w - wall, lid_y, shelf_z]],
-         ["étagère du haut", [wall, wall + wire_slot[1], bat_top_shelf_z], [col_w - wall, lid_y, top_shelf_top]],
-         ["cellule", [col_w / 2 - bat[0] / 2, bat_y - bat[0] / 2, bat_z0], [col_w / 2 + bat[0] / 2, bat_y + bat[0] / 2, bat_z0 + bat[1]]],
-         ["fusible", [col_w / 2 - fuse[0] / 2, wall, fuse_z0], [col_w / 2 + fuse[0] / 2, wall + fuse[2], fuse_z0 + fuse[1]]]],
+        [["bottom shelf", [wall, wall + wire_slot[1], shelf_z - shelf_t], [col_w - wall, lid_y, shelf_z]],
+         ["top shelf", [wall, wall + wire_slot[1], bat_top_shelf_z], [col_w - wall, lid_y, top_shelf_top]],
+         ["cell", [col_w / 2 - bat[0] / 2, bat_y - bat[0] / 2, bat_z0], [col_w / 2 + bat[0] / 2, bat_y + bat[0] / 2, bat_z0 + bat[1]]],
+         ["fuse", [col_w / 2 - fuse[0] / 2, wall, fuse_z0], [col_w / 2 + fuse[0] / 2, wall + fuse[2], fuse_z0 + fuse[1]]]],
         sensors && i == rtc_col ? standing("DS3231", rtc, wall + rtc[2], rtc_z0, rtc[2] + 1.5, plugs ? dp_w(6) + 1 : 0) : [],
         bme && i == bme_col ? standing("BME280", bme_b, wall + bme_b[2], bme_z0, bme_b[2] + 1.5) : [],
         battery && i == power_col ? concat(
-            standing("prise micro-USB", usbb, wall + pcb_gap + usbb[2], usbb_z0, pcb_gap + usbb[2] + 1.5),
-            flat("lecteur microSD", sd, sd_z0, sd_y0, sd_sock[2], sd_lip), flat("TPS63020", bk, bk_z0, bk_y1 - bk[1], bk_h, bk_lip),
+            standing("micro-USB socket", usbb, wall + pcb_gap + usbb[2], usbb_z0, pcb_gap + usbb[2] + 1.5),
+            flat("microSD reader", sd, sd_z0, sd_y0, sd_sock[2], sd_lip), flat("TPS63020", bk, bk_z0, bk_y1 - bk[1], bk_h, bk_lip),
             flat("TP4056", charger, charger_z0, lid_y - 0.3 - charger[1], charger_h, charger_lip),
-            flat("plaquette du partage de charge", pp_b, pp_z0, lid_y - 0.3 - pp_b[1], pp_parts, pp_lip)) : []));
+            flat("power-path board", pp_b, pp_z0, lid_y - 0.3 - pp_b[1], pp_parts, pp_lip)) : []));
 function ov(a0, a1, b0, b1) = a0[0] < b1[0] - 0.05 && b0[0] < a1[0] - 0.05 && a0[1] < b1[1] - 0.05 && b0[1] < a1[1] - 0.05 && a0[2] < b1[2] - 0.05 && b0[2] < a1[2] - 0.05;
 module conn_box(j) { c = CONN[j]; translate(c[3]) cube(c[4] - c[3]); }
 XH_REFS = ["X10", "X12", "X13", "X14", "X16"];   // inline JST-XH pairs (power block): drawn in detail inside their check box

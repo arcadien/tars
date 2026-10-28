@@ -81,10 +81,10 @@ def fill(wires):
 
 
 PANELS = [
-    ("Tube central · si signaux en 28 AWG", "alim 26 AWG, signaux 28 AWG (abandonné)", middle(28)),
-    ("Tube central · retenu", "alim 26 AWG, signaux + alim écran 30 AWG", middle(30)),
-    ("Tube gauche · retenu", "alim 26 AWG, signaux 30 AWG", left(30)),
-    ("Tube droit · retenu", "B+ / B− 26 AWG, I2C + alim capteurs 30", right(30)),
+    ("Middle tube · if signals in 28 AWG", "power 26 AWG, signals 28 AWG (dropped)", middle(28)),
+    ("Middle tube · chosen", "power 26 AWG, signals + screen supply 30 AWG", middle(30)),
+    ("Left tube · chosen", "power 26 AWG, signals 30 AWG", left(30)),
+    ("Right tube · chosen", "B+ / B− 26 AWG, I2C + sensor supply 30", right(30)),
 ]
 S, PW, PH = 34, 330, 330          # px per mm, panel size
 cols = []
@@ -112,14 +112,14 @@ for k, (title, sub, wires, nb, pts, worst, with_opt) in enumerate(cols):
         fs = 7 if g == 30 else 8.5 if g == 28 else 10
         out.append(f'<text x="{ox + p[0] * S:.1f}" y="{cy + p[1] * S + fs * 0.35:.1f}" font-size="{fs}" text-anchor="middle" fill="#1d2226">{name}</text>')
     f = fill(wires)
-    tag = "confortable" if f <= 0.42 else "serré" if f <= 0.52 else "très difficile"
-    out.append(f'<text x="{ox}" y="{cy + BORE / 2 * S + 0.5 * S + 28}" font-size="13" font-weight="600" text-anchor="middle" fill="#1d2226">{len(wires)} fils · {f * 100:.0f} %</text>')
-    out.append(f'<text x="{ox}" y="{cy + BORE / 2 * S + 0.5 * S + 46}" font-size="11.5" text-anchor="middle" fill="#5e676d">{tag}{"" if worst < 0.02 else " · ne rentre pas à plat"}</text>')
+    tag = "comfortable" if f <= 0.42 else "tight" if f <= 0.52 else "very hard"
+    out.append(f'<text x="{ox}" y="{cy + BORE / 2 * S + 0.5 * S + 28}" font-size="13" font-weight="600" text-anchor="middle" fill="#1d2226">{len(wires)} wires · {f * 100:.0f} %</text>')
+    out.append(f'<text x="{ox}" y="{cy + BORE / 2 * S + 0.5 * S + 46}" font-size="11.5" text-anchor="middle" fill="#5e676d">{tag}{"" if worst < 0.02 else " · does not fit flat"}</text>')
     if worst >= 0.02:
         print(f"note: {title} {'+opt' if with_opt else ''}: packing left {worst:.2f} mm overlap")
     if k < len(cols) - 1:
         out.append(f'<line x1="{(k + 1) * PW}" y1="10" x2="{(k + 1) * PW}" y2="{H - 10}" stroke="#c9cec9"/>')
-out.append(f'<text x="{W / 2}" y="{H - 10}" font-size="11" text-anchor="middle" fill="#5e676d">Coupe dans l\'alésage Ø7 du tube laiton 8/7 · fils silicone mesurés : 26 AWG Ø1,5, 28 AWG Ø1,2, 30 AWG Ø0,8 · tous les modules montés (microSD, PIR, BME280)</text>')
+out.append(f'<text x="{W / 2}" y="{H - 10}" font-size="11" text-anchor="middle" fill="#5e676d">Section through the Ø7 bore of the 8/7 brass tube · measured silicone wires: 26 AWG Ø1.5, 28 AWG Ø1.2, 30 AWG Ø0.8 · all modules fitted (microSD, PIR, BME280)</text>')
 out.append("</svg>")
 open(OUT, "w").write("\n".join(out))
 for title, sub, wires, nb, pts, worst, with_opt in cols:

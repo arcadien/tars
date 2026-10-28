@@ -34,19 +34,19 @@ with ThreadPoolExecutor(8) as ex:
 K = 3.2                       # px per mm
 PW, TOP, BOT = 375, 70, 50    # panel width, margins
 H = 248
-NAMES = ["Jambe gauche", "Milieu gauche", "Milieu droit", "Jambe droite"]
+NAMES = ["Left leg", "Left middle", "Right middle", "Right leg"]
 PARTS = {  # key: (label, fill, stroke)
-    "cell": ("cellule 18650", "#9db7e8", "#3d64b0"), "contact": ("contacts", "#c9c9c9", "#888"),
-    "tp": ("TP4056 + DW01", "#9fd3a5", "#2e7d3a"), "pp": ("plaquette partage de charge", "#e3c99a", "#9a7432"),
-    "sw": ("interrupteur", "#555", "#222"), "sd": ("lecteur microSD", "#a8d8c8", "#2f8a6c"),
-    "buck": ("TPS63020", "#c9b5e8", "#6b4bb0"), "screen": ("écran", "#30343a", "#111"),
-    "s3": ("LOLIN S3 Mini (enfichée)", "#9ed6d6", "#1f7f80"), "sock": ("barrettes femelles 2 × 8", "#333", "#000"),
-    "carrier": ("support de la S3 (fils soudés derrière)", "#e6b98a", "#a0622a"), "fuse": ("fusible F1 / F2", "#f2c14e", "#a07a10"), "hub": ("P1 / P2 (plaques à bandes)", "#e6b98a", "#a0622a"),
+    "cell": ("18650 cell", "#9db7e8", "#3d64b0"), "contact": ("contacts", "#c9c9c9", "#888"),
+    "tp": ("TP4056 + DW01", "#9fd3a5", "#2e7d3a"), "pp": ("power-path board", "#e3c99a", "#9a7432"),
+    "sw": ("switch", "#555", "#222"), "sd": ("microSD reader", "#a8d8c8", "#2f8a6c"),
+    "buck": ("TPS63020", "#c9b5e8", "#6b4bb0"), "screen": ("screen", "#30343a", "#111"),
+    "s3": ("LOLIN S3 Mini (plugged in)", "#9ed6d6", "#1f7f80"), "sock": ("female 2 × 8 headers", "#333", "#000"),
+    "carrier": ("S3 carrier (wires soldered behind)", "#e6b98a", "#a0622a"), "fuse": ("fuse F1 / F2", "#f2c14e", "#a07a10"), "hub": ("P1 / P2 (stripboards)", "#e6b98a", "#a0622a"),
     "rtc": ("DS3231 (ZS-042)", "#a9b7e0", "#2c3f8a"), "acc": ("ADXL345", "#f0a3a8", "#b0303b"),
-    "mic": ("INMP441", "#cfd08f", "#7c7d1f"), "spk": ("haut-parleur", "#9a9a9a", "#555"),
+    "mic": ("INMP441", "#cfd08f", "#7c7d1f"), "spk": ("speaker", "#9a9a9a", "#555"),
     "amp": ("MAX98357A", "#d2a8e3", "#7b3a99"), "pir": ("AM312", "#f4f4ee", "#888"),
-    "usb": ("prise micro-USB", "#9a9a9a", "#444"), "bme": ("BME280", "#e0b0e8", "#9a3aa8"),
-    "tube": ("tube laiton 8/7", "#e8c766", "#a8862a"),
+    "usb": ("micro-USB socket", "#9a9a9a", "#444"), "bme": ("BME280", "#e0b0e8", "#9a3aa8"),
+    "tube": ("brass tube 8/7", "#e8c766", "#a8862a"),
 }
 for j, (col, ref, what) in enumerate(CONN):
     PARTS[f"conn{j}"] = (f"{ref} {what}", "#ff9b3d", "#c2560a")
@@ -107,7 +107,7 @@ for i in range(4):
         ty = p[0]; ay = TOP + H * K + yc * K; ax = ox + x1 * K
         o.append(f'<polyline points="{ax:.1f},{ay:.1f} {lx - 4},{ay:.1f} {lx},{ty:.1f}" fill="none" stroke="{st}" stroke-width=".8"/>')
         o.append(f'<text x="{lx + 3}" y="{ty + 4:.1f}" font-size="11.5" fill="#1d2226">{lab}</text>')
-o.append(f'<text x="{W / 2}" y="{Ht - 16:.0f}" font-size="11.5" text-anchor="middle" fill="#5e676d">Coupe médiane, vue de la gauche de TARS (avant à gauche) · z en mm · orange : connecteurs X1–X15 emboîtés + pliage des fils · hachures : place réservée aux fils</text>')
+o.append(f'<text x="{W / 2}" y="{Ht - 16:.0f}" font-size="11.5" text-anchor="middle" fill="#5e676d">Middle section, seen from the left of TARS (front on the left) · z in mm · orange: X1–X15 connectors mated + wire bends · hatching: room kept for the wires</text>')
 o.append('</svg>')
 open(OUT, "w").write("\n".join(o))
 print(OUT)

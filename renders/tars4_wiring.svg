@@ -17,7 +17,7 @@
 <rect x="93.6" y="2" width="30.4" height="248" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.4"></rect>
 <rect x="95.2" y="3.5999999999999943" width="27.2" height="244.8" fill="#fbfbf9" stroke="#c9cec9" stroke-width="0.2"></rect>
 <rect x="95.35" y="81.30000000000001" width="26.9" height="20" fill="#e9dcc0" stroke="none" stroke-width="0.25"></rect>
-<text x="108.8" y="98.80000000000001" font-size="1.9" text-anchor="middle" class="t m" dominant-baseline="middle">éclisse · joint 158.7</text>
+<text x="108.8" y="98.80000000000001" font-size="1.9" text-anchor="middle" class="t m" dominant-baseline="middle">splint · seam 158.7</text>
 <circle cx="108.8" cy="6.599999999999994" r="3.5" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.2"></circle>
 <circle cx="119.4" cy="224.3" r="3.5" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.2"></circle>
 <circle cx="119.4" cy="147" r="3.5" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.2"></circle>
@@ -32,7 +32,7 @@
 <rect x="62.400000000000006" y="2" width="30.4" height="248" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.4"></rect>
 <rect x="64" y="3.5999999999999943" width="27.2" height="244.8" fill="#fbfbf9" stroke="#c9cec9" stroke-width="0.2"></rect>
 <rect x="64.15" y="173.8" width="26.9" height="20" fill="#e9dcc0" stroke="none" stroke-width="0.25"></rect>
-<text x="77.6" y="191.3" font-size="1.9" text-anchor="middle" class="t m" dominant-baseline="middle">éclisse · joint 66.2</text>
+<text x="77.6" y="191.3" font-size="1.9" text-anchor="middle" class="t m" dominant-baseline="middle">splint · seam 66.2</text>
 <circle cx="77.6" cy="6.599999999999994" r="3.5" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.2"></circle>
 <circle cx="88.2" cy="245.4" r="3.5" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.2"></circle>
 <circle cx="88.2" cy="150.8" r="3.5" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.2"></circle>
@@ -45,7 +45,7 @@
 <rect x="31.200000000000003" y="2" width="30.4" height="248" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.4"></rect>
 <rect x="32.8" y="3.5999999999999943" width="27.2" height="244.8" fill="#fbfbf9" stroke="#c9cec9" stroke-width="0.2"></rect>
 <rect x="32.94999999999999" y="173.8" width="26.9" height="20" fill="#e9dcc0" stroke="none" stroke-width="0.25"></rect>
-<text x="46.400000000000006" y="191.3" font-size="1.9" text-anchor="middle" class="t m" dominant-baseline="middle">éclisse · joint 66.2</text>
+<text x="46.400000000000006" y="191.3" font-size="1.9" text-anchor="middle" class="t m" dominant-baseline="middle">splint · seam 66.2</text>
 <circle cx="46.400000000000006" cy="6.599999999999994" r="3.5" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.2"></circle>
 <circle cx="57" cy="245.4" r="3.5" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.2"></circle>
 <circle cx="57" cy="150.8" r="3.5" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.2"></circle>
@@ -58,7 +58,7 @@
 <rect x="0" y="2" width="30.4" height="248" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.4"></rect>
 <rect x="1.6000000000000085" y="3.5999999999999943" width="27.2" height="244.8" fill="#fbfbf9" stroke="#c9cec9" stroke-width="0.2"></rect>
 <rect x="1.75" y="81.30000000000001" width="26.9" height="20" fill="#e9dcc0" stroke="none" stroke-width="0.25"></rect>
-<text x="15.200000000000003" y="98.80000000000001" font-size="1.9" text-anchor="middle" class="t m" dominant-baseline="middle">éclisse · joint 158.7</text>
+<text x="15.200000000000003" y="98.80000000000001" font-size="1.9" text-anchor="middle" class="t m" dominant-baseline="middle">splint · seam 158.7</text>
 <circle cx="15.200000000000003" cy="6.599999999999994" r="3.5" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.2"></circle>
 <circle cx="25.80000000000001" cy="224.3" r="3.5" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.2"></circle>
 <circle cx="25.80000000000001" cy="147" r="3.5" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.2"></circle>
@@ -97,32 +97,32 @@
 <rect x="95.8" y="112.5" width="26" height="1.6" fill="#f6d5c6" stroke="#7b858a" stroke-width="0.25"></rect>
 <rect x="110.8" y="109.19999999999999" width="7" height="3.3" fill="#d3d9d4" stroke="#7b858a" stroke-width="0.25"></rect>
 <text x="104.8" y="104.6" font-size="1.7" text-anchor="middle" class="t h" dominant-baseline="middle">TP4056 + DW01</text>
-<text x="104.8" y="107.4" font-size="1.2" text-anchor="middle" class="t m" dominant-baseline="middle">D3 + C9 · R_PROG 2,4 k</text>
+<text x="104.8" y="107.4" font-size="1.2" text-anchor="middle" class="t m" dominant-baseline="middle">D3 + C9 · R_PROG 2.4 k</text>
 <rect x="95.5" y="77.6" width="26.6" height="1.6" fill="#f6d5c6" stroke="#7b858a" stroke-width="0.25"></rect>
 <rect x="103.8" y="71.6" width="10" height="6" fill="#d3d9d4" stroke="#7b858a" stroke-width="0.25"></rect>
-<text x="108.8" y="68" font-size="1.6" text-anchor="middle" class="t h" dominant-baseline="middle">partage de charge</text>
-<text x="108.8" y="70.4" font-size="1.3" text-anchor="middle" class="t m" dominant-baseline="middle">étoile de masse</text>
+<text x="108.8" y="68" font-size="1.6" text-anchor="middle" class="t h" dominant-baseline="middle">power path</text>
+<text x="108.8" y="70.4" font-size="1.3" text-anchor="middle" class="t m" dominant-baseline="middle">ground star</text>
 <rect x="64.80000000000001" y="207.5" width="25.6" height="34.4" fill="#cfe2f5" stroke="#7b858a" stroke-width="0.25"></rect>
 <text x="77.6" y="224" font-size="2.6" text-anchor="middle" class="t h" dominant-baseline="middle">LOLIN</text>
 <text x="77.6" y="227.5" font-size="2.6" text-anchor="middle" class="t h" dominant-baseline="middle">S3 Mini</text>
-<text x="77.6" y="232" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">cerveau unique</text>
+<text x="77.6" y="232" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">single brain</text>
 <rect x="70.9" y="155.3" width="13.4" height="18" fill="none" stroke="#7b858a" stroke-width="0.3" stroke-dasharray="1 .8"></rect>
-<text x="77.6" y="164.3" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">logement libre</text>
+<text x="77.6" y="164.3" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">free slot</text>
 <circle cx="45.150000000000006" cy="17.099999999999994" r="6" fill="#fbe6b6" stroke="#7b858a" stroke-width="0.3"></circle>
 <text x="45.150000000000006" y="17.599999999999994" font-size="2" text-anchor="middle" class="t h" dominant-baseline="middle">AM312</text>
 <rect x="64.1" y="25.900000000000006" width="27" height="42" fill="#2a2f35" stroke="#cdebd6" stroke-width="1.2"></rect>
-<text x="77.6" y="47" font-size="2.6" text-anchor="middle" dominant-baseline="middle" fill="#e5e8e6" font-family="&quot;IBM Plex Mono&quot;, ui-monospace, Consolas, monospace">écran 1</text>
+<text x="77.6" y="47" font-size="2.6" text-anchor="middle" dominant-baseline="middle" fill="#e5e8e6" font-family="&quot;IBM Plex Mono&quot;, ui-monospace, Consolas, monospace">screen 1</text>
 <text x="77.6" y="51" font-size="1.8" text-anchor="middle" dominant-baseline="middle" fill="#9aa3a8" font-family="&quot;IBM Plex Mono&quot;, ui-monospace, Consolas, monospace">1.3&quot; CS</text>
 <rect x="32.900000000000006" y="25.900000000000006" width="27" height="42" fill="#2a2f35" stroke="#cdebd6" stroke-width="1.2"></rect>
-<text x="46.400000000000006" y="47" font-size="2.6" text-anchor="middle" dominant-baseline="middle" fill="#e5e8e6" font-family="&quot;IBM Plex Mono&quot;, ui-monospace, Consolas, monospace">écran 2</text>
+<text x="46.400000000000006" y="47" font-size="2.6" text-anchor="middle" dominant-baseline="middle" fill="#e5e8e6" font-family="&quot;IBM Plex Mono&quot;, ui-monospace, Consolas, monospace">screen 2</text>
 <text x="46.400000000000006" y="51" font-size="1.8" text-anchor="middle" dominant-baseline="middle" fill="#9aa3a8" font-family="&quot;IBM Plex Mono&quot;, ui-monospace, Consolas, monospace">1.3&quot; CS</text>
 <rect x="72.6" y="112.30000000000001" width="10" height="10" fill="#f1daf4" stroke="#7b858a" stroke-width="0.25"></rect>
 <text x="77.6" y="117.30000000000001" font-size="1.6" text-anchor="middle" class="t m" dominant-baseline="middle">INMP441</text>
 <rect x="69.925" y="126.46" width="15.35" height="20.34" fill="#f6d0e0" stroke="#7b858a" stroke-width="0.25"></rect>
 <text x="77.6" y="134" font-size="2.2" text-anchor="middle" class="t h" dominant-baseline="middle">ADXL345</text>
-<text x="77.6" y="137.5" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">accéléro</text>
+<text x="77.6" y="137.5" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">accelerometer</text>
 <rect x="35.400000000000006" y="181" width="22" height="39" fill="#dfe3e6" stroke="#7b858a" stroke-width="0.25"></rect>
-<text x="46.400000000000006" y="198" font-size="2.8" text-anchor="middle" class="t h" dominant-baseline="middle">HP</text>
+<text x="46.400000000000006" y="198" font-size="2.8" text-anchor="middle" class="t h" dominant-baseline="middle">SPK</text>
 <text x="46.400000000000006" y="202" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">39×22×10</text>
 <rect x="36.70000000000002" y="155.3" width="19.4" height="18" fill="#ddd2f6" stroke="#7b858a" stroke-width="0.25"></rect>
 <text x="46.400000000000006" y="164.3" font-size="2.2" text-anchor="middle" class="t h" dominant-baseline="middle">MAX98357A</text>
@@ -131,16 +131,16 @@
 <text x="15.200000000000003" y="125" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">RTC + CR2032</text>
 <rect x="9.450000000000003" y="45" width="11.5" height="15" fill="#f6d0e0" stroke="#7b858a" stroke-width="0.25"></rect>
 <text x="15.200000000000003" y="51.5" font-size="1.9" text-anchor="middle" class="t h" dominant-baseline="middle">BME280</text>
-<text x="15.200000000000003" y="55" font-size="1.3" text-anchor="middle" class="t m" dominant-baseline="middle">évent Ø1,5</text>
+<text x="15.200000000000003" y="55" font-size="1.3" text-anchor="middle" class="t m" dominant-baseline="middle">vent Ø1.5</text>
 <rect x="65.6" y="78.1" width="24" height="32" fill="#e9dfd0" stroke="#7b858a" stroke-width="0.35" stroke-dasharray="1 .7" fill-opacity="0.4"></rect>
-<text x="77.6" y="112.4" font-size="1.5" text-anchor="middle" class="t m" dominant-baseline="middle">P1 répartiteur</text>
+<text x="77.6" y="112.4" font-size="1.5" text-anchor="middle" class="t m" dominant-baseline="middle">P1 distribution</text>
 <rect x="34.400000000000006" y="78.1" width="24" height="32" fill="#e9dfd0" stroke="#7b858a" stroke-width="0.35" stroke-dasharray="1 .7" fill-opacity="0.4"></rect>
 <text x="46.400000000000006" y="112.4" font-size="1.5" text-anchor="middle" class="t m" dominant-baseline="middle">P2 · AMP_SD, 3V3, GND, I2C, PIR</text>
 <rect x="116.6" y="128.6" width="5.8" height="6.5" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.2"></rect>
 <rect x="95.2" y="128.6" width="5.8" height="6.5" fill="#e4e7e2" stroke="#7b858a" stroke-width="0.2"></rect>
 <rect x="99.8" y="131.9" width="18" height="1.6" fill="#ecefc2" stroke="#7b858a" stroke-width="0.25"></rect>
 <rect x="101.8" y="129.9" width="14" height="2" fill="#ecefc2" stroke="#7b858a" stroke-width="0.25"></rect>
-<text x="108.8" y="137.5" font-size="1.5" text-anchor="middle" class="t h" dominant-baseline="middle">microSD · fente au dos</text>
+<text x="108.8" y="137.5" font-size="1.5" text-anchor="middle" class="t h" dominant-baseline="middle">microSD · slot at the back</text>
 <rect x="86.2" y="7.599999999999994" width="14" height="8" fill="none" stroke="#b8902a" stroke-width="0.45"></rect>
 <rect x="55" y="7.599999999999994" width="14.000000000000007" height="8" fill="none" stroke="#b8902a" stroke-width="0.45"></rect>
 <rect x="23.80000000000001" y="7.599999999999994" width="13.999999999999986" height="8" fill="none" stroke="#b8902a" stroke-width="0.45"></rect>
@@ -150,13 +150,13 @@
 <rect x="103" y="251.9" width="11.6" height="2.6" fill="#bfd6c6" stroke="#7b858a" stroke-width="0.25"></rect>
 <text x="108.8" y="253.2" font-size="1.7" text-anchor="middle" class="t" dominant-baseline="middle">µUSB</text>
 <rect x="102.3" y="257.4" width="13" height="3.6" fill="#d3d9d4" stroke="#7b858a" stroke-width="0.25"></rect>
-<text x="108.8" y="259.2" font-size="1.7" text-anchor="middle" class="t" dominant-baseline="middle">inter.</text>
-<text x="108.8" y="264.5" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">sol : charge + inter. (stylo)</text>
+<text x="108.8" y="259.2" font-size="1.7" text-anchor="middle" class="t" dominant-baseline="middle">switch</text>
+<text x="108.8" y="264.5" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">floor: charge + switch (pen)</text>
 <rect x="71.8" y="251.9" width="11.6" height="2.6" fill="#bfd6c6" stroke="#7b858a" stroke-width="0.25"></rect>
 <text x="77.6" y="253.2" font-size="1.7" text-anchor="middle" class="t" dominant-baseline="middle">USB-C</text>
-<text x="77.6" y="258" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">sol : flash (inter. indifférent)</text>
+<text x="77.6" y="258" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">floor: flash (switch either way)</text>
 <rect x="9.200000000000003" y="251.9" width="12" height="2.6" fill="none" stroke="#c9cec9" stroke-width="0.25" stroke-dasharray="1 .8"></rect>
-<text x="15.200000000000003" y="258" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">sol : rien</text>
+<text x="15.200000000000003" y="258" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">floor: nothing</text>
 <polyline points="113,234.4 113,232 120.4,232 120.4,79.19999999999999" fill="none" stroke="#4c555b" stroke-width="0.84" stroke-linejoin="round" stroke-linecap="butt"></polyline>
 <polyline points="113,234.4 113,232 120.4,232 120.4,79.19999999999999" fill="none" stroke="#d7262b" stroke-width="0.62" stroke-linejoin="round" stroke-linecap="butt"></polyline>
 <polyline points="113,233.6 113,233.2" fill="none" stroke="#1d2226" stroke-width="1.12" stroke-linejoin="round" stroke-linecap="butt"></polyline>
@@ -372,7 +372,7 @@
 <polyline points="39,82.55000000000001 39,81.44999999999999" fill="none" stroke="#1d2226" stroke-width="0.3" stroke-linejoin="round" stroke-linecap="butt"></polyline>
 <polyline points="39,22.55000000000001 39,21.44999999999999" fill="none" stroke="#1d2226" stroke-width="0.3" stroke-linejoin="round" stroke-linecap="butt"></polyline>
 <polyline points="40.400000000000006,81.52000000000001 38.08,81.52000000000001 38.08,22.47999999999999 40.400000000000006,22.47999999999999" fill="none" stroke="#2a62d6" stroke-width="0.4" stroke-linejoin="round" stroke-linecap="butt"></polyline>
-<text x="36.2" y="50" font-size="1.3" text-anchor="middle" class="t" dominant-baseline="middle" transform="rotate(-90 36.2 50)">3 fils → AM312</text>
+<text x="36.2" y="50" font-size="1.3" text-anchor="middle" class="t" dominant-baseline="middle" transform="rotate(-90 36.2 50)">3 wires → AM312</text>
 <polyline points="52.400000000000006,90 53.2,90 53.2,16.5 78.8,16.5 78.8,207.5" fill="none" stroke="#4c555b" stroke-width="0.6200000000000001" stroke-linejoin="round" stroke-linecap="butt"></polyline>
 <polyline points="52.400000000000006,90 53.2,90 53.2,16.5 78.8,16.5 78.8,207.5" fill="none" stroke="#d7262b" stroke-width="0.4" stroke-linejoin="round" stroke-linecap="butt"></polyline>
 <polyline points="52.80000000000001,89.44999999999999 52.80000000000001,90.55000000000001" fill="none" stroke="#1d2226" stroke-width="0.3" stroke-linejoin="round" stroke-linecap="butt"></polyline>
@@ -415,11 +415,11 @@
 <polyline points="101.65,127.75 102.75,127.75" fill="none" stroke="#1d2226" stroke-width="0.3" stroke-linejoin="round" stroke-linecap="butt"></polyline>
 <polyline points="101.65,127 102.75,127" fill="none" stroke="#1d2226" stroke-width="0.3" stroke-linejoin="round" stroke-linecap="butt"></polyline>
 <text x="81" y="180" font-size="1.8" text-anchor="middle" class="t" dominant-baseline="middle" transform="rotate(-90 81 180)">SD ×3</text>
-<text x="67.4" y="130" font-size="1.8" text-anchor="middle" class="t" dominant-baseline="middle" transform="rotate(-90 67.4 130)">SPI ×5 → écran 1</text>
-<text x="65.6" y="100" font-size="1.8" text-anchor="middle" class="t" dominant-baseline="middle" transform="rotate(-90 65.6 100)">SPI ×5 → écran 2</text>
+<text x="67.4" y="130" font-size="1.8" text-anchor="middle" class="t" dominant-baseline="middle" transform="rotate(-90 67.4 130)">SPI ×5 → screen 1</text>
+<text x="65.6" y="100" font-size="1.8" text-anchor="middle" class="t" dominant-baseline="middle" transform="rotate(-90 65.6 100)">SPI ×5 → screen 2</text>
 <text x="64.4" y="140" font-size="1.8" text-anchor="middle" class="t" dominant-baseline="middle" transform="rotate(-90 64.4 140)">I2S ×3</text>
 <text x="84" y="175" font-size="1.8" text-anchor="middle" class="t" dominant-baseline="middle" transform="rotate(-90 84 175)">I2C ×2</text>
-<text x="96.5" y="40" font-size="1.8" text-anchor="middle" class="t" dominant-baseline="middle" transform="rotate(-90 96.5 40)">B+ B− · paire ampli</text>
+<text x="96.5" y="40" font-size="1.8" text-anchor="middle" class="t" dominant-baseline="middle" transform="rotate(-90 96.5 40)">B+ B− · amplifier pair</text>
 <text x="27.799999999999997" y="35" font-size="1.6" text-anchor="middle" class="t" dominant-baseline="middle" transform="rotate(-90 27.799999999999997 35)">B+ B− · I2C · 3V3 · GND</text>
-<text x="62" y="268.5" font-size="2" text-anchor="middle" class="t m" dominant-baseline="middle">← droite de TARS · vue de dos · gauche de TARS →</text>
+<text x="62" y="268.5" font-size="2" text-anchor="middle" class="t m" dominant-baseline="middle">← TARS right · back view · TARS left →</text>
 </svg>

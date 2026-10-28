@@ -2,6 +2,11 @@
 
 TARS robot, `tars4` variant. `README.md` is the project documentation; `tars4.scad` is the model.
 
+## Language
+- Requirements (`requirements/*.md`) and all documentation are written in **English**: README, markdown notes,
+  generated guides and diagrams, code comments, commit messages.
+- Conversation with me stays in French.
+
 ## Hardware Conventions
 
 ### Electronics & Hardware Docs

@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 1718" width="1020" height="1718" font-family="IBM Plex Sans, Segoe UI, sans-serif">
 <rect width="1020" height="1718" fill="#fbfbf9"/>
-<text x="160" y="34" font-size="22" font-weight="600" fill="#1d2226" font-family="IBM Plex Sans Condensed, Arial Narrow, sans-serif">P2 · répartiteur du milieu droit</text>
-<text x="160" y="56" font-size="12.5" fill="#5e676d">plaque à bandes, 24 × 32 mm, 9 × 12 trous, bandes horizontales · debout sous l'écran 2, z 139,9–171,9</text>
-<text x="160" y="82" font-size="13" font-weight="600" fill="#1d2226">côté composants</text>
+<text x="160" y="34" font-size="22" font-weight="600" fill="#1d2226" font-family="IBM Plex Sans Condensed, Arial Narrow, sans-serif">P2 · right middle distribution</text>
+<text x="160" y="56" font-size="12.5" fill="#5e676d">stripboard, 24 × 32 mm, 9 × 12 holes, horizontal strips · standing under screen 2, z 139.9–171.9</text>
+<text x="160" y="82" font-size="13" font-weight="600" fill="#1d2226">component side</text>
 <rect x="160" y="112" width="300.0" height="400.0" rx="4" fill="#efe3c6" stroke="#9c8a62" stroke-width="1.2"/>
 <text x="183.0" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">A</text>
 <text x="214.75" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">B</text>
@@ -219,7 +219,7 @@
 <circle cx="341.75" cy="391.375" r="8.572500000000002" fill="#d7262b"/>
 <line x1="331.1775" y1="385.8025" x2="335.1775" y2="385.8025" stroke="#1d2226" stroke-width="1.6"/>
 <text x="341.75" y="394.775" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">16</text>
-<text x="610.0" y="82" font-size="13" font-weight="600" fill="#1d2226">côté soudures (miroir)</text>
+<text x="610.0" y="82" font-size="13" font-weight="600" fill="#1d2226">solder side (mirrored)</text>
 <rect x="610.0" y="112" width="300.0" height="400.0" rx="4" fill="#e2cfa3" stroke="#9c8a62" stroke-width="1.2"/>
 <text x="887.0" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">A</text>
 <text x="855.25" y="104" font-size="10.5" text-anchor="middle" fill="#5e676d" font-family="IBM Plex Mono, monospace">B</text>
@@ -453,8 +453,8 @@
 <circle cx="728.25" cy="391.375" r="8.572500000000002" fill="#d7262b"/>
 <line x1="717.6775" y1="385.8025" x2="721.6775" y2="385.8025" stroke="#1d2226" stroke-width="1.6"/>
 <text x="728.25" y="394.775" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">16</text>
-<text x="160" y="558.0" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">CONNECTEURS (CÔTÉ FAISCEAU, BROCHE 1 À GAUCHE ; N° = FIL DE CETTE PLAQUE)</text>
-<text x="160" y="588.0" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X2</tspan> ADXL345 · Dupont 1 × 8, 5 fils</text>
+<text x="160" y="558.0" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">CONNECTORS (HARNESS SIDE, PIN 1 ON THE LEFT; NO. = WIRE OF THIS BOARD)</text>
+<text x="160" y="588.0" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X2</tspan> ADXL345 · Dupont 1 × 8, 5 wires</text>
 <rect x="160" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
 <path d="M160 596.0 l7 0 l-7 7 z" fill="#1d2226"/>
 <text x="182.0" y="617.0" font-size="8.5" text-anchor="middle" fill="#5e676d">GND</text>
@@ -463,16 +463,16 @@
 <text x="228.0" y="617.0" font-size="8.5" text-anchor="middle" fill="#5e676d">3V3</text>
 <text x="228.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">VCC</text>
 <rect x="252" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
-<text x="274.0" y="617.0" font-size="9.5" text-anchor="middle" fill="#5e676d">vide</text>
+<text x="274.0" y="617.0" font-size="9.5" text-anchor="middle" fill="#5e676d">empty</text>
 <text x="274.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">CS</text>
 <rect x="298" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
 <text x="320.0" y="617.0" font-size="8.5" text-anchor="middle" fill="#5e676d">INT1</text>
 <text x="320.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">INT1</text>
 <rect x="344" y="596.0" width="44" height="34" rx="3" fill="#d5d8da" stroke="#7d868b" stroke-width="1"/>
-<text x="366.0" y="617.0" font-size="9.5" text-anchor="middle" fill="#5e676d">bouché</text>
+<text x="366.0" y="617.0" font-size="9.5" text-anchor="middle" fill="#5e676d">plugged</text>
 <text x="366.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">INT2</text>
 <rect x="390" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
-<text x="412.0" y="617.0" font-size="9.5" text-anchor="middle" fill="#5e676d">vide</text>
+<text x="412.0" y="617.0" font-size="9.5" text-anchor="middle" fill="#5e676d">empty</text>
 <text x="412.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">SDO</text>
 <rect x="436" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
 <circle cx="458.0" cy="613.0" r="10" fill="#3a4248"/><circle cx="458.0" cy="613.0" r="8.7" fill="#23964a"/>
@@ -482,7 +482,7 @@
 <circle cx="504.0" cy="613.0" r="10" fill="#3a4248"/><circle cx="504.0" cy="613.0" r="8.7" fill="#f5c400"/>
 <text x="504.0" y="616.5" font-size="9.5" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">12</text>
 <text x="504.0" y="644.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">SCL</text>
-<text x="562" y="588.0" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X4</tspan> écran 2 · Dupont 1 × 8 sur barrette coudée</text>
+<text x="562" y="588.0" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X4</tspan> screen 2 · Dupont 1 × 8 on a right-angle header</text>
 <rect x="562" y="596.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
 <path d="M562 596.0 l7 0 l-7 7 z" fill="#1d2226"/>
 <circle cx="584.0" cy="613.0" r="10" fill="#3a4248"/><circle cx="584.0" cy="613.0" r="8.7" fill="#2a62d6"/>
@@ -522,7 +522,7 @@
 <text x="274.0" y="709.0" font-size="8.5" text-anchor="middle" fill="#5e676d">DIN</text>
 <text x="274.0" y="736.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">DIN</text>
 <rect x="298" y="688.0" width="44" height="34" rx="3" fill="#d5d8da" stroke="#7d868b" stroke-width="1"/>
-<text x="320.0" y="709.0" font-size="9.5" text-anchor="middle" fill="#5e676d">bouché</text>
+<text x="320.0" y="709.0" font-size="9.5" text-anchor="middle" fill="#5e676d">plugged</text>
 <text x="320.0" y="736.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">GAIN</text>
 <rect x="356" y="688.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
 <circle cx="378.0" cy="705.0" r="10" fill="#3a4248"/><circle cx="378.0" cy="705.0" r="8.7" fill="#8a5326"/>
@@ -534,7 +534,7 @@
 <rect x="448" y="688.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
 <text x="470.0" y="709.0" font-size="8.5" text-anchor="middle" fill="#5e676d">VSYS</text>
 <text x="470.0" y="736.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">VIN</text>
-<text x="528" y="680.0" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X7</tspan> AM312 · queue + Dupont 1 × 4 en ligne</text>
+<text x="528" y="680.0" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X7</tspan> AM312 · pigtail + inline Dupont 1 × 4</text>
 <rect x="528" y="688.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
 <path d="M528 688.0 l7 0 l-7 7 z" fill="#1d2226"/>
 <circle cx="550.0" cy="705.0" r="10" fill="#3a4248"/><circle cx="550.0" cy="705.0" r="8.7" fill="#fbfbf7"/>
@@ -549,15 +549,15 @@
 <text x="642.0" y="708.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">6</text>
 <text x="642.0" y="736.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">GND</text>
 <rect x="666" y="688.0" width="44" height="34" rx="3" fill="#d5d8da" stroke="#7d868b" stroke-width="1"/>
-<text x="688.0" y="709.0" font-size="9.5" text-anchor="middle" fill="#5e676d">bouché</text>
+<text x="688.0" y="709.0" font-size="9.5" text-anchor="middle" fill="#5e676d">plugged</text>
 <text x="688.0" y="736.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">—</text>
-<text x="160" y="772.0" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X8</tspan> DS3231 · Dupont 1 × 6 sur barrette coudée, 4 fils</text>
+<text x="160" y="772.0" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X8</tspan> DS3231 · Dupont 1 × 6 on a right-angle header, 4 wires</text>
 <rect x="160" y="780.0" width="44" height="34" rx="3" fill="#d5d8da" stroke="#7d868b" stroke-width="1"/>
 <path d="M160 780.0 l7 0 l-7 7 z" fill="#1d2226"/>
-<text x="182.0" y="801.0" font-size="9.5" text-anchor="middle" fill="#5e676d">bouché</text>
+<text x="182.0" y="801.0" font-size="9.5" text-anchor="middle" fill="#5e676d">plugged</text>
 <text x="182.0" y="828.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">32K</text>
 <rect x="206" y="780.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
-<text x="228.0" y="801.0" font-size="9.5" text-anchor="middle" fill="#5e676d">vide</text>
+<text x="228.0" y="801.0" font-size="9.5" text-anchor="middle" fill="#5e676d">empty</text>
 <text x="228.0" y="828.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">SQW</text>
 <rect x="252" y="780.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
 <circle cx="274.0" cy="797.0" r="10" fill="#3a4248"/><circle cx="274.0" cy="797.0" r="8.7" fill="#f5c400"/>
@@ -575,134 +575,134 @@
 <circle cx="412.0" cy="797.0" r="10" fill="#3a4248"/><circle cx="412.0" cy="797.0" r="8.7" fill="#2a62d6"/>
 <text x="412.0" y="800.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">5</text>
 <text x="412.0" y="828.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">GND</text>
-<text x="526.8" y="772.0" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X9</tspan> BME280 · Dupont 1 × 4 (chaîné vers X8)</text>
-<rect x="526.8" y="780.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
-<path d="M526.8 780.0 l7 0 l-7 7 z" fill="#1d2226"/>
-<circle cx="548.8" cy="797.0" r="10" fill="#3a4248"/><circle cx="548.8" cy="797.0" r="8.7" fill="#fbfbf7"/>
-<text x="548.8" y="800.5" font-size="9.5" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">9</text>
-<text x="548.8" y="828.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">VCC</text>
-<rect x="572.8" y="780.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
-<circle cx="594.8" cy="797.0" r="10" fill="#3a4248"/><circle cx="594.8" cy="797.0" r="8.7" fill="#2a62d6"/>
-<text x="594.8" y="800.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">5</text>
-<text x="594.8" y="828.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">GND</text>
-<rect x="618.8" y="780.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
-<circle cx="640.8" cy="797.0" r="10" fill="#3a4248"/><circle cx="640.8" cy="797.0" r="8.7" fill="#f5c400"/>
-<text x="640.8" y="800.5" font-size="9.5" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">13</text>
-<text x="640.8" y="828.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">SCL</text>
-<rect x="664.8" y="780.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
-<circle cx="686.8" cy="797.0" r="10" fill="#3a4248"/><circle cx="686.8" cy="797.0" r="8.7" fill="#23964a"/>
-<text x="686.8" y="800.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">11</text>
-<text x="686.8" y="828.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">SDA</text>
+<text x="558.8" y="772.0" font-size="11.5" fill="#1d2226"><tspan font-weight="700">X9</tspan> BME280 · Dupont 1 × 4 (daisy-chained to X8)</text>
+<rect x="558.8" y="780.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<path d="M558.8 780.0 l7 0 l-7 7 z" fill="#1d2226"/>
+<circle cx="580.8" cy="797.0" r="10" fill="#3a4248"/><circle cx="580.8" cy="797.0" r="8.7" fill="#fbfbf7"/>
+<text x="580.8" y="800.5" font-size="9.5" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">9</text>
+<text x="580.8" y="828.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">VCC</text>
+<rect x="604.8" y="780.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="626.8" cy="797.0" r="10" fill="#3a4248"/><circle cx="626.8" cy="797.0" r="8.7" fill="#2a62d6"/>
+<text x="626.8" y="800.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">5</text>
+<text x="626.8" y="828.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">GND</text>
+<rect x="650.8" y="780.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="672.8" cy="797.0" r="10" fill="#3a4248"/><circle cx="672.8" cy="797.0" r="8.7" fill="#f5c400"/>
+<text x="672.8" y="800.5" font-size="9.5" text-anchor="middle" fill="#1d2226" font-weight="600" font-family="IBM Plex Mono, monospace">13</text>
+<text x="672.8" y="828.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">SCL</text>
+<rect x="696.8" y="780.0" width="44" height="34" rx="3" fill="#fbfbf9" stroke="#7d868b" stroke-width="1"/>
+<circle cx="718.8" cy="797.0" r="10" fill="#3a4248"/><circle cx="718.8" cy="797.0" r="8.7" fill="#23964a"/>
+<text x="718.8" y="800.5" font-size="9.5" text-anchor="middle" fill="#ffffff" font-weight="600" font-family="IBM Plex Mono, monospace">11</text>
+<text x="718.8" y="828.0" font-size="9.5" text-anchor="middle" fill="#1d2226" font-family="IBM Plex Mono, monospace">SDA</text>
 <text x="160" y="874.0" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">COMPOSANTS</text>
 <text x="160" y="892.0" font-size="12" fill="#1d2226"><tspan font-weight="600">R10 1 k</tspan><tspan x="310" font-family="IBM Plex Mono, monospace" font-size="11">1 B11 (AMP_SD_S3) · 2 D11 (AMP_SD)</tspan></text>
-<text x="310" y="907.0" font-size="11" fill="#5e676d">en série, debout, enjambe la coupe C11</text>
+<text x="310" y="907.0" font-size="11" fill="#5e676d">in series, standing, straddles the C11 cut</text>
 <text x="160" y="923.0" font-size="12" fill="#1d2226"><tspan font-weight="600">R18 10 k</tspan><tspan x="310" font-family="IBM Plex Mono, monospace" font-size="11">1 E11 (AMP_SD) · 2 E10 (GND)</tspan></text>
-<text x="310" y="938.0" font-size="11" fill="#5e676d">AMP_SD → GND, debout</text>
+<text x="310" y="938.0" font-size="11" fill="#5e676d">AMP_SD → GND, standing</text>
 <text x="160" y="954.0" font-size="12" fill="#1d2226"><tspan font-weight="600">C10 10 µF 16 V</tspan><tspan x="310" font-family="IBM Plex Mono, monospace" font-size="11">+ F9 (3V3) · - F10 (GND)</tspan></text>
-<text x="310" y="969.0" font-size="11" fill="#5e676d">tantale 16 V, + en F9 (3V3) ; ou céramique X5R / X7R ≥ 6,3 V</text>
+<text x="310" y="969.0" font-size="11" fill="#5e676d">16 V tantalum, + at F9 (3V3); or X5R / X7R ceramic ≥ 6.3 V</text>
 <text x="160" y="985.0" font-size="12" fill="#1d2226"><tspan font-weight="600">C11 100 nF</tspan><tspan x="310" font-family="IBM Plex Mono, monospace" font-size="11">1 G9 (3V3) · 2 G10 (GND)</tspan></text>
-<text x="310" y="1000.0" font-size="11" fill="#5e676d">découplage, céramique</text>
+<text x="310" y="1000.0" font-size="11" fill="#5e676d">decoupling, ceramic</text>
 <text x="160" y="1016.0" font-size="12" fill="#1d2226"><tspan font-weight="600">R21 100 Ω</tspan><tspan x="310" font-family="IBM Plex Mono, monospace" font-size="11">1 H9 (3V3) · 2 H6 (PIR_VDD)</tspan></text>
-<text x="310" y="1031.0" font-size="11" fill="#5e676d">filtre de l'AM312, couchée (pas 7,62)</text>
+<text x="310" y="1031.0" font-size="11" fill="#5e676d">AM312 filter, lying (7.62 pitch)</text>
 <text x="160" y="1047.0" font-size="12" fill="#1d2226"><tspan font-weight="600">C12 10 µF 16 V</tspan><tspan x="310" font-family="IBM Plex Mono, monospace" font-size="11">+ F6 (PIR_VDD) · - F5 (GND)</tspan></text>
-<text x="310" y="1062.0" font-size="11" fill="#5e676d">filtre de l'AM312, tantale 16 V (+ en F6) ; ou électrolytique 47 µF Ø5 × 7 au plus</text>
+<text x="310" y="1062.0" font-size="11" fill="#5e676d">AM312 filter, 16 V tantalum (+ at F6); or 47 µF electrolytic Ø5 × 7 at most</text>
 <text x="160" y="1078.0" font-size="12" fill="#1d2226"><tspan font-weight="600">R17 1 k</tspan><tspan x="310" font-family="IBM Plex Mono, monospace" font-size="11">1 B4 (PIR) · 2 D4 (PIR_OUT)</tspan></text>
-<text x="310" y="1093.0" font-size="11" fill="#5e676d">en série, debout, enjambe la coupe C4</text>
-<text x="160" y="1119.0" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">LIENS</text>
-<text x="160" y="1137.0" font-size="12" fill="#1d2226"><tspan font-weight="600">cavalier isolé</tspan><tspan x="310" font-family="IBM Plex Mono, monospace" font-size="11">I10–I5</tspan></text>
+<text x="310" y="1093.0" font-size="11" fill="#5e676d">in series, standing, straddles the C4 cut</text>
+<text x="160" y="1119.0" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">LINKS</text>
+<text x="160" y="1137.0" font-size="12" fill="#1d2226"><tspan font-weight="600">insulated jumper</tspan><tspan x="310" font-family="IBM Plex Mono, monospace" font-size="11">I10–I5</tspan></text>
 <text x="310" y="1152.0" font-size="11" fill="#5e676d">GND 10 ↔ 5</text>
-<text x="160" y="1168.0" font-size="12" fill="#1d2226"><tspan font-weight="600">coupes</tspan><tspan x="310" font-family="IBM Plex Mono, monospace" font-size="11">C11, C4</tspan></text>
-<text x="310" y="1183.0" font-size="11" fill="#5e676d">bande interrompue à ce trou</text>
-<text x="160" y="1209.0" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">FILS (N° DU DESSIN · TROU · SIGNAL · FIL · AUTRE BOUT : ● SOUDÉ, D DUPONT, XH JST-XH, F / M · VERS)</text>
+<text x="160" y="1168.0" font-size="12" fill="#1d2226"><tspan font-weight="600">cuts</tspan><tspan x="310" font-family="IBM Plex Mono, monospace" font-size="11">C11, C4</tspan></text>
+<text x="310" y="1183.0" font-size="11" fill="#5e676d">strip broken at this hole</text>
+<text x="160" y="1209.0" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">WIRES (DRAWING NO. · HOLE · SIGNAL · WIRE · OTHER END: ● SOLDERED, D DUPONT, XH JST-XH, F / M · TO)</text>
 <circle cx="168" cy="1223.0" r="6.5" fill="#8a5326" stroke="#3a4248" stroke-width="1.3"/>
 <text x="182" y="1227.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 1  A11  AMP_SD_S3</text>
-<text x="350" y="1227.0" font-size="11.5" fill="#5e676d">marron 30 AWG, 1 bague</text>
+<text x="350" y="1227.0" font-size="11.5" fill="#5e676d">brown 30 AWG, 1 ring</text>
 <circle cx="552" cy="1223.0" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
-<text x="570" y="1227.0" font-size="11.5" fill="#1d2226">tube central → S3 IO4 (A9)</text>
+<text x="570" y="1227.0" font-size="11.5" fill="#1d2226">middle tube → S3 IO4 (A9)</text>
 <circle cx="168" cy="1240.0" r="6.5" fill="#8a5326" stroke="#3a4248" stroke-width="1.3"/>
 <text x="182" y="1244.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 2  F11  AMP_SD</text>
-<text x="350" y="1244.0" font-size="11.5" fill="#5e676d">marron 30 AWG, 1 bague</text>
+<text x="350" y="1244.0" font-size="11.5" fill="#5e676d">brown 30 AWG, 1 ring</text>
 <rect x="544.5" y="1233.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="552" y="1243.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
-<text x="570" y="1244.0" font-size="11.5" fill="#1d2226">X5 ampli SD  [X5 br. 5]</text>
+<text x="570" y="1244.0" font-size="11.5" fill="#1d2226">X5 amplifier SD  [X5 br. 5]</text>
 <circle cx="168" cy="1257.0" r="6.5" fill="#2a62d6" stroke="#3a4248" stroke-width="1.3"/>
 <text x="182" y="1261.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 3  A10  GND</text>
-<text x="350" y="1261.0" font-size="11.5" fill="#5e676d">bleu 30 AWG</text>
+<text x="350" y="1261.0" font-size="11.5" fill="#5e676d">blue 30 AWG</text>
 <circle cx="552" cy="1257.0" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
-<text x="570" y="1261.0" font-size="11.5" fill="#1d2226">tube central → P1 GND</text>
+<text x="570" y="1261.0" font-size="11.5" fill="#1d2226">middle tube → P1 GND</text>
 <circle cx="168" cy="1274.0" r="6.5" fill="#2a62d6" stroke="#3a4248" stroke-width="1.3"/>
 <text x="182" y="1278.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 4  B10  GND</text>
-<text x="350" y="1278.0" font-size="11.5" fill="#5e676d">bleu 30 AWG</text>
+<text x="350" y="1278.0" font-size="11.5" fill="#5e676d">blue 30 AWG</text>
 <rect x="544.5" y="1267.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="552" y="1277.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
-<text x="570" y="1278.0" font-size="11.5" fill="#1d2226">X4 écran 2 GND  [X4 br. 1]</text>
+<text x="570" y="1278.0" font-size="11.5" fill="#1d2226">X4 screen 2 GND  [X4 br. 1]</text>
 <circle cx="168" cy="1291.0" r="6.5" fill="#2a62d6" stroke="#3a4248" stroke-width="1.3"/>
 <text x="182" y="1295.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 5  C10  GND</text>
-<text x="350" y="1295.0" font-size="11.5" fill="#5e676d">bleu 30 AWG</text>
+<text x="350" y="1295.0" font-size="11.5" fill="#5e676d">blue 30 AWG</text>
 <rect x="544.5" y="1284.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="552" y="1294.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
-<text x="570" y="1295.0" font-size="11.5" fill="#1d2226">tube droit → X8 DS3231 / X9 BME280 GND  [X9 br. 2 + X8 br. 6]</text>
+<text x="570" y="1295.0" font-size="11.5" fill="#1d2226">right tube → X8 DS3231 / X9 BME280 GND  [X9 br. 2 + X8 br. 6]</text>
 <circle cx="168" cy="1308.0" r="6.5" fill="#2a62d6" stroke="#3a4248" stroke-width="1.3"/>
 <text x="182" y="1312.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 6  D10  GND</text>
-<text x="350" y="1312.0" font-size="11.5" fill="#5e676d">bleu 30 AWG</text>
+<text x="350" y="1312.0" font-size="11.5" fill="#5e676d">blue 30 AWG</text>
 <rect x="544.5" y="1301.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="552" y="1311.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
 <text x="570" y="1312.0" font-size="11.5" fill="#1d2226">X7 AM312 GND  [X7 br. 3]</text>
 <circle cx="168" cy="1325.0" r="6.5" fill="#fbfbf7" stroke="#3a4248" stroke-width="1.3"/>
 <text x="182" y="1329.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 7  A9  3V3</text>
-<text x="350" y="1329.0" font-size="11.5" fill="#5e676d">blanc 30 AWG</text>
+<text x="350" y="1329.0" font-size="11.5" fill="#5e676d">white 30 AWG</text>
 <circle cx="552" cy="1325.0" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
-<text x="570" y="1329.0" font-size="11.5" fill="#1d2226">tube central → P1 3V3</text>
+<text x="570" y="1329.0" font-size="11.5" fill="#1d2226">middle tube → P1 3V3</text>
 <circle cx="168" cy="1342.0" r="6.5" fill="#fbfbf7" stroke="#3a4248" stroke-width="1.3"/>
 <text x="182" y="1346.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 8  B9  3V3</text>
-<text x="350" y="1346.0" font-size="11.5" fill="#5e676d">blanc 30 AWG</text>
+<text x="350" y="1346.0" font-size="11.5" fill="#5e676d">white 30 AWG</text>
 <rect x="544.5" y="1335.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="552" y="1345.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
-<text x="570" y="1346.0" font-size="11.5" fill="#1d2226">X4 écran 2 VCC  [X4 br. 2]</text>
+<text x="570" y="1346.0" font-size="11.5" fill="#1d2226">X4 screen 2 VCC  [X4 br. 2]</text>
 <circle cx="168" cy="1359.0" r="6.5" fill="#fbfbf7" stroke="#3a4248" stroke-width="1.3"/>
 <text x="182" y="1363.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 9  C9  3V3</text>
-<text x="350" y="1363.0" font-size="11.5" fill="#5e676d">blanc 30 AWG</text>
+<text x="350" y="1363.0" font-size="11.5" fill="#5e676d">white 30 AWG</text>
 <rect x="544.5" y="1352.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="552" y="1362.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
-<text x="570" y="1363.0" font-size="11.5" fill="#1d2226">tube droit → X8 / X9 VCC  [X9 br. 1 + X8 br. 5]</text>
+<text x="570" y="1363.0" font-size="11.5" fill="#1d2226">right tube → X8 / X9 VCC  [X9 br. 1 + X8 br. 5]</text>
 <circle cx="168" cy="1376.0" r="6.5" fill="#23964a" stroke="#3a4248" stroke-width="1.3"/>
 <text x="182" y="1380.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">10  A8  SDA</text>
-<text x="350" y="1380.0" font-size="11.5" fill="#5e676d">vert 30 AWG, 2 bagues</text>
+<text x="350" y="1380.0" font-size="11.5" fill="#5e676d">green 30 AWG, 2 rings</text>
 <rect x="544.5" y="1369.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="552" y="1379.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
-<text x="570" y="1380.0" font-size="11.5" fill="#1d2226">tube central → ADXL345 SDA  [X2 br. 7]</text>
+<text x="570" y="1380.0" font-size="11.5" fill="#1d2226">middle tube → ADXL345 SDA  [X2 br. 7]</text>
 <circle cx="168" cy="1393.0" r="6.5" fill="#23964a" stroke="#3a4248" stroke-width="1.3"/>
 <text x="182" y="1397.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">11  C8  SDA</text>
-<text x="350" y="1397.0" font-size="11.5" fill="#5e676d">vert 30 AWG, 2 bagues</text>
+<text x="350" y="1397.0" font-size="11.5" fill="#5e676d">green 30 AWG, 2 rings</text>
 <rect x="544.5" y="1386.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="552" y="1396.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
-<text x="570" y="1397.0" font-size="11.5" fill="#1d2226">tube droit → X9 / X8 SDA  [X9 br. 4 + X8 br. 4]</text>
+<text x="570" y="1397.0" font-size="11.5" fill="#1d2226">right tube → X9 / X8 SDA  [X9 br. 4 + X8 br. 4]</text>
 <circle cx="168" cy="1410.0" r="6.5" fill="#f5c400" stroke="#3a4248" stroke-width="1.3"/>
 <text x="182" y="1414.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">12  A7  SCL</text>
-<text x="350" y="1414.0" font-size="11.5" fill="#5e676d">jaune 30 AWG, 2 bagues</text>
+<text x="350" y="1414.0" font-size="11.5" fill="#5e676d">yellow 30 AWG, 2 rings</text>
 <rect x="544.5" y="1403.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="552" y="1413.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
-<text x="570" y="1414.0" font-size="11.5" fill="#1d2226">tube central → ADXL345 SCL  [X2 br. 8]</text>
+<text x="570" y="1414.0" font-size="11.5" fill="#1d2226">middle tube → ADXL345 SCL  [X2 br. 8]</text>
 <circle cx="168" cy="1427.0" r="6.5" fill="#f5c400" stroke="#3a4248" stroke-width="1.3"/>
 <text x="182" y="1431.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">13  C7  SCL</text>
-<text x="350" y="1431.0" font-size="11.5" fill="#5e676d">jaune 30 AWG, 2 bagues</text>
+<text x="350" y="1431.0" font-size="11.5" fill="#5e676d">yellow 30 AWG, 2 rings</text>
 <rect x="544.5" y="1420.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="552" y="1430.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
-<text x="570" y="1431.0" font-size="11.5" fill="#1d2226">tube droit → X9 / X8 SCL  [X9 br. 3 + X8 br. 3]</text>
+<text x="570" y="1431.0" font-size="11.5" fill="#1d2226">right tube → X9 / X8 SCL  [X9 br. 3 + X8 br. 3]</text>
 <circle cx="168" cy="1444.0" r="6.5" fill="#fbfbf7" stroke="#3a4248" stroke-width="1.3"/>
 <text x="182" y="1448.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">14  D6  PIR_VDD</text>
-<text x="350" y="1448.0" font-size="11.5" fill="#5e676d">blanc 30 AWG</text>
+<text x="350" y="1448.0" font-size="11.5" fill="#5e676d">white 30 AWG</text>
 <rect x="544.5" y="1437.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="552" y="1447.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
 <text x="570" y="1448.0" font-size="11.5" fill="#1d2226">X7 AM312 VIN  [X7 br. 1]</text>
 <circle cx="168" cy="1461.0" r="6.5" fill="#d7262b" stroke="#3a4248" stroke-width="1.3"/>
 <text x="182" y="1465.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">15  A4  PIR</text>
-<text x="350" y="1465.0" font-size="11.5" fill="#5e676d">rouge 30 AWG, 1 bague</text>
+<text x="350" y="1465.0" font-size="11.5" fill="#5e676d">red 30 AWG, 1 ring</text>
 <circle cx="552" cy="1461.0" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
-<text x="570" y="1465.0" font-size="11.5" fill="#1d2226">tube central → S3 IO3 (B10)</text>
+<text x="570" y="1465.0" font-size="11.5" fill="#1d2226">middle tube → S3 IO3 (B10)</text>
 <circle cx="168" cy="1478.0" r="6.5" fill="#d7262b" stroke="#3a4248" stroke-width="1.3"/>
 <text x="182" y="1482.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">16  F4  PIR_OUT</text>
-<text x="350" y="1482.0" font-size="11.5" fill="#5e676d">rouge 30 AWG, 1 bague</text>
+<text x="350" y="1482.0" font-size="11.5" fill="#5e676d">red 30 AWG, 1 ring</text>
 <rect x="544.5" y="1471.5" width="15" height="13" rx="2" fill="#2a62d6"/><text x="552" y="1481.5" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">DF</text>
 <text x="570" y="1482.0" font-size="11.5" fill="#1d2226">X7 AM312 OUT  [X7 br. 2]</text>
 <text x="160" y="1509.0" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">NOTES</text>
-<text x="160" y="1527.0" font-size="11.5" fill="#1d2226">bords gauche et droit : pattes du couvercle et butées (≈ 1,5 mm)</text>
-<text x="160" y="1545.0" font-size="11.5" fill="#1d2226">Coupes C11 et C4 (foret 3 mm tourné à la main côté cuivre) : R10 et R17 sont en série dans leur bande.</text>
-<text x="160" y="1563.0" font-size="11.5" fill="#1d2226">Cavalier isolé I10 → I5 côté cuivre (les pattes du couvercle ne touchent que les rangées 1 et 12) : les bandes</text>
-<text x="160" y="1578.0" font-size="11.5" fill="#1d2226">10 et 5 sont toutes deux GND (C12 a besoin d'un GND voisin de PIR_VDD).</text>
-<text x="160" y="1596.0" font-size="11.5" fill="#1d2226">Bandes 1–3 et 12 libres (réserve).</text>
-<text x="160" y="1614.0" font-size="11.5" fill="#1d2226">Le fil de la S3 arrive avant la résistance série (A11 AMP_SD_S3, A4 PIR), celui du module après (F11 AMP_SD, F4</text>
-<text x="160" y="1629.0" font-size="11.5" fill="#1d2226">PIR_OUT) : ne pas les intervertir, sinon R10 / R17 sont court-circuitées.</text>
-<text x="160" y="1647.0" font-size="11.5" fill="#1d2226">Hauteur des pièces ≤ 9 mm côté composants (10,4 mm jusqu'à la paroi avant) ; colonnes A et I : fils repliés vers</text>
-<text x="160" y="1662.0" font-size="11.5" fill="#1d2226">l'intérieur dès la sortie du trou (butées avant).</text>
-<text x="160" y="1680.0" font-size="11.5" fill="#1d2226">Les fils SPI, CS2, BL_EN et I2S de l'écran 2 / de l'ampli ne passent pas par P2 : tube → connecteur directement.</text>
+<text x="160" y="1527.0" font-size="11.5" fill="#1d2226">left and right edges: lid tabs and stops (≈ 1.5 mm)</text>
+<text x="160" y="1545.0" font-size="11.5" fill="#1d2226">Cuts at C11 and C4 (3 mm drill turned by hand on the copper side): R10 and R17 are in series in their strip.</text>
+<text x="160" y="1563.0" font-size="11.5" fill="#1d2226">Insulated jumper I10 → I5 on the copper side (the lid tabs only touch rows 1 and 12): strips 10 and 5 are both</text>
+<text x="160" y="1578.0" font-size="11.5" fill="#1d2226">GND (C12 needs a GND next to PIR_VDD).</text>
+<text x="160" y="1596.0" font-size="11.5" fill="#1d2226">Strips 1–3 and 12 free (spare).</text>
+<text x="160" y="1614.0" font-size="11.5" fill="#1d2226">The S3 wire arrives before the series resistor (A11 AMP_SD_S3, A4 PIR), the module one after it (F11 AMP_SD, F4</text>
+<text x="160" y="1629.0" font-size="11.5" fill="#1d2226">PIR_OUT): don't swap them, otherwise R10 / R17 are shorted.</text>
+<text x="160" y="1647.0" font-size="11.5" fill="#1d2226">Part height ≤ 9 mm on the component side (10.4 mm up to the front wall); columns A and I: wires bent inwards</text>
+<text x="160" y="1662.0" font-size="11.5" fill="#1d2226">right out of the hole (front stops).</text>
+<text x="160" y="1680.0" font-size="11.5" fill="#1d2226">The SPI, CS2, BL_EN and I2S wires of screen 2 / the amplifier don't go through P2: tube → connector directly.</text>
 </svg>
