@@ -36,3 +36,13 @@ def test_tech_power_protect_002_one_polyfuse_between_each_cell_plus_and_bat_plus
         fuses.add(f)
     # And each cell has its own fuse
     assert len(fuses) == 2
+
+
+@pytest.mark.req('TECH-POWER-GROUND-001')
+def test_tech_power_ground_001_no_load_ground_on_b_minus(sch):
+    # Given the raw cell negative B- (the charger's B- pin)
+    u = sch.refs('TP4056_DW01')[0]
+    # When listing every pin on it
+    pins = sch.pins(u, 'B-')
+    # Then only the cell negatives and the protection's B- are there (loads return to GND, after the protection)
+    assert pins == {(c, '2') for c in sch.refs('Battery_Cell')} | {(u, 'B-')}
