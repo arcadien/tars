@@ -365,9 +365,9 @@ cell_mass = 46;               // g per 18650
 // Film movement diagrams: two-legged walk = "shoulder" axis near the top (crutch walk / wheel use a centre axis,
 // but a joint cannot have both, so only the top one is kept). One brass tube per joint, hollow: the wires run
 // through it (single brain + 1S2P pack + microSD: 13 / 19 / 6 wires from left to right, silicone wire, power in 26 AWG, signals and screen / sensor supplies in 30 AWG: ~37 / 38 / 14 % fill of the 7 mm bore, see tools/tube_section.py).
-tube_od = 8;                  // brass tube 8 / 7 mm (0.5 wall)
-tube_glue_clr = 0.1;          // fixed side (tube glued into the left-hand column of the joint)
-tube_run_clr = 0.3;           // turning side
+tube_od = 7.93;               // brass tube 8 / 7 mm (0.5 wall), 7.93 measured
+tube_glue_clr = 0.07;         // fixed side (tube glued into the left-hand column of the joint): 8.00 teardrop holds (tube_test3)
+tube_run_clr = 0.12;          // turning side: 8.05 teardrop turns with micro play (tube_test3)
 pivot_boss_d = 14;
 pivot_z = [H - wall - pivot_boss_d / 2 - 1]; // top pivot, as high as the bosses allow (clears the screen)
 pivot_boss_l = 5;             // boss depth inside the column (bearing / glue length)
@@ -670,9 +670,9 @@ module pivot_add(i) {
 
 module pivot_cut(i) {
     for (z = pivot_z) {
-        if (i > 0) xcyl(-gap - eps, z, tube_od + tube_run_clr, gap + wall + pivot_boss_l + 2 * eps);
+        if (i > 0) xtear(-gap - eps, z, tube_od + tube_run_clr, gap + wall + pivot_boss_l + 2 * eps);
         if (i < 3) {
-            xcyl(col_w + eps, z, tube_od + tube_glue_clr, wall + pivot_boss_l + 2 * eps, -1);
+            xtear(col_w + eps, z, tube_od + tube_glue_clr, wall + pivot_boss_l + 2 * eps, -1);
             for (k = [0:detent_n - 1]) translate([col_w, D / 2, z]) rotate([k * 360 / detent_n, 0, 0])
                 translate([0, 0, detent_r]) sphere(d = detent_bump_d + 0.2, $fn = 16);
         }
