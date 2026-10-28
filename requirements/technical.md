@@ -37,3 +37,10 @@
 **Dependencies:** [TECH-POWER-CELL-001](technical.md#tech-power-cell-001)
 **Description:** The pack protection circuit only guards the pack's negative output, not a short in the cell wires that run through the rotating pivot tubes. So each cell's positive lead carries its own resettable fuse, placed next to the cell's + contact. Acceptance: pytest on the schematic (one polyfuse in series between each cell + and BAT+); visual check that each fuse sits in the cell bay.
 
+
+### TECH-POWER-HOTPLUG-001
+**Title:** Charger input protected against hot-plug overshoot
+**Status:** validated
+**Dependencies:** [FUNC-POWER-CHARGE-001](functional.md#func-power-charge-001)
+**Description:** Hot-plugging the external supply through the ~16 cm of wire from the charge port must not overshoot the charger's input. Acceptance (bench, scope at the charger IN pads, 10 hot-plugs of a 5 V ≥ 2 A supply): the peak voltage stays ≤ 7.0 V.
+
