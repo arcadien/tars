@@ -157,7 +157,7 @@ def geometry():
             txt = open(os.path.join(d, 'g.echo')).read()
         j = txt[txt.index('GEOJSON') + 7:].split('\n')[0].rstrip('"').replace('\\"', '"')
         geo = json.loads(j)
-        with open(GEO_CACHE, 'w') as fh:
+        with open(GEO_CACHE, 'w', encoding='utf-8') as fh:
             json.dump(geo, fh, indent=1)
         return geo
     return json.load(open(GEO_CACHE))
@@ -651,7 +651,7 @@ def main():
     if bad:
         print('more than two wires in a contact:', *bad, sep='\n  ')
         sys.exit(1)
-    with open(HTML, 'w') as fh:
+    with open(HTML, 'w', encoding='utf-8') as fh:
         fh.write(page(wires))
     print(f'tars4_harness.html: {len(wires)} wires, {len(STEPS)} steps, '
           f'{sum(1 for v in seen.values() if len(v) == 2)} double contacts')
@@ -665,12 +665,12 @@ def make_pdf():
     tool = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'html2pdf.py')
     pdf = lambda src, dst, *opt: subprocess.run([sys.executable, '-I', tool, src, dst, *opt], check=True, timeout=180,
                                                 stdout=subprocess.DEVNULL)
-    src = open(HTML).read()
+    src = open(HTML, encoding='utf-8').read()
     head = src[:src.index('<div class="wrap">')]
     sheets = [s.split('</svg></div>')[0] + '</svg></div>' for s in src.split('<div class="sheet portrait">')[1:]]
     with tempfile.TemporaryDirectory() as d:
         main_html = os.path.join(d, 'main.html')   # portrait diagrams left out: only their caption, a page to replace
-        with open(main_html, 'w') as fh:
+        with open(main_html, 'w', encoding='utf-8') as fh:
             parts = src.split('<div class="sheet portrait">')
             fh.write(parts[0] + ''.join('<div class="sheet portrait">' + q.split('<svg ')[0] + '</div>' + q.split('</svg></div>', 1)[1]
                                         for q in parts[1:]))
@@ -688,7 +688,7 @@ def make_pdf():
         for k, sh in enumerate(sheets):
             cap = sh.split('<p class="cap">')[1].split('</p>')[0].replace('&amp;', '&')
             one = os.path.join(d, f'portrait{k}.html')
-            with open(one, 'w') as fh:
+            with open(one, 'w', encoding='utf-8') as fh:
                 fh.write(head + '<style>@media print { .sheet { break-before: auto !important; } .sheet svg { max-height: 262mm !important; } }</style>'
                          + '<div class="wrap"><div class="sheet">' + sh + '</div>')
             pdf(one, os.path.join(d, f'portrait{k}.pdf'), '--portrait')

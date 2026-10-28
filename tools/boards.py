@@ -408,7 +408,7 @@ PIN_SCH = {'C': {'+': '1', '-': '2'}, 'D': {'K': '1', 'A': '2'}}  # board pin na
 
 def sch_nets(path='tools/kicad_sch_gen.py'):
     """(ref, pin) -> net of the schematic, read from the generator's place() calls (without running it)."""
-    src = open(path).read()
+    src = open(path, encoding='utf-8').read()
     nets = {}
     for ref, d in re.findall(r'place\("[^"]+", "(\w+)", "[^"]*", [^{}]*?(\{[^{}]*\})', src):
         for pin, net in ast.literal_eval(d).items():
@@ -425,7 +425,7 @@ def crosscheck(boards):
     """Every board part found in the schematic sits on the same nets, and every board / wire net exists there."""
     sch = sch_nets()
     refs = {r for r, _ in sch}
-    names = set(open('tools/kicad_sch_gen.py').read().split('"')) | set(sch.values())
+    names = set(open('tools/kicad_sch_gen.py', encoding='utf-8').read().split('"')) | set(sch.values())
     errs = []
     for b in boards:
         for ref, kind, val, pins, note in b['parts']:
@@ -829,7 +829,7 @@ def main():
         sys.exit(1)
     for b in BOARDS:
         path = f'renders/tars4_board_{b["key"]}.svg'
-        with open(path, 'w') as fh:
+        with open(path, 'w', encoding='utf-8') as fh:
             fh.write(render(b))
         print('wrote', path)
 
