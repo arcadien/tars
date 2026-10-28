@@ -873,7 +873,7 @@ cells until step 3.5; nothing goes on the 3V3 before step 3.6 is green)
 ## Rebuild
 
 ```
-cd ~/SynologyDrive/3D/Tars
+cd ~/git/Tars
 tools/build4.sh            # all half STLs, the 3 plates, renders (~10 min)
 tools/build4.sh stl        # only the STLs
 tools/build4.sh renders    # only the renders
