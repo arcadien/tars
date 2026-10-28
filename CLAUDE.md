@@ -31,8 +31,8 @@ A change in `mechanical/` also requires, in the same change:
 - `make check` clean: no OpenSCAD WARNING, every plate on its bed (Ender 3 220 × 220 halves, CR-10 one-piece);
 - any new overhang over 45° flagged to me (Orca preview or `make check-overhang`);
 - renders regenerated, with connector detail on every leg and in the open views;
-- the Orca projects: warn me, then `tools/update_orca_project.py` on `mechanical/3mf/tars4.3mf` (and the CR-10 one); a
-  new or removed part also updates `tools/build4.sh`, the mapping in `update_orca_project.py` and `CONTRIBUTING.md`;
+- the Orca projects are left alone: I refresh them and arrange the plates by hand in Orca; a new or removed part
+  updates `tools/build4.sh`, the mapping in `update_orca_project.py` and `CONTRIBUTING.md`;
 - wire lengths (harness guide) regenerated when a module, connector or route moves;
 - README (parts table, sizes), `hardware/measurements.md` (MEASURE values), `open_questions.md` updated.
 
@@ -88,4 +88,4 @@ VPATH, orange = VSYS (star, TPS63020 input, amp pair), purple = VUSB. A new rail
 - Define all parameters at the top of the file, before any formula that uses them. Expose dimensions as named parameters.
 - After editing, render with `openscad -o` and check for errors before saying it's done.
 - Don't claim parts fit an Ender 3 (220x220) or CR-10 plate unless you've checked the bounding boxes. Flag any overhang over 45° that a design change introduces.
-- Regenerating 3MF files wipes the Orca plate layout, so warn me before doing it. `mechanical/3mf/tars4.3mf` is my Orca project: update it with `tools/update_orca_project.py`.
+- Don't regenerate or refresh the Orca projects (`mechanical/3mf/tars4.3mf`, `tars4_cr10.3mf`): I update them and arrange the plates by hand in Orca.

@@ -276,9 +276,14 @@ The sketch is to scale for the parts; the bus splits are drawn schematically (th
 
 ### Charging
 
-- Charge port: a **micro-USB breakout** standing on the front wall of the left foot, plug through an 11.6 × 8 mm floor
-  opening (lay TARS down to charge, or leave a charger plugged in: mains operation). It feeds the TP4056's IN+ / IN−
-  pads; the TP4056's own micro-USB stays unused.
+- Charge port at the **heel** of the left leg ([PLAT-MECH-CHARGEPORT-001](requirements/platform.md#plat-mech-chargeport-001)):
+  a **micro-USB breakout** standing against the outer side wall of the foot, solder side to the wall, receptacle facing
+  backwards through a notch at the bottom of the lid (centre 10.3 above the floor), so TARS charges standing up (or
+  stays on mains with a charger plugged in). Its back edge rests against the lid, a front stop takes the plug's push;
+  the wires leave forwards. It feeds the TP4056's IN+ / IN− pads; the TP4056's own micro-USB stays unused.
+
+  ![heel, lid on](renders/tars4_heel_back.png) ![heel, lid off: breakout on the side wall, switch](renders/tars4_heel_open.png)
+
 - **Charge current 0.5 A**: swap the module's R_PROG (1.2 k, marked "122") for **2.4 k** ("242"). At 1 A the linear
   TP4056 would burn 1–1.8 W in a closed PLA leg; at 0.5 A (~0.25 A per cell) a full charge takes ~10 h and it still
   dissipates 0.65–1 W: vents in the leg lids, check its temperature after 15 min.
@@ -357,7 +362,7 @@ TP4056 OUT+ (cells)   ──► AO3401A P-MOSFET Q1 (D → S) ──┘
 
 ### Layout of the legs
 
-- **Left leg, bottom to top**: micro-USB charge port (2.6–15.6) and switch in the foot; bottom shelf 22–24.5, cell
+- **Left leg, bottom to top**: micro-USB charge port (side wall, 3.1–17.4, receptacle at the heel) and switch in the foot; bottom shelf 22–24.5, cell
   29.7–94.7, top shelf 96.5, F1; microSD 116.5, TPS63020 124.7, TP4056 135.9 (flat, components up, C9 / D3 on its IN
   end); the power block's connectors X10, X12–X14 parked above it (144–166, visible from the back), X16 above the power-path
   board (180–202); splint 148.7–168.7,
@@ -677,7 +682,7 @@ drawn is ~17 mm long (`xh_male_back`, `xh_female`) inside the 22 mm checked box 
 | BT1, BT2 18650 Li-ion cell | 2 | one per leg; 18500 also fits (`bat = [18.5, 50]`) |
 | Battery contact plates 13 × 18 × 1.2: spring (Ø5, 10.7 high) + button (+, 1.8 overall) | 2 pairs | one pair per leg, wires soldered on the tabs |
 | U1 TP4056 charger breakout, **protected (DW01)**, 28.7 × 17.15 × 0.9 (26.3 once its micro-USB is desoldered and the nubs filed) | 1 | left leg, flat above the TPS63020; fed by J1 on its IN pads; **R_PROG swapped for 2.4 k** (0.5 A) |
-| J1 micro-USB breakout | 1 | charge port in the left foot, plug through the floor |
+| J1 micro-USB breakout | 1 | charge port in the left foot, plug from behind at the heel |
 | SW1 mini slide switch, 3 pins (1P2T), body 12.95 × 6.9, lever 5.15 | 1 | left leg floor; **check its current rating** (≥ 1 A) |
 | U9 **TPS63020** buck-boost module, 3.3 V, EN + PS/SYNC, ~17.4 × 26.2 | 1 | left leg, flat above the microSD; EN to VIN, PS/SYNC to GND |
 | U7 DS3231 RTC board (ZS-042) + CR2032 | 1 | right leg, I2C; SQW not wired |

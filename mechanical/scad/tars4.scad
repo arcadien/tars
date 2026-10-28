@@ -9,7 +9,7 @@
 // Axes: x = width (left->right seen from the front), y = depth (0 = front face), z = height.
 // Columns are numbered 0..3 from the left: 0 = left leg, 1 = left middle, 2 = right middle, 3 = right leg.
 // Render one part: openscad -D 'part="col1"' -o col1.stl tars4.scad
-// Display only: the JST-XH pairs use XH() from connectors.scad (OpenSCAD library folder); prints do not need it.
+// Display only: the JST-XH pairs use XH() from connectors.scad (next to this file); prints do not need it.
 use <connectors.scad>
 
 part = "assembly"; // assembly | open | open_ghost | col0..col3 | col<i>_bottom | col<i>_top | lid_<leg|mid>_<bottom|top> | splint | inserts | collar | test_screen | pir_test | tube_test | tube_test2 | tube_test3 | print_<part>
@@ -176,7 +176,7 @@ splint_clr = 0.15;
 /* [Battery bay (legs)] */
 // One Li-ion cell standing in each leg, held by two cradles and the lid. The two cells are wired in parallel
 // (1S2P) behind ONE protected TP4056 in the power leg. Only the charge port (a micro-USB breakout standing on the
-// front wall, plug through the floor) and the slide switch stay in the foot; the TP4056 lies flat higher up, above
+// outer side wall, plug from behind through the heel of the lid) and the slide switch stay in the foot; the TP4056 lies flat higher up, above
 // the buck-boost. The pack wires (B+, B-) of the other cell cross all three pivot tubes.
 battery = true;
 power_col = 0;                // leg carrying the charger, the charge port and the switch (0 = left leg)
@@ -187,9 +187,13 @@ charger = [26.3, 17.15, 0.9]; // TP4056 (protected) lying flat: width (x), depth
                               // than the leg interior (charger_groove)
 charger_h = 6;                // above its PCB: C9 (Ø5.15) and D3 lying flat on the IN end (its micro-USB is desoldered)
 charger_lip = 0.5;            // lower ledges under the board's side edges (no upper lip): end pads centred 1.43 from the edge
-usbb = [14.3, 16, 1.5];       // micro-USB breakout (charge port, D3 TVS on its pads): width (x), length (z), PCB (measured)
-usbb_z0 = wall + 1;           // bottom edge (receptacle at the bottom edge, plug through the floor)
-charger_usb_cut = [11.6, 8];  // floor opening for the micro-USB plug overmold (x, y), clear of the foot recesses
+// Charge port at the heel (PLAT-MECH-CHARGEPORT-001): the breakout stands against the outer side wall (x = 0), solder
+// side towards it, receptacle at its back end facing the lid; its back edge rests against the lid (pull-out stop), a
+// front stop in two tabs takes the plug's push; the receptacle goes through a notch at the bottom of the lid.
+usbb = [14.3, 16, 1.5];       // micro-USB breakout: width (z), length (y), PCB (measured)
+usbb_rec = [7.85, 2.47];      // receptacle shell: width (z, centred on the PCB width), height above the PCB (x) (measured)
+usbb_out = 1.1;               // receptacle mouth past the PCB's back edge (measured ~1.1; mouth <= 1 mm inside the back face)
+usbb_z0 = wall + 1.5;         // bottom edge, above the rear foot pad (1.2)
 foot_room = 22;               // under the bottom contact shelf: switch (lever tip to pins 18.9) + its wires, breakout
 // Bare cells: spring contact plates at both ends (never solder on the cell). Each plate lies on / under a shelf,
 // slid in from the back, solder tab first (towards the front, over the wire slot: wire soldered on the tab beforehand
@@ -456,6 +460,11 @@ panel_holes = [[screen_panel_z[0], scr_top], bottom_panel_z];
 // ---------- derived positions (column-local) ----------
 inner = [wall, col_w - wall];                         // interior x range
 lid_y = D - wall;                                     // inner face of the lid
+usbb_x0 = wall + pcb_gap;                             // solder side of the PCB (cut pins / solder tails between it and the side wall)
+usbb_y1 = lid_y - 0.2;                                // back edge of the PCB, against the lid
+usbb_y0 = usbb_y1 - usbb[1];                          // front edge (pads: the wires leave forwards)
+usbb_zc = usbb_z0 + usbb[0] / 2;                      // receptacle centre height
+usbb_xc = usbb_x0 + usbb[2] + usbb_rec[1] / 2;        // receptacle centre (x)
 bx = [wall + lid_boss_d / 2 - 0.5, col_w - wall - lid_boss_d / 2 + 0.5]; // bosses overlap the walls by 0.5 (no tangent contact)
 // top screw centred (the top pivot bosses sit in the corners), the others in corner pairs, placed so that each
 // half-lid has at least 3 screws and nothing collides (D1 mini, charger, battery, pivots, splint)
@@ -729,7 +738,6 @@ module column(i) {
         } else {
             leg_lines_cut();
             if (battery) pol_marks();
-            if (battery && i == power_col) translate([col_w / 2 - charger_usb_cut[0] / 2, wall, -eps]) cube([charger_usb_cut[0], charger_usb_cut[1], wall + 2 * eps]);
             if (battery && i == power_col && charger_groove > 0)   // TP4056 edge grooves, open at the back (slid in)
                 translate([col_w / 2 - charger[0] / 2 - 0.15, lid_y - 0.3 - charger[1] - 0.2, charger_z0]) cube([charger[0] + 0.3, D, charger[2] + 0.3]);
             if (switch_on && i == power_col) translate([col_w / 2, sw_y, -eps]) sw_slot(wall + 2 * eps);
@@ -824,19 +832,29 @@ module battery_bay(with_charger = true) {
     }
 }
 
-// charge port: micro-USB breakout standing on the inner front wall, receptacle down through the floor; two side rails,
-// two edge strips holding its solder side off the wall, a top stop in two tabs (the wires go straight up between them)
+// charge port: micro-USB breakout standing on the outer side wall, receptacle towards the lid. Bottom block (from the
+// floor) and top rail, each with a groove for a PCB edge (the wall side of the groove is the solder-side standoff);
+// front stop in two tabs (the wires leave forwards between them). Constant section along y: vertical walls when the
+// column prints front face down.
 module usbb_frame() {
-    translate([col_w / 2, wall - eps, usbb_z0]) {
-        for (s = [-1, 1]) {
-            translate([s * (usbb[0] / 2 + 0.2) + (s < 0 ? -rib : 0), 0, 0]) cube([rib, pcb_gap + usbb[2] + 1.5, usbb[1] + 0.3 + rib]);
-            translate([s * (usbb[0] / 2 - 0.4) - 0.4, 0, 0]) cube([0.8, pcb_gap + eps, usbb[1]]);
+    xg = usbb_x0 + usbb[2] + 0.2;       // groove bottom .. lip face
+    xr = xg + 1;                        // rail face (0.8 lip over each PCB edge, clear of the receptacle)
+    y0 = usbb_y0 - 0.2;
+    y1 = lid_y - 0.3;
+    difference() {
+        union() {
+            translate([wall - eps, y0, wall - eps]) cube([xr - wall + eps, y1 - y0, usbb_z0 + 0.8 - wall + eps]);
+            translate([wall - eps, y0, usbb_z0 + usbb[0] - 0.8]) cube([xr - wall + eps, y1 - y0, 0.8 + 0.3 + rib]);
+            for (z = [usbb_z0, usbb_z0 + usbb[0] - 3]) translate([wall - eps, y0 - rib, z]) cube([xr - wall + eps, rib + eps, 3]);
         }
-        difference() {
-            translate([-usbb[0] / 2 - 0.2 - rib, 0, usbb[1] + 0.3]) cube([usbb[0] + 0.4 + 2 * rib, pcb_gap + usbb[2] + 1.5, rib]);
-            translate([-usbb[0] / 2 + 3, -eps, usbb[1]]) cube([usbb[0] - 6, pcb_gap + usbb[2] + 1.5 + 2 * eps, rib + 1]);
-        }
+        translate([usbb_x0 - 0.1, y0 - eps, usbb_z0 - 0.15]) cube([xg - usbb_x0 + 0.1, y1 - y0 + 2 * eps, usbb[0] + 0.3]);
     }
+}
+
+// notch at the bottom of the power leg's lid: receptacle shell + 0.3
+module usbb_notch() {
+    translate([usbb_xc - usbb_rec[1] / 2 - 0.3, lid_y - eps, usbb_zc - usbb_rec[0] / 2 - 0.3])
+        cube([usbb_rec[1] + 0.6, wall + 2 * eps, usbb_rec[0] + 0.6]);
 }
 
 // microSD board grooves: one block per side wall, from the front wall to the lid, with a groove open towards the lid;
@@ -921,6 +939,7 @@ module lid(mid = false, sd_slot_on = false, spk = true) {
             if (sd_slot_on) { if (battery) hold_tab(charger, charger_z0); if (buck) hold_tab(bk, bk_z0); }
         }
         for (p = lid_bosses(mid)) translate([p[0], lid_y - eps, p[1]]) rotate([-90, 0, 0]) cylinder(d = screw_clear, h = wall + 2 * eps);
+        if (sd_slot_on && battery) usbb_notch();
         if (sd_slot_on) translate([col_w / 2 + sd_sock_dx - sd_slot[0] / 2, lid_y - eps, sd_card_z - sd_slot[1] / 2])
             cube([sd_slot[0], wall + 2 * eps, sd_slot[1]]);
         if (!mid && vents) for (r = vent_rows, k = [0:r[1] - 1])   // both leg lids (the top half is shared); vertical holes when printing
@@ -1198,7 +1217,8 @@ module dummies(i) {
         color("silver") translate([col_w / 2, bat_y, shelf_z + contact[2]]) cylinder(d = 5, h = spring_work);
         if (i == power_col) {
             color("darkgreen") translate([col_w / 2 - charger[0] / 2, lid_y - 0.3 - charger[1], charger_z0]) cube([charger[0], charger[1], charger[2] + charger_h]);
-            color("dimgray") translate([col_w / 2 - usbb[0] / 2, wall + pcb_gap, usbb_z0]) cube([usbb[0], usbb[2], usbb[1]]);
+            color("dimgray") translate([usbb_x0, usbb_y0, usbb_z0]) cube([usbb[2], usbb[1], usbb[0]]);
+            color("silver") translate([usbb_x0 + usbb[2], usbb_y1 + usbb_out - 5, usbb_zc - usbb_rec[0] / 2]) cube([usbb_rec[1], 5, usbb_rec[0]]);
         }
         color("orange") translate([col_w / 2 - fuse[0] / 2, wall, fuse_z0]) cube([fuse[0], fuse[2], fuse[1]]);
         if (sensors && i == rtc_col) color("navy") translate([col_w / 2 - rtc[0] / 2, wall, rtc_z0]) cube([rtc[0], rtc[2], rtc[1]]);
@@ -1311,7 +1331,7 @@ function kos(i) = let(mid = col_mid[i], zs = seam_z[i] - splint_h / 2, ze = seam
         sensors && i == rtc_col ? standing("DS3231", rtc, wall + rtc[2], rtc_z0, rtc[2] + 1.5, plugs ? dp_w(6) + 1 : 0) : [],
         bme && i == bme_col ? standing("BME280", bme_b, wall + bme_b[2], bme_z0, bme_b[2] + 1.5) : [],
         battery && i == power_col ? concat(
-            standing("micro-USB socket", usbb, wall + pcb_gap + usbb[2], usbb_z0, pcb_gap + usbb[2] + 1.5),
+            [["micro-USB socket", [wall, usbb_y0 - 0.2 - rib, wall], [usbb_x0 + usbb[2] + usbb_rec[1], lid_y, usbb_z0 + usbb[0] + 0.3 + rib]]],
             flat("microSD reader", sd, sd_z0, sd_y0, sd_sock[2], sd_lip), flat("TPS63020", bk, bk_z0, bk_y1 - bk[1], bk_h, bk_lip),
             flat("TP4056", charger, charger_z0, lid_y - 0.3 - charger[1], charger_h, charger_lip),
             flat("power-path board", pp_b, pp_z0, lid_y - 0.3 - pp_b[1], pp_parts, pp_lip)) : []));
@@ -1536,8 +1556,13 @@ if (battery) {
                                      charger_groove + 0.1, " mm clear of the board ends"));
     if (lid_y - 0.3 - charger[1] - 0.2 < wall + 6) echo("WARNING: TP4056 board too deep: less than 6 mm for the wires in front of it");
     if (charger_z0 + charger[2] + charger_h + 3 > seam_z[power_col] - splint_h / 2) echo("WARNING: TP4056 runs into the leg splint");
-    if (usbb_z0 + usbb[1] + 0.3 + rib > shelf_z - shelf_t) echo("WARNING: charge port breakout runs into the bottom contact shelf");
-    if (usbb[0] + 0.4 + 2 * rib > col_w - 2 * wall) echo("WARNING: charge port breakout slot wider than the leg");
+    // PLAT-MECH-CHARGEPORT-001
+    if (usbb_z0 + usbb[0] + 0.3 + rib > shelf_z - shelf_t) echo("WARNING: charge port breakout runs into the bottom contact shelf");
+    if (usbb_y1 + usbb_out < D - 1) echo("WARNING: charge port mouth more than 1 mm inside the back face");
+    if (usbb_y1 + usbb_out > D) echo("WARNING: charge port receptacle sticks out of the back face");
+    if (usbb_zc < 6) echo("WARNING: charge port centre less than 6 mm above the floor (plug overmold on the table)");
+    if (usbb_zc - usbb_rec[0] / 2 - 0.3 < wall + clr) echo("WARNING: charge port notch cuts the bottom edge of the lid");
+    if (usbb_y0 - 0.2 - rib < wall + 4) echo("WARNING: charge port front stop leaves less than 4 mm for its wires");
 }
 if (buck) {
     if (bk[0] + 0.3 > col_w - 2 * wall) echo("WARNING: buck-boost board wider than the leg interior");
@@ -1572,7 +1597,7 @@ if (battery && bat_top_shelf_z + 1 > leg_rows[1] - lid_boss_d / 2)
     echo("WARNING: the cell runs into the leg lid screws");
 if (switch_on && battery && sw_recess + sw_h + 3 > shelf_z - shelf_t)
     echo("WARNING: switch pins (+3 mm for the wires) run into the bottom contact shelf");
-if (switch_on && (sw_y - sw_body[1] / 2 - 1.2 - sw_pad_h - 2 < wall + pcb_gap + usbb[2] + 1.5 + 4 || sw_y + sw_body[1] / 2 + 1.2 > lid_y - 0.5))
+if (switch_on && (col_w / 2 - sw_body[0] / 2 - 1.2 < usbb_x0 + usbb[2] + max(usbb_rec[1], 1.2) + 0.5 || sw_y + sw_body[1] / 2 + 1.2 > lid_y - 0.5))
     echo("WARNING: switch pad runs into the charge port or the lid");
 if (sensors) {
     if (rtc[0] + 0.4 + 2 * rib > col_w - 2 * wall) echo("WARNING: RTC slot too wide for the leg");

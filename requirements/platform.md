@@ -8,7 +8,7 @@
 **Status:** validated
 **Dependencies:** [TECH-POWER-CELL-001](technical.md#tech-power-cell-001)
 derives_from: [FUNC-POWER-CHARGE-001](functional.md#func-power-charge-001)
-**Description:** The charger is one protected TP4056 module (U1, with DW01) lying flat in the left leg. Its own micro-USB is desoldered. A micro-USB breakout on the front wall of the left foot, reached through the floor opening, feeds its IN+ / IN− pads (net VUSB). Acceptance: pytest on the schematic (the breakout's VBUS/GND are on U1 IN+/IN−; U1 OUT+ is the only charger output); bench: plugging into the breakout charges the cells.
+**Description:** The charger is one protected TP4056 module (U1, with DW01) lying flat in the left leg. Its own micro-USB is desoldered. A micro-USB breakout in the left foot, its receptacle facing backwards through an opening at the bottom of the leg's lid, feeds its IN+ / IN− pads (net VUSB). Acceptance: pytest on the schematic (the breakout's VBUS/GND are on U1 IN+/IN−; U1 OUT+ is the only charger output); bench: plugging into the breakout charges the cells.
 
 ### PLAT-POWER-CHARGE-002
 **Title:** Charge current set to 0.5 A by R_PROG 2.4 kΩ
@@ -128,3 +128,10 @@ derives_from: [TECH-POWER-SLEEP-001](technical.md#tech-power-sleep-001)
 **Dependencies:** none
 derives_from: [TECH-POWER-SLEEP-001](technical.md#tech-power-sleep-001)
 **Description:** At start-up the firmware clears the EN32kHz bit (bit 3) of the DS3231's control/status register 0x0F, and leaves the other bits unchanged. Acceptance (on-target Unity test): after initialisation, reading register 0x0F gives bit 3 = 0, and the other bits are the same as before.
+
+### PLAT-MECH-CHARGEPORT-001
+**Title:** Charge port at the heel of the left leg
+**Status:** validated
+**Dependencies:** [PLAT-POWER-CHARGE-001](platform.md#plat-power-charge-001)
+derives_from: [FUNC-POWER-CHARGE-001](functional.md#func-power-charge-001)
+**Description:** The micro-USB breakout stands against the outer side wall of the left foot, its receptacle axis horizontal along y. The receptacle mouth is at most 1 mm inside the back face, and its centre is ≥ 6 mm above the floor, so a plug overmold up to 11.6 × 8 mm clears both the table and the leg edges. The breakout is held so that the plug's insertion force (≤ 35 N, micro-USB spec) does not move it, and the lid can still be removed without unsoldering anything. The floor opening of the former port is closed. Acceptance: `make check` clean (geometry asserts in `tars4.scad` for the axis, mouth depth, height and clearances); print: a plug inserted and removed 10 times, with the breakout staying in place.

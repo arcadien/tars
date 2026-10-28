@@ -32,7 +32,7 @@ when the branch is picked up again and removed before the merge (main has none).
 until the measurement is done and folded into the model or the requirement: the risk is still there.
 
 A change in `mechanical/` or `hardware/` brings extra checks and updates in the same commit; the lists are in
-`CLAUDE.md`, *Change workflow*. In short: `make check` clean, Orca projects refreshed (never regenerated), renders and
+`CLAUDE.md`, *Change workflow*. In short: `make check` clean, renders and
 harness guide regenerated, schematic + ERC + board plans + wiring pages for electrical changes, and the README,
 `hardware/power_budget.md`, `hardware/shopping_list.md`, `hardware/measurements.md`, `open_questions.md` kept in step.
 

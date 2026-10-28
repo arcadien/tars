@@ -7,7 +7,8 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 WHAT=${1:-all}
 TMP=$(mktemp -d)
-command -v cygpath >/dev/null && TMP=$(cygpath -m "$TMP")   # Windows OpenSCAD cannot read Git Bash /tmp paths
+ROOT=$PWD
+command -v cygpath >/dev/null && TMP=$(cygpath -m "$TMP") && ROOT=$(cygpath -m "$PWD")   # Windows OpenSCAD cannot read Git Bash /c/... paths
 trap 'rm -rf "$TMP"' EXIT
 CR10_PARTS="col0 col1 col2 col3 lid_leg lid_leg_sd lid_mid lid_mid_left"
 TEST_PARTS="tube_test3"
@@ -95,24 +96,30 @@ EOF
     openscad -D 'part="open"' -o renders/tars4_open_3q.png --imgsize=1600,1200 --camera=62,-124,15,50,0,210,520 --colorscheme=Tomorrow mechanical/scad/tars4.scad 2>/dev/null
     openscad -D 'part="open"' -o renders/tars4_open_back.png --imgsize=900,1500 --camera=62,-124,15,0,0,180,760 --colorscheme=Tomorrow mechanical/scad/tars4.scad 2>/dev/null
     # motion sensor at the top of the right middle column: straight front view (shows its offset from the column axis), and inside (lid off)
-    printf 'include <%s/mechanical/scad/tars4.scad>\nintersection() { union() { color([0.82, 0.82, 0.82]) column(2); color("black") inserts(false); dummies(2); } translate([-1, -1, 125]) cube([40, 40, 130]); }\n' "$PWD" > "$TMP/pir.scad"
+    printf 'include <%s/mechanical/scad/tars4.scad>\nintersection() { union() { color([0.82, 0.82, 0.82]) column(2); color("black") inserts(false); dummies(2); } translate([-1, -1, 125]) cube([40, 40, 130]); }\n' "$ROOT" > "$TMP/pir.scad"
     openscad -D pir=true -D 'part="none"' -o renders/tars4_pir_front.png --imgsize=800,1100 --camera=15.2,0,205,90,0,0,170 --projection=o --colorscheme=Tomorrow "$TMP/pir.scad" 2>/dev/null
     openscad -D pir=true -D 'part="none"' -o renders/tars4_pir_inside.png --imgsize=800,1100 --camera=15,15,190,55,0,205,250 --colorscheme=Tomorrow "$TMP/pir.scad" 2>/dev/null
     # each leg seen from the back, lid off, connector boxes (orange) named; close-ups: left leg cut just above the parked
     # power block connectors (two rows: X12 / X13 at the back, X10 / X14 in front), right leg DS3231 / BME280 area
     for i in 0 3; do
-        printf 'include <%s/mechanical/scad/tars4.scad>\ncolor([0.6, 0.6, 0.6]) column(%s); dummies(%s); conn_dummies(%s);\nfor (c = CONN) if (c[0] == %s) color("black") translate([c[4][0] - 0.6, c[4][1] + 0.05, (c[3][2] + c[4][2]) / 2 - 1.5]) rotate([90, 0, 180]) linear_extrude(0.2) text(c[1], size = 3, font = "Liberation Sans:style=Bold");\n' "$PWD" $i $i $i $i > "$TMP/leg$i.scad"
+        printf 'include <%s/mechanical/scad/tars4.scad>\ncolor([0.6, 0.6, 0.6]) column(%s); dummies(%s); conn_dummies(%s);\nfor (c = CONN) if (c[0] == %s) color("black") translate([c[4][0] - 0.6, c[4][1] + 0.05, (c[3][2] + c[4][2]) / 2 - 1.5]) rotate([90, 0, 180]) linear_extrude(0.2) text(c[1], size = 3, font = "Liberation Sans:style=Bold");\n' "$ROOT" $i $i $i $i > "$TMP/leg$i.scad"
     done
     openscad -D 'part="none"' -o renders/tars4_leg_left.png --imgsize=700,1700 --camera=15,15,124,80,0,195,640 --colorscheme=Tomorrow "$TMP/leg0.scad" 2>/dev/null
     openscad -D 'part="none"' -o renders/tars4_leg_left_xh.png --imgsize=1400,1400 --camera=15,15,152,75,0,200,110 --colorscheme=Tomorrow "$TMP/leg0.scad" 2>/dev/null
     openscad -D 'part="none"' -o renders/tars4_leg_right.png --imgsize=700,1700 --camera=15,15,124,80,0,165,640 --colorscheme=Tomorrow "$TMP/leg3.scad" 2>/dev/null
     openscad -D 'part="none"' -o renders/tars4_leg_right_sensors.png --imgsize=1400,1400 --camera=15,15,165,62,0,160,200 --colorscheme=Tomorrow "$TMP/leg3.scad" 2>/dev/null
-    printf 'include <%s/mechanical/scad/tars4.scad>\nzc = park_z0 + xh_inline[1] + 2.6;\nintersection() { union() { color([0.6, 0.6, 0.6]) column(0); dummies(0); conn_dummies(0); } translate([-5, -5, 95]) cube([45, 45, zc - 95]); }\nfor (c = CONN) if (c[0] == 0 && c[4][2] > 140 && c[3][2] < 170) color("black") translate([(c[3][0] + c[4][0]) / 2, (c[3][1] + c[4][1]) / 2, c[4][2] + 0.05]) rotate([0, 0, 180]) linear_extrude(0.2) text(c[1], size = 2.6, halign = "center", valign = "center", font = "Liberation Sans:style=Bold");\n' "$PWD" > "$TMP/cut0.scad"
+    printf 'include <%s/mechanical/scad/tars4.scad>\nzc = park_z0 + xh_inline[1] + 2.6;\nintersection() { union() { color([0.6, 0.6, 0.6]) column(0); dummies(0); conn_dummies(0); } translate([-5, -5, 95]) cube([45, 45, zc - 95]); }\nfor (c = CONN) if (c[0] == 0 && c[4][2] > 140 && c[3][2] < 170) color("black") translate([(c[3][0] + c[4][0]) / 2, (c[3][1] + c[4][1]) / 2, c[4][2] + 0.05]) rotate([0, 0, 180]) linear_extrude(0.2) text(c[1], size = 2.6, halign = "center", valign = "center", font = "Liberation Sans:style=Bold");\n' "$ROOT" > "$TMP/cut0.scad"
     openscad -D 'part="none"' -o renders/tars4_leg_left_power.png --imgsize=1400,1400 --camera=15,15,150,35,0,180,120 --colorscheme=Tomorrow "$TMP/cut0.scad" 2>/dev/null
     # left leg cut through its middle (seen from the right, lid off): microSD reader, then buck-boost + charger above it
-    printf 'include <%s/mechanical/scad/tars4.scad>\nintersection() { union() { color([0.6, 0.6, 0.6]) column(0); dummies(0); } translate([-5, -5, 100]) cube([col_w / 2 + 5, 45, 50]); }\n' "$PWD" > "$TMP/sd.scad"
+    printf 'include <%s/mechanical/scad/tars4.scad>\nintersection() { union() { color([0.6, 0.6, 0.6]) column(0); dummies(0); } translate([-5, -5, 100]) cube([col_w / 2 + 5, 45, 50]); }\n' "$ROOT" > "$TMP/sd.scad"
     openscad -D 'part="none"' -o renders/tars4_sd_reader.png --imgsize=900,900 --camera=12,15,118,60,0,120,75 --colorscheme=Tomorrow "$TMP/sd.scad" 2>/dev/null
     openscad -D 'part="none"' -o renders/tars4_buck_sd.png --imgsize=900,900 --camera=12,15,128,55,0,120,95 --colorscheme=Tomorrow "$TMP/sd.scad" 2>/dev/null
+    # heel of the left leg (charge port + switch): from behind with the lid on, then lid off seen from the back right,
+    # cut under the bottom shelf
+    printf 'include <%s/mechanical/scad/tars4.scad>\nintersection() { union() { color([0.6, 0.6, 0.6]) column(0); color([0.45, 0.45, 0.45]) lid(false, true); } translate([-5, -5, -1]) cube([45, 45, 27]); }\n' "$ROOT" > "$TMP/heel.scad"
+    printf 'include <%s/mechanical/scad/tars4.scad>\nintersection() { union() { color([0.6, 0.6, 0.6]) column(0); dummies(0); } translate([-5, -5, -1]) cube([45, 45, shelf_z - shelf_t - 0.5]); }\n' "$ROOT" > "$TMP/heel_open.scad"
+    openscad -D 'part="none"' -o renders/tars4_heel_back.png --imgsize=1200,900 --camera=-35,85,30,10,26,9 --colorscheme=Tomorrow "$TMP/heel.scad" 2>/dev/null
+    openscad -D 'part="none"' -o renders/tars4_heel_open.png --imgsize=1200,1000 --camera=45,85,45,8,18,7 --colorscheme=Tomorrow "$TMP/heel_open.scad" 2>/dev/null
     # inside of a middle column, lid removed
     echo "color([0.78,0.78,0.76]) import(\"$TMP/col1.stl\");" > "$TMP/inside.scad"
     openscad -o renders/tars4_mid_column_inside.png --imgsize=800,1400 --camera=14,200,114,14,14,114 --viewall --colorscheme=Tomorrow "$TMP/inside.scad" 2>/dev/null
