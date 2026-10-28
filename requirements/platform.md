@@ -8,7 +8,7 @@
 **Status:** validated
 **Dependencies:** [TECH-POWER-CELL-001](technical.md#tech-power-cell-001)
 derives_from: [FUNC-POWER-CHARGE-001](functional.md#func-power-charge-001)
-**Description:** The charger is one protected TP4056 module (U1, with DW01) lying flat in the left leg. Its own micro-USB is desoldered. A micro-USB breakout on the front wall of the left foot, reached through the floor opening, feeds its IN+ / IN− pads (net VUSB). Acceptance: pytest on the schematic (the breakout's VBUS/GND are on U1 IN+/IN−; U1 OUT+ is the only charger output); bench: plugging into the breakout charges the cells.
+**Description:** The charger is one protected TP4056 module (U1, with DW01) lying flat in the left leg. Its own micro-USB is desoldered. A micro-USB breakout in the left foot, its receptacle facing backwards through an opening at the bottom of the leg's lid, feeds its IN+ / IN− pads (net VUSB). Acceptance: pytest on the schematic (the breakout's VBUS/GND are on U1 IN+/IN−; U1 OUT+ is the only charger output); bench: plugging into the breakout charges the cells.
 
 ### PLAT-POWER-CHARGE-002
 **Title:** Charge current set to 0.5 A by R_PROG 2.4 kΩ
