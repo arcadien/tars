@@ -9,7 +9,7 @@
 // Axes: x = width (left->right seen from the front), y = depth (0 = front face), z = height.
 // Columns are numbered 0..3 from the left: 0 = left leg, 1 = left middle, 2 = right middle, 3 = right leg.
 // Render one part: openscad -D 'part="col1"' -o col1.stl tars4.scad
-// Display only: the JST-XH pairs use XH() from connectors.scad (OpenSCAD library folder); prints do not need it.
+// Display only: the JST-XH pairs use XH() from connectors.scad (next to this file); prints do not need it.
 use <connectors.scad>
 
 part = "assembly"; // assembly | open | open_ghost | col0..col3 | col<i>_bottom | col<i>_top | lid_<leg|mid>_<bottom|top> | splint | inserts | collar | test_screen | pir_test | tube_test | tube_test2 | tube_test3 | print_<part>
@@ -191,8 +191,8 @@ charger_lip = 0.5;            // lower ledges under the board's side edges (no u
 // side towards it, receptacle at its back end facing the lid; its back edge rests against the lid (pull-out stop), a
 // front stop in two tabs takes the plug's push; the receptacle goes through a notch at the bottom of the lid.
 usbb = [14.3, 16, 1.5];       // micro-USB breakout: width (z), length (y), PCB (measured)
-usbb_rec = [7.5, 2.6];        // receptacle shell: width (z, centred on the PCB width), height above the PCB (x). MEASURE
-usbb_out = 1.0;               // receptacle mouth past the PCB's back edge. MEASURE (mouth <= 1 mm inside the back face)
+usbb_rec = [7.85, 2.47];      // receptacle shell: width (z, centred on the PCB width), height above the PCB (x) (measured)
+usbb_out = 1.1;               // receptacle mouth past the PCB's back edge (measured ~1.1; mouth <= 1 mm inside the back face)
 usbb_z0 = wall + 1.5;         // bottom edge, above the rear foot pad (1.2)
 foot_room = 22;               // under the bottom contact shelf: switch (lever tip to pins 18.9) + its wires, breakout
 // Bare cells: spring contact plates at both ends (never solder on the cell). Each plate lies on / under a shelf,
