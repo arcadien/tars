@@ -805,11 +805,11 @@ cells until step 3.5; nothing goes on the 3V3 before step 3.6 is green)
 - [ ] USB in: VSYS ≈ VUSB − 0.3 to 0.5 V, current from the bench supply ≈ 0 (Q1 off).
 - [ ] **USB out: VUSB < 0.5 V within ~1 s, and VSYS within 0.1 V of VBAT** (Q1 fully on). A 0.5–0.7 V drop means Q1
       runs on its body diode (R1 missing / wrong, or D1 leaking): fix before going on.
-- [ ] Plug / unplug the USB under load: VSYS never below ~3.0 V (DMM min-hold, or scope).
+- [ ] Plug / unplug the USB under load: VSYS never below ~3.0 V (multimeter min-hold, or scope).
 - [ ] SW1 off: VSYS = 0, supply current ≈ 0. SW1 on with 1 A load (3.9 Ω 5 W): Q1 and SW1 barely warm.
 
 *3.3 Dividers on the power-path board*
-- [ ] VBAT/2 = B+ / 2 ± 2 % with the switch on **and** off, and with the charger plugged in (10 MΩ DMM loads the 500 k
+- [ ] VBAT/2 = B+ / 2 ± 2 % with the switch on **and** off, and with the charger plugged in (10 MΩ multimeter loads the 500 k
       node by ~5 %: compare with GPIO1 later).
 - [ ] USB_DET ≈ 3.0 V with USB in (never > 3.3 V), < 0.2 V with USB out.
 
@@ -827,7 +827,7 @@ cells until step 3.5; nothing goes on the 3V3 before step 3.6 is green)
 
 *3.7 S3 Mini alone on the 3V3*
 - [ ] Boots from the TPS (no USB-C): idle current on VSYS; Wi-Fi TX peaks keep 3V3 > 3.1 V.
-- [ ] VBAT/2 read by GPIO1 = DMM value ± 3 % (ADC calibration); USB_DET on GPIO21 follows the charger.
+- [ ] VBAT/2 read by GPIO1 = multimeter value ± 3 % (ADC calibration); USB_DET on GPIO21 follows the charger.
 - [ ] S3's USB-C in a PC that is **off**, on battery: current from the cells into its VBUS ≈ 0; with the PC on,
       flashing works with SW1 on or off.
 
