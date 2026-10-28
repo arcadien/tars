@@ -17,3 +17,4 @@ $(addprefix check-,$(STAGES)): check-%:
 
 hook:
 	install -m 755 scripts/pre-commit .git/hooks/pre-commit
+	install -m 755 scripts/commit-msg .git/hooks/commit-msg
