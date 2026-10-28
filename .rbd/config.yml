@@ -1,0 +1,26 @@
+id_format:
+  categories: [FUNC, TECH, PERF, UI, CONF, PLAT]
+  levels: ["domain", "feature"]
+  # domains: POWER, DISPLAY, AUDIO, SENSE, SLEEP, STORAGE, MECH, HARNESS (extend when needed)
+  example: "FUNC-POWER-CHARGE-001"
+  examples:
+    FUNC: "FUNC-POWER-CHARGE-001"
+    TECH: "TECH-AUDIO-I2S-001"
+    PERF: "PERF-DISPLAY-FRAME-001"
+    UI: "UI-DISPLAY-EYES-001"
+    CONF: "CONF-AUDIO-VOLUME-001"
+    PLAT: "PLAT-SLEEP-EXT1-001"   # PSM: how a FUNC/TECH is realised on the S3 / ESP-IDF / a module
+
+test_tagging:
+  # Firmware (C++, PlatformIO Unity: `uvx platformio test`, native env for logic, on-target for hardware)
+  - language: cpp
+    framework: unity
+    convention: "// req: {id}   (comment on the line above the test function; the function name starts with test_{id_snake}_)"
+  # Model, harness and docs checks (Python, pytest via uv)
+  - language: python
+    framework: pytest
+    convention: "@pytest.mark.req('{id}')"
+
+linter:
+  # firmware lint (uvx platformio check -d <firmware dir>) is added once firmware lives on this branch
+  command: "uvx ruff check tools scripts"

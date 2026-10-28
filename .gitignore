@@ -6,3 +6,4 @@ build/
 __pycache__/
 tools/harness_geometry.json
 result.json
+.rbd/.push-validated
