@@ -7,3 +7,6 @@ __pycache__/
 tools/harness_geometry.json
 result.json
 .rbd/.push-validated
+# print files are build outputs of tars4.scad (TECH-BUILD-ARTIFACTS-001): `make check-stl`, `tools/build4.sh 3mf`
+mechanical/stl/
+mechanical/3mf/tars4_plate*.3mf
