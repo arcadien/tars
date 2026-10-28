@@ -98,3 +98,11 @@ derives_from: [TECH-POWER-DIST-001](technical.md#tech-power-dist-001)
 derives_from: [FUNC-POWER-MONITOR-001](functional.md#func-power-monitor-001)
 **Description:** R2 / R3 (1 MΩ / 1 MΩ) on the power-path board divide the TP4056 B+ pad voltage. The midpoint (VBAT/2) goes to GPIO1, an ADC1 channel usable with Wi-Fi on. C6 100 nF ceramic (never tantalum) sits from GPIO1 to GND at the S3. Acceptance: pytest on the schematic (these values and nets); bench: VBAT/2 = B+ / 2 ± 2 % with the switch on, the switch off and the charger plugged in.
 
+
+### PLAT-POWER-DETECT-001
+**Title:** USB_DET divider R15 / R16 into GPIO21
+**Status:** validated
+**Dependencies:** [PLAT-POWER-PATH-001](platform.md#plat-power-path-001)
+derives_from: [FUNC-POWER-DETECT-001](functional.md#func-power-detect-001)
+**Description:** R15 68 kΩ from VUSB and R16 100 kΩ to GND make USB_DET, which goes to GPIO21, with C8 100 nF to GND at the S3. Acceptance: pytest on the schematic (these values and nets); bench: USB_DET is 2.8–3.3 V with the supply plugged in (never > 3.3 V) and < 0.2 V within 1 s of unplugging.
+
