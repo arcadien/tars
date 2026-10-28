@@ -23,3 +23,10 @@
 **Dependencies:** [FUNC-POWER-PATH-001](functional.md#func-power-path-001)
 **Description:** Plugging in or unplugging the external supply while the robot runs on a charged battery must not reset the controller. Acceptance: (a) bench: across 20 plug/unplug cycles at a 110 mA load and 20 at a 1 A load, the system rail never drops below 3.0 V (multimeter min-hold or scope); (b) on-target Unity test: after the same cycles a boot counter kept in RTC memory has not changed and the reset reason is never brown-out or power-on.
 
+
+### FUNC-POWER-SWITCH-001
+**Title:** The power switch turns the robot off
+**Status:** validated
+**Dependencies:** [TECH-POWER-VBUS-001](technical.md#tech-power-vbus-001)
+**Description:** A user-operated switch disconnects the system rail from both the battery and the external supply. Acceptance (bench): with the switch off, the system rail reads < 0.1 V both on battery alone and with the external supply connected. Exception: a host plugged into the programming port powers the controller only ([TECH-POWER-VBUS-001](technical.md#tech-power-vbus-001)).
+
