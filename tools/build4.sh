@@ -68,9 +68,8 @@ build_renders() {
     openscad -D pir=true -D 'part="col2"' -o "$TMP/col2_pir.stl" mechanical/scad/tars4.scad 2>/dev/null
     openscad -D pir=true -D 'part="pir_dummy"' -o "$TMP/pir_dummy.stl" mechanical/scad/tars4.scad 2>/dev/null
     cat > "$TMP/pose.scad" <<EOF
-D = 31; gap = 0.8; H = 8 * D; col_w = D - 3 * gap / 4; wall = 1.6;   // must match tars4.scad
-pir = true;                                                            // motion sensor fitted
-pz = H - wall - 14 / 2 - 1;                                            // top pivot
+include <$ROOT/mechanical/scad/tars4.scad>   // dimensions (run with part="none": no model geometry)
+pz = pivot_z[0];                                                       // top pivot
 angles = [14, -6, 5, -12];
 grey = [[0.55, 0.55, 0.53], [0.78, 0.78, 0.76], [0.78, 0.78, 0.76], [0.55, 0.55, 0.53]];
 for (i = [0:3]) translate([i * (col_w + gap), 0, 0])
@@ -81,18 +80,18 @@ for (i = [0:3]) translate([i * (col_w + gap), 0, 0])
         if (i == 1 || i == 2) {
             color([0.05, 0.05, 0.06]) import(i == 2 ? "$TMP/inserts_speaker.stl" : "$TMP/inserts.stl");
             // speaker behind the grille (right middle column)
-            if (i == 2) color([0.25, 0.25, 0.27]) translate([col_w / 2 - 11, 3, 30]) cube([22, 10, 39]);
+            if (i == 2) color([0.25, 0.25, 0.27]) translate([col_w / 2 - spk[0] / 2, spk_front_y, spk_z0]) cube(spk);
             color([0.03, 0.04, 0.06]) translate([col_w / 2 - 13, wall + 0.1, (0.761 + 0.877) / 2 * H - 13]) cube([26, 1, 26]);
         }
-        if (i < 3) color([0.8, 0.65, 0.3]) translate([col_w - 1, D / 2, pz]) rotate([0, 90, 0]) cylinder(d = 8, h = gap + 2, \$fn = 32);
+        if (i < 3) color([0.8, 0.65, 0.3]) translate([col_w - 1, D / 2, pz]) rotate([0, 90, 0]) cylinder(d = tube_od, h = gap + 2, \$fn = 32);
     }
 EOF
-    openscad -o renders/tars4_pose_three_quarter.png --imgsize=1200,1500 --camera=-200,-300,300,62,15,115 --viewall --colorscheme=Tomorrow "$TMP/pose.scad" 2>/dev/null
+    openscad -D 'part="none"' -o renders/tars4_pose_three_quarter.png --imgsize=1200,1500 --camera=-200,-300,300,62,15,115 --viewall --colorscheme=Tomorrow "$TMP/pose.scad" 2>/dev/null
     # same pose, camera turned 90 deg to the right around TARS (front right, same height and distance): the two right
     # columns in front, with the motion sensor at the top of the right middle column
-    openscad -D pir=true -o renders/tars4_pose_right.png --imgsize=1200,1500 --camera=377,-247,300,62,15,115 --viewall --colorscheme=Tomorrow "$TMP/pose.scad" 2>/dev/null
+    openscad -D 'part="none"' -o renders/tars4_pose_right.png --imgsize=1200,1500 --camera=377,-247,300,62,15,115 --viewall --colorscheme=Tomorrow "$TMP/pose.scad" 2>/dev/null
     # same pose from the front right: the speaker grille in the right middle column's lower panel
-    openscad -o renders/tars4_sound_three_quarter.png --imgsize=1200,1500 --camera=170,-430,170,62,15,105 --viewall --colorscheme=Tomorrow "$TMP/pose.scad" 2>/dev/null
+    openscad -D 'part="none"' -o renders/tars4_sound_three_quarter.png --imgsize=1200,1500 --camera=170,-430,170,62,15,105 --viewall --colorscheme=Tomorrow "$TMP/pose.scad" 2>/dev/null
     # lying face down, lids off, parts shown: three-quarter and straight from the back (pivots at the top, batteries at the bottom)
     openscad -D 'part="open"' -o renders/tars4_open_3q.png --imgsize=1600,1200 --camera=62,-124,15,50,0,210,520 --colorscheme=Tomorrow mechanical/scad/tars4.scad 2>/dev/null
     openscad -D 'part="open"' -o renders/tars4_open_back.png --imgsize=900,1500 --camera=62,-124,15,0,0,180,760 --colorscheme=Tomorrow mechanical/scad/tars4.scad 2>/dev/null
