@@ -282,14 +282,16 @@ acc, acch = module("ADXL345_GY-291", P("GND", "VCC", "CS", "INT1", "INT2", "SDO"
 pir, pirh = module("AM312_PIR", P("VIN", "OUT", "GND"), (), 15.24)
 bme, bmeh = module("BME280_GY", P("VCC", "GND", "SCL", "SDA"), (), 15.24)
 sd, sdh = module("microSD_3V3", P("CLK", "CMD", "D0", "D1", "D2", "D3", "VCC", "GND"), (), 15.24)
+usb, usbh = module("usb_charging_socket", (), P("VBUS", "GND"), 10.16)
 
 # ---------------- power (fully wired) ----------------
 VU, PATH = 35.56, 55.88            # VUSB line, power path line (OUTP -> Q1 -> VPATH -> SW1 -> VSYS)
 note("POWER — ground star on the power-path board (left leg)", 15.24, 17.78, 2)
-note("VUSB (J1: micro-USB breakout at the foot of the left leg; D3 + C9 on the TP4056 IN pads)", 12.7, 33.02, 1.27)
+note("VUSB (J1: micro-USB charging socket at the heel of the left leg; D3 + C9 on the TP4056 IN pads)", 12.7, 33.02, 1.27)
 place("Device:D_Zener", "D3", "SMAJ5.0A (TVS)", 20.32, 46.99, {"1": "VUSB", "2": "GND"}, rot=270, txt=((20.32, 62.23), (20.32, 64.77)))
 place("Device:C_Polarized", "C9", "22µ 16V", 12.7, 46.99, {"1": "VUSB", "2": "GND"}, txt=((12.7, 57.15), (12.7, 59.69)))
 place("Device:R", "R1", "10k", 30.48, 46.99, {"1": "VUSB", "2": "GND"})
+mod(usb, usbh, "J1", "USB charging socket", 22.86, 80.01, {"VBUS": "VUSB", "GND": "GND"})
 place("Device:R", "R15", "68k", 40.64, 46.99, {"1": "VUSB", "2": "USB_DET"})
 place("Device:R", "R16", "100k", 40.64, 62.23, {"1": "USB_DET", "2": "GND"})
 mod(tp, tph, "U1", "TP4056 + DW01, R_PROG 2,4k", 73.66, PATH + 7.62,
@@ -308,7 +310,7 @@ place("Device:Battery_Cell", "BT1", "18650 G", 104.14, 104.14, {"1": "BT1P", "2"
 place("Device:Battery_Cell", "BT2", "18650 D", 124.46, 104.14, {"1": "BT2P", "2": "BAT-"})
 
 # VUSB line on top: TVS, R1, R15, TP4056 IN+, Q1 gate, D1 anode
-drops = [stub("U1.IN+", 5.08), pt("C9.1"), pt("D3.1"), pt("R1.1"), pt("R15.1"), pt("Q1.G"), pt("D1.2")]
+drops = [stub("U1.IN+", 5.08), pt("C9.1"), pt("D3.1"), pt("R1.1"), pt("R15.1"), pt("Q1.G"), pt("D1.2"), stub("J1.VBUS", 2.54)]
 tops = []
 for p in drops:
     tops.append(W(p, (p[0], VU)))
@@ -317,6 +319,7 @@ for a, b in zip(tops, tops[1:]):
     W(a, b)
 for t in ("C9.2", "D3.2", "R1.2", "U1.IN-", "U1.OUT-", "R16.2", "R3.2"):
     PW("GND", pt(t))
+PW("GND", stub("J1.GND", 2.54), side="r")
 W("R15.2", (40.64, 54.61), "R16.1")
 # power path: OUTP -> Q1 -> VPATH (+ D1 cathode) -> SW1 -> VSYS
 W("U1.OUT+", "Q1.D")

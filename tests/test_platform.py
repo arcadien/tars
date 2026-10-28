@@ -15,11 +15,10 @@ def s3_pin(sch, gpio):
 
 
 @pytest.mark.req('PLAT-POWER-CHARGE-001')
-@pytest.mark.xfail(strict=True, reason='J1 is only a text note in the schematic so far; remove this mark once it is drawn')
 def test_plat_power_charge_001_breakout_feeds_the_charger_in_pads(sch):
-    # Given the protected TP4056 module and the micro-USB breakout J1
+    # Given the protected TP4056 module and the micro-USB charging socket J1 (usbb in tars4.scad)
     u, = sch.refs('TP4056_DW01')
-    j, = sch.refs('microUSB_breakout')
+    j, = sch.refs('usb_charging_socket')
     # Then the breakout's VBUS / GND are on the module's IN+ / IN- pads
     assert sch.net(j, 'VBUS') == sch.net(u, 'IN+') and sch.net(j, 'GND') == sch.net(u, 'IN-')
     # And OUT+ is the only charger output: it feeds only the power-path P-MOSFET
