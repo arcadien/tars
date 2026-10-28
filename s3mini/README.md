@@ -40,3 +40,54 @@ Not run on hardware yet (compiles only, 2026-10-28). Arduino-ESP32 3.3, ESP8266A
 - **Flash**: ~48 % of the 1.25 MB app partition (default 4 MB layout with OTA), mostly the Arduino /
   Wi-Fi core, the 115 KB photo and the MP3 decoder.
 - **PSRAM** is required (frame buffer + recording); the sketch stops with a message if it's missing.
+
+## Flash budget and firmware updates (notes, 2026-10-28)
+
+### Where the 633 KB of `bench_test` go
+
+Measured from `firmware.map`:
+
+| Part | Size | With pure ESP-IDF |
+|---|---|---|
+| Photo 240 × 240 (115 KB) + MP3 (26 KB) | 141 KB | same |
+| The sketch itself | ~8 KB | same |
+| ESP8266Audio (mostly the MP3 decoder and its tables) | 104 KB | other decoder needed: minimp3 ~25–30 KB |
+| Arduino layer (Serial, SPI, ledc, start-up) | ~55 KB | saved |
+| ESP-IDF drivers (GPIO, I2S, UART, RMT…), libc, FreeRTOS, NVS, coredump… | ~250 KB | almost all kept (Arduino-ESP32 is built on ESP-IDF) |
+
+- Moving to ESP-IDF saves **~60–100 KB** (5–8 % of the partition). minimp3 instead of ESP8266Audio
+  saves as much and works under Arduino too.
+- The 48 % is of the **1.25 MB app partition**: the default 4 MB layout keeps two OTA slots.
+- On TARS, pictures and sounds go to LittleFS / the microSD, not into the code (−141 KB).
+- The only big item to come is Wi-Fi / BLE: +500–700 KB, the same Espressif stack with Arduino
+  or ESP-IDF.
+- ESP-IDF brings nothing for deep sleep: `esp_sleep_*`, `gpio_hold` and EXT1 wake-up are called
+  directly from an Arduino sketch. ESP-IDF costs: LovyanGFX or `esp_lcd` for the screens, no
+  ESP8266Audio (minimp3 / esp-audio-codec), menuconfig, slower builds. Arduino can also run as an
+  ESP-IDF component if one day both are needed.
+- **Decision for now: stay on Arduino.** If flash gets tight: `huge_app` partitions + minimp3
+  first, they gain more than a port.
+
+### OTA and the microSD
+
+OTA keeps **two app slots**: the update is written to the other slot while the current one runs,
+and boots only once fully written and checked; if it crashes at start-up the bootloader rolls back.
+That safety costs half of the app space.
+
+The **microSD can be the source of an update, not a replacement for flash**: the ESP32 runs code
+from its internal flash (cache / XIP), never from the SD. Copying `firmware.bin` from the SD into
+flash uses Arduino's `Update` library (example `SD_Update`); with the two-slot safety kept, nothing
+is gained.
+
+| Scheme | 4 MB layout | Update | If the update is interrupted |
+|---|---|---|---|
+| Classic OTA (default) | 2 × 1.25 MB | Wi-Fi or SD → the other slot | the old firmware boots |
+| Updater + one big app | ~0.4 MB small "factory" updater (reads the SD) + ~3.3 MB app | TARS reboots into the updater (`esp_ota_set_boot_partition`), which copies `firmware.bin` from the SD into the app | the updater boots again and retries |
+| No OTA (`huge_app`) | 3 MB single app | USB-C of the S3 only | nothing to recover: plug the cable |
+
+- Updater + big app: an ESP-IDF scheme (factory + `ota_0`), usable from Arduino. No rollback to the
+  previous version, but TARS can't brick itself. The updater needs the SD driver (~300–400 KB).
+- The TARS microSD is fine for it: SDMMC 1-bit at 10 MHz copies 1 MB in a few seconds; **SD_EN
+  (GPIO36) must power the card** during the copy.
+- With pictures and sounds on the SD, the TARS app should stay under 1.25 MB even with Wi-Fi:
+  **classic OTA fits**; the other two schemes only matter if the app grows a lot.
