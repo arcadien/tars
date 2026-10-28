@@ -25,7 +25,7 @@ Every change starts from a requirement in `requirements/` (see the README, *Requ
    `test(<ID>): …`.
 3. **Change**, commit `<feat|tech|perf|ui|conf|fix>(<ID>): …`. Run `make hook` once: the `commit-msg` hook refuses a
    commit that touches `mechanical/` or `hardware/` without a validated requirement ID, the `pre-commit` hook runs
-   the fast checks (model, ERC, docs: seconds), the `pre-push` hook the slow ones (STL export, renders). The CI job
+   the fast checks (model, ERC, docs: seconds), the `pre-push` hook the slow ones (STL export, renders, Orca project meshes). The CI job
    `check` (model, STL, ERC, docs) must pass before a pull request is merged into main.
 
 Work on a branch; its state (goal, findings, open questions, next step) lives in `status.md` at the repo root, read first
@@ -94,6 +94,9 @@ The plates in `mechanical/3mf/tars4.3mf` were arranged by hand: **never regenera
 3. Same for the CR-10: `python3 -I tools/update_orca_project.py mechanical/3mf/tars4_cr10.3mf`.
 4. Reopen the project in Orca, check the plates (a part that grew may now overlap or leave the bed), slice.
 
+The `pre-push` hook does steps 2 and 3 itself when the STLs changed (`meshes` stage) and refuses the push until the
+rewritten projects are committed: close them in Orca first.
+
 A **new** part has no object in the Orca project yet: import its STL in Orca by hand, place it, save.
 
 ### 4. Commit
@@ -116,4 +119,4 @@ git commit -m "feat(MECH-…-001): …"   # validated requirement ID (commit-msg
 - OpenSCAD 2021 writes one object per STL; the multi-object 3MF files come from `tools/stl2_3mf.py`.
 - Tangent faces (two solids just touching) make non-manifold STLs: overlap them by 0.01 mm.
 - Don't print the columns before the tube bore test (`open_questions.md`, T1) has set `tube_od`.
-- `make check` never runs the Orca or overhang checks: check overhangs in Orca's preview before printing.
+- `make check` never runs the Orca slicing or overhang checks: check overhangs in Orca's preview before printing.

@@ -125,6 +125,9 @@ usable *Reload from disk* here):
    backs up first (`--check` = dry run);
 3. reopen `mechanical/3mf/tars4.3mf` in Orca.
 
+The pre-push hook runs step 2 on both projects when the STLs changed (`meshes` stage) and refuses the push until the
+rewritten projects are committed: close them in Orca before pushing, or saving from Orca puts the old meshes back.
+
 Raw plates (`tools/build4.sh 3mf`, ~20 mm margins), only to rebuild the Orca project from scratch:
 
 | Plate | Content | Footprint |
@@ -912,8 +915,9 @@ Logs in `build/check/`.
 | Stage | Runs when | What fails it |
 |---|---|---|
 | stl | `mechanical/scad/tars4.scad`, `build4.sh`, the OpenSCAD libraries change | any print part (Ender 3 halves, CR-10 one-piece, the `tube_test3` trial print) with an OpenSCAD `WARNING` / `ERROR`; a raw plate (written to `build/plates/`) off the 220 × 220 bed |
+| meshes | **pre-push** (`make check-meshes`, not part of `make check`), when the STLs or the Orca projects change | `tools/update_orca_project.py` on `mechanical/3mf/tars4.3mf` and `tars4_cr10.3mf`: meshes swapped for the current STLs, layout kept, backup in `backups/`; an up-to-date project is not rewritten. The pre-push hook then refuses the push until the rewritten projects are committed |
 | overhang | **only on request** (`make check-overhang`, not part of `make check`: overhangs are checked in Orca) | `scripts/overhang.py` (uv + trimesh): a region over 2 cm² facing down more than 50° from vertical, unless it is a ceiling narrower than 3 mm (bridge) or listed with its reason in `scripts/overhang_allow.json` (`--limit 45` for a stricter pass) |
-| orca | **only on request** (`make check-orca`, not part of `make check`: the Orca projects are refreshed by hand at the end) | `scripts/orca_check.py` refreshes the meshes of `mechanical/3mf/tars4.3mf` (Ender 3) and `mechanical/3mf/tars4_cr10.3mf` (CR-10) in place (layout kept, backup in `backups/`; same as `update_orca_project.py`), then the OrcaSlicer CLI (AppImage, no GUI) slices every plate: a part that grew off its plate or into its neighbour fails |
+| orca | **only on request** (`make check-orca`, not part of `make check`: needs the OrcaSlicer AppImage) | `scripts/orca_check.py` refreshes the meshes of `mechanical/3mf/tars4.3mf` (Ender 3) and `mechanical/3mf/tars4_cr10.3mf` (CR-10) in place (layout kept, backup in `backups/`; same as `update_orca_project.py`), then the OrcaSlicer CLI (AppImage, no GUI) slices every plate: a part that grew off its plate or into its neighbour fails |
 | erc | the KiCad files change | KiCad ERC through `kicad-cli`: any error (warnings are listed) |
 | renders | `mechanical/scad/tars4.scad`, `build4.sh`, the libraries change | `tools/build4.sh renders`: a PNG missing, not rewritten or blank |
 | docs | `boards.py`, `harness.py`, `hardware/tars4_wiring.html`, `wiring_svg.js` or `mechanical/scad/tars4.scad` (wire lengths) change | `boards.py` (net checks), `wiring_svg.js`, `harness.py`: an output missing or not rewritten, a blank page in `hardware/tars4_harness.pdf` |
