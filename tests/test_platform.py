@@ -21,3 +21,11 @@ def test_plat_power_hotplug_001_tvs_and_capacitor_across_vusb(sch):
     assert sch.net('D3', '1') == vusb(sch) and sch.net('D3', '2') == 'GND'
     # And C9 is 22 µF, + on VUSB, - on GND
     assert sch.value('C9') == '22µ' and sch.between('C9') == (vusb(sch), 'GND')
+
+
+@pytest.mark.req('PLAT-POWER-REG-002')
+def test_plat_power_reg_002_tps63020_ps_sync_on_gnd(sch):
+    # Given the TPS63020
+    reg, = sch.refs('TPS63020_3V3')
+    # Then its PS/SYNC pin is tied to GND (power-save mode, never forced PWM)
+    assert sch.net(reg, 'PS') == 'GND'
