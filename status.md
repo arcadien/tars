@@ -15,6 +15,7 @@ manual `make check-orca`. The pre-push hook now refreshes them when the STLs cha
 ## Open questions
 - The hand arrangement saved in Orca at 22:50 on `test-schematic` (uncommitted `mechanical/3mf/tars4.3mf`) is not in
   this branch: it will conflict with deaa318. Keep that arrangement (refresh it with the meshes stage) or drop it?
+  **Answer (2026-10-28): dropped**; the working copy was reverted (a copy remains in `backups/`).
 
 ## Next step
 Push (pre-push: stl, renders, meshes), PR, CI green, merge by the user; then remove this file.
