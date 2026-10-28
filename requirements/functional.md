@@ -79,3 +79,10 @@
 **Dependencies:** none
 **Description:** The firmware knows whether the system rail (after the power switch) is powered, independently of the battery voltage and of the external supply. This covers the case "switch off, controller powered from the programming port". Acceptance (on-target Unity test, bench supply on the system rail): the flag is true for 3.0–5.0 V, false below 1.0 V, and it follows a switch toggle within 100 ms.
 
+
+### FUNC-POWER-CUTOFF-001
+**Title:** Low-battery shutdown
+**Status:** validated
+**Dependencies:** [FUNC-POWER-MONITOR-002](functional.md#func-power-monitor-002), [FUNC-POWER-DETECT-001](functional.md#func-power-detect-001), [CONF-POWER-THRESH-001](configuration.md#conf-power-thresh-001)
+**Description:** When the averaged battery voltage reaches the empty level (≤ 3.30 V) and no external supply is present, the firmware puts the robot into deep sleep. No shutdown happens while the external supply is present, nor when the battery reading is < 2.50 V (no cells: controller powered from the programming port). Acceptance (native Unity test): empty without supply → shutdown requested; empty with supply → none; reading 2.4 V → none.
+
