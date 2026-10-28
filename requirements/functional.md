@@ -65,3 +65,10 @@
 **Dependencies:** none
 **Description:** The firmware knows whether an external supply is connected to the charge port, whatever the battery state. Acceptance (on-target Unity test, supply plugged and unplugged 10 times): the detection flag becomes true within 1 s of plugging in and false within 1 s of unplugging.
 
+
+### FUNC-POWER-DETECT-002
+**Title:** Connecting the external supply wakes the robot
+**Status:** validated
+**Dependencies:** [FUNC-POWER-DETECT-001](functional.md#func-power-detect-001), [FUNC-POWER-SWITCH-001](functional.md#func-power-switch-001)
+**Description:** With the power switch on, connecting the external supply wakes the controller from deep sleep, including after a low-battery shutdown ([FUNC-POWER-CUTOFF-002](functional.md#func-power-cutoff-002)). With the switch off, plugging in only charges the battery ([FUNC-POWER-SWITCH-002](functional.md#func-power-switch-002)): the robot stays off. Acceptance (on-target, bench): switch on, controller in deep sleep, supply unplugged: plugging it in wakes the controller within 1 s and the wake cause reported is the supply-detect source; switch off: plugging it in leaves the controller unpowered (system rail < 0.1 V).
+
