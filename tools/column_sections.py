@@ -1,19 +1,19 @@
 """Side sections of the four columns (renders/tars4_column_sections.svg).
 
 usage: python3 -I tools/column_sections.py
-Cuts each column and its lid in the mid plane (OpenSCAD projection(cut = true) through tools/column_sections.scad),
+Cuts each column and its lid in the mid plane (OpenSCAD projection(cut = true) through physical/scad/column_sections.scad),
 draws every module as its side silhouette, colours and labels them. Uses the model's defaults (every module fitted).
 """
 import os, re, subprocess, sys, tempfile
 from concurrent.futures import ThreadPoolExecutor
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SCAD = os.path.join(ROOT, "tools", "column_sections.scad")
+SCAD = os.path.join(ROOT, "physical", "scad", "column_sections.scad")
 OUT = os.path.join(ROOT, "renders", "tars4_column_sections.svg")
 KEYS = "col lid ins env screen s3 sock carrier spk amp rtc acc mic pir bme hub cell contact fuse tp usb sd buck pp sw tube".split()
 # connectors: read the CONN list from the model (column, ref, what)
 _e = os.path.join(tempfile.mkdtemp(), "c.echo")
 _t = os.path.join(os.path.dirname(_e), "c.scad")
-open(_t, "w").write(f'include <{os.path.join(ROOT, "tars4.scad")}>\nfor (c = CONN) echo(str("CONN|", c[0], "|", c[1], "|", c[2]));\n')
+open(_t, "w").write(f'include <{os.path.join(ROOT, "physical", "scad", "tars4.scad")}>\nfor (c = CONN) echo(str("CONN|", c[0], "|", c[1], "|", c[2]));\n')
 subprocess.run(["openscad", "-D", 'part="none"', "-o", _e, "--export-format", "echo", _t], capture_output=True)
 CONN = [l.split('"')[1].split("|")[1:] for l in open(_e) if "CONN|" in l]
 S = tempfile.mkdtemp()

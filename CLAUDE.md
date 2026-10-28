@@ -1,13 +1,13 @@
 # CLAUDE.md
 
-TARS robot, `tars4` variant. `README.md` is the project documentation; `tars4.scad` is the model.
+TARS robot, `tars4` variant. `README.md` is the project documentation; `physical/scad/tars4.scad` is the model.
 
 ## Language
 - Requirements (`requirements/*.md`) and all documentation are written in **English**: README, markdown notes,
   generated guides and diagrams, code comments, commit messages.
 - Conversation with me stays in French.
 - In requirements, every reference to another requirement or document is a markdown link, as in `derives_from:`:
-  `[TECH-POWER-CHARGE-001](technical.md#tech-power-charge-001)`, `[power_budget.md](../power_budget.md)`. Headings stay plain.
+  `[TECH-POWER-CHARGE-001](technical.md#tech-power-charge-001)`, `[power_budget.md](../hardware/power_budget.md)`. Headings stay plain.
 
 ## Hardware Conventions
 
@@ -44,4 +44,4 @@ VPATH, orange = VSYS (star, TPS63020 input, amp pair), purple = VUSB. A new rail
 - Define all parameters at the top of the file, before any formula that uses them. Expose dimensions as named parameters.
 - After editing, render with `openscad -o` and check for errors before saying it's done.
 - Don't claim parts fit an Ender 3 (220x220) or CR-10 plate unless you've checked the bounding boxes. Flag any overhang over 45° that a design change introduces.
-- Regenerating 3MF files wipes the Orca plate layout, so warn me before doing it. `tars4.3mf` is my Orca project: update it with `tools/update_orca_project.py`.
+- Regenerating 3MF files wipes the Orca plate layout, so warn me before doing it. `physical/3mf/tars4.3mf` is my Orca project: update it with `tools/update_orca_project.py`.

@@ -29,7 +29,7 @@ derives_from: [TECH-POWER-HOTPLUG-001](technical.md#tech-power-hotplug-001)
 **Status:** draft
 **Dependencies:** [PLAT-POWER-CHARGE-001](platform.md#plat-power-charge-001)
 derives_from: [TECH-POWER-PROTECT-001](technical.md#tech-power-protect-001)
-**Description:** The pack protection is the DW01 and its MOSFET pair on the TP4056 module, switching OUT−. Acceptance (bench, 3.7 V bench supply on B+/B−): OUT+ ≈ B+ and OUT− conducts to B−; when the supply is lowered, OUT− opens between 2.3 and 2.5 V; the module's quiescent current with USB out is < 10 µA (see [power_budget.md](../power_budget.md)). Pending: E-M5 (whether the DW01 switches on by itself when the cells are first connected) is still to record.
+**Description:** The pack protection is the DW01 and its MOSFET pair on the TP4056 module, switching OUT−. Acceptance (bench, 3.7 V bench supply on B+/B−): OUT+ ≈ B+ and OUT− conducts to B−; when the supply is lowered, OUT− opens between 2.3 and 2.5 V; the module's quiescent current with USB out is < 10 µA (see [power_budget.md](../hardware/power_budget.md)). Pending: E-M5 (whether the DW01 switches on by itself when the cells are first connected) is still to record.
 
 ### PLAT-POWER-FUSE-001
 **Title:** XF160 polyfuses F1 / F2 at each cell's + plate
@@ -57,7 +57,7 @@ derives_from: [FUNC-POWER-SWITCH-001](functional.md#func-power-switch-001)
 **Status:** validated
 **Dependencies:** [PERF-POWER-REG-001](performance.md#perf-power-reg-001)
 derives_from: [TECH-POWER-REG-001](technical.md#tech-power-reg-001)
-**Description:** A TPS63020 buck-boost module (U9, left leg) is fed from VSYS on its own pair, with EN tied to VIN (always on after SW1). Its output goes to P1 and then the S3 Mini's 3V3 pin. Acceptance (bench, nothing on the output): VOUT 3.3 V ± 3 % (never 5 V); input idle current < 0.1 mA (see [power_budget.md](../power_budget.md)). A few mA means it is stuck in PWM.
+**Description:** A TPS63020 buck-boost module (U9, left leg) is fed from VSYS on its own pair, with EN tied to VIN (always on after SW1). Its output goes to P1 and then the S3 Mini's 3V3 pin. Acceptance (bench, nothing on the output): VOUT 3.3 V ± 3 % (never 5 V); input idle current < 0.1 mA (see [power_budget.md](../hardware/power_budget.md)). A few mA means it is stuck in PWM.
 
 ### PLAT-POWER-REG-002
 **Title:** TPS63020 PS/SYNC tied to GND (power-save mode)
@@ -99,7 +99,7 @@ derives_from: [FUNC-POWER-DETECT-001](functional.md#func-power-detect-001)
 **Status:** validated
 **Dependencies:** [PLAT-POWER-SWITCH-001](platform.md#plat-power-switch-001)
 derives_from: [TECH-POWER-BACKFEED-001](technical.md#tech-power-backfeed-001)
-**Description:** Any small NPN in stock (BC547/548, 2N3904, 2N2222, S8050, S9013): base from VSYS through 1 MΩ, 1 MΩ base to GND, emitter to GND, collector to GPIO37 with the internal pull-up enabled only while reading. Rail present = GPIO37 low (on from VSYS ≈ 1.2 V, off below 1.0 V); no voltage above 3V3 reaches the pin. Hardware change, not yet in kicad_sch_gen.py, the boards or the wiring. Acceptance: pytest on the schematic; bench: GPIO37 low at VSYS 3.0 and 5.0 V, high at 0 V. Standing current ~2–3 µA: [power_budget.md](../power_budget.md).
+**Description:** Any small NPN in stock (BC547/548, 2N3904, 2N2222, S8050, S9013): base from VSYS through 1 MΩ, 1 MΩ base to GND, emitter to GND, collector to GPIO37 with the internal pull-up enabled only while reading. Rail present = GPIO37 low (on from VSYS ≈ 1.2 V, off below 1.0 V); no voltage above 3V3 reaches the pin. Hardware change, not yet in kicad_sch_gen.py, the boards or the wiring. Acceptance: pytest on the schematic; bench: GPIO37 low at VSYS 3.0 and 5.0 V, high at 0 V. Standing current ~2–3 µA: [power_budget.md](../hardware/power_budget.md).
 
 ### PLAT-POWER-VBUS-001
 **Title:** S3 Mini VBUS contact removed from the carrier header

@@ -32,13 +32,13 @@ T0=$(date +%s)
 # input files of each stage (what makes its result change)
 inputs() {
     case $1 in
-        stl) echo tars4.scad tools/build4.sh tools/stl2_3mf.py $LIBS/*.scad ;;
-        overhang) echo stl/tars4_*.stl scripts/overhang.py scripts/overhang_allow.json ;;
-        orca) echo stl/tars4_*.stl tars4.3mf tars4_cr10.3mf scripts/orca_check.py scripts/orca_profile.py \
+        stl) echo physical/scad/tars4.scad tools/build4.sh tools/stl2_3mf.py $LIBS/*.scad ;;
+        overhang) echo physical/stl/tars4_*.stl scripts/overhang.py scripts/overhang_allow.json ;;
+        orca) echo physical/stl/tars4_*.stl physical/3mf/tars4.3mf physical/3mf/tars4_cr10.3mf scripts/orca_check.py scripts/orca_profile.py \
                    tools/update_orca_project.py tools/stl2_3mf.py "$ORCA_PRESETS"/machine/*.json "$ORCA_PRESETS"/process/*.json ;;
-        erc) echo kicad/*.kicad_sch kicad/*.kicad_sym kicad/*.kicad_pro kicad/sym-lib-table ;;
-        renders) echo tars4.scad tools/build4.sh $LIBS/*.scad scripts/check_renders.py ;;
-        docs) echo tars4.scad tools/boards.py tools/harness.py tools/html2pdf.py tools/wiring_svg.js tars4_wiring.html ;;
+        erc) echo hardware/kicad/*.kicad_sch hardware/kicad/*.kicad_sym hardware/kicad/*.kicad_pro hardware/kicad/sym-lib-table ;;
+        renders) echo physical/scad/tars4.scad tools/build4.sh $LIBS/*.scad scripts/check_renders.py ;;
+        docs) echo physical/scad/tars4.scad tools/boards.py tools/harness.py tools/html2pdf.py tools/wiring_svg.js hardware/tars4_wiring.html ;;
     esac
 }
 
@@ -57,7 +57,7 @@ stage_stl() {
 }
 
 stage_overhang() {
-    uv run -q scripts/overhang.py stl/tars4_*.stl
+    uv run -q scripts/overhang.py physical/stl/tars4_*.stl
 }
 
 stage_orca() {
@@ -66,7 +66,7 @@ stage_orca() {
 
 stage_erc() {
     [ -n "$KICAD" ] || { echo "KiCad AppImage not found in ~/bin (set KICAD=...)"; return 1; }
-    "$KICAD" kicad-cli sch erc --severity-all --format json -o "$LOG/erc.json" kicad/tars4.kicad_sch || return 1
+    "$KICAD" kicad-cli sch erc --severity-all --format json -o "$LOG/erc.json" hardware/kicad/tars4.kicad_sch || return 1
     python3 -I - "$LOG/erc.json" <<'EOF'
 import json, sys
 d = json.load(open(sys.argv[1]))
@@ -93,12 +93,12 @@ stage_docs() {
     python3 -I tools/boards.py || bad=1
     node tools/wiring_svg.js || bad=1
     python3 -I tools/harness.py || bad=1
-    for f in renders/tars4_board_*.svg renders/tars4_wiring.svg tars4_harness.html tars4_harness.pdf; do
+    for f in renders/tars4_board_*.svg renders/tars4_wiring.svg hardware/tars4_harness.html hardware/tars4_harness.pdf; do
         if [ ! -s "$f" ] || [ "$(stat -c %Y "$f")" -lt "$since" ]; then echo "RENDER $f: missing or not rewritten"; bad=1; fi
     done
     # harness PDF: no blank page (ghostscript ink coverage, every page must carry some ink)
-    if [ -s tars4_harness.pdf ]; then
-        gs -q -o - -sDEVICE=inkcov tars4_harness.pdf | awk '{ n++; if ($1 + $2 + $3 + $4 < 0.0005) { print "RENDER tars4_harness.pdf: page " n " is blank"; b = 1 } }
+    if [ -s hardware/tars4_harness.pdf ]; then
+        gs -q -o - -sDEVICE=inkcov hardware/tars4_harness.pdf | awk '{ n++; if ($1 + $2 + $3 + $4 < 0.0005) { print "RENDER hardware/tars4_harness.pdf: page " n " is blank"; b = 1 } }
             END { print "harness pdf: " n " pages"; exit b }' || bad=1
     fi
     return $bad

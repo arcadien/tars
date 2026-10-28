@@ -1,6 +1,6 @@
 """Wiring guide of TARS4: every wire with both ends, in build order.
 
-usage: python3 -I tools/harness.py [--no-pdf]   (writes tars4_harness.html and, with Firefox, tars4_harness.pdf)
+usage: python3 -I tools/harness.py [--no-pdf]   (writes hardware/tars4_harness.html and, with Firefox, hardware/tars4_harness.pdf)
 
 The board wires come from tools/boards.py (hole, net, colour, connector contacts); the wires that touch no board
 (power block leads, module pigtails, cells, charge port, switch, speaker, contact-to-contact jumpers) are listed
@@ -20,6 +20,8 @@ import tempfile  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GEO_CACHE = os.path.join(ROOT, 'tools', 'harness_geometry.json')
+HTML = os.path.join(ROOT, 'hardware', 'tars4_harness.html')
+PDF = os.path.join(ROOT, 'hardware', 'tars4_harness.pdf')
 PIGTAIL = 6      # module pigtails (INMP441, AM312, microSD reader), cm
 TOL = 3         # cut length = estimate + TOL, cm
 
@@ -145,7 +147,7 @@ def geometry():
     items = [(k, k) for k in keys] + [('pivot_z', 'pivot_z[0]'), ('conn_names', '[for (c = CONN) c[1]]'),
                                       ('conn_box', '[for (c = CONN) [c[0], c[3], c[4]]]')]
     body = ', '.join(f'"{"," if n else ""}{q}{k}{q}:", {v}' for n, (k, v) in enumerate(items))
-    scad = f'include <{os.path.join(ROOT, "tars4.scad")}>\necho(str("GEOJSON{{", {body}, "}}"));\n'
+    scad = f'include <{os.path.join(ROOT, "physical", "scad", "tars4.scad")}>\necho(str("GEOJSON{{", {body}, "}}"));\n'
     if shutil.which('openscad'):
         with tempfile.TemporaryDirectory() as d:
             with open(os.path.join(d, 'g.scad'), 'w') as fh:
@@ -649,7 +651,7 @@ def main():
     if bad:
         print('more than two wires in a contact:', *bad, sep='\n  ')
         sys.exit(1)
-    with open('tars4_harness.html', 'w') as fh:
+    with open(HTML, 'w') as fh:
         fh.write(page(wires))
     print(f'tars4_harness.html: {len(wires)} wires, {len(STEPS)} steps, '
           f'{sum(1 for v in seen.values() if len(v) == 2)} double contacts')
@@ -663,7 +665,7 @@ def make_pdf():
     tool = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'html2pdf.py')
     pdf = lambda src, dst, *opt: subprocess.run([sys.executable, '-I', tool, src, dst, *opt], check=True, timeout=180,
                                                 stdout=subprocess.DEVNULL)
-    src = open('tars4_harness.html').read()
+    src = open(HTML).read()
     head = src[:src.index('<div class="wrap">')]
     sheets = [s.split('</svg></div>')[0] + '</svg></div>' for s in src.split('<div class="sheet portrait">')[1:]]
     with tempfile.TemporaryDirectory() as d:
@@ -674,7 +676,7 @@ def make_pdf():
                                         for q in parts[1:]))
         pdf(main_html, os.path.join(d, 'main.pdf'))
         if not sheets or not (shutil.which('gs') and shutil.which('pdfunite') and shutil.which('pdftotext')):
-            shutil.copy(os.path.join(d, 'main.pdf'), 'tars4_harness.pdf')
+            shutil.copy(os.path.join(d, 'main.pdf'), PDF)
             print('wrote tars4_harness.pdf (landscape only)')
             return
         n = int(subprocess.run(['gs', '-q', '-dNODISPLAY', '-dNOSAFER', '-c',
@@ -695,7 +697,7 @@ def make_pdf():
                 if ' '.join(cap.split()[:4]) in ' '.join(txt.split()) and ' '.join(cap.split()) .split(' : ')[-1] in ' '.join(txt.split()):
                     pages[i] = os.path.join(d, f'portrait{k}.pdf')
                     break
-        subprocess.run(['pdfunite', *pages, 'tars4_harness.pdf'], check=True)
+        subprocess.run(['pdfunite', *pages, PDF], check=True)
     print(f'wrote tars4_harness.pdf ({len(sheets)} diagram(s) in portrait)')
 
 

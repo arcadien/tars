@@ -1,7 +1,7 @@
 // Export the wiring sketch of tars4_wiring.html as a static SVG for the README (light theme, no JavaScript).
-// usage: node tools/wiring_svg.js [tars4_wiring.html] [renders/tars4_wiring.svg]
+// usage: node tools/wiring_svg.js [hardware/tars4_wiring.html] [renders/tars4_wiring.svg]
 const fs = require('fs');
-const src = process.argv[2] || 'tars4_wiring.html';
+const src = process.argv[2] || 'hardware/tars4_wiring.html';
 const out = process.argv[3] || 'renders/tars4_wiring.svg';
 const html = fs.readFileSync(src, 'utf8');
 

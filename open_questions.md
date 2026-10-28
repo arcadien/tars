@@ -23,18 +23,18 @@ lid `lid_mid_left` · D10 Q5 on the microSD 3V3 (GPIO36) · D11 switch kept · D
 
 | # | Question | Status |
 |---|---|---|
-| T1 | **Tube test3** (teardrop bores, G7.95 / 8.0 / 8.05, R8.05 / 8.1 / 8.15) | print and measure → `tube_od` 7.93 + clearances + teardrop pivots, then **one single** STL pass + `tools/update_orca_project.py` on `tars4.3mf`. Don't print the columns before |
+| T1 | **Tube test3** (teardrop bores, G7.95 / 8.0 / 8.05, R8.05 / 8.1 / 8.15) | print and measure → `tube_od` 7.93 + clearances + teardrop pivots, then **one single** STL pass + `tools/update_orca_project.py` on `physical/3mf/tars4.3mf`. Don't print the columns before |
 | D13 | **Switching charger instead of the TP4056** | TP4056 kept for now (500 mA, R_PROG 2.4k). If E-M8 runs too hot: R_PROG 3.6k (330 mA) or the lower left leg in PETG; alternative TP5100 1 A + separate DW01. IP2312: doesn't fit flat (34.4 × 15) |
 | E-M8 | **TP4056 temperature** (PLA legs) | measure the wall after 15 and 30 min of charge: > 45 °C → R_PROG 3.6k. Copper RPi heatsink ≤ ~3 mm + 0.5–1 mm thermal pad between chip and heatsink, never between board and PLA |
 | VS1 | **VSYS sense** (PLAT-POWER-VSENSE-001, branch `rbd`) | small NPN (BC547 / 2N3904 / 2N2222 / S8050…) + 1 M / 1 M base divider, collector to GPIO37: to add to the schematic, carrier and harness once the POWER requirements are validated |
 
 ## 4. Remaining measurements
 
-**Dimensions** (`measurements.md`): `bk_h` (TPS63020 inductor height), `pir_pcb_dn`, screen active area checked lit,
+**Dimensions** (`hardware/measurements.md`): `bk_h` (TPS63020 inductor height), `pir_pcb_dn`, screen active area checked lit,
 solder tails on the wall side (ADXL345, MAX98357A, micro-USB), 0.85" screen if used, D-M9 (S3 first pin row, `my0`
 margins).
 
-**Electrical**, on the bench (README list *to do when the parts arrive*; currents in `power_budget.md`): E-M1 SD
+**Electrical**, on the bench (README list *to do when the parts arrive*; currents in `hardware/power_budget.md`): E-M1 SD
 pull-up of the amplifier (R18), E-M2 screens' BLK, E-M3 D1 leakage when warm, E-M4 AM312 high level, E-M5 DW01
 wake-up, E-M6 SW1 rating, E-M7 sleep current with and without microSD.
 
