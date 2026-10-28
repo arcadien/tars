@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 # TARS validation harness: rebuild the generated files whose sources changed and fail on any problem.
-# usage: scripts/check.sh [model] [stl] [erc] [renders] [docs] [overhang] [orca]   (no argument: the first five;
+# usage: scripts/check.sh [model] [stl] [erc] [renders] [docs] [meshes] [overhang] [orca]   (no argument: the first five;
 #        overhang and orca only when asked, e.g. `make check-orca`: overhangs and the Orca projects are checked by hand
-#        in Orca). The pre-commit hook runs the fast stages (model erc docs), the pre-push hook the slow ones (stl renders).
+#        in Orca). The pre-commit hook runs the fast stages (model erc docs), the pre-push hook the slow ones (stl renders meshes).
 #   model     tars4.scad evaluated without any export (seconds): fails on any OpenSCAD WARNING / ERROR (model checks)
 #   stl       every printable part to STL (Ender 3 halves, CR-10 one-piece parts, trial prints; mechanical/stl/, not in
 #             git) + the raw 3MF plates, Ender 3 and CR-10 (written to build/plates); fails on any OpenSCAD WARNING /
 #             ERROR (connector clashes, fit checks, ...) or a raw layout off its bed (Ender 3 220 x 220, CR-10 300 x 300)
+#   meshes    tools/update_orca_project.py on both Orca projects: their meshes refreshed from the STLs, plates, positions
+#             and settings kept (no OrcaSlicer needed); a project already up to date is not rewritten
 #   overhang  scripts/overhang.py (uv, trimesh): faces > 50 deg from vertical over 2 cm2, unless a narrow bridge or
 #             listed in scripts/overhang_allow.json with the reason it prints without support
 #   orca      scripts/orca_check.py: refreshes the meshes of the saved Orca projects (tars4.3mf on the Ender 3,
@@ -37,6 +39,7 @@ inputs() {
     case $1 in
         model) echo mechanical/scad/*.scad ;;
         stl) echo mechanical/scad/*.scad tools/build4.sh tools/stl2_3mf.py ;;
+        meshes) echo mechanical/stl/tars4_*.stl mechanical/3mf/tars4.3mf mechanical/3mf/tars4_cr10.3mf tools/update_orca_project.py ;;
         overhang) echo mechanical/stl/tars4_*.stl scripts/overhang.py scripts/overhang_allow.json ;;
         orca) echo mechanical/stl/tars4_*.stl mechanical/3mf/tars4.3mf mechanical/3mf/tars4_cr10.3mf scripts/orca_check.py scripts/orca_profile.py \
                    tools/update_orca_project.py tools/stl2_3mf.py "$ORCA_PRESETS"/machine/*.json "$ORCA_PRESETS"/process/*.json ;;
@@ -70,6 +73,13 @@ stage_stl() {
 
 stage_overhang() {
     uv run -q scripts/overhang.py mechanical/stl/tars4_*.stl
+}
+
+stage_meshes() {
+    local p
+    for p in mechanical/3mf/tars4.3mf mechanical/3mf/tars4_cr10.3mf; do
+        python3 -I tools/update_orca_project.py "$p" || return 1
+    done
 }
 
 stage_orca() {
