@@ -10,3 +10,11 @@
 derives_from: [FUNC-POWER-CHARGE-001](functional.md#func-power-charge-001)
 **Description:** The charger is one protected TP4056 module (U1, with DW01) lying flat in the left leg. Its own micro-USB is desoldered. A micro-USB breakout on the front wall of the left foot, reached through the floor opening, feeds its IN+ / IN− pads (net VUSB). Acceptance: pytest on the schematic (the breakout's VBUS/GND are on U1 IN+/IN−; U1 OUT+ is the only charger output); bench: plugging into the breakout charges the cells.
 
+
+### PLAT-POWER-CHARGE-002
+**Title:** Charge current set to 0.5 A by R_PROG 2.4 kΩ
+**Status:** validated
+**Dependencies:** [PLAT-POWER-CHARGE-001](platform.md#plat-power-charge-001), [PERF-POWER-CHARGE-001](performance.md#perf-power-charge-001), [PERF-POWER-THERMAL-001](performance.md#perf-power-thermal-001)
+derives_from: [TECH-POWER-CHARGE-001](technical.md#tech-power-charge-001)
+**Description:** The TP4056 module's R_PROG (1.2 kΩ "122" from the factory) is replaced by 2.4 kΩ ("242"), which sets the charge current to 0.5 A. If E-M8 fails (wall > 45 °C), the fallback is 3.6 kΩ (0.33 A); D13 is decided after E-M8. Acceptance (bench): with the module unpowered, the fitted R_PROG is within ± 5 %; the charge current into a half-empty cell is 0.45–0.55 A (fallback 0.30–0.36 A); in open air, the TP4056 case is < 60 °C after 15 min.
+
