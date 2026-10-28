@@ -13,8 +13,8 @@ amplifier + speaker (replay + a short MP3). Wiring and serial commands are at th
 cd d1mini/bench_test
 uvx platformio run -t upload
 uvx platformio device monitor        # 115200 baud
-uv run make_assets.py                # photo / MP3 -> src/image.h, src/sound.h
-uv run make_assets.py --mp3 my.mp3 --seconds 8
+uv run ../../bench_assets/make_assets.py                # photo / MP3 -> bench_assets/image.h, sound.h
+uv run ../../bench_assets/make_assets.py --mp3 my.mp3 --seconds 8
 ```
 
 Not run on hardware yet (compiles only, 2026-10-28).

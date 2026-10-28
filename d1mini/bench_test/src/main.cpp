@@ -2,11 +2,11 @@
  * TARS - bench test on a Wemos D1 mini (ESP8266): 1.3" ST7789 screen, INMP441 microphone,
  * MAX98357A amplifier + speaker.
  *
- *   - screen: test patterns + a photo (src/image.h), auto-cycling, full-fill timing;
+ *   - screen: test patterns + a photo (bench_assets/image.h), auto-cycling, full-fill timing;
  *   - "record and replay": records from the INMP441 (as long as free RAM allows, ~2.5 s),
  *     normalises, plays it back on the speaker;
  *   - a short MP3 from flash (src/sound.h, ESP8266Audio).
- * Assets: uv run make_assets.py (see its header for your own photo / MP3).
+ * Assets: uv run ../../bench_assets/make_assets.py (see its header for your own photo / MP3).
  *
  * Everything is 3.3 V: no level shifting. The I2S pins of the ESP8266 are fixed, so the
  * screen runs on a bit-banged SPI on the remaining pins.
