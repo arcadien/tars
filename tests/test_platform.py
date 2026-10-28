@@ -1,6 +1,8 @@
 """PLAT acceptance criteria checked on the schematic (requirements/platform.md)."""
 import pytest
 
+import harness   # tools/, on the path through conftest.py
+
 
 def vusb(sch):
     """VUSB: the charger's IN+ net"""
@@ -39,3 +41,17 @@ def test_plat_power_reg_003_220uF_tantalum_on_3v3_at_the_s3(sch):
     assert sch.between('C1') == ('+3V3', 'GND')
     # And the S3 Mini's 3V pin is on that same +3V3 net
     assert sch.net(sch.refs('LOLIN_S3_Mini')[0], '3V') == '+3V3'
+
+
+@pytest.mark.req('PLAT-POWER-DIST-001')
+def test_plat_power_dist_001_amplifier_on_its_own_vsys_pair_with_c7(sch):
+    # Given the amplifier and VSYS (switch SW1 output)
+    amp, = sch.refs('MAX98357A')
+    vsys = sch.net('SW1', '2')
+    # Then VIN is on VSYS and GND on system GND (never B-)
+    assert sch.net(amp, 'VIN') == vsys and sch.net(amp, 'GND') == 'GND'
+    # And C7 470 µF sits across them, + on VIN
+    assert sch.value('C7') == '470µ' and sch.between('C7') == (vsys, 'GND')
+    # And the harness brings them on their own pair: X13 VSYS / GND amp -> X5 VIN / GND
+    ends = {(e[4].get('ref'), e[4].get('pin'), e[5].get('ref'), e[5].get('pin')) for e in harness.EXTRA}
+    assert ('X13', 'VSYS', 'X5', 'VIN') in ends and ('X13', 'GND amp', 'X5', 'GND') in ends
