@@ -18,7 +18,8 @@ TARS robot, `tars4` variant. `README.md` is the project documentation; `mechanic
 Every change goes through RBD: a validated requirement first (`req(ID):` commit, draft → validated with me), then its
 tests where they apply, then the change in a `<feat|tech|perf|ui|conf|fix>(ID):` commit. The `commit-msg` hook
 (`make hook`) refuses a commit touching `mechanical/` or `hardware/` without a validated requirement ID. Only
-`docs:` / `plan:` / `refactor:` changes outside those folders skip it.
+`docs:` / `plan:` / `refactor:` changes outside those folders skip it, and so does a commit that only records
+measurements in `hardware/measurements.md` (`docs:`, straight on main).
 Work happens on a branch. A branch whose change still depends on a pending measurement (a `MEASURE` value it
 introduced or relies on, a bench check in draft) is **not merged** until the measurement is done and folded in: a risk
 remains. List it in `open_questions.md` with the branch name.
