@@ -79,3 +79,19 @@ def test_plat_power_detect_001_usb_det_divider_on_gpio21(sch):
     assert sch.value('R15') == '68k' and set(sch.between('R15')) == {vusb(sch), det}
     assert sch.value('R16') == '100k' and set(sch.between('R16')) == {det, 'GND'}
     assert sch.value('C8') == '0.1µ' and set(sch.between('C8')) == {det, 'GND'}
+
+
+@pytest.mark.req('PLAT-POWER-VSENSE-001')
+@pytest.mark.xfail(strict=True, reason='hardware change not in the schematic yet (requirement text); remove this mark '
+                                       'once the NPN on GPIO37 is drawn')
+def test_plat_power_vsense_001_npn_from_vsys_to_gpio37(sch):
+    # Given GPIO37 of the S3
+    io37 = s3_pin(sch, 37)
+    # Then it is the collector of an NPN whose emitter is on GND
+    npn = [r for r, p in sch.nets[io37] if sch.parts.get(r, '').startswith('Q_NPN')]
+    assert len(npn) == 1
+    q = npn[0]
+    assert sch.net(q, 'C') == io37 and sch.net(q, 'E') == 'GND'
+    # And its base sits between 1M from VSYS and 1M to GND
+    base = [r for r, _ in sch.nets[sch.net(q, 'B')] if r.startswith('R') and sch.value(r) == '1M']
+    assert {n for r in base for n in sch.between(r)} >= {sch.net('SW1', '2'), 'GND'}
