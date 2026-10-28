@@ -46,3 +46,29 @@ def test_tech_power_ground_001_no_load_ground_on_b_minus(sch):
     pins = sch.pins(u, 'B-')
     # Then only the cell negatives and the protection's B- are there (loads return to GND, after the protection)
     assert pins == {(c, '2') for c in sch.refs('Battery_Cell')} | {(u, 'B-')}
+
+
+@pytest.mark.req('TECH-POWER-REG-001')
+def test_tech_power_reg_001_one_buck_boost_feeds_every_3v3_load(sch):
+    # Given the single buck-boost regulator, the amplifier (fed from VSYS by design) and VSYS (switch SW1 output)
+    reg, = sch.refs('TPS63020_3V3')
+    amp, = sch.refs('MAX98357A')
+    vsys = sch.net('SW1', '2')
+    # Then the regulator sources +3V3 from VSYS
+    assert sch.net(reg, 'VOUT') == '+3V3' and sch.net(reg, 'VIN') == vsys
+
+    def fed_by_3v3(net):   # on +3V3, or behind one switch / filter part (microSD Q5, PIR RC) whose other pin is on it
+        return net == '+3V3' or any(sch.parts[r] in ('R', 'Q_PMOS') and '+3V3' in sch.part_nets(r).values()
+                                    for r, _ in sch.nets[net])
+    # When listing the supply pins of every 3.3 V load: all modules but the charger, the regulator and the
+    # amplifier, plus the microSD reader
+    loads = [r for r in sch.parts if r.startswith('U') and r not in (reg, amp, *sch.refs('TP4056_DW01'))]
+    loads += sch.refs('microSD_3V3')
+    for r in loads:
+        supply = {p: n for p, n in sch.part_nets(r).items() if p in ('VCC', 'VDD', '3V', 'VIN')}
+        assert supply, f'{r}: no supply pin found'
+        # Then each one is fed by the +3V3 rail
+        for p, n in supply.items():
+            assert fed_by_3v3(n), f'{r}.{p} on {n}'
+    # And no other module draws from VSYS (no linear regulator on the system rail)
+    assert {r for r, _ in sch.nets[vsys] if r.startswith('U')} <= {reg, amp}
