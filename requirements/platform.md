@@ -130,3 +130,11 @@ derives_from: [TECH-POWER-VBUS-001](technical.md#tech-power-vbus-001)
 derives_from: [FUNC-POWER-GATE-001](functional.md#func-power-gate-001)
 **Description:** Q5 (AO3401A, on the power-path board) switches +3V3 to SD_3V3 on the high side. Its gate is on SD_EN (GPIO36, low = card powered), and R22 100 kΩ pulls the gate up to 3V3 so the card stays off while the pin floats. Acceptance: pytest on the schematic (these nets); bench: SD_3V3 < 0.1 V with GPIO36 high and with the S3 held in reset.
 
+
+### PLAT-POWER-SLEEP-001
+**Title:** Battery-fed status LEDs removed
+**Status:** validated
+**Dependencies:** none
+derives_from: [TECH-POWER-SLEEP-001](technical.md#tech-power-sleep-001)
+**Description:** The power or status LEDs are removed from the ZS-042, the TPS63020 module, the GY-291 and the microSD breakout, and the S3 Mini's RGB LED (GPIO47) is removed too. The TP4056 charge LEDs stay (they run on USB power only). Acceptance: bench visual checklist, signed off in the bring-up notes, plus a deep-sleep current measurement ([PERF-POWER-SLEEP-001](performance.md#perf-power-sleep-001)).
+
