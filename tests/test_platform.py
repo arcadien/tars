@@ -29,3 +29,13 @@ def test_plat_power_reg_002_tps63020_ps_sync_on_gnd(sch):
     reg, = sch.refs('TPS63020_3V3')
     # Then its PS/SYNC pin is tied to GND (power-save mode, never forced PWM)
     assert sch.net(reg, 'PS') == 'GND'
+
+
+@pytest.mark.req('PLAT-POWER-REG-003')
+def test_plat_power_reg_003_220uF_tantalum_on_3v3_at_the_s3(sch):
+    # Given C1
+    # Then it is the 220 µF polarised capacitor, + on +3V3, - on GND
+    assert sch.parts['C1'] == 'C_Polarized' and sch.value('C1') == '220µ'
+    assert sch.between('C1') == ('+3V3', 'GND')
+    # And the S3 Mini's 3V pin is on that same +3V3 net
+    assert sch.net(sch.refs('LOLIN_S3_Mini')[0], '3V') == '+3V3'
