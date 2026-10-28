@@ -34,3 +34,11 @@ derives_from: [TECH-POWER-HOTPLUG-001](technical.md#tech-power-hotplug-001)
 derives_from: [TECH-POWER-PROTECT-001](technical.md#tech-power-protect-001)
 **Description:** The pack protection is the DW01 and its MOSFET pair on the TP4056 module, switching OUT−. Acceptance (bench, 3.7 V bench supply on B+/B−): OUT+ ≈ B+ and OUT− conducts to B−; when the supply is lowered, OUT− opens between 2.3 and 2.5 V; the module's quiescent current with USB out is < 10 µA (see [power_budget.md](../power_budget.md)). Pending: E-M5 (whether the DW01 switches on by itself when the cells are first connected) is still to record.
 
+
+### PLAT-POWER-FUSE-001
+**Title:** XF160 polyfuses F1 / F2 at each cell's + plate
+**Status:** validated
+**Dependencies:** [TECH-POWER-CELL-001](technical.md#tech-power-cell-001)
+derives_from: [TECH-POWER-PROTECT-002](technical.md#tech-power-protect-002)
+**Description:** Each cell's + lead goes through an XF160 polyfuse (1.6 A hold, ~3.2 A trip, 30 V): F1 in the left leg, F2 in the right leg. Each stands on the inner front wall in front of its cell, between the cradles, before the wire leaves the cell bay. Acceptance (bench): each fuse < 0.2 Ω cold; the drop across each fuse at a 1 A pack load is < 0.15 V; both branches read the same voltage.
+
