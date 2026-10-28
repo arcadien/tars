@@ -26,7 +26,6 @@ LOG=build/check
 mkdir -p "$LOG"
 STAGES=${*:-model stl erc renders docs}
 KICAD=${KICAD:-$(ls ~/bin/kicad-*.AppImage 2>/dev/null | sort | tail -1)}
-LIBS=~/.local/share/OpenSCAD/libraries
 ORCA_PRESETS=~/.config/OrcaSlicer/user/default
 FAILED=()
 T0=$(date +%s)
@@ -35,13 +34,13 @@ T0=$(date +%s)
 inputs() {
     case $1 in
         model) echo mechanical/scad/*.scad ;;
-        stl) echo mechanical/scad/tars4.scad tools/build4.sh tools/stl2_3mf.py $LIBS/*.scad ;;
+        stl) echo mechanical/scad/*.scad tools/build4.sh tools/stl2_3mf.py ;;
         overhang) echo mechanical/stl/tars4_*.stl scripts/overhang.py scripts/overhang_allow.json ;;
         orca) echo mechanical/stl/tars4_*.stl mechanical/3mf/tars4.3mf mechanical/3mf/tars4_cr10.3mf scripts/orca_check.py scripts/orca_profile.py \
                    tools/update_orca_project.py tools/stl2_3mf.py "$ORCA_PRESETS"/machine/*.json "$ORCA_PRESETS"/process/*.json ;;
         erc) echo hardware/kicad/*.kicad_sch hardware/kicad/*.kicad_sym hardware/kicad/*.kicad_pro hardware/kicad/sym-lib-table ;;
-        renders) echo mechanical/scad/tars4.scad tools/build4.sh $LIBS/*.scad scripts/check_renders.py ;;
-        docs) echo mechanical/scad/tars4.scad tools/boards.py tools/harness.py tools/html2pdf.py tools/wiring_svg.js hardware/tars4_wiring.html ;;
+        renders) echo mechanical/scad/*.scad tools/build4.sh scripts/check_renders.py ;;
+        docs) echo mechanical/scad/*.scad tools/boards.py tools/kicad_sch_gen.py tools/harness.py tools/html2pdf.py tools/wiring_svg.js hardware/tars4_wiring.html ;;
     esac
 }
 
