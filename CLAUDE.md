@@ -10,6 +10,9 @@ TARS robot, `tars4` variant. `README.md` is the project documentation; `mechanic
   byte-different even when the geometry is unchanged.
 - Commit prefixes (RBD pre-push hook): req, test, feat, tech, perf, ui, conf, arch, plan, chore, fix, docs, style,
   refactor; `feat(ID):`-style ones need a validated requirement. Granular commits, push after each.
+- Branches: each work branch keeps its state in `branches/<branch>.md` (goal, state, findings, open questions with
+  their answers, next step). Read it first when the branch is picked up again, keep it current, commit it with the
+  branch's changes (`plan:`); the questions asked to me on that branch live there. Remove it when the branch is merged.
 - Branch `bench-tests`: bench firmware for the D1 mini and the S3 Mini, not merged.
 - Requirements: draft a whole domain for review; keep a requirement `draft` while a bench measurement is pending;
   a PLAT requirement is validated only after its FUNC / TECH parent.
