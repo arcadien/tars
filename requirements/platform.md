@@ -106,3 +106,11 @@ derives_from: [FUNC-POWER-MONITOR-001](functional.md#func-power-monitor-001)
 derives_from: [FUNC-POWER-DETECT-001](functional.md#func-power-detect-001)
 **Description:** R15 68 kΩ from VUSB and R16 100 kΩ to GND make USB_DET, which goes to GPIO21, with C8 100 nF to GND at the S3. Acceptance: pytest on the schematic (these values and nets); bench: USB_DET is 2.8–3.3 V with the supply plugged in (never > 3.3 V) and < 0.2 V within 1 s of unplugging.
 
+
+### PLAT-POWER-VSENSE-001
+**Title:** VSYS sense: NPN level detector into GPIO37
+**Status:** validated
+**Dependencies:** [PLAT-POWER-SWITCH-001](platform.md#plat-power-switch-001)
+derives_from: [TECH-POWER-BACKFEED-001](technical.md#tech-power-backfeed-001)
+**Description:** Any small NPN in stock (BC547/548, 2N3904, 2N2222, S8050, S9013): base from VSYS through 1 MΩ, 1 MΩ base to GND, emitter to GND, collector to GPIO37 with the internal pull-up enabled only while reading. Rail present = GPIO37 low (on from VSYS ≈ 1.2 V, off below 1.0 V); no voltage above 3V3 reaches the pin. Hardware change, not yet in kicad_sch_gen.py, the boards or the wiring. Acceptance: pytest on the schematic; bench: GPIO37 low at VSYS 3.0 and 5.0 V, high at 0 V. Standing current ~2–3 µA: [power_budget.md](../power_budget.md).
+
