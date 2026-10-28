@@ -55,3 +55,15 @@ def test_plat_power_dist_001_amplifier_on_its_own_vsys_pair_with_c7(sch):
     # And the harness brings them on their own pair: X13 VSYS / GND amp -> X5 VIN / GND
     ends = {(e[4].get('ref'), e[4].get('pin'), e[5].get('ref'), e[5].get('pin')) for e in harness.EXTRA}
     assert ('X13', 'VSYS', 'X5', 'VIN') in ends and ('X13', 'GND amp', 'X5', 'GND') in ends
+
+
+@pytest.mark.req('PLAT-POWER-MONITOR-001')
+def test_plat_power_monitor_001_vbat_divider_on_gpio1(sch):
+    # Given the TP4056 B+ pad and GPIO1 of the S3 (VBAT/2)
+    bplus = sch.net(sch.refs('TP4056_DW01')[0], 'B+')
+    mid = s3_pin(sch, 1)
+    # Then R2 1M runs from B+ to the midpoint and R3 1M from the midpoint to GND
+    assert sch.value('R2') == '1M' and set(sch.between('R2')) == {bplus, mid}
+    assert sch.value('R3') == '1M' and set(sch.between('R3')) == {mid, 'GND'}
+    # And C6 is a 100 nF ceramic (non-polarised symbol) from GPIO1 to GND
+    assert sch.parts['C6'] == 'C' and sch.value('C6') == '0.1µ' and set(sch.between('C6')) == {mid, 'GND'}
