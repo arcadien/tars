@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # TARS validation harness: rebuild the generated files whose sources changed and fail on any problem.
-# usage: scripts/check.sh [stl] [erc] [renders] [docs] [overhang] [orca]   (no argument: the first four; overhang and
-#        orca only when asked, e.g. `make check-orca`: overhangs and the Orca projects are checked by hand in Orca)
-#   stl       every printable part to STL (Ender 3 halves, CR-10 one-piece parts, trial prints) + the raw 3MF plates
-#             (written to build/plates, the repo's tars4_plate*.3mf are left alone); fails on any OpenSCAD WARNING /
+# usage: scripts/check.sh [model] [stl] [erc] [renders] [docs] [overhang] [orca]   (no argument: the first five;
+#        overhang and orca only when asked, e.g. `make check-orca`: overhangs and the Orca projects are checked by hand
+#        in Orca). The pre-commit hook runs the fast stages (model erc docs), the pre-push hook the slow ones (stl renders).
+#   model     tars4.scad evaluated without any export (seconds): fails on any OpenSCAD WARNING / ERROR (model checks)
+#   stl       every printable part to STL (Ender 3 halves, CR-10 one-piece parts, trial prints; mechanical/stl/, not in
+#             git) + the raw 3MF plates (written to build/plates); fails on any OpenSCAD WARNING /
 #             ERROR (connector clashes, fit checks, ...) or a raw layout off its 220 x 220 bed
 #   overhang  scripts/overhang.py (uv, trimesh): faces > 50 deg from vertical over 2 cm2, unless a narrow bridge or
 #             listed in scripts/overhang_allow.json with the reason it prints without support
@@ -22,7 +24,7 @@ set -uo pipefail
 cd "$(dirname "$0")/.."
 LOG=build/check
 mkdir -p "$LOG"
-STAGES=${*:-stl erc renders docs}
+STAGES=${*:-model stl erc renders docs}
 KICAD=${KICAD:-$(ls ~/bin/kicad-*.AppImage 2>/dev/null | sort | tail -1)}
 LIBS=~/.local/share/OpenSCAD/libraries
 ORCA_PRESETS=~/.config/OrcaSlicer/user/default
@@ -32,6 +34,7 @@ T0=$(date +%s)
 # input files of each stage (what makes its result change)
 inputs() {
     case $1 in
+        model) echo mechanical/scad/*.scad ;;
         stl) echo mechanical/scad/tars4.scad tools/build4.sh tools/stl2_3mf.py $LIBS/*.scad ;;
         overhang) echo mechanical/stl/tars4_*.stl scripts/overhang.py scripts/overhang_allow.json ;;
         orca) echo mechanical/stl/tars4_*.stl mechanical/3mf/tars4.3mf mechanical/3mf/tars4_cr10.3mf scripts/orca_check.py scripts/orca_profile.py \
@@ -47,6 +50,13 @@ digest() { # sha256 of the stage's inputs (names + contents); missing files coun
     for f in $(inputs "$1"); do
         if [ -f "$f" ]; then sha256sum "$f"; else echo "missing $f"; fi
     done | sha256sum | cut -d' ' -f1
+}
+
+stage_model() {
+    openscad -D 'part="none"' -o "$LOG/model.echo" mechanical/scad/tars4.scad > "$LOG/model.out" 2>&1
+    cat "$LOG/model.echo" >> "$LOG/model.out"   # the model's own checks are echo("WARNING: ...") lines
+    cat "$LOG/model.out"
+    ! grep -qE "WARNING|ERROR" "$LOG/model.out"
 }
 
 stage_stl() {

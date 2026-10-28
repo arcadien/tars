@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
-# git pre-commit hook (installed by `make hook`): runs `make check`, then refuses the commit when the check failed
-# or rewrote tracked files (refreshed STLs, 3MF meshes, renders): review and `git add` them, then commit again.
+# git pre-commit hook (installed by `make hook`): runs the fast checks (model, ERC, docs: seconds), then refuses the
+# commit when they failed or rewrote tracked files (board drawings, harness guide): review and `git add` them, then
+# commit again. The slow checks (STL export, renders) run in the pre-push hook.
 # Skip once with `git commit --no-verify`.
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
 before=$(git diff --name-only | sort)
-make check || { echo "pre-commit: make check failed, commit refused"; exit 1; }
+scripts/check.sh model erc docs || { echo "pre-commit: check failed, commit refused"; exit 1; }
 after=$(git diff --name-only | sort)
 changed=$(comm -13 <(echo "$before") <(echo "$after"))
 if [ -n "$changed" ]; then
-    echo "pre-commit: make check rewrote these tracked files, add them and commit again:"
+    echo "pre-commit: the check rewrote these tracked files, add them and commit again:"
     echo "$changed" | sed 's/^/   /'
     exit 1
 fi
