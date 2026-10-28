@@ -95,3 +95,15 @@ def test_plat_power_vsense_001_npn_from_vsys_to_gpio37(sch):
     # And its base sits between 1M from VSYS and 1M to GND
     base = [r for r, _ in sch.nets[sch.net(q, 'B')] if r.startswith('R') and sch.value(r) == '1M']
     assert {n for r in base for n in sch.between(r)} >= {sch.net('SW1', '2'), 'GND'}
+
+
+@pytest.mark.req('PLAT-POWER-GATE-001')
+def test_plat_power_gate_001_q5_switches_the_sd_card_supply(sch):
+    # Given Q5 (AO3401A) and the microSD reader
+    sd, = sch.refs('microSD_3V3')
+    # Then Q5 switches +3V3 (source) to SD_3V3 (drain, the reader's VCC)
+    assert sch.value('Q5') == 'AO3401A' and sch.parts['Q5'] == 'Q_PMOS'
+    assert sch.net('Q5', 'S') == '+3V3' and sch.net('Q5', 'D') == sch.net(sd, 'VCC')
+    # And its gate is on SD_EN (GPIO36), pulled up to +3V3 by R22 100k
+    assert sch.net('Q5', 'G') == s3_pin(sch, 36)
+    assert sch.value('R22') == '100k' and set(sch.between('R22')) == {'+3V3', s3_pin(sch, 36)}
