@@ -4,7 +4,7 @@ Parts all received (2026-10-27). Fill the **Measured** column as you go; everyth
 pass at the end, then STL / 3MF are regenerated once. Electrical bench checks stay in the README checklist
 (*to do when the parts arrive*), they don't change the model.
 
-**Merged into `tars4.scad` on 2026-10-27 (23:50)**, backup `backups/tars4.scad.bak-20261027-merge`; every print part renders
+**Merged into `tars4.scad` on 2026-10-27 (23:50)**; every print part renders
 with no WARNING. Side effects: polyfuse holders on the front walls, TPS63020 slot cut 0.15 into the walls (`bk_clr`),
 TP4056 grooves gone, screen connector box 8 deep (bundle corridor moved back to y 13.5–25), BME280 0.3 lower, AM312
 re-centred in its band (asymmetric extents), `active_dz` −1.1. **Still open**: tube bores (test3, then `tube_od` 7.93 +

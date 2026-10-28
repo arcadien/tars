@@ -1,16 +1,16 @@
-# TARS4 — questions en suspens (mis à jour le 2026-10-22)
+# TARS4 — questions en suspens (mis à jour le 2026-10-28)
 
 Regroupe ce qui reste ouvert après les trois séries de relectures (`reviews/2026-10-21-review.md`, `reviews/2026-10-21-review2.md`,
 `reviews/2026-10-22-review3-boards.md`).
 Les bloquants B1–B2, les décisions D1–D12, les améliorations et les corrections de doc sont **appliqués** (options
-recommandées, D11 : inter. gardé) ; le README décrit l'état actuel (plus de journal des décisions : historique dans `backups/README.md.bak-20261022-consolidate` et `reviews/`).
+recommandées, D11 : inter. gardé) ; le README décrit l'état actuel (plus de journal des décisions : historique dans `reviews/` et dans git).
 
 ## 1. Bloquants — réglés
 
 | # | Problème | Ce qui a été fait |
 |---|---|---|
 | B1 | Boîtiers Dupont sans détrompeur | broche inutile retirée + case bouchée (X2 INT2, X8 32K, X5 GAIN avec X5 en 4 + 3) ; une case de plus bouchée côté femelle sur les paires en ligne (X3, X7, X15) ; écrans : barrette coudée + nervure collée sur le boîtier ; X14 en JST-PH 3 ; X6 et X9 sans détrompeur (à l'envers, rien ne casse). Ordre des broches dans le README (*Connectors*) |
-| B2 | TP4056 contre la lèvre de sa rainure | plus de lèvre haute (appui dessous seulement) pour le TP4056 et le TPS63020, une patte du couvercle tient le bord arrière ; le micro-USB du TP4056 reste en place ; C9 / D3 couchés sur l'extrémité IN (`charger_h` 5,5) |
+| B2 | TP4056 contre la lèvre de sa rainure | plus de lèvre haute (appui dessous seulement) pour le TP4056 et le TPS63020, une patte du couvercle tient le bord arrière ; depuis le 2026-10-27 le TP4056 (raccourci à 26,3, micro-USB dessoudé) pose sur des appuis de 0,5 sans rainure ; C9 / D3 couchés sur l'extrémité IN (`charger_h` 5,5) |
 
 ## 2. Décisions — prises
 
@@ -19,41 +19,25 @@ sur le support (R12 / R19 47 Ω) · D5 15 attaches imprimées · D6 fentes d'aé
 C11 sur P2, PWM 20 kHz · D8 C1 tantale polymère CMS 7343 (POSCAP 10TPE220ML) couché sous la S3, sur son support (2026-10-24) · D9 couvercle `lid_mid_left` · D10 Q5 sur le 3V3 de la microSD (GPIO36)
 · D11 inter. gardé · D12 chargeur 5 V ≥ 2 A.
 
-## 3. Nouvelle question
+## 3. Ouvert maintenant
 
-| # | Question | Options |
+| # | Question | État |
 |---|---|---|
-| D13 | **Chargeur IP2312 (2 A, à découpage) à la place du TP4056** : pas de R_PROG à changer, ~0,47 W à 2 A au lieu de 0,65–1 W à 0,5 A. | voir la réponse du 2026-10-21 : il faut garder une protection DW01 à part, et 2 A de charge + 1 A pour TARS dépassent le micro-USB et les JST-PH ; il ne tient pas à plat dans la jambe (34,4 × 15) |
+| T1 | **Tube test3** (alésages en goutte, G7,95 / 8,0 / 8,05, R8,05 / 8,1 / 8,15) | à imprimer et mesurer → `tube_od` 7,93 + jeux + pivots en goutte, puis **une seule** passe STL + `tools/update_orca_project.py` sur `tars4.3mf`. Ne pas imprimer les colonnes avant |
+| D13 | **Chargeur à découpage à la place du TP4056** | TP4056 gardé pour l'instant (500 mA, R_PROG 2,4k). Si E-M8 chauffe trop : R_PROG 3,6k (330 mA) ou jambe gauche basse en PETG ; alternative TP5100 1 A + DW01 séparé. IP2312 : ne tient pas à plat (34,4 × 15) |
+| E-M8 | **Température du TP4056** (jambes en PLA) | mesurer la paroi à 15 et 30 min de charge : > 45 °C → R_PROG 3,6k. Radiateur cuivre RPi ≤ ~3 mm + pad thermique 0,5–1 mm entre puce et radiateur, jamais entre carte et PLA |
 
-## 4. Mesures à faire à réception des pièces
+## 4. Mesures restantes
 
-**Électriques**
+**Cotes** (`measurements.md`) : `bk_h` (hauteur de la self du TPS63020), `pir_pcb_dn`, zone active de l'écran vérifiée
+allumé, queues de soudure côté paroi (ADXL345, MAX98357A, micro-USB), écran 0,85" si utilisé, D-M9 (1re rangée de
+broches de la S3, marges `my0`).
 
-| # | Mesure | Ce qui en dépend |
-|---|---|---|
-| E-M1 | Pull-up de SD sur la carte ampli (1 M ? 100 k ?) | R18 : 10 k si 1 M, **2,2 k si 100 k** ; couper la piste si SD est relié à VIN |
-| E-M2 | Pull-up et courant de BLK sur les écrans | à retirer s'il existe (~0,66 mA en veille pour deux écrans) ; Q2 / Q3 si BLK alimente les LED |
-| E-M3 | Fuite de D1 (1N5822) en inverse à 4,2 V, tiède (~50 °C) | > 50 µA → R1 4,7 k ou autre Schottky |
-| E-M4 | Niveau haut de la sortie de l'AM312 à 3,3 V | doit dépasser 2,5 V |
-| E-M5 | Le module DW01 s'allume-t-il seul à la première connexion des cellules ? | certains attendent un premier branchement du chargeur |
-| E-M6 | Calibre de l'inter. SW1 (≥ 1 A voulu) | sinon un inter. 1–2 A |
-| E-M7 | Courant de veille réel, carte microSD présente et absente | D10 |
-| E-M8 | Température du TP4056 après 15 min de charge à 0,5 A | D6 |
+**Électriques**, au banc (liste du README *to do when the parts arrive*) : E-M1 pull-up SD de l'ampli (R18), E-M2 BLK
+des écrans, E-M3 fuite de D1 tiède, E-M4 niveau haut de l'AM312, E-M5 réveil du DW01, E-M6 calibre de SW1, E-M7 courant
+de veille avec et sans microSD.
 
-**Cotes (valeurs `MEASURE` du modèle)**
-
-| # | Mesure | Paramètres |
-|---|---|---|
-| D-M1 | AM312 : cache par l'extérieur (5,7 mm de saillie) ou collé dedans (plaque `pir_test`) ; décalage plaque/axe | `pir_test_holes`, `pir_pcb_dn` (cotes mesurées le 23/10) |
-| D-M2 | Barrettes femelles et entretoise des broches de la S3 | `s3_sock_h`, `s3_pin_base` |
-| D-M3 | Boîtiers Dupont, paires XH emboîtées, queues de sertissage | `dp_t`, `dp_on`, `dp_inline`, `xh_inline` |
-| D-M4 | Position des pastilles du TP4056 et du TPS63020 par rapport au bord | B2, `charger_lip`, `bk_lip` |
-| D-M5 | Dos des écrans (nappe, composants), rangée de broches | D1, `scr_hdr_dz` |
-| D-M6 | Barrette coudée de la ZS-042 | `rtc_hdr_y` |
-| D-M7 | Fusibles couchés (MF-R160 : Ø10,2 × 3, pas 5,1) | `fuse` |
-| D-M8 | Et toutes les autres valeurs `MEASURE` (écrans, TP4056, TPS63020, microSD, micro-USB, plaquettes, BME280…) | liste dans le README, « to do when the parts arrive » |
-
-**Autres** : angle de balancement voulu pour les jambes (longueur libre à la torsion des fils) ; état des commandes du 2026-10-20 (D3, fusibles, résistances).
+**Autre** : angle de balancement voulu pour les jambes (longueur libre des fils à la torsion).
 
 ## 5. Points de la première relecture et corrections de doc — appliqués
 

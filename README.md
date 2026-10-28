@@ -46,7 +46,7 @@ Lying face down, lids off (`part="open"`): pivots and screens at the top of the 
 | `tools/harness.py` | wiring guide `tars4_harness.html`: every wire (W1…) with both ends typed (soldered / Dupont / JST-XH, female / male) in build order, one diagram, wire table and bench test per step; reads the board wires and connectors from `boards.py` |
 | `Makefile`, `scripts/check.sh` | validation harness: `make check` rebuilds everything and fails on any problem (see *Rebuild*) |
 | `tars4_cr10.3mf` | the saved CR-10 Orca project (one-piece parts, one plate), meshes refreshed by `make check` |
-| `backups/` | earlier versions of every file; the abandoned Raspberry Pi variants in `backups/raspberry-pi-variant-20261022/` |
+| `backups/` | local, git-ignored: copies made by the tools before rewriting a file (history lives in git) |
 
 ## Proportions and sizing
 
