@@ -39,7 +39,8 @@ MECH requirements for them before any model change.
 | S1 | Speaker: open its box and use the bare driver (option 1), or another speaker from stock (option 2)? | looking in the drawers (2026-10-28) |
 | S4 | Round speaker candidate: diameter, impedance, power? | depth 5 mm (2026-10-28): fits easily (≤ 15); diameter must be ≤ Ø23; diameter and impedance still to read |
 | S3 | Which impedance, which shape if bought new? | **8 Ω** (4 Ω also works but doubles the current peaks on VSYS: ~1 A at full volume vs ~0.5 A), 0.5–2 W. Face against the lower black panel (27.2 wide inside, minus the side rails ≈ 23; panel 33.5 tall): **oval 20 × 30, long axis vertical**, fits; **round Ø28 does not** (wider than the interior); a round one must be ≤ Ø23. Depth ≤ ~15 with its wires |
-| S2 | If option 1: bare driver long axis, short axis, depth with the magnet, flange if any | |
+| S2 | If option 1: bare driver long axis, short axis, depth with the magnet, flange if any | bare driver **28.6 × 40 × 11.6** (2026-10-28): depth fits (26 behind the splint), but 28.6 is 1.4 wider than the column interior (27.2) and 5.6 wider than the room between the side rails (~23); no angle helps; thinning the side walls to fit would leave 0.75 mm. Fits only if the basket under the frame is ≤ ~23 wide and the frame lips can be trimmed (S5) |
+| S5 | Bare driver: width of the basket / magnet under the frame (without the stamped lips or ears)? | |
 
 ## Next
 Answers A1–S2 → draft the AUDIO / MECH requirements (housing, shutdown, connectors) → validation → model.
