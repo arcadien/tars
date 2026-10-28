@@ -128,3 +128,10 @@ derives_from: [TECH-POWER-SLEEP-001](technical.md#tech-power-sleep-001)
 **Dependencies:** none
 derives_from: [TECH-POWER-SLEEP-001](technical.md#tech-power-sleep-001)
 **Description:** At start-up the firmware clears the EN32kHz bit (bit 3) of the DS3231's control/status register 0x0F, and leaves the other bits unchanged. Acceptance (on-target Unity test): after initialisation, reading register 0x0F gives bit 3 = 0, and the other bits are the same as before.
+
+### PLAT-MECH-CHARGEPORT-001
+**Title:** Charge port at the heel of the left leg
+**Status:** validated
+**Dependencies:** [PLAT-POWER-CHARGE-001](platform.md#plat-power-charge-001)
+derives_from: [FUNC-POWER-CHARGE-001](functional.md#func-power-charge-001)
+**Description:** The micro-USB breakout stands against the outer side wall of the left foot, its receptacle axis horizontal along y. The receptacle mouth is at most 1 mm inside the back face, and its centre is ≥ 6 mm above the floor, so a plug overmold up to 11.6 × 8 mm clears both the table and the leg edges. The breakout is held so that the plug's insertion force (≤ 35 N, micro-USB spec) does not move it, and the lid can still be removed without unsoldering anything. The floor opening of the former port is closed. Acceptance: `make check` clean (geometry asserts in `tars4.scad` for the axis, mouth depth, height and clearances); print: a plug inserted and removed 10 times, with the breakout staying in place.
