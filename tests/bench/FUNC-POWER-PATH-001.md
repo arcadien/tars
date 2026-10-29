@@ -10,7 +10,7 @@ Requirement: [FUNC-POWER-PATH-001](../../requirements/functional.md#func-power-p
 
 ## Setup
 1. Nothing on the 3V3 (TPS63020 output unloaded).
-2. Unplug **X16** (right cell), so that the whole pack current goes through the meter, then **X12** (left cell). Join the two B− contacts of X12 with a short jumper. Put the meter (current range) in series in B+: **A socket on the board-side B+, COM on the cell-side B+**. A positive reading is current flowing **into** the cell (charge), a negative one current flowing out of it.
+2. Unplug **X16** (right cell), so that the whole pack current goes through the meter, then **X12** (left cell). Join the two B− contacts of X12 with a short jumper. Put the meter on its **10 A socket** (the mA socket fuse blows at 0.5 A) in series in B+: **A socket on the board-side B+, COM on the cell-side B+**. A positive reading is current flowing **into** the cell (charge), a negative one current flowing out of it.
 3. The 33 Ω load across VSYS and GND. VSYS and GND are reached at the X13 contacts of the power block (VSYS, GND amp).
 4. SW1 on.
 

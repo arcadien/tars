@@ -5,7 +5,7 @@ Requirement: [PLAT-POWER-FUSE-001](../../requirements/platform.md#plat-power-fus
 ## Equipment
 - A multimeter (V range, and mA / 10 A ranges for currents). With a low-ohm range (or a 4-wire meter).
 - Both cells.
-- A 3.9 Ω 5 W resistor (≈ 1 A on VSYS) with crocodile leads.
+- A 3.9 Ω ≥ 10 W resistor (≈ 1 A on battery) with crocodile leads.
 
 ## Setup
 1. Cells out. Short the meter leads and note their resistance (to subtract).

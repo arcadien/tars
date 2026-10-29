@@ -8,7 +8,8 @@ Requirement: [PLAT-POWER-REG-001](../../requirements/platform.md#plat-power-reg-
 
 ## Setup
 1. TPS63020 module alone: EN tied to VIN, PS/SYNC bridged to GND, nothing on its output.
-2. Bench supply (+) through the meter (µA / mA range) to VIN; supply (−) to GND.
+2. Its power LED removed first ([PLAT-POWER-SLEEP-001](PLAT-POWER-SLEEP-001.md)): with it, the < 0.1 mA criterion cannot pass.
+3. Bench supply (+) through the meter to VIN, supply (−) to GND. Power up with the meter on its **A range** (the start-up current through a µA shunt can stall the converter), then switch to the µA range.
 
 ## Steps
 1. Read the input current.

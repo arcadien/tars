@@ -10,7 +10,7 @@ Requirement: [PERF-POWER-REG-002](../../requirements/performance.md#perf-power-r
 
 ## Setup
 1. Bench supply on the TP4056 B+ / B− pads. SW1 on.
-2. Scope probe on the S3 Mini's 3V pin, ground on its GND pin; trigger on a falling edge at 3.15 V.
+2. Scope probe on the S3 Mini's 3V pin, ground on its GND pin; normal (not auto) trigger on a falling edge at 3.10 V: any trigger during the 60 s is a fail; also note the minimum with the scope's min measurement or infinite persistence.
 
 ## Steps
 1. Flash and start the test firmware (Wi-Fi TX + tone). Run it for 60 s; note the lowest 3V3 seen.
