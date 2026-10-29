@@ -719,7 +719,7 @@ drawn is ~17 mm long (`xh_male_back`, `xh_female`) inside the 22 mm checked box 
 | C1 **220 µF SMD 7343** (7.3 × 4.3), Panasonic POSCAP 10TPE220ML, polymer tantalum 10 V, ESR 25 mΩ (in stock) | 1 | **required**, 3V3–GND at the S3, lying flat on the carrier under the S3 (C2 + / E2 −, a lead offcut soldered on each end); **SMD tantalum band = +** |
 | C2, C4, C10 **10 µF tantalum 16 V** (+ to 3V3; in stock) or ceramic X5R/X7R ≥ 6.3 V ("106"), 2.54 pitch, h ≤ 9 | 3 | P1 (G9 + / G10), microSD reader (C4 **lying flat** on its pins: only ~6.6 mm to the TPS63020), P2 (F9 + / F10) |
 | C3, C5, C6, C8, C11 **100 nF ceramic**, through-hole, 2.54 pitch, small body (≤ ~4 mm wide, h ≤ 9 on P1 / P2, ≤ 10 under the S3) | 5 | P1 (H9–H10), microSD reader (on its pins), GPIO1 and GPIO21 at the S3 (under it between the headers, ~0.1 mm to their plastic), P2 (G9–G10); **C6 never a tantalum** (leakage on VBAT/2); a 7.15 × 2.4 film fits only C3 (H9–H11) and C5 |
-| C7 electrolytic **470 µF**, 10 V (Ø8 × 12) | 1 | on the amp's VIN / GND pins, lying across behind the board |
+| C7 electrolytic **470 µF**, 10 V, low ESR, Panasonic **EEUFC1A471** (Ø8 × 11.5) | 1 | on the amp's VIN / GND pins, lying across behind the board |
 | C9 electrolytic **22 µF** (10–47 µF), 16 V, **Ø ≤ 5.15** lying (`charger_h` 6) | 1 | on the TP4056's IN pads next to D3 |
 | Q2 AO3401A + Q3 AO3400A / 2N7002 + 10 kΩ | (1 + 1 + 1) | only if the screens' BLK draws the LED current (see *Signals*) |
 | Stripboard 2.54 mm (single-sided), cut to **24 × 32** (9 × 12 holes) | 2 | P1, P2: `renders/tars4_board_p1.svg`, `_p2.svg` |

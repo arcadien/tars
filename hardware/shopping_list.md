@@ -41,7 +41,7 @@ links were found on 2026-10-21, price and stock not guaranteed.
 | Item | Qty | Role | Links |
 |---|---|---|---|
 | **220 µF SMD 7343** (7.3 × 4.3), tantalum ≥ 6.3 V | 1 | C1, lying under the S3: **in stock** (Panasonic POSCAP 10TPE220ML, 10 V polymer, ESR 25 mΩ) | — |
-| **470 µF 10 V** electrolytic, **Ø ≤ 8 × 12** | 1 | C7, amplifier VIN (lying behind the board): **in stock** (Ø8 × 11.5) | — |
+| **470 µF 10 V** electrolytic, **Ø ≤ 8 × 12** | 1 | C7, amplifier VIN (lying behind the board): **in stock**, Panasonic EEUFC1A471 (Ø8 × 11.5, low ESR) | — |
 | **10 µF** ceramic X5R/X7R ("106") or **16 V tantalum** (+ to 3V3), 2.54 pitch, h ≤ 10 | 4 | C2 on P1, C4 at the microSD reader, C10 and C12 on P2: **16 V tantalums in stock** (6, 2 spare) | — |
 | **100 nF** ceramic ("104") through-hole, 2.54 pitch, body ≤ ~4 mm, **no tantalum** for C6 | 5 | C3, C5, C6, C8, C11: **in stock** (small through-hole ceramics) | [Amazon (search)](https://www.amazon.fr/s?k=assortiment+condensateur+ceramique+104) |
 

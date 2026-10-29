@@ -31,7 +31,7 @@ and the harness guide [tars4_harness.html](tars4_harness.html). Requirements: `r
 | R4 | 10 k | on P1, BL_EN → GND: backlights off at boot |
 | R10 | 1 k | on P2, in series GPIO4 (AMP_SD) → amplifier SD |
 | R18 | 10 k | on P2, amplifier SD → GND: the amplifier stays off at boot and in sleep despite its board's pull-up (SD < 0.16 V) |
-| C7 | 470 µF 10 V electrolytic Ø8 × 11.5, − to GND | on the amplifier VIN / GND pins (module side of X5), lying behind the board |
+| C7 | 470 µF 10 V low-ESR electrolytic, Panasonic EEUFC1A471, Ø8 × 11.5, − to GND | on the amplifier VIN / GND pins (module side of X5), lying behind the board |
 | R11, R13, R14, R20 | 33 Ω | in series at the S3: microSD CLK, amplifier BCLK and LRC, screens MOSI |
 | R12, R19 | 47 Ω (up to 100 Ω) | on the S3 carrier: split SCK, R12 → screen 1, R19 → screen 2 through its own wire |
 | R5–R9 | 10 k | microSD pull-ups (CMD, D0–D3) to SD_3V3, if the reader has none |
