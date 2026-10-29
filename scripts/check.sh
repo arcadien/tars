@@ -14,7 +14,8 @@
 #   orca      scripts/orca_check.py: refreshes the meshes of the saved Orca projects (tars4.3mf on the Ender 3,
 #             tars4_cr10.3mf on the CR-10, layout kept) and slices every plate with the OrcaSlicer CLI: a part that
 #             grew off its plate or into a neighbour fails
-#   erc       KiCad ERC through kicad-cli (no GUI): errors fail, warnings are listed
+#   erc       KiCad ERC through kicad-cli (no GUI): errors fail, warnings are listed; then the requirement acceptance
+#             tests (tests/, `uvx pytest`: schematic, model, wire lists, requirement coverage)
 #   renders   standard PNG views (tools/build4.sh renders); each PNG must be rewritten by this run and not blank
 #   docs      board drawings (boards.py, with its own net checks), wiring SVG, harness guide + PDF (no blank page)
 # Incremental: a stage runs only when its input files changed since its last pass (sha256 of their contents in
@@ -43,7 +44,9 @@ inputs() {
         overhang) echo mechanical/stl/tars4_*.stl scripts/overhang.py scripts/overhang_allow.json ;;
         orca) echo mechanical/stl/tars4_*.stl mechanical/3mf/tars4.3mf mechanical/3mf/tars4_cr10.3mf scripts/orca_check.py scripts/orca_profile.py \
                    tools/update_orca_project.py tools/stl2_3mf.py "$ORCA_PRESETS"/machine/*.json "$ORCA_PRESETS"/process/*.json ;;
-        erc) echo hardware/kicad/*.kicad_sch hardware/kicad/*.kicad_sym hardware/kicad/*.kicad_pro hardware/kicad/sym-lib-table ;;
+        erc) echo hardware/kicad/*.kicad_sch hardware/kicad/*.kicad_sym hardware/kicad/*.kicad_pro hardware/kicad/sym-lib-table \
+                  tests/*.py tests/bench/*.md tests/manual/*.md requirements/*.md audits/exclusions.yml \
+                  mechanical/scad/*.scad tools/boards.py tools/harness.py ;;
         renders) echo mechanical/scad/*.scad tools/build4.sh scripts/check_renders.py ;;
         docs) echo mechanical/scad/*.scad tools/boards.py tools/kicad_sch_gen.py tools/harness.py tools/html2pdf.py tools/wiring_svg.js hardware/tars4_wiring.html ;;
     esac
@@ -91,7 +94,7 @@ stage_erc() {
     [ -n "$KICAD" ] && cli=("$KICAD" kicad-cli)
     command -v "${cli[0]}" >/dev/null || { echo "KiCad not found: kicad-cli on the PATH or a kicad AppImage in ~/bin (KICAD=...)"; return 1; }
     "${cli[@]}" sch erc --severity-all --format json -o "$LOG/erc.json" hardware/kicad/tars4.kicad_sch || return 1
-    python3 -I - "$LOG/erc.json" <<'EOF'
+    python3 -I - "$LOG/erc.json" <<'EOF' || return 1
 import json, sys
 d = json.load(open(sys.argv[1]))
 v = [x for s in d["sheets"] for x in s["violations"]]
@@ -101,6 +104,8 @@ err = sum(x["severity"] == "error" for x in v)
 print(f"erc: {err} error(s), {len(v) - err} warning(s)")
 sys.exit(1 if err else 0)
 EOF
+    # requirement acceptance tests read from the same schematic (tests/, pytest through uv)
+    KICAD=$KICAD uvx pytest -q tests
 }
 
 stage_renders() {

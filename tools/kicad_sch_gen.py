@@ -12,6 +12,7 @@ Check it with: kicad-cli sch erc hardware/kicad/tars4.kicad_sch ; kicad-cli sch 
 """
 import os
 import re
+import shutil
 import subprocess
 import tempfile
 import uuid
@@ -21,7 +22,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 LIBSRC = os.path.join(ROOT, "hardware", "kicad", "lib_src")
 OUT = os.path.join(ROOT, "hardware", "kicad", "tars4.kicad_sch")
-KICAD = os.path.expanduser("~/bin/kicad-10.0.7-x86_64.AppImage")
+# kicad-cli: the AppImage named by $KICAD (or the newest ~/bin/kicad-*.AppImage), else kicad-cli on the PATH
+_bin = os.path.expanduser("~/bin")
+_appimages = sorted(f for f in os.listdir(_bin) if f.startswith("kicad-") and f.endswith(".AppImage")) if os.path.isdir(_bin) else []
+KICAD = os.environ.get("KICAD") or (os.path.expanduser(f"~/bin/{_appimages[-1]}") if _appimages else "")
+KICAD_CLI = [KICAD, "kicad-cli"] if KICAD else ([shutil.which("kicad-cli")] if shutil.which("kicad-cli") else [])
 ROOT_UUID = str(uuid.uuid5(uuid.NAMESPACE_URL, "tars4-root"))
 _n = [0]
 
@@ -58,7 +63,7 @@ LIBS, PINS = {}, {}
 
 def load_std(lib_id):
     lib, name = lib_id.split(":")
-    text = open(os.path.join(LIBSRC, f"{lib}__{name}.kicad_sym")).read()
+    text = open(os.path.join(LIBSRC, f"{lib}__{name}.kicad_sym"), encoding="utf-8").read()
     b = block(text, text.index('(symbol "'))
     b = b.replace(f'(symbol "{name}"', f'(symbol "{lib_id}"', 1)
     LIBS[lib_id] = b
@@ -277,14 +282,16 @@ acc, acch = module("ADXL345_GY-291", P("GND", "VCC", "CS", "INT1", "INT2", "SDO"
 pir, pirh = module("AM312_PIR", P("VIN", "OUT", "GND"), (), 15.24)
 bme, bmeh = module("BME280_GY", P("VCC", "GND", "SCL", "SDA"), (), 15.24)
 sd, sdh = module("microSD_3V3", P("CLK", "CMD", "D0", "D1", "D2", "D3", "VCC", "GND"), (), 15.24)
+usb, usbh = module("usb_charging_socket", (), P("VBUS", "GND"), 10.16)
 
 # ---------------- power (fully wired) ----------------
 VU, PATH = 35.56, 55.88            # VUSB line, power path line (OUTP -> Q1 -> VPATH -> SW1 -> VSYS)
 note("POWER — ground star on the power-path board (left leg)", 15.24, 17.78, 2)
-note("VUSB (J1: micro-USB breakout at the foot of the left leg; D3 + C9 on the TP4056 IN pads)", 12.7, 33.02, 1.27)
+note("VUSB (J1: micro-USB charging socket at the heel of the left leg; D3 + C9 on the TP4056 IN pads)", 12.7, 33.02, 1.27)
 place("Device:D_Zener", "D3", "SMAJ5.0A (TVS)", 20.32, 46.99, {"1": "VUSB", "2": "GND"}, rot=270, txt=((20.32, 62.23), (20.32, 64.77)))
 place("Device:C_Polarized", "C9", "22µ 16V", 12.7, 46.99, {"1": "VUSB", "2": "GND"}, txt=((12.7, 57.15), (12.7, 59.69)))
 place("Device:R", "R1", "10k", 30.48, 46.99, {"1": "VUSB", "2": "GND"})
+mod(usb, usbh, "J1", "USB charging socket", 22.86, 80.01, {"VBUS": "VUSB", "GND": "GND"})
 place("Device:R", "R15", "68k", 40.64, 46.99, {"1": "VUSB", "2": "USB_DET"})
 place("Device:R", "R16", "100k", 40.64, 62.23, {"1": "USB_DET", "2": "GND"})
 mod(tp, tph, "U1", "TP4056 + DW01, R_PROG 2,4k", 73.66, PATH + 7.62,
@@ -303,7 +310,7 @@ place("Device:Battery_Cell", "BT1", "18650 G", 104.14, 104.14, {"1": "BT1P", "2"
 place("Device:Battery_Cell", "BT2", "18650 D", 124.46, 104.14, {"1": "BT2P", "2": "BAT-"})
 
 # VUSB line on top: TVS, R1, R15, TP4056 IN+, Q1 gate, D1 anode
-drops = [stub("U1.IN+", 5.08), pt("C9.1"), pt("D3.1"), pt("R1.1"), pt("R15.1"), pt("Q1.G"), pt("D1.2")]
+drops = [stub("U1.IN+", 5.08), pt("C9.1"), pt("D3.1"), pt("R1.1"), pt("R15.1"), pt("Q1.G"), pt("D1.2"), stub("J1.VBUS", 2.54)]
 tops = []
 for p in drops:
     tops.append(W(p, (p[0], VU)))
@@ -312,6 +319,7 @@ for a, b in zip(tops, tops[1:]):
     W(a, b)
 for t in ("C9.2", "D3.2", "R1.2", "U1.IN-", "U1.OUT-", "R16.2", "R3.2"):
     PW("GND", pt(t))
+PW("GND", stub("J1.GND", 2.54), side="r")
 W("R15.2", (40.64, 54.61), "R16.1")
 # power path: OUTP -> Q1 -> VPATH (+ D1 cathode) -> SW1 -> VSYS
 W("U1.OUT+", "Q1.D")
@@ -566,25 +574,27 @@ doc = f"""(kicad_sch
 	(embedded_fonts no)
 )
 """
-open(OUT, "w").write(doc)
+open(OUT, "w", encoding="utf-8").write(doc)
 # project library with the module symbols (names without the "tars:" prefix), project file and library table
 mods = [v.replace(f'(symbol "{k}"', f'(symbol "{k.split(":")[1]}"', 1) for k, v in LIBS.items() if k.startswith("tars:")]
-open(os.path.join(ROOT, "hardware", "kicad", "tars.kicad_sym"), "w").write(
+open(os.path.join(ROOT, "hardware", "kicad", "tars.kicad_sym"), "w", encoding="utf-8").write(
     '(kicad_symbol_lib (version 20251024) (generator "kicad_symbol_editor") (generator_version "10.0")\n' + "\n".join(mods) + "\n)\n")
-open(os.path.join(ROOT, "hardware", "kicad", "sym-lib-table"), "w").write(
+open(os.path.join(ROOT, "hardware", "kicad", "sym-lib-table"), "w", encoding="utf-8").write(
     '(sym_lib_table (version 7) (lib (name "tars") (type "KiCad") (uri "${KIPRJMOD}/tars.kicad_sym") (options "") (descr "TARS4 modules")))\n')
 pro = os.path.join(ROOT, "hardware", "kicad", "tars4.kicad_pro")
 if not os.path.exists(pro):
-    open(pro, "w").write('{\n  "meta": {\n    "filename": "tars4.kicad_pro",\n    "version": 3\n  }\n}\n')
+    open(pro, "w", encoding="utf-8").write('{\n  "meta": {\n    "filename": "tars4.kicad_pro",\n    "version": 3\n  }\n}\n')
 print(f"{OUT}: {len(items)} items, {len(SEGS)} wires, {len(set(NETS.values()) - {'NC'})} nets")
 
 # ---------------- native format + netlist comparison ----------------
-if os.path.exists(KICAD):
-    subprocess.run([KICAD, "kicad-cli", "sch", "upgrade", OUT], check=True, capture_output=True)
+if not KICAD_CLI:
+    print("WARNING: KiCad not found (kicad-cli on the PATH or $KICAD): file not upgraded, netlist not checked")
+else:
+    subprocess.run([*KICAD_CLI, "sch", "upgrade", OUT], check=True, capture_output=True)
     with tempfile.TemporaryDirectory() as tmp:
         net = os.path.join(tmp, "t.net")
-        subprocess.run([KICAD, "kicad-cli", "sch", "export", "netlist", "--format", "kicadsexpr", "-o", net, OUT], check=True, capture_output=True)
-        text = open(net).read()
+        subprocess.run([*KICAD_CLI, "sch", "export", "netlist", "--format", "kicadsexpr", "-o", net, OUT], check=True, capture_output=True)
+        text = open(net, encoding="utf-8").read()
     got = defaultdict(set)
     for m in re.finditer(r'\(net\s+\(code "(\d+)"\)\s+\(name "([^"]*)"\)(.*?)\n\t\t\)', text, re.S):
         for r, p in re.findall(r'\(ref "([^"]+)"\)\s+\(pin "([^"]+)"\)', m.group(3)):
