@@ -14,11 +14,10 @@ Audit report: `audits/2026-10-29-audit-full.md` (untracked, in the main worktree
 - B3: scope with a normal falling-edge trigger instead of min-hold (FUNC-POWER-PATH-002, PERF-POWER-REG-002).
 - B4: 10 A socket stated in every series charge-current measurement.
 - B5: bring-up VBAT/2 expected 0.476 × B+ with a 10 MΩ meter.
+- B6: TECH-POWER-GROUND-001 bench sheet (mV drop to the star at 1 A, < 100 mV).
 - B7: TPS63020 idle test powered up on the A range, LEDs removed first (bring-up order swapped).
 
 ## To do
-- B6: write tests/bench/TECH-POWER-GROUND-001.md (bring-up 3.4 already links it): mV drop from B−, OUT−, TPS GND,
-  amp GND to the star at a 1 A load, < 100 mV (= < 0.1 Ω), protection on.
 - A1: FUNC-POWER-PATH-001 acceptance cannot fail (charge current masks a 110 mA draw). Proposed: full cell, charge
   terminated, meter on mA: any load draw reads negative (≥ −0.1 mA); or |ΔI_cell| ≤ 1 mA with the 33 Ω load on / off
   while charging. Requirement change → Aurelien validates, then rewrite tests/bench/FUNC-POWER-PATH-001.md.
