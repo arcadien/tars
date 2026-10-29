@@ -29,11 +29,52 @@ cd "$(dirname "$0")/.."
 LOG=build/check
 mkdir -p "$LOG"
 STAGES=${*:-model stl erc renders docs}
+
+# Windows (Git Bash): tools not on the PATH are taken from their install folders; OpenSCAD runs through openscad.com,
+# the console binary (openscad.exe is a GUI program: its messages, WARNINGs included, are lost)
+if command -v cygpath >/dev/null; then
+    if ! command -v openscad.com >/dev/null; then
+        for d in "/c/Program Files/OpenSCAD (Nightly)" "/c/Program Files/OpenSCAD"; do
+            [ -x "$d/openscad.com" ] && [ -d "$d/color-schemes" ] && { PATH="$d:$PATH"; break; }
+        done
+    fi
+    if command -v openscad.com >/dev/null; then
+        mkdir -p "$LOG/bin"
+        printf '#!/bin/sh\nexec "%s" "$@"\n' "$(command -v openscad.com)" > "$LOG/bin/openscad"
+        chmod +x "$LOG/bin/openscad"
+        PATH="$PWD/$LOG/bin:$PATH"
+    fi
+    for pat in "/c/Program Files/gs/"*/bin "/c/Program Files/Mozilla Firefox"; do
+        [ -d "$pat" ] && PATH="$PATH:$pat"
+    done
+    # KiCad last: it ships its own python.exe, which must not shadow Python for uvx
+    command -v kicad-cli >/dev/null || PATH="$PATH:$(ls -d "/c/Program Files/KiCad/"*/bin 2>/dev/null | sort -V | tail -1)"
+    export PATH
+fi
 KICAD=${KICAD:-$(ls ~/bin/kicad-*.AppImage 2>/dev/null | sort | tail -1)}
 GS=$(command -v gs || command -v gswin64c)
 ORCA_PRESETS=~/.config/OrcaSlicer/user/default
 FAILED=()
 T0=$(date +%s)
+
+# the tools of the requested stages, checked up front: a missing one stops here with its name, not later as a stage
+# failing without a reason
+missing=()
+need() { command -v "$1" >/dev/null || [[ " ${missing[*]} " == *" $2 "* ]] || missing+=("$2"); }
+for s in $STAGES; do
+    case $s in model|stl|renders|docs) need openscad "OpenSCAD" ;; esac
+    case $s in erc) [ -n "$KICAD" ] || need kicad-cli "KiCad (kicad-cli)"; need uvx "uv" ;; renders|overhang) need uvx "uv" ;; esac
+    case $s in docs) need node "Node.js"; [ -n "$GS" ] || need gs "Ghostscript" ;; esac
+done
+if [ ${#missing[@]} -gt 0 ]; then
+    echo "check: missing tool(s): ${missing[*]} (see CONTRIBUTING.md, Tools; on Windows OpenSCAD is looked for in"
+    echo "       C:\\Program Files\\OpenSCAD (Nightly) and C:\\Program Files\\OpenSCAD, KiCad in C:\\Program Files\\KiCad\\*\\bin)"
+    exit 2
+fi
+pinned=$(sed -n 's/.*OPENSCAD_VERSION: "\([^"]*\)".*/\1/p' .github/workflows/check.yml)
+if command -v openscad >/dev/null && ! openscad --version 2>&1 | grep -q "version $pinned"; then
+    echo "note: $(openscad --version 2>&1 | head -1), CI pins $pinned (geometry may differ)"
+fi
 
 # input files of each stage (what makes its result change)
 inputs() {
