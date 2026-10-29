@@ -86,3 +86,9 @@
 **Status:** validated
 **Dependencies:** none
 **Description:** The removable storage card's supply is switched by the firmware and is off while the controller is in reset or has not yet driven the switch. Before cutting it, the firmware stops driving the card's signal lines. Acceptance: bench: card supply < 0.1 V when commanded off and while the controller is held in reset; on-target Unity test: the card signal pins are inputs whenever the supply is commanded off.
+
+### FUNC-AUDIO-SPEAK-001
+**Title:** TARS plays sound through the front of the right middle column
+**Status:** validated
+**Dependencies:** [TECH-POWER-DIST-001](technical.md#tech-power-dist-001)
+**Description:** The robot plays its sounds (voice, effects) through a speaker behind the lower black panel of the right middle column, heard from the front without opening anything. Acceptance (bench, quiet room, robot standing, firmware maximum volume of [PERF-AUDIO-PEAK-001](performance.md#perf-audio-peak-001)): a 1 kHz tone reads ≥ 70 dB(A) at 50 cm in front of the column (phone SPL meter); a 200 Hz–8 kHz sweep produces no rattle or buzz from the housing.
