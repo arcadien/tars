@@ -41,7 +41,7 @@ A change in `mechanical/` also requires, in the same change:
 A change in `hardware/` also requires, in the same change:
 - `tools/kicad_sch_gen.py` updated and run: netlist check OK, ERC clean, `hardware/kicad/tars4_schematic.pdf` exported;
 - `tools/boards.py` plans updated (its net check against the schematic passes), `tools/harness.py` wires (both ends
-  typed soldered / Dupont / JST-XH, lengths), `hardware/tars4_wiring.html` + SVG, `hardware/tars4_schematic.html`;
+  typed soldered / Dupont / JST-XH, lengths), `hardware/tars4_wiring.html` + SVG, `hardware/design_notes.md`;
 - colour code and resistor-at-the-board rules respected;
 - `hardware/power_budget.md` (a row per module: estimate now, measurement later), `hardware/shopping_list.md`
   (stock parts only), README (BOM, signals), `tests/bench/` (bring-up order, a bench test sheet per bench-only requirement), `open_questions.md`;
