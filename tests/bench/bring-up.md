@@ -105,7 +105,7 @@ cells until step 3.5; nothing goes on the 3V3 before step 3.6 is green)
 **4. Print** (`mechanical/3mf/tars4.3mf`, or the CR-10 plate)
 - [ ] bed levelling (`part="print_test_level"`) and screen fit (`part="print_test_screen"`), exported by hand from the scad if needed, then the plates; PETG collars, black PLA plugs.
 - [ ] Check the lid slot / microSD, the TPS63020 and P1 / P2 grooves on the printed parts before gluing the splints.
-- [ ] Charge port in the left leg, first pivot joint → [PLAT-MECH-CHARGEPORT-001](PLAT-MECH-CHARGEPORT-001.md), [PLAT-MECH-PIVOT-001](PLAT-MECH-PIVOT-001.md)
+- [ ] Charge port in the left leg, first pivot joint → [PLAT-MECH-CHARGEPORT-001](PLAT-MECH-CHARGEPORT-001.md), [PLAT-MECH-PIVOT-001](PLAT-MECH-PIVOT-001.md), speaker → [PLAT-MECH-SPEAKER-001](PLAT-MECH-SPEAKER-001.md)
 
 **5. Firmware**
 - [ ] GPIO map from the README *Signals* table and the carrier plan (`renders/tars4_board_s3.svg`); SPI 26.7 MHz first (scope SCK at screen 2 if possible), then 40 MHz;
