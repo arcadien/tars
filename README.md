@@ -209,7 +209,7 @@ USB end.
 | microSD | CLK, CMD, D0 + SD_EN | SDMMC 1-bit, 10 MHz, R11 33 Ω on CLK; SD_EN GPIO36 → Q5 (low = card powered) |
 
 The ESP32-S3 routes SPI and I2S to any GPIO. Avoid the strapping pins (GPIO 0, 45, 46; GPIO3 only selects the JTAG
-source when an eFuse is burnt, so it is used as the PIR input) and the USB pins (GPIO 19, 20). GPIO37: VSYS sense (Q4 BC547B and R24 1 M on the carrier, R23 1 M in line in the harness at the power-path board; low = rail present; PLAT-POWER-VSENSE-001). Pin by pin:
+source when an eFuse is burnt, so it is used as the PIR input) and the USB pins (GPIO 19, 20). GPIO37: VSYS sense (Q4 BC547B and R24 330 k on the carrier, R23 1 M in line in the harness at the power-path board; low = rail present; PLAT-POWER-VSENSE-001). Pin by pin:
 the carrier plan `renders/tars4_board_s3.svg` and the KiCad schematic (confirm when soldered).
 
 - Through the middle tube go **7 wires** for screen 2 (SCK, MOSI, DC, CS2, RST, 3V3, GND from P1) + BL_EN + 3 for I2S +
@@ -343,8 +343,9 @@ TP4056 OUT+ (cells)   ──► AO3401A P-MOSFET Q1 (D → S) ──┘
 - **B+** (TP4056 B+ pad) → R2 / R3 **1 M / 1 M** on the power-path board → one VBAT/2 wire through the left tube →
   GPIO1 (ADC1), C6 100 nF from GPIO1 to GND at the S3.
 - **VSYS sense** (is the system rail up?): VSYS → R23 **1 M** soldered in line on the wire at the power-path board
-  (a short in the tube stays behind 1 M) → X14 → left tube → carrier: R24 **1 M** to GND and Q4 **BC547B** (base),
-  collector on GPIO37 (internal pull-up on only while reading): low = VSYS present (on from ~1.2 V), ~2–3 µA.
+  (a short in the tube stays behind 1 M) → X14 → left tube → carrier: R24 **330 k** to GND and Q4 **BC547B** (base),
+  collector on GPIO37 (internal pull-up on only while reading): low = VSYS present (threshold 2.3–2.7 V, above the
+  amplifier's 2.5 V minimum), ~3–4 µA.
 - On the cells, not on VSYS: on mains VSYS is the USB rail (~4.7 V) and says nothing about the battery. B− needs no
   wire (it differs from GND only by the DW01 switches, < 50 mV). Always connected, hence 1 M / 1 M: ~2 µA standing; C6
   holds the high-impedance node for the ADC (**never a tantalum** there: its leakage shifts the reading).

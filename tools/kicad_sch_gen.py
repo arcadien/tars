@@ -469,7 +469,7 @@ PW("GND", pt("R4.2"))
 QX, QY = 436.88, 71.12
 note("VSYS SENSE — R23 in the harness at P4, R24 + Q4 on the carrier: GPIO37 low = VSYS present", 411.48, 50.8, 1.27)
 place("Device:R", "R23", "1M (harness, P4 end)", QX - 12.7, QY - 3.81, {"1": "VSYS", "2": "VSENSE_B"}, txt="l")
-place("Device:R", "R24", "1M (carrier)", QX - 12.7, QY + 7.62, {"1": "VSENSE_B", "2": "GND"}, txt="l")
+place("Device:R", "R24", "330k (carrier)", QX - 12.7, QY + 7.62, {"1": "VSENSE_B", "2": "GND"}, txt="l")
 place("Device:Q_NPN", "Q4", "BC547B (carrier)", QX, QY, {"B": "VSENSE_B", "C": "VSENSE", "E": "GND"},
       txt=((QX + 8.89, QY - 1.27), (QX + 15.24, QY + 1.27)))
 W("R23.2", "R24.1")

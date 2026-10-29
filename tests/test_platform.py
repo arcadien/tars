@@ -123,9 +123,10 @@ def test_plat_power_vsense_001_npn_from_vsys_to_gpio37(sch):
     assert len(npn) == 1
     q = npn[0]
     assert sch.net(q, 'C') == io37 and sch.net(q, 'E') == 'GND'
-    # And its base sits between 1M from VSYS and 1M to GND
-    base = [r for r, _ in sch.nets[sch.net(q, 'B')] if r.startswith('R') and sch.value(r) == '1M']
-    assert {n for r in base for n in sch.between(r)} >= {sch.net('SW1', '2'), 'GND'}
+    # And its base sits between 1M from VSYS and 330k to GND (threshold 2.3–2.7 V)
+    base = sch.net(q, 'B')
+    feeds = {sch.value(r): set(sch.between(r)) - {base} for r, _ in sch.nets[base] if r.startswith('R')}
+    assert feeds == {'1M': {sch.net('SW1', '2')}, '330k': {'GND'}}
 
 
 @pytest.mark.req('PLAT-POWER-GATE-001')

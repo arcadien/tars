@@ -34,7 +34,7 @@ links were found on 2026-10-21, price and stock not guaranteed.
 | Through-hole 1/4 W resistors: **1 kΩ** ×2, **10 kΩ** ×1, **47 Ω** ×2, **33 Ω** ×1, **100 Ω** ×1, **100 kΩ** ×1; **1 MΩ 1/8 W** ×1 | — | R17, R18; R12 / R19 (split SCK); R20 (MOSI); R21 (AM312 filter); R22 (Q5 gate); R2 (lying under the groove lip; a 1/4 W fits too); not needed if the assortment is already there |
 | **AO3401A** P-MOSFET (SOT-23) | 1 more | Q5, cuts the microSD 3V3 in sleep (already ordered for Q1: check one is left) |
 | **C12** capacitor: **10 µF 16 V** tantalum (+ at F6) instead of the 47 µF | 1 | AM312 filter on P2: **in stock** (the 47 µF in stock is 12 mm, too tall; the tantalum still cuts the 20 kHz backlight PWM by ~40 dB) | — |
-| **BC547B** NPN + **1 MΩ** 1/4 W ×2 | 1 + 2 | VSYS sense into GPIO37 (PLAT-POWER-VSENSE-001): Q4 and R24 on the carrier, R23 in line in the harness | in stock (drawer) |
+| **BC547B** NPN + **1 MΩ** + **330 kΩ** 1/4 W | 1 + 2 | VSYS sense into GPIO37 (PLAT-POWER-VSENSE-001): Q4 and R24 on the carrier, R23 in line in the harness | in stock (drawer) |
 
 ## 4. Capacitors
 

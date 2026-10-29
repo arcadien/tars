@@ -137,7 +137,7 @@ CARRIER = dict(
         ('R13', 'Rv', '33 Ω', {'1': ('H4', 'BCLK_S3'), '2': ('G4', 'BCLK')}, 'BCLK'),
         ('Q4', 'T', 'BC547B', {'E': ('F10', 'GND'), 'B': ('G10', 'VSENSE_B'), 'C': ('H10', 'VSENSE'), '_flat': 'N'},
          'VSYS sense: standing, flat face towards row 11 (C B E from left to right seen from that side); C bridged to IO37'),
-        ('R24', 'Rv', '1 MΩ', {'1': ('G9', 'VSENSE_B'), '2': ('F9', 'GND')}, 'VSYS sense: base → GND'),
+        ('R24', 'Rv', '330 kΩ', {'1': ('G9', 'VSENSE_B'), '2': ('F9', 'GND')}, 'VSYS sense: base → GND (threshold 2.3–2.7 V)'),
     ],
     links=[
         ('jumper', ['A8', 'C8'], 'J1 SCK'), ('bridge', ['C8', 'D8'], ''),
