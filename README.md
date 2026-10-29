@@ -303,14 +303,14 @@ properly (otherwise the TP4056 sees TARS's current as charge current and never e
 TP4056 IN+  (USB 5 V) ──► Schottky D1 1N5822 ───────────┐
                                                         ├──► slide switch ──► VSYS
 TP4056 OUT+ (cells)   ──► AO3401A P-MOSFET Q1 (D → S) ──┘
-                           gate → IN+, R1 10 kΩ gate → GND
+                           gate → IN+, R1 4.7 kΩ gate → GND
 ```
 - Mains: gate at 5 V → MOSFET off, VSYS ≈ 4.7 V from USB through the Schottky; the cells charge alone.
 - Battery: gate pulled to 0 V → MOSFET on (~0.05 V drop), the Schottky blocks.
 - The switch sits **after** the merge: off = TARS off, charging still works. **Check its rating** (≥ 1 A wanted: TARS
   peaks at ~1 A with Wi-Fi + amp).
-- R1 10 kΩ: when the USB is unplugged the gate falls in ~0.1 s, so VSYS does not sit on the MOSFET's body diode for
-  long; the TPS63020 keeps regulating anyway.
+- R1 4.7 kΩ: when the USB is unplugged the gate falls in ~50 ms, so VSYS does not sit on the MOSFET's body diode for
+  long (the TPS63020 keeps regulating anyway); a warm D1 leaking up to 50 µA still leaves the gate < 0.25 V.
 - Built on a **26.6 × 20 mm perfboard** (10 × 8 holes, `pp_b` MEASURE, layout `renders/tars4_board_power.svg`) lying flat in the left leg just above the splint (z ≈ 171),
   parts up (`pp_parts` ≤ 6 mm), in side grooves, against the lid side: the wires run in front of it. It carries the
   **star ground**, R2 / R3, R15 / R16 and Q5 / R22. Q1 (SOT-23) is glued **upside down**, oriented as drawn (the drawing

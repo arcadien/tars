@@ -268,7 +268,7 @@ POWER_BOARD = dict(
         ('Q1', 'Q', 'AO3401A', {'S': ('A5', 'VPATH'), 'G': ('E5', 'VUSB'), 'D': ('B4', 'OUT+'), '_at': 'C5', '_d': 'N', '_via': {'D': ['B6']}}, 'glued legs up on C5–D5, D towards the back: G to the east (→ E5), S to the west (→ A5), D goes round by the west to B4'),
         ('R15', 'R', '68 k', {'1': ('F5', 'VUSB'), '2': ('F2', 'USB_DET')}, 'VUSB → USB_DET'),
         ('R16', 'R', '100 k', {'1': ('E2', 'USB_DET'), '2': ('B2', 'GND')}, 'USB_DET → GND'),
-        ('R1', 'R', '10 k', {'1': ('G7', 'VUSB'), '2': ('G4', 'GND')}, 'grille de Q1 → GND'),
+        ('R1', 'R', '4.7 k', {'1': ('G7', 'VUSB'), '2': ('G4', 'GND')}, 'Q1 gate → GND'),
         ('R3', 'R', '1 M', {'1': ('I4', 'VBAT/2'), '2': ('I1', 'GND')}, 'VBAT/2 → GND'),
         ('R2', 'R', '1 M', {'1': ('J8', 'B+'), '2': ('J5', 'VBAT/2')}, 'B+ → VBAT/2, preferably 1/8 W (Ø1.8): body over J7–J6, under the groove lip'),
         ('R22', 'R', '100 k', {'1': ('H8', '3V3'), '2': ('H5', 'SD_EN')}, 'grille de Q5 → 3V3'),

@@ -50,7 +50,7 @@ links were found on 2026-10-21, price and stock not guaranteed.
 | Item | Qty | For | Links |
 |---|---|---|---|
 | 2.2 kΩ resistor | 1 | R18 if the amplifier has a 100 k pull-up on SD (E-M1) | in the assortment |
-| 4.7 kΩ resistor | 1 | R1 if D1 leaks too much when warm (E-M3) | in the assortment |
+| 4.7 kΩ resistor | 1 | R1 (power path, MOSFET gate pull-down) | in the assortment |
 | USB charger **5 V ≥ 2 A** + micro-USB cable | 1 | running on mains while charging (if you don't have one already) | [Amazon (search)](https://www.amazon.fr/s?k=chargeur+usb+5V+2A) |
 
 ## 5. Protection (to check: already ordered on 2026-10-20?)

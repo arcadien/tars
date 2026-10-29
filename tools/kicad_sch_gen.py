@@ -290,7 +290,7 @@ note("POWER — ground star on the power-path board (left leg)", 15.24, 17.78, 2
 note("VUSB (J1: micro-USB charging socket at the heel of the left leg; D3 + C9 on the TP4056 IN pads)", 12.7, 33.02, 1.27)
 place("Device:D_Zener", "D3", "SMAJ5.0A (TVS)", 20.32, 46.99, {"1": "VUSB", "2": "GND"}, rot=270, txt=((20.32, 62.23), (20.32, 64.77)))
 place("Device:C_Polarized", "C9", "22µ 16V", 12.7, 46.99, {"1": "VUSB", "2": "GND"}, txt=((12.7, 57.15), (12.7, 59.69)))
-place("Device:R", "R1", "10k", 30.48, 46.99, {"1": "VUSB", "2": "GND"})
+place("Device:R", "R1", "4.7k", 30.48, 46.99, {"1": "VUSB", "2": "GND"})
 mod(usb, usbh, "J1", "USB charging socket", 22.86, 80.01, {"VBUS": "VUSB", "GND": "GND"})
 place("Device:R", "R15", "68k", 40.64, 46.99, {"1": "VUSB", "2": "USB_DET"})
 place("Device:R", "R16", "100k", 40.64, 62.23, {"1": "USB_DET", "2": "GND"})

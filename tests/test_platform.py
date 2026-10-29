@@ -42,7 +42,6 @@ def test_plat_power_path_001_q1_and_d1_the_right_way_round(sch):
 
 
 @pytest.mark.req('PLAT-POWER-PATH-001')
-@pytest.mark.xfail(strict=True, reason='R1 is still 10k in the schematic; the fix that fits 4.7k removes this mark')
 def test_plat_power_path_001_r1_is_4k7(sch):
     # Then R1 is 4.7 kΩ: a warm D1 leaking 50 µA leaves the gate below 0.25 V
     assert sch.value('R1') == '4.7k'
