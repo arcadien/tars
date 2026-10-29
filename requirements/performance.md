@@ -62,3 +62,9 @@
 **Status:** validated
 **Dependencies:** [PERF-POWER-CHARGE-001](performance.md#perf-power-charge-001)
 **Description:** From a full charge to the low-battery shutdown, the robot runs ≥ 20 h under the reference profile: Wi-Fi connected and idle, both screens at full backlight, no audio. The expected average current per module is in [power_budget.md](../hardware/power_budget.md). Acceptance (bench run with the reference firmware profile, start and shutdown times logged; on-target the firmware logs the time of the shutdown).
+
+### PERF-AUDIO-PEAK-001
+**Title:** At the maximum volume, sound peaks do not brown out the system rail
+**Status:** draft
+**Dependencies:** [TECH-POWER-DIST-001](technical.md#tech-power-dist-001), [FUNC-POWER-PATH-002](functional.md#func-power-path-002)
+**Description:** The firmware caps the digital volume so that, on the 4 Ω speaker, the loudest sound the robot plays keeps the system rail ≥ 3.0 V at the amplifier VIN with the pack at its 3.30 V cut-off, and never resets the controller. The cap value is set from the bench measurement (MEASURE) and kept in the firmware configuration. Acceptance (bench, scope or min-hold at the amplifier VIN, pack at 3.30 V, screens and Wi-Fi active): full-scale 400 Hz and 1 kHz tones and the loudest voice file at the capped volume → VSYS ≥ 3.0 V, boot counter unchanged. Pending: the cap value.

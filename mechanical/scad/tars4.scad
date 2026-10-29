@@ -327,14 +327,17 @@ sd_slot = [12.5, 2.2];        // card slot through the lid (x, z): microSD is 11
 sd_dz = 10;                   // underside of the board above the lid screw posts over the top cell shelf
 
 /* [Sound] */
-// Speaker facing the front right behind the lower black panel of one middle column: TARS talks through slots in
-// that panel's black plug. Held at the front by the splint and two stops, guided by side rails, pressed from the
-// back by two tabs on the lid. MAX98357A I2S amplifier in a slot on the inner front wall just above.
+// Speaker facing the front right behind the lower black panel of one middle column, just under the splint: TARS talks
+// through slots in that panel's black plug. Its membrane is flush with its face and its long edges have no rim: it bears
+// on two pads under its short-end tabs, sits between side rails on a stop notched for its middle nub, and is glued
+// (hot glue, PLAT-MECH-SPEAKER-001). MAX98357A I2S amplifier in a slot on the inner front wall above the splint.
 sound = true;
 speaker_col = 2;              // right middle column (column 1 carries "TARS")
-spk = [22, 10, 39];           // speaker box: width (x), thickness (y), height (z) - 39 x 22 x 10 from AliExpress
-spk_front_y = wall + splint_t + splint_clr;                       // speaker face, just behind the splint
-spk_z0 = (bottom_panel_z[0] + bottom_panel_z[1]) / 2 - spk[2] / 2; // centred on the lower black panel
+spk = [13.8, 7.15, 25.27];    // 4 ohm 2 W speaker: width (x), thickness (y), height (z), measured 2026-10-29
+spk_pad = 1.5;                // pads under the short-end tabs (z): the membrane starts beyond them (2 mm rim)
+spk_nub = [3.3, 2];           // notch for the nub in the middle of the short edges (2.9 wide): width (x), depth (z)
+spk_front_y = wall + splint_t + splint_clr;                       // speaker face: ~1 mm behind the plug's ledge
+spk_z0 = seam_z[1] - splint_h / 2 - 1 - spk[2];                   // just under the splint (it hides the panel's top)
 grille_slot = [1.2, 3];       // slot height, pitch (in the black plug)
 amp = [19.4, 18, 1.6];        // MAX98357A breakout: width (x), length (z), PCB thickness
 amp_z0 = seam_z[1] + splint_h / 2 + 0.5;                           // just above the splint, below the lid screw row
@@ -910,10 +913,10 @@ module half(i, top) { // one half of column i (z below / above its seam)
     }
 }
 
-module lid_half(mid, top, sd_slot_on = false, spk = true) {
+module lid_half(mid, top, sd_slot_on = false) {
     sz = mid ? lid_seam_z[1] : lid_seam_z[0];
     intersection() {
-        lid(mid, sd_slot_on, spk);
+        lid(mid, sd_slot_on);
         translate([-1, -1, top ? sz + 0.1 : -1]) cube([col_w + 2, D + 2, top ? H : sz - 0.1 + 1]);
     }
 }
@@ -929,13 +932,12 @@ module splint() {
 }
 
 // ---------- lid ----------
-// sd_slot_on: power leg lid (microSD card slot, tabs over the flat boards, vents); spk = false: left middle lid
-// without the speaker tabs (they would sit in the wire loops behind the S3)
-module lid(mid = false, sd_slot_on = false, spk = true) {
+// sd_slot_on: power leg lid (microSD card slot, tabs over the flat boards, vents)
+module lid(mid = false, sd_slot_on = false) {
     difference() {
         union() {
             translate([wall + clr, lid_y, wall + clr]) cube([col_w - 2 * wall - 2 * clr, wall, H - 2 * wall - 2 * clr]);
-            if (mid) { d1_lug(); d1_back_tabs(); scr_ribs(); if (sound && spk) spk_tabs(); if (hub) hub_tabs(); }
+            if (mid) { d1_lug(); d1_back_tabs(); scr_ribs(); if (hub) hub_tabs(); }
             if (sd_slot_on) { if (battery) hold_tab(charger, charger_z0); if (buck) hold_tab(bk, bk_z0); }
         }
         for (p = lid_bosses(mid)) translate([p[0], lid_y - eps, p[1]]) rotate([-90, 0, 0]) cylinder(d = screw_clear, h = wall + 2 * eps);
@@ -1037,8 +1039,12 @@ module d1_boot_window() {
 // ---------- sound ----------
 module sound_mount() {
     x0 = col_w / 2 - spk[0] / 2;
-    // stops in front of the speaker's lower edge (the splint front plate is the stop at the top)
-    translate([col_w / 2 - 7, wall - eps, spk_z0 - 1]) cube([14, spk_front_y - wall + eps, bottom_panel_z[0] - spk_z0 + 1]);
+    // pads in front of the short-end tabs, and the stop under the speaker, notched for its nub
+    for (z = [spk_z0, spk_z0 + spk[2] - spk_pad]) translate([x0, wall - eps, z]) cube([spk[0], spk_front_y - wall + eps, spk_pad]);
+    difference() {
+        translate([x0, wall - eps, spk_z0 - spk_nub[1] - 1]) cube([spk[0], spk_front_y + 3 - wall + eps, spk_nub[1] + 1]);
+        translate([col_w / 2 - spk_nub[0] / 2, spk_front_y, spk_z0 - spk_nub[1]]) cube([spk_nub[0], 4, spk_nub[1] + eps]);
+    }
     // side rails (bottom half only, below the splint arms); their front face is a 45 deg slope off the side wall
     // (no overhang when printed front face down)
     spk_rail();
@@ -1050,7 +1056,7 @@ module spk_rail() { // left one
     w = col_w / 2 - spk[0] / 2 - 0.3 - wall;
     y0 = spk_front_y - w;
     y1 = spk_front_y + spk[1] + 0.3;
-    h = seam_z[1] - splint_h / 2 - 1 - spk_z0;
+    h = spk[2];
     translate([0, 0, spk_z0]) intersection() {
         hull() {
             translate([wall - eps, y0, 0]) cube([eps, y1 - y0, h]);
@@ -1137,15 +1143,6 @@ module pir_test(pitch = 17) {
     }
 }
 
-// two tabs on the middle lids pressing the speaker forward (harmless in the column without speaker)
-module spk_tabs() {
-    for (z = [d1_z0 + d1[1] + 4, spk_z0 + spk[2] - 9]) {
-        translate([col_w / 2 - 5, spk_front_y + spk[1] + 0.3, z]) cube([10, lid_y - (spk_front_y + spk[1] + 0.3) + eps, 5]);
-        lid_gusset(col_w / 2 - 5, 10, z, -1, 3);
-        lid_gusset(col_w / 2 - 5, 10, z + 5, 1, 3);
-    }
-}
-
 // ---------- small parts ----------
 module inserts(speaker = false) { // black flush plugs for the panel holes of a middle column (column-local placement)
     difference() {
@@ -1154,7 +1151,7 @@ module inserts(speaker = false) { // black flush plugs for the panel holes of a 
         // grille: horizontal slots in the lower plug in front of the speaker
         if (speaker) for (z = [spk_z0 + 3:grille_slot[1]:spk_z0 + spk[2] - 3])
             if (z > bottom_panel_z[0] + 2 && z + grille_slot[0] < bottom_panel_z[1] - 2)
-                translate([col_w / 2 - (spk[0] - 4) / 2, -1, z]) cube([spk[0] - 4, wall + 2, grille_slot[0]]);
+                translate([col_w / 2 - (spk[0] - 2) / 2, -1, z]) cube([spk[0] - 2, wall + 2, grille_slot[0]]);
     }
 }
 
@@ -1313,7 +1310,6 @@ function kos(i) = let(mid = col_mid[i], zs = seam_z[i] - splint_h / 2, ze = seam
             both(["P1 / P2 tab", [wall, hub_y + hub_b[2], ht - 1 - hub_tab], [col_w / 2 - hub_b[0] / 2 + hub_lip, lid_y, ht - 1 + 4]])) : [],
         [["lid lug (S3)", [d1_x - 4, d1_lug_y, d1_z0 + d1[1] + 0.3], [d1_x + 4, lid_y, d1_z0 + d1[1] + 9.3]]],
         [for (z = d1_holds) each both(["lid tab (S3)", [wall, d1_hold_y, z], [d1_x - d1[0] / 2 + d1_rib + d1_notch[0], lid_y, z + d1_end]])],
-        sound ? [for (z = [d1_z0 + d1[1] + 4, spk_z0 + spk[2] - 9]) ["speaker tab", [col_w / 2 - 5, spk_front_y + spk[1] + 0.3, z - 3], [col_w / 2 + 5, lid_y, z + 8]]] : [],
         i == 1 ? concat([["S3 + carrier + wires", [d1_x - d1[0] / 2, d1_back_y - d1_pcb_t - d1_usb_h, d1_z0], [d1_x + d1[0] / 2, lid_y, d1_z0 + d1[1]]]],
             sensors ? concat(standing("ADXL345", acc, wall + pcb_gap + acc[2], acc_z0, pcb_gap + acc[2] + 1.5),
                              [["INMP441", [col_w / 2 - mic[0] / 2, wall, mic_z0], [col_w / 2 + mic[0] / 2, wall + mic[2], mic_z0 + mic[1]]]]) : []) : [],
@@ -1438,7 +1434,7 @@ else if (part == "col2") column(2);
 else if (part == "col3") column(3);
 else if (part == "lid_leg") lid(false);
 else if (part == "lid_mid") lid(true);
-else if (part == "lid_mid_left") lid(true, spk = false);
+else if (part == "lid_mid_left") lid(true);
 else if (part == "lid_leg_sd") lid(false, true);
 else if (part == "inserts") inserts();
 else if (part == "inserts_speaker") inserts(true);
@@ -1454,7 +1450,7 @@ else if (part == "print_col2") rotate([90, 0, 0]) column(2);
 else if (part == "print_col3") rotate([90, 0, 0]) column(3);
 else if (part == "print_lid_leg") translate([0, 0, D]) rotate([-90, 0, 0]) lid(false);
 else if (part == "print_lid_mid") translate([0, 0, D]) rotate([-90, 0, 0]) lid(true);
-else if (part == "print_lid_mid_left") translate([0, 0, D]) rotate([-90, 0, 0]) lid(true, spk = false);
+else if (part == "print_lid_mid_left") translate([0, 0, D]) rotate([-90, 0, 0]) lid(true);
 else if (part == "print_lid_leg_sd") translate([0, 0, D]) rotate([-90, 0, 0]) lid(false, true);
 else if (part == "print_splint") for (k = [0:3]) translate([k * (col_w - 2 * wall + 3), 0, 0]) splint(); // 4 splints
 else if (part == "print_inserts") rotate([90, 0, 0]) inserts();
@@ -1477,8 +1473,8 @@ for (i = [0:3], h = ["bottom", "top"]) {
     if (part == str("print_col", i, "_", h)) rotate([90, 0, 0]) half(i, h == "top");
 }
 for (k = ["leg", "mid", "leg_sd", "mid_left"], h = ["bottom", "top"]) {
-    if (part == str("lid_", k, "_", h)) lid_half(k == "mid" || k == "mid_left", h == "top", k == "leg_sd", k != "mid_left");
-    if (part == str("print_lid_", k, "_", h)) translate([0, 0, D]) rotate([-90, 0, 0]) lid_half(k == "mid" || k == "mid_left", h == "top", k == "leg_sd", k != "mid_left");
+    if (part == str("lid_", k, "_", h)) lid_half(k == "mid" || k == "mid_left", h == "top", k == "leg_sd");
+    if (part == str("print_lid_", k, "_", h)) translate([0, 0, D]) rotate([-90, 0, 0]) lid_half(k == "mid" || k == "mid_left", h == "top", k == "leg_sd");
 }
 
 // ---------- checks ----------
@@ -1493,6 +1489,8 @@ if (sound) {
     if (spk[0] + 2 * 2.3 > col_w - 2 * wall) echo("WARNING: speaker too wide for the side rails");
     if (spk_front_y + spk[1] + 0.3 > d1_lug_y) echo("WARNING: speaker runs into the controller lug on the middle lid");
     if (spk_z0 + spk[2] > mid_rows[1] - lid_boss_d / 2) echo("WARNING: speaker runs into the lid screw row");
+    if (spk_z0 + spk[2] > seam_z[speaker_col] - splint_h / 2 - 0.5) echo("WARNING: speaker runs into the splint");
+    if (spk_z0 + spk[2] - spk_pad < bottom_panel_z[0] + 2) echo("WARNING: speaker membrane hidden behind the front wall");
     if (amp_z0 + amp[1] > mid_rows[1] - lid_boss_d / 2 - 0.5) echo("WARNING: amplifier board runs into the lid screw posts");
 }
 if (amp_z0 + bb[1] > mid_rows[1] - lid_boss_d / 2 - 0.5 || bb[0] + 0.4 + 2 * rib > col_w - 2 * wall) {

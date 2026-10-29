@@ -27,6 +27,7 @@ lid `lid_mid_left` · D10 Q5 on the microSD 3V3 (GPIO36) · D11 switch kept · D
 | D13 | **Switching charger instead of the TP4056** | TP4056 kept for now (500 mA, R_PROG 2.4k). If E-M8 runs too hot: R_PROG 3.6k (330 mA) or the lower left leg in PETG; alternative TP5100 1 A + separate DW01. IP2312: doesn't fit flat (34.4 × 15) |
 | E-M8 | **TP4056 temperature** (PLA legs) | measure the wall after 15 and 30 min of charge: > 45 °C → R_PROG 3.6k. Copper RPi heatsink ≤ ~3 mm + 0.5–1 mm thermal pad between chip and heatsink, never between board and PLA |
 | RF1 | **Rename `usbb` → `usb_charging_socket`** in `mechanical/scad/tars4.scad` (J1 in the schematic) | separate `refactor` commit: the `usbb*` parameters, the `usbb_z0` / `usbb_y0` geometry keys of `tools/harness.py`, `hardware/measurements.md` |
+| AU1 | **Audio** (PLAT-AUDIO-AMP-001, PERF-AUDIO-PEAK-001, branch `mech-audio`) | not merged until measured: MAX98357A clone board size (→ `amp`) on arrival, and the firmware volume cap on the bench (VSYS ≥ 3.0 V at the amp with the pack at 3.30 V) |
 
 ## 4. Remaining measurements
 

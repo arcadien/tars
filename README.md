@@ -11,7 +11,7 @@ cells in the legs. Model: OpenSCAD `mechanical/scad/tars4.scad`, fully parametri
 | Size (W × D × H) | **124 × 31 × 248 mm** (1 : 4 : 8) |
 | Brain | 1 × LOLIN S3 Mini (ESP32-S3, 2 MB PSRAM, Wi-Fi, BLE, USB-C) |
 | Screens | 2 × 1.3" IPS 240×240 ST7789 with CS (square) |
-| Sound | MAX98357A I2S amplifier + 39 × 22 × 10 speaker behind the lower black panel; INMP441 microphone |
+| Sound | MAX98357A I2S amplifier + 4 Ω 2 W 25.3 × 13.8 × 7.2 speaker behind the lower black panel; INMP441 microphone |
 | Sensors | ADXL345 accelerometer, AM312 motion sensor, BME280 weather sensor, DS3231 clock, microSD |
 | Power | 2 × 18650 in parallel, one protected TP4056 (0.5 A), power path for mains use, TPS63020 3.3 V buck-boost |
 | Joints | brass tubes 8 / 7 mm at the top of each joint, wires inside, a detent click every 15° |
@@ -384,10 +384,12 @@ TARS talks **through its lower black panel** (right middle column, `speaker_col 
 
 ![tars4, front right: speaker grille](renders/tars4_sound_three_quarter.png)
 
-- **Speaker** 39 × 22 × 10 mm facing the front behind the lower panel (z 30–69): held at the front by two stops
-  (bottom) and the splint's front plate (top), guided by side rails, pressed forward by two tabs on the right middle lid
-  (`lid_mid`; the left one, `lid_mid_left`, has none: they would sit in the S3's wire loop). Insert it after gluing the
-  halves (it crosses the seam).
+- **Speaker** 4 Ω 2 W, 25.3 × 13.8 × 7.2 mm, membrane forward, long axis vertical, just under the splint (z 30–55,
+  bottom half only). Its membrane is flush with its face and its long edges have no rim: it bears only on two 1.5 mm
+  pads under its short-end tabs (the membrane keeps ~1 mm in front of it), sits between side rails on a stop notched for
+  its lower nub, and is **glued**: hot glue on both tabs and a bead along the long sides (it also seals the front from
+  the back; the closed column is the enclosure). Never cyanoacrylate near the membrane. Nothing on the lid touches it
+  (`lid_mid` and `lid_mid_left` are now the same). To replace it, release the hot glue with a drop of isopropyl alcohol.
 - **Grille**: horizontal slots (1.2 mm every 3 mm) in that column's black plug → `mechanical/stl/tars4_inserts_speaker.stl`.
 - **Amplifier** MAX98357A (~19.4 × 18) in a slot on the inner front wall just above the splint (z 76.7–94.7). I2S0
   BCLK / LRC / DIN, VIN / GND on their own pair, C7 470 µF (Ø8 × 12) soldered on VIN / GND and lying across behind the
