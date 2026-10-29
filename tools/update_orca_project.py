@@ -6,7 +6,8 @@ Each object file 3D/Objects/<name>_<n>.model is matched to an STL through NAME_T
 mesh centred on its own bounding box (the plate position lives in the build item transform), so the new mesh is
 oriented like stl2_3mf.py does (long side along the stored mesh's long axis), centred, and written in place; the item's z offset is set to
 half the new height so the part still sits on the bed. The original file is copied to backups/ first.
---check only compares the current STLs with the meshes in the project (no write).
+--check only compares the current STLs with the meshes in the project (no write). When every mesh is up to date the
+project is left untouched (no backup, no rewrite).
 """
 import math
 import os
@@ -109,12 +110,17 @@ def main():
               f"new {size[0]:6.1f} x {size[1]:5.1f} x {size[2]:5.1f}  {'unchanged' if same else 'UPDATED'}")
         if abs(size[0] - old_size[0]) > 5 or abs(size[1] - old_size[1]) > 5:
             problems.append(f"{name}: size changed a lot, check its place on the plate")
+        if same:
+            continue
         new_files[info.filename] = re.sub(r"<mesh>.*?</mesh>", lambda _: mesh_xml(verts, tris), old, count=1, flags=re.S)
         z_of_item[wrapper.get("/" + info.filename)] = size[2] / 2
 
     for p in problems:
         print("NOTE:", p)
     if check:
+        return
+    if not new_files:   # nothing to refresh: no backup, no rewrite (the hooks would see a spurious change)
+        print("up to date:", proj)
         return
 
     # build items: keep x/y and rotation, set z to half the new height

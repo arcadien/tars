@@ -7,7 +7,7 @@ TARS robot, `tars4` variant. `README.md` is the project documentation; `mechanic
   measurements, shopping list), `software/`, `requirements/` (RBD), `renders/`, `tools/`, `scripts/`,
   `open_questions.md`. `CONTRIBUTING.md` is the manual workflow (no network, no assistant): keep it in step with the tools.
 - `make check` (incremental) must pass; commit the files it rewrites. The pre-commit hook runs the fast stages (model,
-  erc, docs), the pre-push hook the slow ones (stl, renders), CI (`check` job) gates merges to main. STLs and raw
+  erc, docs), the pre-push hook the slow ones (stl, renders, Orca meshes), CI (`check` job) gates merges to main. STLs and raw
   plates are not in git (TECH-BUILD-ARTIFACTS-001): `make check-stl` before a print. OpenSCAD pinned to 2026.10.27.
 - Commit prefixes (RBD pre-push hook): req, test, feat, tech, perf, ui, conf, arch, plan, chore, fix, docs, style,
   refactor; `feat(ID):`-style ones need a validated requirement. Granular commits, push after each.
@@ -32,7 +32,8 @@ A change in `mechanical/` also requires, in the same change:
 - `make check` clean: no OpenSCAD WARNING, every plate on its bed (Ender 3 220 × 220 halves, CR-10 one-piece);
 - any new overhang over 45° flagged to me (Orca preview or `make check-overhang`);
 - renders regenerated, with connector detail on every leg and in the open views;
-- the Orca projects are left alone: I refresh them and arrange the plates by hand in Orca; a new or removed part
+- the Orca projects: the pre-push hook refreshes their meshes (commit the rewritten 3MF); I arrange the plates by
+  hand in Orca; a new or removed part
   updates `tools/build4.sh`, the mapping in `update_orca_project.py` and `CONTRIBUTING.md`;
 - wire lengths (harness guide) regenerated when a module, connector or route moves;
 - README (parts table, sizes), `hardware/measurements.md` (MEASURE values), `open_questions.md` updated.
@@ -89,4 +90,4 @@ VPATH, orange = VSYS (star, TPS63020 input, amp pair), purple = VUSB. A new rail
 - Define all parameters at the top of the file, before any formula that uses them. Expose dimensions as named parameters.
 - After editing, render with `openscad -o` and check for errors before saying it's done.
 - Don't claim parts fit an Ender 3 (220x220) or CR-10 plate unless you've checked the bounding boxes. Flag any overhang over 45° that a design change introduces.
-- Don't regenerate or refresh the Orca projects (`mechanical/3mf/tars4.3mf`, `tars4_cr10.3mf`): I update them and arrange the plates by hand in Orca.
+- Don't regenerate or re-arrange the Orca projects (`mechanical/3mf/tars4.3mf`, `tars4_cr10.3mf`): I arrange the plates by hand in Orca. Their meshes are refreshed by the pre-push hook (`meshes` stage).
