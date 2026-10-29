@@ -7,12 +7,13 @@ current, answer the questions here.
 Fit the speaker and the I2S amplifier actually bought into the right middle column (column 2), and write the AUDIO /
 MECH requirements for them before any model change.
 
-## State (2026-10-28)
-- Branch opened from main; no requirement, no model change yet.
-- Measured (on main, `hardware/measurements.md`): amplifier board 22.4 × 38.4, speaker 66 × 30 × 17 (with its box).
-- Model still has the old parts: `spk` 22 × 10 × 39 (z 30–69, behind the lower black panel 32.7–66.2), `amp`
-  MAX98357A 19.4 × 18 (z 76.7–94.7), C7 at z 80. Column interior 27.2 wide × 26 deep behind the splint; lid screw
-  rows at z 4.6, 99.2, 135.9; free z 100–136; P2 at 139.9.
+## State (2026-10-29)
+- AUDIO domain written: FUNC-AUDIO-SPEAK-001, TECH-AUDIO-SHUTDOWN-001, PLAT-MECH-SPEAKER-001 validated;
+  PERF-AUDIO-PEAK-001 (volume cap) and PLAT-AUDIO-AMP-001 (clone board size) draft until measured.
+- Model: 4 Ω 2 W speaker 25.27 × 13.80 × 7.15 just under the splint (z 30–55), on pads under its short-end tabs,
+  side rails + stop notched for its lower nub, glued; lid speaker tabs removed; grille widened. `make check` and
+  `make check-overhang` clean, renders and harness lengths regenerated, README / measurements / open questions (AU1).
+- Not merged until AU1: amplifier board measured (→ `amp`), volume cap measured on the bench.
 
 ## Findings
 - **Speaker**: the 30 mm is the width of the box itself (the ears are at the ends, inside the 66): it fits neither
@@ -45,4 +46,8 @@ MECH requirements for them before any model change.
 | S7 | Power rating (W) printed on the 4 Ω speaker? | **2 W** (2026-10-29): the MAX98357A on VSYS (3.7–4.2 V) gives at most ~1.7–2.2 W into 4 Ω, so the speaker is safe at any volume; the firmware volume cap is only for the VSYS current peaks (~1 A at full volume) |
 
 ## Next
-Answers A1–S2 → draft the AUDIO / MECH requirements (housing, shutdown, connectors) → validation → model.
+- Clone amplifier arrives: measure it (→ `amp`), fold into PLAT-AUDIO-AMP-001, validate it.
+- Bench: volume cap (PERF-AUDIO-PEAK-001), E-M1 (SD pull-up), FUNC-AUDIO-SPEAK-001 SPL check.
+- Cleanup (own change): `lid_mid_left` is now identical to `lid_mid` (remove the part: build4.sh, Orca mapping,
+  CONTRIBUTING.md).
+- Remove status.md before merging.
