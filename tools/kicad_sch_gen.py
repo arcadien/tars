@@ -302,7 +302,7 @@ place("Device:D_Schottky", "D1", "1N5822", 116.84, 46.99, {"1": "VPATH", "2": "V
       txt=((110.49, 45.72), (110.49, 48.26)))
 place("Switch:SW_SPST", "SW1", "inter. ≥ 1 A", 132.08, PATH, {"1": "VPATH", "2": "VSYS"}, dy=-5.08)
 mod(bk, bkh, "U9", "TPS63020 3,3 V", 170.18, PATH + 7.62, {"VIN": "VSYS", "EN": "VSYS", "PS": "GND", "GND": "GND", "VOUT": "+3V3"})
-place("Device:R", "R2", "1M", 142.24, 62.23, {"1": "BAT+", "2": "VBAT_2"})
+place("Device:R", "R2", "1M (harness, B+ pad)", 142.24, 62.23, {"1": "BAT+", "2": "VBAT_2"})
 place("Device:R", "R3", "1M", 142.24, 74.93, {"1": "VBAT_2", "2": "GND"})
 place("Device:Polyfuse", "F1", "PPTC 1.6A", 104.14, 91.44, {"1": "BAT+", "2": "BT1P"})
 place("Device:Polyfuse", "F2", "PPTC 1.6A", 124.46, 91.44, {"1": "BAT+", "2": "BT2P"})

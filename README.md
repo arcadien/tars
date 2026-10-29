@@ -340,7 +340,8 @@ TP4056 OUT+ (cells)   ──► AO3401A P-MOSFET Q1 (D → S) ──┘
 
 ### Battery monitor ("hunger")
 
-- **B+** (TP4056 B+ pad) → R2 / R3 **1 M / 1 M** on the power-path board → one VBAT/2 wire through the left tube →
+- **B+** (TP4056 B+ pad) → R2 **1 M** soldered in line at the pad (the sense wire carries B+ only behind 1 M) → R3
+  **1 M** to GND on the power-path board → one VBAT/2 wire through the left tube →
   GPIO1 (ADC1), C6 100 nF from GPIO1 to GND at the S3.
 - **VSYS sense** (is the system rail up?): VSYS → R23 **1 M** soldered in line on the wire at the power-path board
   (a short in the tube stays behind 1 M) → X14 → left tube → carrier: R24 **330 k** to GND and Q4 **BC547B** (base),
@@ -705,9 +706,9 @@ drawn is ~17 mm long (`xh_male_back`, `xh_female`) inside the 22 mm checked box 
 | D1 Schottky **1N5822** (through-hole, 3 A) | 1 | power path, USB side, band towards VPATH (before the switch; 1N5818 also does) |
 | D3 **TVS SMAJ5.0A / SMBJ5.0A** (unidirectional) | 1 | on the TP4056's IN+ / IN− pads, cathode to IN+ |
 | F1, F2 **polyfuse** (radial PPTC), ≥ 16 V (MF-R160: 30 V), hold **1.6 A** | 2 | one in each cell's + wire, standing on the inner front wall in front of the cell (XF160 15 × 16 × 2.5) |
-| R1 **10 kΩ** | 1 | power path, MOSFET gate pull-down |
-| R2, R3 **1 MΩ** (R2 preferably 1/8 W, Ø1.8) | 2 | B+ divider (battery monitor), on the power-path perfboard; R2 lies along its edge, under the groove's lip |
-| Q4 NPN **BC547B** + R23, R24 **1 MΩ** 1/4 W | 1 + 2 | VSYS sense into GPIO37: Q4 and R24 standing on the carrier, R23 in line in the harness at the power-path board (heat-shrink) |
+| R1 **4.7 kΩ** | 1 | power path, MOSFET gate pull-down |
+| R2, R3 **1 MΩ** | 2 | B+ divider (battery monitor): R2 in line in the harness at the TP4056 B+ pad (heat-shrink), R3 on the power-path perfboard |
+| Q4 NPN **BC547B** + R23 **1 MΩ**, R24 **330 kΩ** 1/4 W | 1 + 2 | VSYS sense into GPIO37: Q4 and R24 standing on the carrier, R23 in line in the harness at the power-path board (heat-shrink) |
 | R15 **68 kΩ**, R16 **100 kΩ** | 1 + 1 | VUSB → USB_DET divider, on the power-path perfboard |
 | **2.4 kΩ** (through-hole 1/4 W, or SMD 0805 / 1206) | 1 | replaces the TP4056's R_PROG (1.2 k, removed). A through-hole one can hang on two short wires (≤ 2 cm) on the R_PROG pads, heat-shrink over each joint and the body, glued flat within 5.5 mm above the board (`charger_h`). **The PROG node must never touch GND** (charge current unlimited); a broken wire only stops the charge |
 | R4, R18 **10 kΩ** (+ R5–R9 10 kΩ) | 2 (+ 5) | R4 BL_EN → GND (P1), R18 amp SD → GND (P2); R5–R9 microSD pull-ups, only if the reader has none |
@@ -722,7 +723,7 @@ drawn is ~17 mm long (`xh_male_back`, `xh_female`) inside the 22 mm checked box 
 | C9 electrolytic **22 µF** (10–47 µF), 16 V, **Ø ≤ 5.15** lying (`charger_h` 6) | 1 | on the TP4056's IN pads next to D3 |
 | Q2 AO3401A + Q3 AO3400A / 2N7002 + 10 kΩ | (1 + 1 + 1) | only if the screens' BLK draws the LED current (see *Signals*) |
 | Stripboard 2.54 mm (single-sided), cut to **24 × 32** (9 × 12 holes) | 2 | P1, P2: `renders/tars4_board_p1.svg`, `_p2.svg` |
-| **Single-sided** perfboard (FR4) with separate pads, cut to **26.6 × 20** (10 × 8 holes) | 1 | power path (Q1, D1, R1, R2 / R3, R15 / R16, Q5 / R22, star ground), `renders/tars4_board_power.svg` |
+| **Single-sided** perfboard (FR4) with separate pads, cut to **26.6 × 20** (10 × 8 holes) | 1 | power path (Q1, D1, R1, R3, R15 / R16, Q5 / R22, star ground), `renders/tars4_board_power.svg` |
 | **Single-sided** perfboard (FR4) with separate pads, cut to **25.6 × 34.4** (10 × 13 holes) | 1 | the S3's carrier, `renders/tars4_board_s3.svg` |
 | Female headers **2 × 8**, 2.54, 8.5 mm high | 2 | the S3's socket (`s3_sock_h` MEASURE) |
 | **Right-angle** male header 1 × 8 | 2 | X1 / X4, on the screens' backs, pins down |

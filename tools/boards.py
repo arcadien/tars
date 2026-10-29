@@ -270,7 +270,6 @@ POWER_BOARD = dict(
         ('R16', 'R', '100 k', {'1': ('E2', 'USB_DET'), '2': ('B2', 'GND')}, 'USB_DET → GND'),
         ('R1', 'R', '4.7 k', {'1': ('G7', 'VUSB'), '2': ('G4', 'GND')}, 'Q1 gate → GND'),
         ('R3', 'R', '1 M', {'1': ('I4', 'VBAT/2'), '2': ('I1', 'GND')}, 'VBAT/2 → GND'),
-        ('R2', 'R', '1 M', {'1': ('J8', 'B+'), '2': ('J5', 'VBAT/2')}, 'B+ → VBAT/2, preferably 1/8 W (Ø1.8): body over J7–J6, under the groove lip'),
         ('R22', 'R', '100 k', {'1': ('H8', '3V3'), '2': ('H5', 'SD_EN')}, 'grille de Q5 → 3V3'),
         ('Q5', 'Q', 'AO3401A', {'S': ('H8', '3V3'), 'G': ('H5', 'SD_EN'), 'D': ('I6', 'SD_3V3'), '_at': 'I7', '_d': 'E'}, 'glued legs up on I7, D to the right: S towards the back (→ H8), G towards the front (→ H5), D comes back down at I6'),
     ],
@@ -291,7 +290,7 @@ POWER_BOARD = dict(
         ('C3', 'VSYS', 'red', 26, 'orange', 'X13 → amplifier VIN (twisted pair)', ['X13.VSYS']),
         ('C1', 'GND', 'black', 26, 'white', 'TP4056 OUT−'), ('D1', 'GND', 'black', 26, 'orange', 'TPS63020 GND'),
         ('E1', 'GND', 'black', 26, 'orange', 'X13 → amplifier GND (twisted pair)', ['X13.GND amp']),
-        ('J8', 'B+', 'red', 30, 0, 'TP4056 B+ (sense)'), ('J3', 'VBAT/2', 'brown', 30, 0, 'X14 → left tube → S3 IO1', ['X14.VBAT/2']),
+        ('J5', 'VBAT/2', 'brown', 30, 0, 'TP4056 B+ pad (R2 1 MΩ in line at the pad end)', [], {'inline': ('R2', '1 MΩ', 'B+', 'far')}), ('J3', 'VBAT/2', 'brown', 30, 0, 'X14 → left tube → S3 IO1', ['X14.VBAT/2']),
         ('E2', 'USB_DET', 'orange', 30, 0, 'X14 → left tube → S3 IO21', ['X14.USB_DET']),
         ('H8', '3V3', 'white', 30, 0, 'TPS63020 VOUT'), ('I6', 'SD_3V3', 'white', 30, 3, 'X15 → microSD reader VCC', ['X15.3V3']),
         ('H5', 'SD_EN', 'brown', 30, 3, 'X14 → left tube → S3 IO36', ['X14.SD_EN']),
@@ -300,7 +299,7 @@ POWER_BOARD = dict(
     ],
     notes=[
         'Single-sided board, copper underneath: no copper under Q1 / Q5 nor under the part bodies.',
-        'Lying parts (1/4 W, 7.62 pitch; R2 as 1/8 W), D1 lying (Ø5.3): height ≤ 6 mm. Q1 and Q5 (SOT-23) glued legs up in the drawn orientation (seen from the top, flipped: G / S / D on the sketch), linked with insulated 30 AWG wire-wrap wire (Kynar), stripped 2 mm at each end (one touch of the iron each); glue on top once tested.',
+        'Lying parts (1/4 W, 7.62 pitch), D1 lying (Ø5.3): height ≤ 6 mm. Q1 and Q5 (SOT-23) glued legs up in the drawn orientation (seen from the top, flipped: G / S / D on the sketch), linked with insulated 30 AWG wire-wrap wire (Kynar), stripped 2 mm at each end (one touch of the iron each); glue on top once tested.',
         'The underside carries the GND bus (tinned wire along row 1: the ground star), the bridges and all the wires, which leave towards the front (row 1) then go up or down in the front corridor.',
         'Holes left empty between the power nets and ground / the GPIOs: don\'t fill them with solder.',
         'Check to GND, without the modules: VUSB ≈ 9.4 kΩ (R1 ∥ R15 + R16), USB_DET ≈ 44 kΩ, VBAT/2 ≈ 1 MΩ, B+ ≈ 2 MΩ, VPATH / VSYS / OUT+ > 1 MΩ; OUT+ ↔ VSYS and OUT+ ↔ VPATH open.',
@@ -311,7 +310,8 @@ BOARDS = [CARRIER, P1, P2, POWER_BOARD]
 
 # ----------------------------------------------------------------------------------------------------------------
 def inline(rest):
-    """(ref, value, net after it) of a resistor soldered in line in the wire, near its board end, or None"""
+    """(ref, value, net after it[, 'far']) of a resistor soldered in line in the wire, near its board end (or its far
+    end with 'far'), or None"""
     return rest[5].get('inline') if len(rest) > 5 else None
 
 

@@ -989,8 +989,8 @@
 <text x="234" y="1339.0" font-size="11" fill="#5e676d">BCLK</text>
 <text x="84" y="1355.0" font-size="12" fill="#1d2226"><tspan font-weight="600">Q4 BC547B</tspan><tspan x="234" font-family="IBM Plex Mono, monospace" font-size="11">E F10 (GND) · B G10 (VSENSE_B) · C H10 (VSENSE)</tspan></text>
 <text x="234" y="1370.0" font-size="11" fill="#5e676d">VSYS sense: standing, flat face towards row 11 (C B E from left to right seen from that side); C bridged to IO37</text>
-<text x="84" y="1386.0" font-size="12" fill="#1d2226"><tspan font-weight="600">R24 1 MΩ</tspan><tspan x="234" font-family="IBM Plex Mono, monospace" font-size="11">1 G9 (VSENSE_B) · 2 F9 (GND)</tspan></text>
-<text x="234" y="1401.0" font-size="11" fill="#5e676d">VSYS sense: base → GND</text>
+<text x="84" y="1386.0" font-size="12" fill="#1d2226"><tspan font-weight="600">R24 330 kΩ</tspan><tspan x="234" font-family="IBM Plex Mono, monospace" font-size="11">1 G9 (VSENSE_B) · 2 F9 (GND)</tspan></text>
+<text x="234" y="1401.0" font-size="11" fill="#5e676d">VSYS sense: base → GND (threshold 2.3–2.7 V)</text>
 <text x="84" y="1427.0" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">SOLDER-SIDE LINKS</text>
 <text x="84" y="1445.0" font-size="12" fill="#1d2226"><tspan font-weight="600">insulated jumper</tspan><tspan x="234" font-family="IBM Plex Mono, monospace" font-size="11">A8–C8</tspan></text>
 <text x="234" y="1460.0" font-size="11" fill="#5e676d">J1 SCK</text>
