@@ -32,7 +32,7 @@ Conventions:
 | D1 1N5822 (power path) | B+ | | | reverse leakage up to tens of µA, warm | E-M3 | | |
 | VBAT/2 divider R2 / R3 1 M / 1 M | B+ | ~2 µA | | ~2 µA (before SW1: also when off) | README *VBAT/2* | | |
 | USB_DET divider R15 / R16 | VUSB | ~30 µA, only on the external supply | | 0 on battery | | | |
-| VSYS sense: NPN + 1 M / 1 M base divider (GPIO37, planned) | VSYS | ~2–3 µA base current; GPIO37 pull-up on only while reading | | ~2–3 µA | PLAT-POWER-VSENSE-001 (draft) | | |
+| VSYS sense: Q4 BC547B + R23 / R24 1 M base divider (GPIO37) | VSYS | ~2–3 µA base current; GPIO37 pull-up on only while reading | | ~2–3 µA | PLAT-POWER-VSENSE-001 (draft) | | |
 
 ## Totals
 

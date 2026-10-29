@@ -209,7 +209,7 @@ USB end.
 | microSD | CLK, CMD, D0 + SD_EN | SDMMC 1-bit, 10 MHz, R11 33 Ω on CLK; SD_EN GPIO36 → Q5 (low = card powered) |
 
 The ESP32-S3 routes SPI and I2S to any GPIO. Avoid the strapping pins (GPIO 0, 45, 46; GPIO3 only selects the JTAG
-source when an eFuse is burnt, so it is used as the PIR input) and the USB pins (GPIO 19, 20). GPIO37: planned VSYS sense (small NPN + 1 M / 1 M from VSYS, low = rail present; PLAT-POWER-VSENSE-001, not wired yet). Pin by pin:
+source when an eFuse is burnt, so it is used as the PIR input) and the USB pins (GPIO 19, 20). GPIO37: VSYS sense (Q4 BC547B and R24 1 M on the carrier, R23 1 M in line in the harness at the power-path board; low = rail present; PLAT-POWER-VSENSE-001). Pin by pin:
 the carrier plan `renders/tars4_board_s3.svg` and the KiCad schematic (confirm when soldered).
 
 - Through the middle tube go **7 wires** for screen 2 (SCK, MOSI, DC, CS2, RST, 3V3, GND from P1) + BL_EN + 3 for I2S +
@@ -342,6 +342,9 @@ TP4056 OUT+ (cells)   ──► AO3401A P-MOSFET Q1 (D → S) ──┘
 
 - **B+** (TP4056 B+ pad) → R2 / R3 **1 M / 1 M** on the power-path board → one VBAT/2 wire through the left tube →
   GPIO1 (ADC1), C6 100 nF from GPIO1 to GND at the S3.
+- **VSYS sense** (is the system rail up?): VSYS → R23 **1 M** soldered in line on the wire at the power-path board
+  (a short in the tube stays behind 1 M) → X14 → left tube → carrier: R24 **1 M** to GND and Q4 **BC547B** (base),
+  collector on GPIO37 (internal pull-up on only while reading): low = VSYS present (on from ~1.2 V), ~2–3 µA.
 - On the cells, not on VSYS: on mains VSYS is the USB rail (~4.7 V) and says nothing about the battery. B− needs no
   wire (it differs from GND only by the DW01 switches, < 50 mV). Always connected, hence 1 M / 1 M: ~2 µA standing; C6
   holds the high-impedance node for the ADC (**never a tantalum** there: its leakage shifts the reading).
@@ -601,8 +604,8 @@ corridor in the middle columns (tube end → P1 / P2) and the other connectors: 
 ![column sections](renders/tars4_column_sections.svg)
 
 The two legs from the back, lid off (`tools/build4.sh renders`): left leg, its power block connectors in a cut just
-above them (seen from behind, so TARS's left is on the right: X12 / X13 against the lid, X10 / X14 in front, the
-front channel free), the XH pairs from behind (male housing below, from `connectors.scad`'s `XH()`, XHP female
+above them (seen from behind, so TARS's left is on the right: X12 / X13 against the lid, X10 in front of them, X14
+alone in a third row, the front channel free), the XH pairs from behind (male housing below, from `connectors.scad`'s `XH()`, XHP female
 plugged in from above, inside their translucent check box), right leg and its DS3231 / BME280 area. Every connector
 is drawn in detail inside its check box (`xh_pair()`, and `dupont()` for X1–X9 / X15: header base + female housing,
 or the two housings of an inline pair, with coloured wire stubs). The mated pair
@@ -628,7 +631,7 @@ drawn is ~17 mm long (`xh_male_back`, `xh_female`) inside the 22 mm checked box 
 | X12 | left cell ↔ power block | JST-XH 2 inline (B+, B−), female on the cell side | left leg, parked, 144–166 |
 | X16 | right cell ↔ power block | JST-XH 2 inline (B+, B−), female on the cell side: the pair comes down from the tubes; the two cells join on the TP4056's B+ / B− pads (two wires soldered on each) | left leg, above the power-path board between the lid screw posts, 180–202 |
 | X13 | power block ↔ tubes | JST-XH 4 inline (amp VSYS / GND, 3V3, logic GND) | left leg, parked, 144–166 |
-| X14 | power block ↔ tubes | **JST-XH 3** inline (VBAT/2, USB_DET, SD_EN), polarised | left leg, parked, front row, 144–166 |
+| X14 | power block ↔ tubes | **JST-XH 4** inline (VBAT/2, USB_DET, SD_EN, VSENSE_B), polarised | left leg, parked, its own row in front of X10, 144–166 |
 | X15 | microSD reader | pigtail + inline Dupont 1 × 6 (CLK CMD D0 3V3 GND + 1 empty) · empty position plugged | left leg, front channel, 107–141 |
 
 - **Keying** (2.54 Dupont housings are not polarised): pull an unused header pin off the module and plug the matching
@@ -703,6 +706,7 @@ drawn is ~17 mm long (`xh_male_back`, `xh_female`) inside the 22 mm checked box 
 | F1, F2 **polyfuse** (radial PPTC), ≥ 16 V (MF-R160: 30 V), hold **1.6 A** | 2 | one in each cell's + wire, standing on the inner front wall in front of the cell (XF160 15 × 16 × 2.5) |
 | R1 **10 kΩ** | 1 | power path, MOSFET gate pull-down |
 | R2, R3 **1 MΩ** (R2 preferably 1/8 W, Ø1.8) | 2 | B+ divider (battery monitor), on the power-path perfboard; R2 lies along its edge, under the groove's lip |
+| Q4 NPN **BC547B** + R23, R24 **1 MΩ** 1/4 W | 1 + 2 | VSYS sense into GPIO37: Q4 and R24 standing on the carrier, R23 in line in the harness at the power-path board (heat-shrink) |
 | R15 **68 kΩ**, R16 **100 kΩ** | 1 + 1 | VUSB → USB_DET divider, on the power-path perfboard |
 | **2.4 kΩ** (through-hole 1/4 W, or SMD 0805 / 1206) | 1 | replaces the TP4056's R_PROG (1.2 k, removed). A through-hole one can hang on two short wires (≤ 2 cm) on the R_PROG pads, heat-shrink over each joint and the body, glued flat within 5.5 mm above the board (`charger_h`). **The PROG node must never touch GND** (charge current unlimited); a broken wire only stops the charge |
 | R4, R18 **10 kΩ** (+ R5–R9 10 kΩ) | 2 (+ 5) | R4 BL_EN → GND (P1), R18 amp SD → GND (P2); R5–R9 microSD pull-ups, only if the reader has none |
@@ -723,7 +727,7 @@ drawn is ~17 mm long (`xh_male_back`, `xh_female`) inside the 22 mm checked box 
 | **Right-angle** male header 1 × 8 | 2 | X1 / X4, on the screens' backs, pins down |
 | Male header 1 × 2 | 1 | X6, in place of the amp's screw terminal |
 | **Dupont 2.54 crimp kit**: housings 1 × 2 … 1 × 8, female contacts (**~100**, ~55 used), male contacts (~20) | 1 kit | X1–X9, X15; ratchet crimper SN-28B / PA-09; spare male pins to plug the keyed cavities |
-| **JST-XH** (2.50 pitch) inline pairs to crimp: housings 2-, 3- and 4-pin, male + female, with their contacts | 2 + 1 + 2 | X12, X16; X14; X10, X13 (SN-28B crimper; 30 AWG folded like in the Dupont contacts) |
+| **JST-XH** (2.50 pitch) inline pairs to crimp: housings 2- and 4-pin, male + female, with their contacts | 2 + 3 | X12, X16; X10, X13, X14 (SN-28B crimper; 30 AWG folded like in the Dupont contacts) |
 | Silicone wire **30 AWG**, tinned copper (not CCA), **10-colour kit** (needs purple and blue) | ~20.3 m | cut lengths from the 3D model in `hardware/tars4_harness.pdf` (estimate + 3 cm each, service loops and pigtails included); ≤ 3.6 m per colour (yellow); 8 colours used, no black / grey |
 | Silicone wire **26 AWG** | ~7.7 m: red 3.3, black 2.5, blue 0.8, white 0.8, grey 0.3 | power pairs: B+/B− of each cell, VSYS / VUSB / VPATH and their GND (red / black), 3V3 / logic GND to P1 (white / blue), amp pair, speaker (grey) (cut lengths in `hardware/tars4_harness.pdf`) |
 | **Wire-wrap wire 30 AWG** (Kynar insulated), 1 small spool | 1 | Q1 / Q5 leads on the power-path board, insulated jumpers |
@@ -756,7 +760,7 @@ Bring-up order, bench test sheets and their results: [tests/bench/bring-up.md](t
 
 ## Open questions
 
-Live list: `open_questions.md` (tube test3, VSYS sense hardware, charger D13 / temperature E-M8, bench measurements).
+Live list: `open_questions.md` (tube test3, charger D13 / temperature E-M8, bench measurements).
 Also: replaceable PETG detent rings.
 
 ## Requirements

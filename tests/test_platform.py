@@ -94,8 +94,6 @@ def test_plat_power_detect_001_usb_det_divider_on_gpio21(sch):
 
 
 @pytest.mark.req('PLAT-POWER-VSENSE-001')
-@pytest.mark.xfail(strict=True, reason='hardware change not in the schematic yet (requirement text); remove this mark '
-                                       'once the NPN on GPIO37 is drawn')
 def test_plat_power_vsense_001_npn_from_vsys_to_gpio37(sch):
     # Given GPIO37 of the S3
     io37 = s3_pin(sch, 37)

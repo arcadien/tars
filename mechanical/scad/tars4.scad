@@ -1282,7 +1282,7 @@ CONN = [
     inline(0, "X10", "J1 + SW1 ↔ power block · XH 4", 3.5, park_y[1], park_z0, 12.4, xh_inline[0], xh_inline[1], 2),
     inline(0, "X12", "left cell → power block · XH 2", 16.4, park_y[0], park_z0, 7.4, xh_inline[0], xh_inline[1], 2),
     inline(0, "X13", "power block → tubes · XH 4", 3.5, park_y[0], park_z0, 12.4, xh_inline[0], xh_inline[1], 2),
-    inline(0, "X14", "VBAT/2, USB_DET, SD_EN · XH 3", 16.4, park_y[1], park_z0, 9.9, xh_inline[0], xh_inline[1], 2),
+    inline(0, "X14", "VBAT/2, USB_DET, SD_EN, VSENSE_B · XH 4", col_w / 2 - 6.2, park_y[1] - 0.5 - xh_inline[0], park_z0, 12.4, xh_inline[0], xh_inline[1], 2),
     // right cell: its pair comes down from the tubes, parked above the power-path board between the lid screw posts
     inline(0, "X16", "right cell → power block · XH 2", col_w / 2 - 3.7, park_y[0], pp_z0 + pp_b[2] + pp_parts + 1.5, 7.4, xh_inline[0], xh_inline[1], 2),
     inline(0, "X15", "microSD · pigtail + 5 p. (+1)", col_w / 2 - dp_w(6) / 2, 3.5, leg_rows[1] + lid_boss_d / 2 + 0.5, dp_w(6), dp_t, dp_inline),

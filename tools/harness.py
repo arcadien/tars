@@ -259,7 +259,9 @@ def collect():
             else:
                 mod, pin = dest.split(' ', 1)
                 B = S(mod, pin, 0, 1)
-            wires.append(dict(colr=colr, awg=g, rings=rings, net=net, A=A, B=B, note=''))
+            il = w[7].get('inline') if len(w) > 7 else None   # resistor soldered in line near the board end
+            wires.append(dict(colr=colr, awg=g, rings=rings, net=f'{net} → {il[2]}' if il else net, A=A, B=B,
+                              note=f'{il[0]} {il[1]} soldered in line ~2 cm from the board end, in heat-shrink' if il else ''))
             if len(tg) > 1:   # chained on to a second connector: a jumper from the first contact
                 wires.append(dict(colr=colr, awg=g, rings=rings, net=net, A=C(tg[0], 'F'), B=C(tg[1], 'F'),
                                   note=f'double contact in {tg[0].split(".")[0]} (with the wire from P2)'))
