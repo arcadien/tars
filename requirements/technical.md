@@ -61,7 +61,7 @@
 
 **Dependencies:** [FUNC-POWER-CHARGE-001](functional.md#func-power-charge-001)
 
-**Description:** Hot-plugging the external supply through the ~16 cm of wire from the charge port must not overshoot the charger's input. Acceptance (bench, scope at the charger IN pads, 10 hot-plugs of a 5 V ≥ 2 A supply): the peak voltage stays ≤ 7.0 V.
+**Description:** Hot-plugging the external supply through the ~16 cm of wire from the charge port must not overshoot the charger's input nor, through D1, the system rail (the amplifier is rated 6 V absolute maximum). Acceptance (bench, scope, 10 hot-plugs of a 5 V ≥ 2 A supply into the charge port, whole robot, switch on): the peak stays ≤ 7.0 V at the charger IN pads and ≤ 6.0 V at the amplifier VIN.
 
 ### TECH-POWER-VBUS-001
 
