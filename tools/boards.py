@@ -53,7 +53,7 @@ CONNS = {
     'X9': ('BME280 · Dupont 1 × 4 (daisy-chained to X8)', [('VCC', '3V3'), ('GND', 'GND'), ('SCL', 'SCL'), ('SDA', 'SDA')]),
     'X10': ('J1 + SW1 · inline JST-XH 4', [('VUSB', 'VUSB'), ('GND', 'GND'), ('VPATH', 'VPATH'), ('VSYS', 'VSYS')]),
     'X13': ('power block outputs · inline JST-XH 4', [('VSYS', 'VSYS'), ('GND amp', 'GND'), ('3V3', '3V3'), ('GND log', 'GND')]),
-    'X14': ('measurements · inline JST-XH 3', [('VBAT/2', 'VBAT/2'), ('USB_DET', 'USB_DET'), ('SD_EN', 'SD_EN')]),
+    'X14': ('measurements · inline JST-XH 4', [('VBAT/2', 'VBAT/2'), ('USB_DET', 'USB_DET'), ('SD_EN', 'SD_EN'), ('VSENSE_B', 'VSENSE_B')]),
     'X15': ('microSD · pigtail + inline Dupont 1 × 6', [('CLK', 'SD_CLK'), ('CMD', 'SD_CMD'), ('D0', 'SD_D0'), ('3V3', 'SD_3V3'), ('GND', 'GND'), ('—', 'key')]),
     'X6': ('speaker · Dupont 1 × 2 on a header', [('+', 'SPK+'), ('−', 'SPK−')]),
     'X12': ('left cell · inline JST-XH 2', [('B+', 'B+'), ('B−', 'B−')]),
@@ -108,7 +108,7 @@ S3_PINS = {  # LOLIN S3 Mini, seen from its component side, USB-C at the bottom 
 S3_NET = {'3V': '3V3', 'G': 'GND', 'IO10': 'CS1', 'IO11': 'MOSI_S3', 'IO13': 'DC', 'IO12': 'SCK_S3', 'IO4': 'AMP_SD_S3',
           'IO2': 'INT1', 'IO14': 'MIC_BCLK', 'IO9': 'CS2', 'IO8': 'RST', 'IO7': 'BL_EN', 'IO6': 'SCL', 'IO5': 'SDA',
           'IO3': 'PIR', 'IO1': 'VBAT/2', 'IO15': 'MIC_SD', 'IO17': 'LRC_S3', 'IO21': 'USB_DET', 'IO34': 'SD_CMD',
-          'IO38': 'MIC_WS', 'IO33': 'SD_CLK_S3', 'IO16': 'DIN', 'IO18': 'BCLK_S3', 'IO35': 'SD_D0', 'IO36': 'SD_EN'}
+          'IO38': 'MIC_WS', 'IO37': 'VSENSE', 'IO33': 'SD_CLK_S3', 'IO16': 'DIN', 'IO18': 'BCLK_S3', 'IO35': 'SD_D0', 'IO36': 'SD_EN'}
 s3_hdr = {}
 for c, names in S3_PINS.items():
     for k, n in enumerate(names):
@@ -135,6 +135,9 @@ CARRIER = dict(
         ('C8', 'Cc', '100 nF', {'1': ('H7', 'USB_DET'), '2': ('G7', 'GND')}, 'GPIO21 → GND, small ceramic (no film: too wide)'),
         ('R14', 'Rv', '33 Ω', {'1': ('H6', 'LRC_S3'), '2': ('G6', 'LRC')}, 'LRC'),
         ('R13', 'Rv', '33 Ω', {'1': ('H4', 'BCLK_S3'), '2': ('G4', 'BCLK')}, 'BCLK'),
+        ('Q4', 'T', 'BC547B', {'E': ('F10', 'GND'), 'B': ('G10', 'VSENSE_B'), 'C': ('H10', 'VSENSE'), '_flat': 'N'},
+         'VSYS sense: standing, flat face towards row 11 (C B E from left to right seen from that side); C bridged to IO37'),
+        ('R24', 'Rv', '1 MΩ', {'1': ('G9', 'VSENSE_B'), '2': ('F9', 'GND')}, 'VSYS sense: base → GND'),
     ],
     links=[
         ('jumper', ['A8', 'C8'], 'J1 SCK'), ('bridge', ['C8', 'D8'], ''),
@@ -145,6 +148,8 @@ CARRIER = dict(
         ('bridge', ['E5', 'F5', 'G5', 'H5', 'I5'], ''), ('bridge', ['I5', 'J5'], ''),
         ('bridge', ['E7', 'F7', 'G7'], ''), ('bridge', ['H7', 'I7'], ''),
         ('bridge', ['H6', 'I6'], ''), ('bridge', ['H11', 'I11'], ''),
+        ('bridge', ['H10', 'I10'], ''), ('bridge', ['F10', 'E10'], ''), ('bridge', ['F9', 'E9'], ''),
+        ('bridge', ['G8', 'G9', 'G10'], ''),
     ],
     wires=[  # hole, net, colour, gauge, rings, destination
         ('A4', '3V3', 'white', 26, 0, 'P1 3V3'), ('J5', 'GND', 'blue', 26, 0, 'P1 GND'),
@@ -162,6 +167,7 @@ CARRIER = dict(
         ('J6', 'DIN', 'green', 30, 1, 'middle tube → X5 amplifier DIN', ['X5.DIN']),
         ('G11', 'SD_CLK', 'yellow', 30, 3, 'left tube → X15 CLK', ['X15.CLK']), ('G6', 'LRC', 'purple', 30, 1, 'middle tube → X5 amplifier LRC', ['X5.LRC']),
         ('G4', 'BCLK', 'yellow', 30, 1, 'middle tube → X5 amplifier BCLK', ['X5.BCLK']),
+        ('G8', 'VSENSE_B', 'brown', 30, 1, 'left tube → X14 (R23 at the power-path board end)', ['X14.VSENSE_B']),
     ],
     notes=[
         'Assemble in this order: female headers (component side, square: plug them onto the S3 to solder), parts, bridges, GND bus (tinned wire along column E), insulated jumpers, then the wires. Everything is done on the bench, carrier out of TARS.',
@@ -170,7 +176,7 @@ CARRIER = dict(
         'Before soldering the right header, remove the V contact (J4, USB-C VBUS): pushed out of the plastic from below, or cut flush. The PC 5 V never reaches the carrier (J4 sits between GND J5 and MIC_SD I4).',
         'Standing resistors (2.54 pitch), body under the S3: height ≤ 10 mm (11 mm free between carrier and S3). Headers soldered first, then the standing parts bent towards the centre: R11–R14, R12, R20, C6 and C8 brush the header plastic (~0.1 mm).',
         'Each wire is soldered to the tail of its pin or to its pad, solder side, then first runs flat inwards (columns C–H) before going up or down: nothing within 5 mm of the left and right edges in bands 4.5–7 and 27.9–30.4 (lid tabs). Service loop 6–8 cm.',
-        'EN (A11), IO37 (I10, planned VSYS sense), IO43 / IO44 (J11, J10) stay free: EN is the reset, not BL_EN.',
+        'IO37 (I10) is the VSYS sense (Q4, R24; R23 sits in the harness at the power-path board end). EN (A11), IO43 / IO44 (J11, J10) stay free: EN is the reset, not BL_EN.',
         'Ohmmeter check, S3 removed: each wire ↔ its pin; GND (bus E) isolated from 3V3 (> 1 kΩ with C1 charged) and from every signal, in particular BCLK (H4) and LRC (H6) on either side of the row 5 GND bridge, and VBAT/2 (B11) ↔ EN (A11).',
     ])
 
@@ -276,6 +282,7 @@ POWER_BOARD = dict(
         ('bridge', ['B2', 'B1'], ''), ('bridge', ['G4', 'G3', 'G2', 'G1'], ''),
         ('bus', [f'{chr(65 + c)}1' for c in range(10)], 'GND'),
         ('bridge', ['J5', 'J4'], ''), ('bridge', ['I4', 'J4'], ''), ('bridge', ['J4', 'J3'], ''),
+        ('bridge', ['D3', 'D4'], ''),
     ],
     wires=[
         ('F8', 'VUSB', 'red', 26, 'purple', 'TP4056 IN+ (VUSB)'), ('B4', 'OUT+', 'red', 26, 'white', 'TP4056 OUT+'),
@@ -288,6 +295,8 @@ POWER_BOARD = dict(
         ('E2', 'USB_DET', 'orange', 30, 0, 'X14 → left tube → S3 IO21', ['X14.USB_DET']),
         ('H8', '3V3', 'white', 30, 0, 'TPS63020 VOUT'), ('I6', 'SD_3V3', 'white', 30, 3, 'X15 → microSD reader VCC', ['X15.3V3']),
         ('H5', 'SD_EN', 'brown', 30, 3, 'X14 → left tube → S3 IO36', ['X14.SD_EN']),
+        ('D4', 'VSYS', 'brown', 30, 1, 'R23 1 MΩ in line (heat-shrink, at this end) → X14 → left tube → carrier G8 (VSENSE_B)',
+         ['X14.VSENSE_B'], {'inline': ('R23', '1 MΩ', 'VSENSE_B')}),
     ],
     notes=[
         'Single-sided board, copper underneath: no copper under Q1 / Q5 nor under the part bodies.',
@@ -301,6 +310,11 @@ BOARDS = [CARRIER, P1, P2, POWER_BOARD]
 
 
 # ----------------------------------------------------------------------------------------------------------------
+def inline(rest):
+    """(ref, value, net after it) of a resistor soldered in line in the wire, near its board end, or None"""
+    return rest[5].get('inline') if len(rest) > 5 else None
+
+
 def check(b):
     cols, rows = b['grid']
     parent = {}
@@ -346,12 +360,13 @@ def check(b):
     seen_pin = {}
     for hole, net, *rest in b['wires']:
         tags.setdefault(h(hole), set()).add(net)
+        far = inline(rest)[2] if inline(rest) else net   # a resistor in line in the harness changes the net
         for t in (rest[4] if len(rest) > 4 else []):
             ref, pin = t.split('.', 1)
             pn = dict(CONNS.get(ref, ('', []))[1])
             if pin not in pn:
                 errs.append(f'wire {hole}: no contact {t}')
-            elif pn[pin] != net:
+            elif pn[pin] != far:
                 errs.append(f'wire {hole} ({net}) crimped into {t}, which is {pn[pin]}')
             elif t in seen_pin:
                 errs.append(f'{t} gets two wires of this board ({seen_pin[t]}, {hole})')
@@ -444,8 +459,11 @@ def crosscheck(boards):
                 if ALIAS.get(v[1], v[1]) != sn:
                     errs.append(f'{b["key"]}: {ref} pin {pin} on {v[1]}, schematic says {sn}')
         for w in b['wires']:
-            if ALIAS.get(w[1], w[1]) not in names:
-                errs.append(f'{b["key"]}: wire {w[0]} net {w[1]} is not a schematic net')
+            for n in [w[1]] + ([inline(w[2:])[2]] if inline(w[2:]) else []):
+                if ALIAS.get(n, n) not in names:
+                    errs.append(f'{b["key"]}: wire {w[0]} net {n} is not a schematic net')
+            if inline(w[2:]) and inline(w[2:])[0] not in refs:
+                errs.append(f'{b["key"]}: wire {w[0]}: in-line {inline(w[2:])[0]} is not in the schematic')
     return errs
 
 
@@ -783,6 +801,22 @@ def draw_parts(b, e, hp, S):
             ang = math.degrees(math.atan2(y2 - y1, x2 - x1))
             e(f'<rect x="{cx - 2.4 * S}" y="{cy - 1.2 * S}" width="{4.8 * S}" height="{2.4 * S}" rx="{1.1 * S}" fill="#e0a43a" stroke="#8a5e15" stroke-width="1" transform="rotate({ang} {cx} {cy})"/>')
             e(f'<text x="{cx}" y="{cy + 3.5}" font-size="9" text-anchor="middle" fill="{INK}" font-weight="600">{ref}</text>')
+        elif kind == 'T':
+            # TO-92 standing, its three leads in a row; the flat face is on the side named by '_flat' (N, E, S, W)
+            xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+            cx, cy = sum(xs) / 3, sum(ys) / 3
+            horiz = max(xs) - min(xs) > max(ys) - min(ys)
+            fx, fy = {'N': (0, -1), 'E': (1, 0), 'S': (0, 1), 'W': (-1, 0)}[pins['_flat']]
+            r = 2.4 * S
+            if horiz:
+                d = f'M{cx - r} {cy} A{r} {r} 0 0 {1 if fy < 0 else 0} {cx + r} {cy} Z'
+            else:
+                d = f'M{cx} {cy - r} A{r} {r} 0 0 {1 if fx > 0 else 0} {cx} {cy + r} Z'
+            e(f'<path d="{d}" fill="#23272b" fill-opacity=".85" stroke="#111" stroke-width="1"/>')
+            for k, v in pv.items():
+                x, y = hp(v[0])
+                e(f'<text x="{x}" y="{y + 3.5}" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="700">{k}</text>')
+            e(f'<text x="{cx - fx * (r + 8)}" y="{cy - fy * (r + 8) + 3.5}" font-size="9" text-anchor="middle" fill="{INK}" font-weight="600" paint-order="stroke" stroke="{SHEET}" stroke-width="3">{ref}</text>')
         elif kind == 'Q':
             # SOT-23 glued pins up, seen from above: its D pin faces '_d'; flipped, G is 90° clockwise of D, S 90°
             # counter-clockwise (screen coordinates), both on the far side of the body
