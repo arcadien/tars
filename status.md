@@ -41,6 +41,8 @@ MECH requirements for them before any model change.
 | S3 | Which impedance, which shape if bought new? | **8 Ω** (4 Ω also works but doubles the current peaks on VSYS: ~1 A at full volume vs ~0.5 A), 0.5–2 W. Face against the lower black panel (27.2 wide inside, minus the side rails ≈ 23; panel 33.5 tall): **oval 20 × 30, long axis vertical**, fits; **round Ø28 does not** (wider than the interior); a round one must be ≤ Ø23. Depth ≤ ~15 with its wires |
 | S2 | If option 1: bare driver long axis, short axis, depth with the magnet, flange if any | bare driver **28.6 × 40 × 11.6** (2026-10-28): depth fits (26 behind the splint), but 28.6 is 1.4 wider than the column interior (27.2) and 5.6 wider than the room between the side rails (~23); no angle helps; thinning the side walls to fit would leave 0.75 mm. Fits only if the basket under the frame is ≤ ~23 wide and the frame lips can be trimmed (S5) |
 | S5 | Bare driver: width of the basket / magnet under the frame (without the stamped lips or ears)? | |
+| S6 | Rectangular speaker from stock, **4 Ω, 25.27 × 13.80 × 7.15** (2026-10-29): fits? | **yes**, face against the lower black panel, long axis vertical: 13.8 wide (≤ ~22.6 between the rails), 25.3 tall (panel 33.5), 7.2 deep (26 free). Supersedes S1 / S2 / S4 / S5 (bare oval driver too wide). 4 Ω: peaks ~1 A on VSYS at full volume (S3); cap the volume in firmware, keep GAIN at its default, power rating still to read (S7) |
+| S7 | Power rating (W) printed on the 4 Ω speaker? | |
 
 ## Next
 Answers A1–S2 → draft the AUDIO / MECH requirements (housing, shutdown, connectors) → validation → model.
