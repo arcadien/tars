@@ -125,7 +125,7 @@ derives_from: [TECH-POWER-REG-001](technical.md#tech-power-reg-001)
 
 ### PLAT-POWER-DIST-001
 
-**Title:** MAX98357A fed from its own VSYS pair, with C7 470 µF
+**Title:** MAX98357A fed from its own VSYS pair, with C7 470 µF (Panasonic EEUFC1A471, 470 µF, 10 V, low ESR)
 
 **Status:** validated
 
