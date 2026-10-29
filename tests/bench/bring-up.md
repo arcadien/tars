@@ -108,7 +108,7 @@ cells until step 3.5; nothing goes on the 3V3 before step 3.6 is green)
 - [ ] Charge port in the left leg, first pivot joint → [PLAT-MECH-CHARGEPORT-001](PLAT-MECH-CHARGEPORT-001.md), [PLAT-MECH-PIVOT-001](PLAT-MECH-PIVOT-001.md)
 
 **5. Firmware**
-- [ ] GPIO map from `hardware/tars4_schematic.html`; SPI 26.7 MHz first (scope SCK at screen 2 if possible), then 40 MHz;
+- [ ] GPIO map from the README *Signals* table and the carrier plan (`renders/tars4_board_s3.svg`); SPI 26.7 MHz first (scope SCK at screen 2 if possible), then 40 MHz;
       backlight PWM ~20 kHz; `RST = -1`; I2S0 amp, I2S1 microphone; SDMMC 1-bit 10 MHz; I2C 100 kHz.
 - [ ] Charger detect: USB_DET high = on mains (no cut-off, charging icon); charge done ≈ B+ relaxing to ~4.15 V with
       USB_DET still high.
