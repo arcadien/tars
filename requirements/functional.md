@@ -111,7 +111,7 @@
 
 **Dependencies:** none
 
-**Description:** The firmware knows whether the system rail (after the power switch) is powered, independently of the battery voltage and of the external supply. This covers the case "switch off, controller powered from the programming port". Acceptance (on-target Unity test, bench supply on the system rail): the flag is true for 3.0–5.0 V, false below 1.0 V, and it follows a switch toggle within 100 ms.
+**Description:** The firmware knows whether the system rail (after the power switch) is powered, independently of the battery voltage and of the external supply. This covers the case "switch off, controller powered from the programming port". Acceptance (on-target Unity test, bench supply on the system rail): the flag is true for 3.0–5.0 V, false below 2.3 V (the amplifier needs ≥ 2.5 V), and on battery it follows a switch toggle within 100 ms. With the controller powered from the programming port and the switch turned off, the falling edge may take longer: the rail capacitors then drain only through the regulator's quiescent current.
 
 ### FUNC-POWER-CUTOFF-001
 
