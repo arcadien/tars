@@ -31,7 +31,7 @@
 
 **Dependencies:** [FUNC-POWER-PATH-001](functional.md#func-power-path-001)
 
-**Description:** At a 110 mA system load, the system rail is within 0.10 V of the battery voltage on battery, and within 0.50 V of the external-supply voltage on the external supply. Acceptance (bench, multimeter, 33 Ω load, switch on): both drops are measured and within limits; a 0.5–0.7 V drop on battery fails.
+**Description:** At a 110 mA system load, the system rail is within 0.10 V of the battery voltage on battery, and within 0.50 V of the external-supply voltage on the external supply. Acceptance (bench, multimeter, 33 Ω load, switch on): both drops are measured and within limits; a 0.5–0.7 V drop on battery fails; on the external supply, with the switch on, the cell charge current is the R_PROG value of [PLAT-POWER-CHARGE-002](platform.md#plat-power-charge-002) ± 10 % (more means Q1's body diode charges the cells around the charger).
 
 ### PERF-POWER-CHARGE-001
 
