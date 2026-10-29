@@ -35,13 +35,13 @@
 
 ### TECH-POWER-PROTECT-001
 
-**Title:** Hardware protection of the pack against over-discharge, overcharge and overcurrent
+**Title:** Hardware protection of the pack against over-discharge and overcurrent
 
 **Status:** validated
 
 **Dependencies:** [TECH-POWER-CELL-001](technical.md#tech-power-cell-001)
 
-**Description:** A hardware circuit, independent of the firmware, disconnects the pack on over-discharge (2.4 V ± 0.1 V), overcharge and overcurrent. It is a last resort: the firmware cut-off ([FUNC-POWER-CUTOFF-001](functional.md#func-power-cutoff-001)) is at least 0.8 V higher. Acceptance (bench, bench supply in place of the cells): lowering the supply opens the pack output between 2.3 and 2.5 V.
+**Description:** A hardware circuit, independent of the firmware, disconnects the pack on over-discharge (2.4 V ± 0.1 V) and overcurrent. It is a last resort: the firmware cut-off ([FUNC-POWER-CUTOFF-001](functional.md#func-power-cutoff-001)) is at least 0.8 V higher. Overcharge is prevented by the charger's 4.20 V end of charge ([TECH-POWER-CHARGE-001](technical.md#tech-power-charge-001)); the protection's own overcharge cut is a backup that a bench supply in place of the cells cannot show. Acceptance (bench, bench supply in place of the cells): lowering the supply opens the pack output between 2.3 and 2.5 V; with the supply at 3.7 V (current limit 5 A), a 1 Ω load on OUT+ / OUT− (≈ 3.7 A) opens the output within 1 s.
 
 ### TECH-POWER-PROTECT-002
 
