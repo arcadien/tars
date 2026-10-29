@@ -31,17 +31,17 @@ links were found on 2026-10-21, price and stock not guaranteed.
 |---|---|---|---|
 | **2.4 kΩ** resistor, through-hole 1/4 W or 1/8 W (or SMD 0805 / 1206) | 1 (+ spare) | TP4056 R_PROG (0.5 A charge): original SMD removed, through-hole one lying on the board, legs soldered to its two pads; often already in a 1/4 W resistor assortment (else 2.2 k + 220 Ω in series) | [Amazon (search, 1/4 W assortment)](https://www.amazon.fr/s?k=assortiment+resistances+1%2F4W+1%25) |
 | **22 µF 16 V** electrolytic | 1 | C9, TP4056 input: **in stock** (Ø5.15, lying; `charger_h` raised to 6) | — |
-| Through-hole 1/4 W resistors: **1 kΩ** ×2, **10 kΩ** ×1, **47 Ω** ×2, **33 Ω** ×1, **100 Ω** ×1, **100 kΩ** ×1; **1 MΩ 1/8 W** ×1 | — | R17, R18; R12 / R19 (split SCK); R20 (MOSI); R21 (AM312 filter); R22 (Q5 gate); R2 (lying under the groove lip; a 1/4 W fits too); not needed if the assortment is already there |
+| Through-hole 1/4 W resistors: **1 kΩ** ×2, **10 kΩ** ×1, **47 Ω** ×2, **33 Ω** ×1, **100 Ω** ×1, **100 kΩ** ×1 | — | R17, R18; R12 / R19 (split SCK); R20 (MOSI); R21 (AM312 filter); R22 (Q5 gate); not needed if the assortment is already there |
 | **AO3401A** P-MOSFET (SOT-23) | 1 more | Q5, cuts the microSD 3V3 in sleep (already ordered for Q1: check one is left) |
 | **C12** capacitor: **10 µF 16 V** tantalum (+ at F6) instead of the 47 µF | 1 | AM312 filter on P2: **in stock** (the 47 µF in stock is 12 mm, too tall; the tantalum still cuts the 20 kHz backlight PWM by ~40 dB) | — |
-| **BC547B** NPN + **1 MΩ** 1/4 W ×2 | 1 + 2 | VSYS sense into GPIO37 (PLAT-POWER-VSENSE-001): Q4 and R24 on the carrier, R23 in line in the harness | in stock (drawer) |
+| **BC547B** NPN + **1 MΩ** + **330 kΩ** 1/4 W | 1 + 2 | VSYS sense into GPIO37 (PLAT-POWER-VSENSE-001): Q4 and R24 on the carrier, R23 in line in the harness | in stock (drawer) |
 
 ## 4. Capacitors
 
 | Item | Qty | Role | Links |
 |---|---|---|---|
 | **220 µF SMD 7343** (7.3 × 4.3), tantalum ≥ 6.3 V | 1 | C1, lying under the S3: **in stock** (Panasonic POSCAP 10TPE220ML, 10 V polymer, ESR 25 mΩ) | — |
-| **470 µF 10 V** electrolytic, **Ø ≤ 8 × 12** | 1 | C7, amplifier VIN (lying behind the board): **in stock** (Ø8 × 11.5) | — |
+| **470 µF 10 V** electrolytic, **Ø ≤ 8 × 12** | 1 | C7, amplifier VIN (lying behind the board): **in stock**, Panasonic EEUFC1A471 (Ø8 × 11.5, low ESR) | — |
 | **10 µF** ceramic X5R/X7R ("106") or **16 V tantalum** (+ to 3V3), 2.54 pitch, h ≤ 10 | 4 | C2 on P1, C4 at the microSD reader, C10 and C12 on P2: **16 V tantalums in stock** (6, 2 spare) | — |
 | **100 nF** ceramic ("104") through-hole, 2.54 pitch, body ≤ ~4 mm, **no tantalum** for C6 | 5 | C3, C5, C6, C8, C11: **in stock** (small through-hole ceramics) | [Amazon (search)](https://www.amazon.fr/s?k=assortiment+condensateur+ceramique+104) |
 
@@ -50,7 +50,7 @@ links were found on 2026-10-21, price and stock not guaranteed.
 | Item | Qty | For | Links |
 |---|---|---|---|
 | 2.2 kΩ resistor | 1 | R18 if the amplifier has a 100 k pull-up on SD (E-M1) | in the assortment |
-| 4.7 kΩ resistor | 1 | R1 if D1 leaks too much when warm (E-M3) | in the assortment |
+| 4.7 kΩ resistor | 1 | R1 (power path, MOSFET gate pull-down) | in the assortment |
 | USB charger **5 V ≥ 2 A** + micro-USB cable | 1 | running on mains while charging (if you don't have one already) | [Amazon (search)](https://www.amazon.fr/s?k=chargeur+usb+5V+2A) |
 
 ## 5. Protection (to check: already ordered on 2026-10-20?)

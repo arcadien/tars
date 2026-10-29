@@ -51,6 +51,8 @@ A change in `hardware/` also requires, in the same change:
 - Requirements (`requirements/*.md`) and all documentation are written in **English**: README, markdown notes,
   generated guides and diagrams, code comments, commit messages.
 - Conversation with me stays in French.
+- In requirements, put a blank line between the fields (`**Title:**`, `**Status:**`, `**Dependencies:**`,
+  `derives_from:`, `**Description:**`): without it markdown runs them into one unreadable paragraph.
 - In requirements, every reference to another requirement or document is a markdown link, as in `derives_from:`:
   `[TECH-POWER-CHARGE-001](technical.md#tech-power-charge-001)`, `[power_budget.md](../hardware/power_budget.md)`. Headings stay plain.
 
