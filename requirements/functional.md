@@ -21,7 +21,7 @@
 
 **Dependencies:** [FUNC-POWER-CHARGE-001](functional.md#func-power-charge-001), [TECH-POWER-CHARGE-001](technical.md#tech-power-charge-001)
 
-**Description:** While an external supply is connected, the system rail is fed from that supply, not from the battery, so the charger only sees battery current and ends the charge normally while the robot runs. Acceptance (bench): with the supply connected and a 110 mA load (33 Ω) on the system rail, the battery-terminal current never flows out of the battery (≥ −0.1 mA), and a full charge ends as specified by [TECH-POWER-CHARGE-001](technical.md#tech-power-charge-001).
+**Description:** While an external supply is connected, the system rail is fed from that supply, not from the battery, so the charger only sees battery current and ends the charge normally while the robot runs. Acceptance (bench): with a full cell (charge terminated, charge current ≈ 0) and the external supply connected, the 110 mA load (33 Ω) on the system rail is switched on and off: the cell current, read on the mA range, stays ≥ −0.1 mA in both states (no load current comes from the cell); a full charge ends as specified by [TECH-POWER-CHARGE-001](technical.md#tech-power-charge-001).
 
 ### FUNC-POWER-PATH-002
 
