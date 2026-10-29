@@ -141,3 +141,10 @@ derives_from: [FUNC-POWER-CHARGE-001](functional.md#func-power-charge-001)
 **Status:** validated
 **Dependencies:** none
 **Description:** Each column joint turns on a brass tube (7.93 measured outer Ø), glued into one column and turning in the next. The pivot bores are horizontal when the columns print front face down, so they are teardrop-shaped (point toward the print top, self-supporting 45° ceiling, no support inside the bore). Drawn Ø: glued side 8.00 (tube held, no play), turning side 8.05 (turns, micro play only), from tube_test3 (2026-10-28, IBoss PLA Silk, 0.20 mm Ender3 profile). Tight beats loose: a bore that binds is sanded or reamed with an 8 mm drill. Acceptance: `make check` clean (no WARNING); `tube_od` = 7.93, `tube_glue_clr` = 0.07, `tube_run_clr` = 0.12; `pivot_cut` uses `xtear`; first printed joint: glued side holds, turning side turns without wobble.
+
+### PLAT-AUDIO-AMP-001
+**Title:** MAX98357A clone breakout, screw terminal left off, speaker wires soldered
+**Status:** draft
+**Dependencies:** [PLAT-POWER-DIST-001](platform.md#plat-power-dist-001)
+derives_from: [TECH-AUDIO-SHUTDOWN-001](technical.md#tech-audio-shutdown-001)
+**Description:** The amplifier is a MAX98357A breakout with the Adafruit pinout (LRC, BCLK, DIN, GAIN, SD, GND, Vin), ~19 × 17, in the existing `amp` slot of the right middle column. GAIN stays unconnected (default gain); the speaker screw terminal is not fitted and the speaker's grey 26 AWG pair is soldered to the OUT+ / OUT− pads. The schematic, the boards and the AMP_SD circuit are unchanged. Acceptance: board measured (MEASURE `amp`) and `make check` clean with that value; bench: SD < 0.1 V at boot (E-M1, breakout pull-up against R18), sound on both channels sent the same sample. Pending: board dimensions.
