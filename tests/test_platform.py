@@ -26,6 +26,28 @@ def test_plat_power_charge_001_breakout_feeds_the_charger_in_pads(sch):
     assert len(others) == 1 and sch.parts[others.pop()] == 'Q_PMOS'
 
 
+@pytest.mark.req('PLAT-POWER-PATH-001')
+def test_plat_power_path_001_q1_and_d1_the_right_way_round(sch):
+    # Given the charger, the switch and the power-path parts
+    u, = sch.refs('TP4056_DW01')
+    vpath = sch.net('SW1', '1')
+    # Then D1 goes from VUSB (anode) to VPATH (cathode)
+    assert sch.net('D1', '2') == vusb(sch) and sch.net('D1', '1') == vpath
+    # And Q1 has its drain on the charger OUT+, its source on VPATH and its gate on VUSB (body diode OUT+ → VPATH,
+    # never VUSB → cells around the charger)
+    assert sch.parts['Q1'] == 'Q_PMOS'
+    assert sch.net('Q1', 'D') == sch.net(u, 'OUT+') and sch.net('Q1', 'S') == vpath and sch.net('Q1', 'G') == vusb(sch)
+    # And R1 pulls the gate (VUSB) to GND
+    assert set(sch.between('R1')) == {vusb(sch), 'GND'}
+
+
+@pytest.mark.req('PLAT-POWER-PATH-001')
+@pytest.mark.xfail(strict=True, reason='R1 is still 10k in the schematic; the fix that fits 4.7k removes this mark')
+def test_plat_power_path_001_r1_is_4k7(sch):
+    # Then R1 is 4.7 kΩ: a warm D1 leaking 50 µA leaves the gate below 0.25 V
+    assert sch.value('R1') == '4.7k'
+
+
 @pytest.mark.req('PLAT-POWER-HOTPLUG-001')
 def test_plat_power_hotplug_001_tvs_and_capacitor_across_vusb(sch):
     # Given VUSB (the TP4056 IN+ pads)
