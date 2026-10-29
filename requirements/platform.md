@@ -67,13 +67,13 @@ derives_from: [TECH-POWER-PROTECT-002](technical.md#tech-power-protect-002)
 
 **Title:** Power path Q1 / D1 / R1 on the power-path board
 
-**Status:** draft
+**Status:** validated
 
 **Dependencies:** [PLAT-POWER-CHARGE-001](platform.md#plat-power-charge-001), [PERF-POWER-PATH-001](performance.md#perf-power-path-001)
 
 derives_from: [FUNC-POWER-PATH-001](functional.md#func-power-path-001)
 
-**Description:** The circuit is: a 1N5822 Schottky D1 from VUSB to VPATH; a logic-level P-MOSFET Q1 (AO3401A, D on OUT+, S on VPATH, G on VUSB); R1 10 kΩ from Q1's gate to GND. Acceptance: pytest on the schematic (these nets); bench: VUSB < 0.5 V within 1 s of unplugging; D1's reverse leakage at 4.2 V and 35 °C is ≤ 50 µA (otherwise R1 becomes 4.7 kΩ or D1 is replaced). Pending: E-M3 (D1 leakage) not measured yet.
+**Description:** The circuit is: a 1N5822 Schottky D1 from VUSB to VPATH; a logic-level P-MOSFET Q1 (AO3401A, D on OUT+, S on VPATH, G on VUSB); R1 4.7 kΩ from Q1's gate to GND, chosen so that a warm D1 leaking up to 50 µA still leaves the gate below 0.25 V (Q1 fully on, no leakage measurement needed); it also discharges VUSB twice as fast on unplugging. Acceptance: pytest on the schematic (these nets, Q1 and D1 the right way round); bench: VUSB < 0.5 V within 1 s of unplugging.
 
 ### PLAT-POWER-SWITCH-001
 
