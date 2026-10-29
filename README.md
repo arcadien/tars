@@ -209,7 +209,7 @@ USB end.
 | microSD | CLK, CMD, D0 + SD_EN | SDMMC 1-bit, 10 MHz, R11 33 Ω on CLK; SD_EN GPIO36 → Q5 (low = card powered) |
 
 The ESP32-S3 routes SPI and I2S to any GPIO. Avoid the strapping pins (GPIO 0, 45, 46; GPIO3 only selects the JTAG
-source when an eFuse is burnt, so it is used as the PIR input) and the USB pins (GPIO 19, 20). GPIO37: VSYS sense (Q4 BC547B and R24 1 M on the carrier, R23 1 M in line in the harness at the power-path board; low = rail present; PLAT-POWER-VSENSE-001). Pin by pin:
+source when an eFuse is burnt, so it is used as the PIR input) and the USB pins (GPIO 19, 20). GPIO37: VSYS sense (Q4 BC547B and R24 330 k on the carrier, R23 1 M in line in the harness at the power-path board; low = rail present; PLAT-POWER-VSENSE-001). Pin by pin:
 the carrier plan `renders/tars4_board_s3.svg` and the KiCad schematic (confirm when soldered).
 
 - Through the middle tube go **7 wires** for screen 2 (SCK, MOSI, DC, CS2, RST, 3V3, GND from P1) + BL_EN + 3 for I2S +
@@ -303,14 +303,14 @@ properly (otherwise the TP4056 sees TARS's current as charge current and never e
 TP4056 IN+  (USB 5 V) ──► Schottky D1 1N5822 ───────────┐
                                                         ├──► slide switch ──► VSYS
 TP4056 OUT+ (cells)   ──► AO3401A P-MOSFET Q1 (D → S) ──┘
-                           gate → IN+, R1 10 kΩ gate → GND
+                           gate → IN+, R1 4.7 kΩ gate → GND
 ```
 - Mains: gate at 5 V → MOSFET off, VSYS ≈ 4.7 V from USB through the Schottky; the cells charge alone.
 - Battery: gate pulled to 0 V → MOSFET on (~0.05 V drop), the Schottky blocks.
 - The switch sits **after** the merge: off = TARS off, charging still works. **Check its rating** (≥ 1 A wanted: TARS
   peaks at ~1 A with Wi-Fi + amp).
-- R1 10 kΩ: when the USB is unplugged the gate falls in ~0.1 s, so VSYS does not sit on the MOSFET's body diode for
-  long; the TPS63020 keeps regulating anyway.
+- R1 4.7 kΩ: when the USB is unplugged the gate falls in ~50 ms, so VSYS does not sit on the MOSFET's body diode for
+  long (the TPS63020 keeps regulating anyway); a warm D1 leaking up to 50 µA still leaves the gate < 0.25 V.
 - Built on a **26.6 × 20 mm perfboard** (10 × 8 holes, `pp_b` MEASURE, layout `renders/tars4_board_power.svg`) lying flat in the left leg just above the splint (z ≈ 171),
   parts up (`pp_parts` ≤ 6 mm), in side grooves, against the lid side: the wires run in front of it. It carries the
   **star ground**, R2 / R3, R15 / R16 and Q5 / R22. Q1 (SOT-23) is glued **upside down**, oriented as drawn (the drawing
@@ -340,11 +340,13 @@ TP4056 OUT+ (cells)   ──► AO3401A P-MOSFET Q1 (D → S) ──┘
 
 ### Battery monitor ("hunger")
 
-- **B+** (TP4056 B+ pad) → R2 / R3 **1 M / 1 M** on the power-path board → one VBAT/2 wire through the left tube →
+- **B+** (TP4056 B+ pad) → R2 **1 M** soldered in line at the pad (the sense wire carries B+ only behind 1 M) → R3
+  **1 M** to GND on the power-path board → one VBAT/2 wire through the left tube →
   GPIO1 (ADC1), C6 100 nF from GPIO1 to GND at the S3.
 - **VSYS sense** (is the system rail up?): VSYS → R23 **1 M** soldered in line on the wire at the power-path board
-  (a short in the tube stays behind 1 M) → X14 → left tube → carrier: R24 **1 M** to GND and Q4 **BC547B** (base),
-  collector on GPIO37 (internal pull-up on only while reading): low = VSYS present (on from ~1.2 V), ~2–3 µA.
+  (a short in the tube stays behind 1 M) → X14 → left tube → carrier: R24 **330 k** to GND and Q4 **BC547B** (base),
+  collector on GPIO37 (internal pull-up on only while reading): low = VSYS present (threshold 2.3–2.7 V, above the
+  amplifier's 2.5 V minimum), ~3–4 µA.
 - On the cells, not on VSYS: on mains VSYS is the USB rail (~4.7 V) and says nothing about the battery. B− needs no
   wire (it differs from GND only by the DW01 switches, < 50 mV). Always connected, hence 1 M / 1 M: ~2 µA standing; C6
   holds the high-impedance node for the ADC (**never a tantalum** there: its leakage shifts the reading).
@@ -704,9 +706,9 @@ drawn is ~17 mm long (`xh_male_back`, `xh_female`) inside the 22 mm checked box 
 | D1 Schottky **1N5822** (through-hole, 3 A) | 1 | power path, USB side, band towards VPATH (before the switch; 1N5818 also does) |
 | D3 **TVS SMAJ5.0A / SMBJ5.0A** (unidirectional) | 1 | on the TP4056's IN+ / IN− pads, cathode to IN+ |
 | F1, F2 **polyfuse** (radial PPTC), ≥ 16 V (MF-R160: 30 V), hold **1.6 A** | 2 | one in each cell's + wire, standing on the inner front wall in front of the cell (XF160 15 × 16 × 2.5) |
-| R1 **10 kΩ** | 1 | power path, MOSFET gate pull-down |
-| R2, R3 **1 MΩ** (R2 preferably 1/8 W, Ø1.8) | 2 | B+ divider (battery monitor), on the power-path perfboard; R2 lies along its edge, under the groove's lip |
-| Q4 NPN **BC547B** + R23, R24 **1 MΩ** 1/4 W | 1 + 2 | VSYS sense into GPIO37: Q4 and R24 standing on the carrier, R23 in line in the harness at the power-path board (heat-shrink) |
+| R1 **4.7 kΩ** | 1 | power path, MOSFET gate pull-down |
+| R2, R3 **1 MΩ** | 2 | B+ divider (battery monitor): R2 in line in the harness at the TP4056 B+ pad (heat-shrink), R3 on the power-path perfboard |
+| Q4 NPN **BC547B** + R23 **1 MΩ**, R24 **330 kΩ** 1/4 W | 1 + 2 | VSYS sense into GPIO37: Q4 and R24 standing on the carrier, R23 in line in the harness at the power-path board (heat-shrink) |
 | R15 **68 kΩ**, R16 **100 kΩ** | 1 + 1 | VUSB → USB_DET divider, on the power-path perfboard |
 | **2.4 kΩ** (through-hole 1/4 W, or SMD 0805 / 1206) | 1 | replaces the TP4056's R_PROG (1.2 k, removed). A through-hole one can hang on two short wires (≤ 2 cm) on the R_PROG pads, heat-shrink over each joint and the body, glued flat within 5.5 mm above the board (`charger_h`). **The PROG node must never touch GND** (charge current unlimited); a broken wire only stops the charge |
 | R4, R18 **10 kΩ** (+ R5–R9 10 kΩ) | 2 (+ 5) | R4 BL_EN → GND (P1), R18 amp SD → GND (P2); R5–R9 microSD pull-ups, only if the reader has none |
@@ -717,11 +719,11 @@ drawn is ~17 mm long (`xh_male_back`, `xh_female`) inside the 22 mm checked box 
 | C1 **220 µF SMD 7343** (7.3 × 4.3), Panasonic POSCAP 10TPE220ML, polymer tantalum 10 V, ESR 25 mΩ (in stock) | 1 | **required**, 3V3–GND at the S3, lying flat on the carrier under the S3 (C2 + / E2 −, a lead offcut soldered on each end); **SMD tantalum band = +** |
 | C2, C4, C10 **10 µF tantalum 16 V** (+ to 3V3; in stock) or ceramic X5R/X7R ≥ 6.3 V ("106"), 2.54 pitch, h ≤ 9 | 3 | P1 (G9 + / G10), microSD reader (C4 **lying flat** on its pins: only ~6.6 mm to the TPS63020), P2 (F9 + / F10) |
 | C3, C5, C6, C8, C11 **100 nF ceramic**, through-hole, 2.54 pitch, small body (≤ ~4 mm wide, h ≤ 9 on P1 / P2, ≤ 10 under the S3) | 5 | P1 (H9–H10), microSD reader (on its pins), GPIO1 and GPIO21 at the S3 (under it between the headers, ~0.1 mm to their plastic), P2 (G9–G10); **C6 never a tantalum** (leakage on VBAT/2); a 7.15 × 2.4 film fits only C3 (H9–H11) and C5 |
-| C7 electrolytic **470 µF**, 10 V (Ø8 × 12) | 1 | on the amp's VIN / GND pins, lying across behind the board |
+| C7 electrolytic **470 µF**, 10 V, low ESR, Panasonic **EEUFC1A471** (Ø8 × 11.5) | 1 | on the amp's VIN / GND pins, lying across behind the board |
 | C9 electrolytic **22 µF** (10–47 µF), 16 V, **Ø ≤ 5.15** lying (`charger_h` 6) | 1 | on the TP4056's IN pads next to D3 |
 | Q2 AO3401A + Q3 AO3400A / 2N7002 + 10 kΩ | (1 + 1 + 1) | only if the screens' BLK draws the LED current (see *Signals*) |
 | Stripboard 2.54 mm (single-sided), cut to **24 × 32** (9 × 12 holes) | 2 | P1, P2: `renders/tars4_board_p1.svg`, `_p2.svg` |
-| **Single-sided** perfboard (FR4) with separate pads, cut to **26.6 × 20** (10 × 8 holes) | 1 | power path (Q1, D1, R1, R2 / R3, R15 / R16, Q5 / R22, star ground), `renders/tars4_board_power.svg` |
+| **Single-sided** perfboard (FR4) with separate pads, cut to **26.6 × 20** (10 × 8 holes) | 1 | power path (Q1, D1, R1, R3, R15 / R16, Q5 / R22, star ground), `renders/tars4_board_power.svg` |
 | **Single-sided** perfboard (FR4) with separate pads, cut to **25.6 × 34.4** (10 × 13 holes) | 1 | the S3's carrier, `renders/tars4_board_s3.svg` |
 | Female headers **2 × 8**, 2.54, 8.5 mm high | 2 | the S3's socket (`s3_sock_h` MEASURE) |
 | **Right-angle** male header 1 × 8 | 2 | X1 / X4, on the screens' backs, pins down |

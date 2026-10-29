@@ -18,20 +18,20 @@ and the harness guide [tars4_harness.html](tars4_harness.html). Requirements: `r
 | C9 | 22 µF 16 V electrolytic (10–47 µF), Ø ≤ 5.15 lying | with D3 on the TP4056 IN pads: damps the hot-plug overshoot at the end of the ~16 cm of wire from J1 |
 | Q1 | AO3401A, logic-level P-MOSFET | power path: cells → VSYS, off on mains (gate on VUSB) |
 | D1 | 1N5822, 3 A Schottky, through-hole | VUSB → VPATH on mains; band on the VPATH side, before the switch |
-| R1 | 10 k | Q1 gate → GND: fast switch-over when unplugged |
+| R1 | 4.7 k | Q1 gate → GND: fast switch-over when unplugged (~50 ms); a warm D1 leaking 50 µA leaves the gate < 0.25 V |
 | SW1 | slide switch, ≥ 1 A | after the merge point; rating to check (often only 0.3–0.5 A) |
 | U9 | TPS63020 module, 3.3 V | buck-boost in the left leg, 3.3 V to the S3 3V3 pin; EN to VIN, PS/SYNC to GND (solder bridge, never high). Its own VSYS / GND pair from the star; the logic GND to P1 leaves from its GND pad, along its 3V3 wire |
 | C1 | 220 µF 10 V polymer tantalum 7343 (Panasonic 10TPE220ML, ESR 25 mΩ), band = + | mandatory: 3V3 → GND as close as possible to the S3 3V pin, flat on the carrier under the S3, ~35 cm of wire from the TPS63020 |
 | R15, R16 | 68 k + 100 k | on the power-path board: VUSB → USB_DET (GPIO21), ~3 V with the charger plugged in, 30 µA on USB only |
-| R2, R3 | 1 M + 1 M | on the power-path board: B+ / 2, the cell voltage even on mains (VSYS is then the USB rail, ~4.6 V); the VBAT/2 wire goes to GPIO1 (≈ 2 µA standing, C6 holds the reading) |
-| Q4, R23, R24 | BC547B NPN + 1 M + 1 M (1/4 W) | VSYS sense (GPIO37, low = rail up, on from ~1.2 V): R23 soldered in line in the harness at the power-path board end (the wire through the left tube only carries VSYS behind 1 M), then X14 → R24 base → GND and Q4 standing on the carrier, collector bridged to IO37 (internal pull-up only while reading), ~2–3 µA |
+| R2, R3 | 1 M + 1 M | R2 in line in the harness at the TP4056 B+ pad (the sense wire carries B+ only behind 1 M), R3 on the power-path board: B+ / 2, the cell voltage even on mains (VSYS is then the USB rail, ~4.6 V); the VBAT/2 wire goes to GPIO1 (≈ 2 µA standing, C6 holds the reading) |
+| Q4, R23, R24 | BC547B NPN + 1 M + 330 k (1/4 W) | VSYS sense (GPIO37, low = rail up, threshold 2.3–2.7 V, above the amplifier's 2.5 V minimum): R23 soldered in line in the harness at the power-path board end (the wire through the left tube only carries VSYS behind 1 M), then X14 → R24 base → GND and Q4 standing on the carrier, collector bridged to IO37 (internal pull-up only while reading), ~2–3 µA |
 | C6 | 0.1 µF ceramic ("104"), never tantalum nor film | GPIO1 → GND at the S3: a tantalum's leakage would skew the reading by up to 0.5 V; film is too wide |
 | C8 | 0.1 µF ceramic ("104") | GPIO21 → GND at the S3: USB_DET comes out of a ~40 k divider and runs along the amplifier pair in the left tube |
 | C2, C3 | 10 µF 16 V tantalum (+ to 3V3) or X5R / X7R ceramic, + 0.1 µF ceramic | on P1, between the 3V3 and GND strips |
 | R4 | 10 k | on P1, BL_EN → GND: backlights off at boot |
 | R10 | 1 k | on P2, in series GPIO4 (AMP_SD) → amplifier SD |
 | R18 | 10 k | on P2, amplifier SD → GND: the amplifier stays off at boot and in sleep despite its board's pull-up (SD < 0.16 V) |
-| C7 | 470 µF 10 V electrolytic Ø8 × 11.5, − to GND | on the amplifier VIN / GND pins (module side of X5), lying behind the board |
+| C7 | 470 µF 10 V low-ESR electrolytic, Panasonic EEUFC1A471, Ø8 × 11.5, − to GND | on the amplifier VIN / GND pins (module side of X5), lying behind the board |
 | R11, R13, R14, R20 | 33 Ω | in series at the S3: microSD CLK, amplifier BCLK and LRC, screens MOSI |
 | R12, R19 | 47 Ω (up to 100 Ω) | on the S3 carrier: split SCK, R12 → screen 1, R19 → screen 2 through its own wire |
 | R5–R9 | 10 k | microSD pull-ups (CMD, D0–D3) to SD_3V3, if the reader has none |

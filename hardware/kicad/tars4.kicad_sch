@@ -10100,7 +10100,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "1M (carrier)"
+		(property "Value" "330k (carrier)"
 			(at 421.64 80.01 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16849,7 +16849,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1M"
+		(property "Value" "1M (harness, B+ pad)"
 			(at 144.78 63.5 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17083,7 +17083,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "4.7k"
 			(at 33.02 48.26 0)
 			(show_name no)
 			(do_not_autoplace no)
