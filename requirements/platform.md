@@ -145,7 +145,7 @@ derives_from: [TECH-POWER-DIST-001](technical.md#tech-power-dist-001)
 
 derives_from: [FUNC-POWER-MONITOR-001](functional.md#func-power-monitor-001)
 
-**Description:** R2 / R3 (1 MΩ / 1 MΩ) on the power-path board divide the TP4056 B+ pad voltage. The midpoint (VBAT/2) goes to GPIO1, an ADC1 channel usable with Wi-Fi on. C6 100 nF ceramic (never tantalum) sits from GPIO1 to GND at the S3. Acceptance: pytest on the schematic (these values and nets); bench: VBAT/2 = B+ / 2 ± 2 % with the switch on, the switch off and the charger plugged in.
+**Description:** R2 / R3 (1 MΩ / 1 MΩ) divide the TP4056 B+ pad voltage. R2 is soldered in line in the harness at the B+ pad end, so the sense wire to the power-path board carries B+ only behind 1 MΩ; R3 sits on the power-path board. The midpoint (VBAT/2) goes to GPIO1, an ADC1 channel usable with Wi-Fi on. C6 100 nF ceramic (never tantalum) sits from GPIO1 to GND at the S3. Acceptance: pytest on the schematic (these values and nets); bench: VBAT/2 = B+ / 2 ± 2 % with the switch on, the switch off and the charger plugged in.
 
 ### PLAT-POWER-DETECT-001
 
