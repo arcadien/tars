@@ -846,6 +846,9 @@ module usbb_frame() {
             translate([wall - eps, y0, wall - eps]) cube([xr - wall + eps, y1 - y0, usbb_z0 + 0.8 - wall + eps]);
             translate([wall - eps, y0, usbb_z0 + usbb[0] - 0.8]) cube([xr - wall + eps, y1 - y0, 0.8 + 0.3 + rib]);
             for (z = [usbb_z0, usbb_z0 + usbb[0] - 3]) translate([wall - eps, y0 - rib, z]) cube([xr - wall + eps, rib + eps, 3]);
+            // front post from the floor to the top of the rail, over the PCB's thickness only (the component side stays free
+            // for the wires leaving the pads): it takes the plug's push down to the floor and carries the rail's front end
+            translate([wall - eps, y0 - rib, wall - eps]) cube([usbb_x0 + usbb[2] - wall + eps, rib + eps, usbb_z0 + usbb[0] + 0.3 + rib - wall + eps]);
         }
         translate([usbb_x0 - 0.1, y0 - eps, usbb_z0 - 0.15]) cube([xg - usbb_x0 + 0.1, y1 - y0 + 2 * eps, usbb[0] + 0.3]);
     }
