@@ -60,11 +60,12 @@ def test_tech_power_reg_001_one_buck_boost_feeds_every_3v3_load(sch):
     # Then the regulator sources +3V3 from VSYS
     assert sch.net(reg, 'VOUT') == '+3V3' and sch.net(reg, 'VIN') == vsys
 
-    # fed by +3V3 = on +3V3, or behind at most one switch / filter part whose other pin is on it (microSD Q5, PIR RC);
-    # reading of "every 3V3 load pin is on the +3V3 net" agreed on 2026-10-28
-    def fed_by_3v3(net):
-        return net == '+3V3' or any(sch.parts[r] in ('R', 'Q_PMOS') and '+3V3' in sch.part_nets(r).values()
-                                    for r, _ in sch.nets[net])
+    # Only two loads sit behind a part (agreed reading, 2026-10-28): the microSD reader behind the Q5 high-side switch
+    # and the PIR behind the R21 / C12 filter, each with that part's other side on +3V3; every other load is on +3V3
+    sd, = sch.refs('microSD_3V3')
+    pir, = sch.refs('AM312_PIR')
+    assert sch.net('Q5', 'S') == '+3V3' and '+3V3' in sch.between('R21')
+    indirect = {(sd, 'VCC'): sch.net('Q5', 'D'), (pir, 'VIN'): next(n for n in sch.between('R21') if n != '+3V3')}
     # When listing the supply pins of every 3.3 V load: all modules but the charger, the regulator and the
     # amplifier, plus the microSD reader
     loads = [r for r in sch.parts if r.startswith('U') and r not in (reg, amp, *sch.refs('TP4056_DW01'))]
@@ -74,7 +75,7 @@ def test_tech_power_reg_001_one_buck_boost_feeds_every_3v3_load(sch):
         assert supply, f'{r}: no supply pin found'
         # Then each one is fed by the +3V3 rail
         for p, n in supply.items():
-            assert fed_by_3v3(n), f'{r}.{p} on {n}'
+            assert n == indirect.get((r, p), '+3V3'), f'{r}.{p} on {n}'
     # And no other module draws from VSYS (no linear regulator on the system rail)
     assert {r for r, _ in sch.nets[vsys] if r.startswith('U')} <= {reg, amp}
 
