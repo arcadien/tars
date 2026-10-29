@@ -14,20 +14,17 @@ Audit report: `audits/2026-10-29-audit-full.md` (untracked, in the main worktree
 - B3: scope with a normal falling-edge trigger instead of min-hold (FUNC-POWER-PATH-002, PERF-POWER-REG-002).
 - B4: 10 A socket stated in every series charge-current measurement.
 - B5: bring-up VBAT/2 expected 0.476 × B+ with a 10 MΩ meter.
+- A1: FUNC-POWER-PATH-001 acceptance on a full cell (load on / off), sheet rewritten.
+- B9: TECH-POWER-PROTECT-001 over-discharge and overcurrent (1 Ω on OUT at 3.7 V); overcharge left to the charger.
 - B6: TECH-POWER-GROUND-001 bench sheet (mV drop to the star at 1 A, < 100 mV).
 - B7: TPS63020 idle test powered up on the A range, LEDs removed first (bring-up order swapped).
 
 ## To do
-- A1: FUNC-POWER-PATH-001 acceptance cannot fail (charge current masks a 110 mA draw). Proposed: full cell, charge
-  terminated, meter on mA: any load draw reads negative (≥ −0.1 mA); or |ΔI_cell| ≤ 1 mA with the 33 Ω load on / off
-  while charging. Requirement change → Aurelien validates, then rewrite tests/bench/FUNC-POWER-PATH-001.md.
-- B9: TECH-POWER-PROTECT-001 names overcharge / overcurrent but tests over-discharge only. Proposed: add an
-  overcurrent check (bench supply up to 5 A, ~3 A pulse on OUT) or narrow the title. Requirement change → validate.
 - Then: make check, PR. Next lots: C (tooling), D (requirements coherence), E (docs); A3 (4 Ω speaker, SW1 ≥ 2 A,
   volume cap at 2 W / 4.7 V, X6 JST-XH 2 or Dupont) in branch mech-audio.
 
 ## Open questions
 | # | Question | Answer |
 |---|---|---|
-| L1 | A1: which acceptance for FUNC-POWER-PATH-001? | |
-| L2 | B9: add an overcurrent test or narrow the PROTECT-001 title? | |
+| L1 | A1: which acceptance for FUNC-POWER-PATH-001? | full cell, load switched on / off, mA range (2026-10-30) |
+| L2 | B9: add an overcurrent test or narrow the PROTECT-001 title? | overcurrent test added, overcharge dropped from the title (2026-10-30) |
