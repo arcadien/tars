@@ -1,7 +1,7 @@
 # Branch hw-vsense — VSYS sense (PLAT-POWER-VSENSE-001) drawn and wired
 
 Branch state file (CLAUDE.md, *Branches*): read it first when the branch is picked up again, keep it
-current, answer the questions here. Based on `test-schematic` (PR #7): rebase on main once it is merged.
+current, answer the questions here. Based on `test-schematic`; main (PR #7) merged in.
 
 ## Goal
 Implement PLAT-POWER-VSENSE-001: an NPN level detector tells GPIO37 whether VSYS is up.
@@ -20,9 +20,9 @@ Implement PLAT-POWER-VSENSE-001: an NPN level detector tells GPIO37 whether VSYS
 ## Open questions
 | # | Question | Answer |
 |---|---|---|
-| V1 | VSENSE_B wire colour: brown 30 AWG with 1 black ring (analog like VBAT/2, the ring tells them apart in X14)? | |
-| V2 | PLAT-POWER-VSENSE-001 still says "Hardware change, not yet in kicad_sch_gen.py, the boards or the wiring": replace by "R23 in line in the harness at the power-path board, R24 and Q4 on the carrier" (req change, to validate)? | |
-| V3 | Schematic review by Aurelien | |
+| V1 | VSENSE_B wire colour: brown 30 AWG with 1 black ring (analog like VBAT/2, the ring tells them apart in X14)? | yes (2026-10-29) |
+| V2 | PLAT-POWER-VSENSE-001 still says "Hardware change, not yet in kicad_sch_gen.py, the boards or the wiring": replace by "R23 in line in the harness at the power-path board, R24 and Q4 on the carrier" (req change, to validate)? | yes, committed (2026-10-29) |
+| V3 | Schematic review by Aurelien | done (2026-10-29) |
 
 ## Next
-Answers V1–V3, then PR (after #7).
+PR to main; after the `docs-drop-schematic-html` merge, add Q4 / R23 / R24 to `hardware/design_notes.md`.
