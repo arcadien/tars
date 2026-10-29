@@ -23,7 +23,7 @@ def requirements():
     """{id: (status, acceptance text)}"""
     reqs = {}
     for f in glob.glob(os.path.join(ROOT, 'requirements', '*.md')):
-        for m in re.finditer(rf'^### ({ID})\n(?:\*\*.*\n)*?\*\*Status:\*\* (\S+)\n(?:.*\n)*?\*\*Description:\*\* (.*)',
+        for m in re.finditer(rf'^### ({ID})\n(?:(?:\*\*.*)?\n)*?\*\*Status:\*\* (\S+)\n(?:.*\n)*?\*\*Description:\*\* (.*)',
                              read(f), re.M):
             reqs[m.group(1)] = (m.group(2), m.group(3).split('Acceptance', 1)[-1])
     return reqs
