@@ -55,7 +55,7 @@ cells until step 3.5; nothing goes on the 3V3 before step 3.6 is green)
 - [ ] USB in (its own micro-USB), nothing on B+/B−: LED behaviour, VUSB = 4.75–5.25 V at the IN pads.
 - [ ] Bench supply on B+/B− (3.7 V): supply current with USB out < 10 µA for the TP4056 alone (the whole block adds D1's leakage, up to tens of µA: note it); protection → [TECH-POWER-PROTECT-001](TECH-POWER-PROTECT-001.md)
 - [ ] Charge current, end of charge, chip temperature → [PLAT-POWER-CHARGE-002](PLAT-POWER-CHARGE-002.md), [TECH-POWER-CHARGE-001](TECH-POWER-CHARGE-001.md)
-- [ ] D3 and C9 on the IN pads, **D3 band (cathode) and C9 + on IN+**: VUSB unchanged, no heating, IN+ ↔ IN− not shorted; hot-plug peak → [TECH-POWER-HOTPLUG-001](TECH-POWER-HOTPLUG-001.md)
+- [ ] D3 and C9 on the IN pads, **D3 band (cathode) and C9 + on IN+**: VUSB unchanged, no heating, IN+ ↔ IN− not shorted (the hot-plug test waits for the whole robot, step 3.9)
 
 *3.2 Power path (Q1, D1, R1) + SW1, VSYS loaded with 33 Ω (~110 mA)*
 - [ ] Power-path drops → [PERF-POWER-PATH-001](PERF-POWER-PATH-001.md); USB out: VUSB < 0.5 V within ~1 s.
@@ -68,6 +68,7 @@ cells until step 3.5; nothing goes on the 3V3 before step 3.6 is green)
 
 *3.4 Polyfuses, cells, star ground*
 - [ ] Polyfuses → [PLAT-POWER-FUSE-001](PLAT-POWER-FUSE-001.md)
+- [ ] Cell charge current on mains, switch on (Q1 the right way round) → [PERF-POWER-PATH-001](PERF-POWER-PATH-001.md) step 3
 - [ ] Cells in: the load does not draw from the cells on the supply, plug / unplug under load → [FUNC-POWER-PATH-001](FUNC-POWER-PATH-001.md), [FUNC-POWER-PATH-002](FUNC-POWER-PATH-002.md)
 - [ ] B− / OUT− / TPS GND / amp GND all < 0.1 Ω to the star point.
 
@@ -97,6 +98,7 @@ cells until step 3.5; nothing goes on the 3V3 before step 3.6 is green)
       backlight PWM (else 1 nF on GPIO3); a hand waved in front wakes the S3 from deep sleep.
 
 *3.9 Whole robot*
+- [ ] Hot-plug overshoot at the charger and at the amplifier VIN → [TECH-POWER-HOTPLUG-001](TECH-POWER-HOTPLUG-001.md)
 - [ ] Deep-sleep current from the cells (target above; LEDs removed, DS3231 32 kHz off, pins held); wake by USB_DET,
       ADXL INT1, PIR and the S3 timer.
 - [ ] Charge from the heel, switch on / off, time, wall temperature, supply voltage → [FUNC-POWER-CHARGE-001](FUNC-POWER-CHARGE-001.md), [FUNC-POWER-SWITCH-002](FUNC-POWER-SWITCH-002.md), [PERF-POWER-CHARGE-001](PERF-POWER-CHARGE-001.md), [PERF-POWER-THERMAL-001](PERF-POWER-THERMAL-001.md), [PERF-POWER-MAINS-001](PERF-POWER-MAINS-001.md); TP4056, Q1, D1, TPS63020 finger-warm at most.
