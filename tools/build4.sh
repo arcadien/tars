@@ -24,7 +24,9 @@ export_stl() {
     local bad=0
     for p in "$@"; do
         if grep -E "WARNING|ERROR" "$TMP/$pre$p.log" | sed "s|^|   tars4_$pre$p: |" | grep .; then bad=1; fi
-        [ -s "mechanical/stl/tars4_$pre$p.stl" ] || { echo "   tars4_$pre$p: no STL written"; bad=1; }
+        if [ ! -s "mechanical/stl/tars4_$pre$p.stl" ]; then   # say why: the end of OpenSCAD's own output
+            echo "   tars4_$pre$p: no STL written:"; tail -3 "$TMP/$pre$p.log" | sed 's/^/      /'; bad=1
+        fi
     done
     return $bad
 }
