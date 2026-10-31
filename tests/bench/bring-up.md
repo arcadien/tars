@@ -18,7 +18,7 @@ What is left to buy: [shopping_list.md](../../hardware/shopping_list.md). Open q
       26.3 × 17.15 × 0.9, on 0.5 ledges (end pads centred 1.43 from the edge), no side grooves. Cells 65 × 18.3 (fit).
       - [ ] contact plates, switch body.
 - [x] Micro-USB breakout 14.3 × 16 × 1.5, plug overmold 7.9 × 5.5 (fits). - [ ] USB-C plug
-      overmold ≤ 11.5 wide (S3 floor opening); speaker 39 × 22 × 10 and MAX98357A sizes.
+      overmold ≤ 11.5 wide (S3 floor opening). - [x] Speaker 25.27 × 13.80 × 7.15, MAX98357A 17.7 × 18.8 (fit).
 - [x] Power-path perfboard 1.5 thick (26.6 × 20, 10 × 8 holes); D1 lying 5.2 (`pp_parts` 6).
 - [ ] Every board soldered on the wall side (ADXL345, MAX98357A, micro-USB, spare): solder tails ≤ 1 mm (`pcb_gap` 1.2).
 - [x] Screens' backs: parts 3 high from 8.7 below the pad row, clear of the right-angle header + housings (dry fit,
@@ -59,7 +59,7 @@ cells until step 3.5; nothing goes on the 3V3 before step 3.6 is green)
 
 *3.2 Power path (Q1, D1, R1) + SW1, VSYS loaded with 33 Ω (~110 mA)*
 - [ ] Power-path drops → [PERF-POWER-PATH-001](PERF-POWER-PATH-001.md); USB out: VUSB < 0.5 V within ~1 s.
-- [ ] Switch off → [FUNC-POWER-SWITCH-001](FUNC-POWER-SWITCH-001.md). SW1 on with 1 A load (3.9 Ω 5 W): Q1 and SW1 barely warm.
+- [ ] Switch off → [FUNC-POWER-SWITCH-001](FUNC-POWER-SWITCH-001.md). SW1 on with a 2 A load (bench supply at 4.0 V, limit 3 A, 2 Ω ≥ 10 W): Q1 and SW1 barely warm; read SW1's marking first (E-M6, ≥ 2 A).
 
 *3.3 Dividers on the power-path board*
 - [ ] VBAT/2 = B+ / 2 ± 2 % with the switch on **and** off, and with the charger plugged in (10 MΩ multimeter loads the 500 k
@@ -88,7 +88,7 @@ cells until step 3.5; nothing goes on the 3V3 before step 3.6 is green)
 *3.8 Peripherals, one at a time, measuring the 3V3 current added by each*
 - [ ] Screen 1, then screen 2 (backlight off at boot unless BLK has a pull-up; PWM dimming works); total BLK current at
       GPIO7 < 10 mA (else Q2 / Q3).
-- [ ] MAX98357A: off at boot and with GPIO4 low (SD < 0.1 V), VIN = VSYS, C7 + to VIN; Wi-Fi + loud sound → [PERF-POWER-REG-002](PERF-POWER-REG-002.md)
+- [ ] MAX98357A ([PLAT-AUDIO-AMP-001](PLAT-AUDIO-AMP-001.md)): off at boot and with GPIO4 low (SD < 0.1 V), VIN = VSYS, C7 + to VIN; Wi-Fi + loud sound → [PERF-POWER-REG-002](PERF-POWER-REG-002.md)
 - [ ] INMP441: I2S1 data present. DS3231: 0x68 through both tubes, CR2032 not charged. ADXL345: 0x53, INT1 toggles.
 - [ ] microSD: CMD / D0–D3 read 10 kΩ to SD_3V3, init at 10 MHz 1-bit, 3V3 dip at insertion < 0.1 V; GPIO36 high →
       SD_3V3 < 0.1 V; sleep current with and without the card.
@@ -107,7 +107,7 @@ cells until step 3.5; nothing goes on the 3V3 before step 3.6 is green)
 **4. Print** (`mechanical/3mf/tars4.3mf`, or the CR-10 plate)
 - [ ] bed levelling (`part="print_test_level"`) and screen fit (`part="print_test_screen"`), exported by hand from the scad if needed, then the plates; PETG collars, black PLA plugs.
 - [ ] Check the lid slot / microSD, the TPS63020 and P1 / P2 grooves on the printed parts before gluing the splints.
-- [ ] Charge port in the left leg, first pivot joint → [PLAT-MECH-CHARGEPORT-001](PLAT-MECH-CHARGEPORT-001.md), [PLAT-MECH-PIVOT-001](PLAT-MECH-PIVOT-001.md)
+- [ ] Charge port in the left leg, first pivot joint → [PLAT-MECH-CHARGEPORT-001](PLAT-MECH-CHARGEPORT-001.md), [PLAT-MECH-PIVOT-001](PLAT-MECH-PIVOT-001.md), speaker → [PLAT-MECH-SPEAKER-001](PLAT-MECH-SPEAKER-001.md)
 
 **5. Firmware**
 - [ ] GPIO map from the README *Signals* table and the carrier plan (`renders/tars4_board_s3.svg`); SPI 26.7 MHz first (scope SCK at screen 2 if possible), then 40 MHz;

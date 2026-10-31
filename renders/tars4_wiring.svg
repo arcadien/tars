@@ -121,11 +121,11 @@
 <rect x="69.925" y="126.46" width="15.35" height="20.34" fill="#f6d0e0" stroke="#7b858a" stroke-width="0.25"></rect>
 <text x="77.6" y="134" font-size="2.2" text-anchor="middle" class="t h" dominant-baseline="middle">ADXL345</text>
 <text x="77.6" y="137.5" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">accelerometer</text>
-<rect x="35.400000000000006" y="181" width="22" height="39" fill="#dfe3e6" stroke="#7b858a" stroke-width="0.25"></rect>
-<text x="46.400000000000006" y="198" font-size="2.8" text-anchor="middle" class="t h" dominant-baseline="middle">SPK</text>
-<text x="46.400000000000006" y="202" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">39×22×10</text>
-<rect x="36.70000000000002" y="155.3" width="19.4" height="18" fill="#ddd2f6" stroke="#7b858a" stroke-width="0.25"></rect>
-<text x="46.400000000000006" y="164.3" font-size="2.2" text-anchor="middle" class="t h" dominant-baseline="middle">MAX98357A</text>
+<rect x="39.500000000000014" y="194.7" width="13.8" height="25.3" fill="#dfe3e6" stroke="#7b858a" stroke-width="0.25"></rect>
+<text x="46.400000000000006" y="205" font-size="2.8" text-anchor="middle" class="t h" dominant-baseline="middle">SPK</text>
+<text x="46.400000000000006" y="209" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">4 Ω 2 W</text>
+<rect x="37.55" y="154.5" width="17.7" height="18.8" fill="#ddd2f6" stroke="#7b858a" stroke-width="0.25"></rect>
+<text x="46.400000000000006" y="163.9" font-size="2.2" text-anchor="middle" class="t h" dominant-baseline="middle">MAX98357A</text>
 <rect x="4.110000000000014" y="104.67000000000002" width="22.18" height="38.33" fill="#f6d0e0" stroke="#7b858a" stroke-width="0.25"></rect>
 <text x="15.200000000000003" y="121" font-size="2.6" text-anchor="middle" class="t h" dominant-baseline="middle">DS3231</text>
 <text x="15.200000000000003" y="125" font-size="1.8" text-anchor="middle" class="t m" dominant-baseline="middle">RTC + CR2032</text>

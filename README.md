@@ -11,7 +11,7 @@ cells in the legs. Model: OpenSCAD `mechanical/scad/tars4.scad`, fully parametri
 | Size (W × D × H) | **124 × 31 × 248 mm** (1 : 4 : 8) |
 | Brain | 1 × LOLIN S3 Mini (ESP32-S3, 2 MB PSRAM, Wi-Fi, BLE, USB-C) |
 | Screens | 2 × 1.3" IPS 240×240 ST7789 with CS (square) |
-| Sound | MAX98357A I2S amplifier + 39 × 22 × 10 speaker behind the lower black panel; INMP441 microphone |
+| Sound | MAX98357A I2S amplifier + 4 Ω 2 W 25.3 × 13.8 × 7.2 speaker behind the lower black panel; INMP441 microphone |
 | Sensors | ADXL345 accelerometer, AM312 motion sensor, BME280 weather sensor, DS3231 clock, microSD |
 | Power | 2 × 18650 in parallel, one protected TP4056 (0.5 A), power path for mains use, TPS63020 3.3 V buck-boost |
 | Joints | brass tubes 8 / 7 mm at the top of each joint, wires inside, a detent click every 15° |
@@ -386,14 +386,16 @@ TARS talks **through its lower black panel** (right middle column, `speaker_col 
 
 ![tars4, front right: speaker grille](renders/tars4_sound_three_quarter.png)
 
-- **Speaker** 39 × 22 × 10 mm facing the front behind the lower panel (z 30–69): held at the front by two stops
-  (bottom) and the splint's front plate (top), guided by side rails, pressed forward by two tabs on the right middle lid
-  (`lid_mid`; the left one, `lid_mid_left`, has none: they would sit in the S3's wire loop). Insert it after gluing the
-  halves (it crosses the seam).
+- **Speaker** 4 Ω 2 W, 25.3 × 13.8 × 7.2 mm, membrane forward, long axis vertical, just under the splint (z 30–55,
+  bottom half only). Its membrane is flush with its face and its long edges have no rim: it bears only on two 1.5 mm
+  pads under its short-end tabs (the membrane keeps ~1 mm in front of it), sits between side rails on a stop notched for
+  its lower nub, and is **glued**: hot glue on both tabs and a bead along the long sides (it also seals the front from
+  the back; the closed column is the enclosure). Never cyanoacrylate near the membrane. Nothing on the lid touches it
+  (`lid_mid` and `lid_mid_left` are now the same). To replace it, release the hot glue with a drop of isopropyl alcohol.
 - **Grille**: horizontal slots (1.2 mm every 3 mm) in that column's black plug → `mechanical/stl/tars4_inserts_speaker.stl`.
-- **Amplifier** MAX98357A (~19.4 × 18) in a slot on the inner front wall just above the splint (z 76.7–94.7). I2S0
+- **Amplifier** MAX98357A clone breakout (17.7 along its 7-pin header × 18.8, measured) in a slot on the inner front wall just above the splint (z 76.7–95.5). I2S0
   BCLK / LRC / DIN, VIN / GND on their own pair, C7 470 µF (Ø8 × 12) soldered on VIN / GND and lying across behind the
-  board, between X6 and X5 (`c7`). GAIN default (9 dB); SD on AMP_SD (see *Signals*).
+  board, below X5 (`c7`); the speaker pair is soldered on OUT+ / OUT− (no screw terminal, no X6). GAIN default (9 dB); SD on AMP_SD (see *Signals*).
 - **Microphone** INMP441 (10 × 10, castellated) in the left middle column between the upper screw posts, just under
   P1, far from the speaker: top-port MEMS, **chip side against the wall**, the sound hole facing a Ø1 hole in the
   vertical decor groove (invisible). Seal with a ring of foam tape, never glue on it. Own I2S1 (GPIO 14, 38, 15, local
@@ -625,7 +627,6 @@ drawn is ~17 mm long (`xh_male_back`, `xh_female`) inside the 22 mm checked box 
 | X3 | INMP441 | pigtail + inline Dupont 1 × 6 (SCK WS SD VDD GND + 1 empty; L/R bridged to GND on the board) · empty position plugged on the female side · VDD / GND female contacts carry **two wires** (from P1 + on to X2), so unplugging the mic keeps the ADXL345 powered | left middle, parked against the lid, 103–131 |
 | X4 | screen 2 | as X1 | right middle, 205–223 |
 | X5 | MAX98357A | **two housings**: 1 × 4 (LRC BCLK DIN GAIN) with the **GAIN pin pulled**, cavity plugged, + 1 × 3 (SD GND VIN) · the 3-way reversed only swaps SD and VIN through R10 1 k (harmless); mark the 4-way's side | right middle, top edge of the amp, ~93 |
-| X6 | speaker | Dupont 1 × 2 on a 2-pin header in place of the screw terminal · no key (reversed = polarity swap, harmless) | right middle, bottom edge of the amp, ~78 |
 | X7 | AM312 | pigtail + inline Dupont 1 × 4 (VIN OUT GND + 1 empty) · empty position plugged | right middle, parked against the lid beside the screen, 191–225 |
 | X8 | DS3231 (ZS-042) | Dupont 1 × 6 on its right-angle header (32K SQW SCL SDA VCC GND; 4 wires) · **32K pin pulled**, cavity plugged | right leg, above the board, 145–166 |
 | X9 | BME280 | Dupont 1 × 4 (VCC GND SCL SDA) · no key: reversed, the I2C bus just hangs (no supply short) · all 4 contacts carry **two wires** (from P2 + on to X8) | right leg, top edge, ~204 |
@@ -691,7 +692,7 @@ drawn is ~17 mm long (`xh_male_back`, `xh_female`) inside the 22 mm checked box 
 | Battery contact plates 13 × 18 × 1.2: spring (Ø5, 10.7 high) + button (+, 1.8 overall) | 2 pairs | one pair per leg, wires soldered on the tabs |
 | U1 TP4056 charger breakout, **protected (DW01)**, 28.7 × 17.15 × 0.9 (26.3 once its micro-USB is desoldered and the nubs filed) | 1 | left leg, flat above the TPS63020; fed by J1 on its IN pads; **R_PROG swapped for 2.4 k** (0.5 A) |
 | J1 micro-USB breakout | 1 | charge port in the left foot, plug from behind at the heel |
-| SW1 mini slide switch, 3 pins (1P2T), body 12.95 × 6.9, lever 5.15 | 1 | left leg floor; **check its current rating** (≥ 1 A) |
+| SW1 mini slide switch, 3 pins (1P2T), body 12.95 × 6.9, lever 5.15 | 1 | left leg floor; **check its current rating** (≥ 2 A: the 4 Ω speaker's peaks) |
 | U9 **TPS63020** buck-boost module, 3.3 V, EN + PS/SYNC, ~17.4 × 26.2 | 1 | left leg, flat above the microSD; EN to VIN, PS/SYNC to GND |
 | U7 DS3231 RTC board (ZS-042) + CR2032 | 1 | right leg, I2C; SQW not wired |
 | U8 ADXL345 accelerometer board (GY-291) | 1 | left middle, I2C |
@@ -700,7 +701,7 @@ drawn is ~17 mm long (`xh_male_back`, `xh_female`) inside the 22 mm checked box 
 | U10 **AM312** mini PIR motion sensor | 1 | top of the right middle column, z ≈ 233, 1.25 mm right of the axis |
 | J2 microSD breakout, 3.3 V, **no regulator**, 18.2 × 18.2 × 1.5 (21 with the socket) | 1 | left leg |
 | U5 MAX98357A I2S amplifier breakout | 1 | right middle; VIN / GND on their own twisted pair from the power board |
-| LS1 speaker 39 × 22 × 10 mm, 8 Ω | 1 | behind the lower black panel of the right middle column |
+| LS1 speaker 25.3 × 13.8 × 7.2 mm, 4 Ω 2 W | 1 | behind the lower black panel of the right middle column |
 | Q1 P-MOSFET **AO3401A** (or DMG2305UX / SI2301), SOT-23 | 1 | power path, battery side; glued upside down on the perfboard |
 | Q5 P-MOSFET **AO3401A** + R22 **100 kΩ** | 1 + 1 | switch the microSD's 3V3 (SD_EN, GPIO36), on the power-path board |
 | D1 Schottky **1N5822** (through-hole, 3 A) | 1 | power path, USB side, band towards VPATH (before the switch; 1N5818 also does) |
@@ -727,7 +728,6 @@ drawn is ~17 mm long (`xh_male_back`, `xh_female`) inside the 22 mm checked box 
 | **Single-sided** perfboard (FR4) with separate pads, cut to **25.6 × 34.4** (10 × 13 holes) | 1 | the S3's carrier, `renders/tars4_board_s3.svg` |
 | Female headers **2 × 8**, 2.54, 8.5 mm high | 2 | the S3's socket (`s3_sock_h` MEASURE) |
 | **Right-angle** male header 1 × 8 | 2 | X1 / X4, on the screens' backs, pins down |
-| Male header 1 × 2 | 1 | X6, in place of the amp's screw terminal |
 | **Dupont 2.54 crimp kit**: housings 1 × 2 … 1 × 8, female contacts (**~100**, ~55 used), male contacts (~20) | 1 kit | X1–X9, X15; ratchet crimper SN-28B / PA-09; spare male pins to plug the keyed cavities |
 | **JST-XH** (2.50 pitch) inline pairs to crimp: housings 2- and 4-pin, male + female, with their contacts | 2 + 3 | X12, X16; X10, X13, X14 (SN-28B crimper; 30 AWG folded like in the Dupont contacts) |
 | Silicone wire **30 AWG**, tinned copper (not CCA), **10-colour kit** (needs purple and blue) | ~20.3 m | cut lengths from the 3D model in `hardware/tars4_harness.pdf` (estimate + 3 cm each, service loops and pigtails included); ≤ 3.6 m per colour (yellow); 8 colours used, no black / grey |

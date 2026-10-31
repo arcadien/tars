@@ -18,7 +18,7 @@ Conventions:
 | LOLIN S3 Mini (ESP32-S3 + PSRAM) | 3V3 | 80–120 mA average with Wi-Fi | ~400 mA Wi-Fi TX burst | ~10–20 µA (S3) + board LDO quiescent, to check | README *Rough runtime*, C1 sizing | | |
 | ST7789 1.3" screen × 2, logic | 3V3 | a few mA each, to check | | ~10 µA each in SLPIN, to check | | | |
 | ST7789 backlight × 2 (BLK) | 3V3 | 20–30 mA each if BLK drives an on-board transistor; 40–60 mA each if BLK feeds the LEDs | | 0 (BL_EN low); ~0.66 mA if an on-board BLK pull-up exists (remove it) | README *BL_EN*, checklist E-M2 | | |
-| MAX98357A amplifier | VSYS | ~2.5 mA idle (SD high, no sound), to check | several hundred mA at full volume (speaker dependent) | < 1 µA (SD low), to check | own VSYS pair, C7 470 µF | | |
+| MAX98357A amplifier | VSYS | ~2.5 mA idle (SD high, no sound), to check | 4 Ω speaker at full volume: ~1 A peak on battery (4.2 V), ~1.2 A on the external supply (4.7 V); capped by [PERF-AUDIO-PEAK-001](../requirements/performance.md#perf-audio-peak-001) | ~4 µA (SD low): the breakout's 1 MΩ SD pull-up into R18, chip < 1 µA; ≤ 10 µA ([TECH-AUDIO-SHUTDOWN-001](../requirements/technical.md#tech-audio-shutdown-001)) | own VSYS pair, C7 470 µF | | |
 | INMP441 microphone | 3V3 | ~1.4 mA, to check | | no clock = power-down, µA range, to check | | | |
 | AM312 PIR | 3V3 (R21) | ~15 µA | | ~15 µA (always on, wakes the S3) | README *AM312* | | |
 | ADXL345 accelerometer | 3V3 | 40–140 µA (rate dependent), to check | | ~25 µA in activity-detect mode at low rate, to check | wake source INT1 | | |

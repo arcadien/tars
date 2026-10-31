@@ -45,7 +45,7 @@ def S(block, port, col, step, sub='', frame='M'):
 
 def C(t, g):
     ref, pin = t.split('.', 1)
-    step = {'X1': 4, 'X2': 4, 'X3': 4, 'X4': 6, 'X5': 6, 'X6': 6, 'X7': 6, 'X8': 7, 'X9': 7, 'X15': 5,
+    step = {'X1': 4, 'X2': 4, 'X3': 4, 'X4': 6, 'X5': 6, 'X7': 6, 'X8': 7, 'X9': 7, 'X15': 5,
             'X10': 1 if g == 'F' else 2, 'X12': 1 if g == 'M' else 2, 'X16': 1 if g == 'M' else 2,
             'X13': 1 if g == 'F' else 5, 'X14': 1 if g == 'F' else 5}[ref]
     kind = 'XH' if ref in XH else 'D'
@@ -89,8 +89,8 @@ EXTRA = [
     ('red', 26, 'orange', 'VSYS', C('X13.VSYS', 'M'), C('X5.VIN', 'F'), 6,
      'amplifier pair: threaded through the left tube at step 5, X5 end crimped here; twisted with its GND'),
     ('black', 26, 'orange', 'GND', C('X13.GND amp', 'M'), C('X5.GND', 'F'), 6, 'twisted with VSYS; the orange band tells it from the right cell B+ / B− pair in the tubes'),
-    ('grey', 26, 0, 'SPK+', S('speaker', '+', 2, 6), C('X6.+', 'F'), 6, '+ marked with a pen at both ends'),
-    ('grey', 26, 0, 'SPK−', S('speaker', '−', 2, 6), C('X6.−', 'F'), 6, ''),
+    ('grey', 26, 0, 'SPK+', S('speaker', '+', 2, 6), S('MAX98357A', 'OUT+', 2, 6), 6, '+ marked with a pen at both ends; soldered on both ends'),
+    ('grey', 26, 0, 'SPK−', S('speaker', '−', 2, 6), S('MAX98357A', 'OUT−', 2, 6), 6, ''),
     ('white', 30, 0, 'PIR_VDD', S('AM312', 'VIN', 2, 6), C('X7.VIN', 'M'), 6, '5–6 cm pigtail'),
     ('red', 30, 1, 'PIR_OUT', S('AM312', 'OUT', 2, 6), C('X7.OUT', 'M'), 6, ''),
     ('blue', 30, 0, 'GND', S('AM312', 'GND', 2, 6), C('X7.GND', 'M'), 6, ''),
@@ -127,7 +127,7 @@ STEPS = [
      ['Before any power-up: every still-free end capped with closed heat-shrink (shrunk, end pinched while hot).', 'Without USB, switch on: the S3 boots from the cells (3.3 V on the carrier).',
       'VBAT/2 and USB_DET read by the S3; the microSD is read; SD_EN high cuts its 3.3 V.']),
     (6, 'Middle tube and right middle', 'screen 2, amplifier, speaker, AM312, P2',
-     ['Plan renders/tars4_board_p2.svg. Right-angle header on the back of screen 2 (X4). Amplifier: 1 × 4 (GAIN removed) + 1 × 3 headers (X5), 2-pin header instead of the screw terminal (X6), C7 + on VIN, band (−) to GND.',
+     ['Plan renders/tars4_board_p2.svg. Right-angle header on the back of screen 2 (X4). Amplifier: 1 × 4 (GAIN removed) + 1 × 3 headers (X5), screw terminal not fitted: the speaker pair is soldered on OUT+ / OUT−, C7 + on VIN, band (−) to GND.',
       'AM312: 3-wire pigtail (male contacts, X7), breakout pins trimmed flush, breakout slipped into a heat-shrink sock (it passes 5 mm from the middle tube exit). Thread the middle tube before crimping.'],
      ['Before any power-up: every still-free end capped with closed heat-shrink (shrunk, end pinched while hot).', 'Screen 2 displays; sound in the speaker; AMP_SD low cuts the amplifier; PIR rises when a hand passes.']),
     (7, 'Right tube and right leg', 'DS3231, BME280, right cell',
@@ -143,7 +143,7 @@ STEPS = [
 def geometry():
     """positions read from tars4.scad (openscad echo), cached in tools/harness_geometry.json for machines without it"""
     keys = ('col_w D H wall gap lid_y d1_x d1_z0 carrier_back_y hub_y hub_z0 pp_z0 charger_z0 bk_z0 bk_y1 usbb_z0 shelf_z '
-            'fuse_z0 sw_y usbb_y0 spk_z0 spk_front_y charger bk spk').split()
+            'fuse_z0 sw_y usbb_y0 spk_z0 spk_front_y amp_z0 charger bk spk').split()
     q = '\\"'                       # an escaped quote inside the SCAD string
     items = [(k, k) for k in keys] + [('pivot_z', 'pivot_z[0]'), ('conn_names', '[for (c = CONN) c[1]]'),
                                       ('conn_box', '[for (c = CONN) [c[0], c[3], c[4]]]')]
@@ -199,6 +199,8 @@ def where(e, g):
         return 0, cw / 2, g['sw_y'], 8
     if m.endswith(' cell'):
         return col, cw / 2, D / 2, g['fuse_z0'] + 1 if '+' in e['port'] else g['shelf_z'] - 1
+    if m == 'MAX98357A':                      # OUT+ / OUT− pads, lower edge of the board on the front wall
+        return 2, cw / 2, g['wall'] + 3, g['amp_z0'] + 3
     if m == 'speaker':
         return 2, cw / 2, g['spk_front_y'] + g['spk'][1], g['spk_z0'] + g['spk'][2] / 2
     return None

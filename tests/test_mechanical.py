@@ -52,3 +52,24 @@ def test_plat_mech_pivot_001_teardrop_bores_sized_from_tube_test3(model):
     assert 'xtear(' in body and 'cylinder(' not in body
     # And the model is clean
     assert warnings == []
+
+
+@pytest.mark.req('PLAT-AUDIO-AMP-001')
+def test_plat_audio_amp_001_measured_board_in_its_slot(model):
+    # Given the clone breakout as measured: 17.7 along its 7-pin header (x), 18.8 across (z)
+    assert re.search(r'^amp = \[17\.7, 18\.8,', source(), re.M), 'amp is not the measured board'
+    # When the model is evaluated
+    _, warnings = model
+    # Then the slot clears the lid screw posts: no WARNING / ERROR at all (make check clean)
+    assert warnings == []
+
+
+@pytest.mark.req('PLAT-MECH-SPEAKER-001')
+def test_plat_mech_speaker_001_speaker_geometry_asserts_hold(model):
+    # Given the model and its speaker geometry asserts (side rails, controller lug, lid screw row, splint, front wall)
+    asserts = re.findall(r'echo\("WARNING: speaker', source())
+    assert len(asserts) >= 5, 'speaker asserts removed from tars4.scad'
+    # When it is evaluated
+    _, warnings = model
+    # Then it prints no WARNING / ERROR at all (make check clean)
+    assert warnings == []

@@ -481,7 +481,7 @@ L("VSENSE", stub("U2.37", 2.54))
 L("VSYS", (142.24, PATH), left=True)
 
 # amplifier output, bulk capacitor on VIN
-place("Device:Speaker", "LS1", "39×22×10 8Ω", PXR + 25.4, 144.78, {"1": "SPK+", "2": "SPK-"}, dy=-5.08)
+place("Device:Speaker", "LS1", "25×14×7 4Ω 2W", PXR + 25.4, 144.78, {"1": "SPK+", "2": "SPK-"}, dy=-5.08)
 W("U5.OUT+", "LS1.1")
 o = pin("U5.OUT-")
 W(o[:2], (o[0] + 5.08, o[1]), (o[0] + 5.08, 147.32), "LS1.2")

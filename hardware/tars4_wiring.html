@@ -138,7 +138,6 @@ td.n { font: 600 14px var(--f-mono); white-space: nowrap; }
           <tr><td class="n">X3</td><td>INMP441</td><td>pigtail + inline Dupont 1 × 6 (5 wires) · 6<sup>th</sup> cavity plugged on the female side, empty on the male side</td><td>left middle, against the lid, 103–131</td></tr>
           <tr><td class="n">X4</td><td>screen 2</td><td>as X1</td><td>right middle, 205–223</td></tr>
           <tr><td class="n">X5</td><td>MAX98357A</td><td>two housings: 1 × 4 (LRC, BCLK, DIN, GAIN removed and plugged) + 1 × 3 (SD, GND, VIN; reversed: SD and VIN swap through R10, no damage)</td><td>right middle, top edge of the amplifier, ~93</td></tr>
-          <tr><td class="n">X6</td><td>speaker</td><td>Dupont 1 × 2 (header instead of the screw terminal)</td><td>right middle, bottom edge of the amplifier, ~78</td></tr>
           <tr><td class="n">X7</td><td>AM312</td><td>pigtail + inline Dupont 1 × 4 (3 wires) · empty cavity plugged</td><td>right middle, against the lid next to the screen, 191–225</td></tr>
           <tr><td class="n">X8</td><td>DS3231</td><td>Dupont 1 × 6 on its right-angle pins (4 wires) · 32K pin removed, cavity plugged</td><td>right leg, above the board, 145–166</td></tr>
           <tr><td class="n">X9</td><td>BME280</td><td>Dupont 1 × 4 on its pins · unkeyed: reversed, nothing breaks (I2C bus stuck)</td><td>right leg, top edge, ~204</td></tr>
@@ -292,8 +291,8 @@ text(cx[2] + c + 1.25, 232.4, 'AM312', 2, 't h');
 // sensors on the inner front wall of col1, each just above a lid screw row
 box(cx[1] + c - 5, 127.7, 10, 10, 'var(--b-i2s1)'); text(cx[1] + c, 132.7, 'INMP441', 1.6, 't m');
 box(cx[1] + c - 7.675, 103.2, 15.35, 20.34, 'var(--b-i2c)'); text(cx[1] + c, 116, 'ADXL345', 2.2, 't h'); text(cx[1] + c, 112.5, 'accelerometer', 1.8, 't m');
-box(cx[2] + c - 11, 30, 22, 39, 'var(--b-spk)'); text(cx[2] + c, 52, 'SPK', 2.8, 't h'); text(cx[2] + c, 48, '39×22×10', 1.8, 't m');
-box(cx[2] + c - 9.7, 76.7, 19.4, 18, 'var(--b-i2s0)'); text(cx[2] + c, 85.7, 'MAX98357A', 2.2, 't h');
+box(cx[2] + c - 6.9, 30, 13.8, 25.3, 'var(--b-spk)'); text(cx[2] + c, 45, 'SPK', 2.8, 't h'); text(cx[2] + c, 41, '4 Ω 2 W', 1.8, 't m');
+box(cx[2] + c - 8.85, 76.7, 17.7, 18.8, 'var(--b-i2s0)'); text(cx[2] + c, 86.1, 'MAX98357A', 2.2, 't h');
 // right leg (the cool one): RTC above the top cell shelf, weather sensor above the third screw row
 box(cx[3] + c - 11.09, 107, 22.18, 38.33, 'var(--b-i2c)'); text(cx[3] + c, 129, 'DS3231', 2.6, 't h'); text(cx[3] + c, 125, 'RTC + CR2032', 1.8, 't m');
 box(cx[3] + c - 5.75, 190, 11.5, 15, 'var(--b-i2c)'); text(cx[3] + c, 198.5, 'BME280', 1.9, 't h'); text(cx[3] + c, 195, 'vent Ø1.5', 1.3, 't m');

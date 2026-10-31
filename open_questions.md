@@ -9,7 +9,7 @@ the README describes the current state (no decision log any more: history in `re
 
 | # | Problem | What was done |
 |---|---|---|
-| B1 | Dupont housings without keying | useless pin removed + cavity plugged (X2 INT2, X8 32K, X5 GAIN with X5 as 4 + 3); one more cavity plugged on the female side of the inline pairs (X3, X7, X15); screens: right-angle header + rib glued on the housing; X14 as JST-PH 3; X6 and X9 unkeyed (reversed, nothing breaks). Pin order in the README (*Connectors*) |
+| B1 | Dupont housings without keying | useless pin removed + cavity plugged (X2 INT2, X8 32K, X5 GAIN with X5 as 4 + 3); one more cavity plugged on the female side of the inline pairs (X3, X7, X15); screens: right-angle header + rib glued on the housing; X14 as JST-PH 3; X9 unkeyed (reversed, nothing breaks). Pin order in the README (*Connectors*) |
 | B2 | TP4056 against the lip of its groove | no upper lip any more (support underneath only) for the TP4056 and the TPS63020, a lid tab holds the back edge; since 2026-10-27 the TP4056 (trimmed to 26.3, micro-USB desoldered) sits on 0.5 ledges without grooves; C9 / D3 lying on the IN end (`charger_h` 5.5) |
 
 ## 2. Decisions — taken
@@ -27,6 +27,7 @@ lid `lid_mid_left` · D10 Q5 on the microSD 3V3 (GPIO36) · D11 switch kept · D
 | D13 | **Switching charger instead of the TP4056** | TP4056 kept for now (500 mA, R_PROG 2.4k). If E-M8 runs too hot: R_PROG 3.6k (330 mA) or the lower left leg in PETG; alternative TP5100 1 A + separate DW01. IP2312: doesn't fit flat (34.4 × 15) |
 | E-M8 | **TP4056 temperature** (PLA legs) | measure the wall after 15 and 30 min of charge: > 45 °C → R_PROG 3.6k. Copper RPi heatsink ≤ ~3 mm + 0.5–1 mm thermal pad between chip and heatsink, never between board and PLA |
 | RF1 | **Rename `usbb` → `usb_charging_socket`** in `mechanical/scad/tars4.scad` (J1 in the schematic) | separate `refactor` commit: the `usbb*` parameters, the `usbb_z0` / `usbb_y0` geometry keys of `tools/harness.py`, `hardware/measurements.md` |
+| AU1 | **Audio** (PERF-AUDIO-PEAK-001, branch `mech-audio`) | not merged until measured: the firmware volume cap on the bench (VSYS ≥ 3.0 V at the amp with the pack at 3.30 V) |
 
 ## 4. Remaining measurements
 
@@ -34,8 +35,7 @@ lid `lid_mid_left` · D10 Q5 on the microSD 3V3 (GPIO36) · D11 switch kept · D
 solder tails on the wall side (ADXL345, MAX98357A, micro-USB), 0.85" screen if used, D-M9 (S3 first pin row, `my0`
 margins).
 
-**Electrical**, on the bench (README list *to do when the parts arrive*; currents in `hardware/power_budget.md`): E-M1 SD
-pull-up of the amplifier (R18), E-M2 screens' BLK, E-M3 D1 leakage when warm, E-M4 AM312 high level, E-M5 DW01
+**Electrical**, on the bench (README list *to do when the parts arrive*; currents in `hardware/power_budget.md`): E-M2 screens' BLK, E-M3 D1 leakage when warm, E-M4 AM312 high level, E-M5 DW01
 wake-up, E-M6 SW1 rating, E-M7 sleep current with and without microSD.
 
 **Other**: wanted swing angle for the legs (free wire length at the twist).

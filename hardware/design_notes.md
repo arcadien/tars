@@ -42,7 +42,7 @@ and the harness guide [tars4_harness.html](tars4_harness.html). Requirements: `r
 | C10, C11 | 10 µF 16 V tantalum (+ to 3V3) + 0.1 µF ceramic | on P2, between the 3V3 and GND strips |
 | U10 | AM312 PIR | top of the right middle column, dome flush in a Ø11.5 front hole (cap glued from the inside), 1.25 mm right of the axis to clear the middle tube; 2.7–12 V, ~15 µA, push-pull output held ~2 s, active high |
 | U11 | BME280 (GY-BME280, 3.3 V) | right leg, the coolest spot, sensor against the wall facing a Ø1.5 vent; I2C 0x76 / 0x77; SDA / SCL / 3V3 / GND from P2 through the right tube |
-| LS1 | speaker, 4–8 Ω | on OUT+ / OUT− (no ground); size not settled (branch `mech-audio`) |
+| LS1 | speaker, 4 Ω 2 W, 25.3 × 13.8 × 7.2 | on OUT+ / OUT− (no ground) |
 | P1, P2 | stripboards 24 × 32 | distribution: P1 left middle under screen 1, P2 right middle under screen 2 |
 | U2 socket | 2 female 2 × 8 headers on the 25.6 × 34.4 carrier (P3) | the S3 plugs in; all its wires are soldered on the back of the carrier |
 | X1–X16 | keyed Dupont (X1–X9, X15), JST-XH (X10, X12, X13, X14, X16) | one connector between each module and the harness, nothing to re-solder to test or swap a module; list and keying in the wiring plan |
