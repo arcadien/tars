@@ -841,14 +841,21 @@ module usbb_frame() {
     xr = xg + 1;                        // rail face (0.8 lip over each PCB edge, clear of the receptacle)
     y0 = usbb_y0 - 0.2;
     y1 = lid_y - 0.3;
+    xp = usbb_x0 + usbb[2];             // PCB component side: the post stops there
+    zt = usbb_z0 + usbb[0] + 0.3 + rib; // top of the top rail
     difference() {
         union() {
             translate([wall - eps, y0, wall - eps]) cube([xr - wall + eps, y1 - y0, usbb_z0 + 0.8 - wall + eps]);
             translate([wall - eps, y0, usbb_z0 + usbb[0] - 0.8]) cube([xr - wall + eps, y1 - y0, 0.8 + 0.3 + rib]);
-            for (z = [usbb_z0, usbb_z0 + usbb[0] - 3]) translate([wall - eps, y0 - rib, z]) cube([xr - wall + eps, rib + eps, 3]);
-            // front post from the floor to the top of the rail, over the PCB's thickness only (the component side stays free
-            // for the wires leaving the pads): it takes the plug's push down to the floor and carries the rail's front end
-            translate([wall - eps, y0 - rib, wall - eps]) cube([usbb_x0 + usbb[2] - wall + eps, rib + eps, usbb_z0 + usbb[0] + 0.3 + rib - wall + eps]);
+            // front post from the front wall to the PCB's front edge and from the floor to the top of the rail, over the PCB's
+            // thickness only (the component side stays free for the wires leaving the pads): it takes the plug's push down to
+            // the floor and, standing on the front wall, prints without overhang (column front face down)
+            translate([wall - eps, wall - eps, wall - eps]) cube([xp - wall + eps, y0 - wall + eps, zt - wall + eps]);
+            // stops over the component side, rails included, on a 45 deg slope down to the post (no overhang)
+            for (z = [[wall - eps, usbb_z0 + 3], [usbb_z0 + usbb[0] - 3, zt]]) hull() {
+                translate([xp - eps, y0 - rib, z[0]]) cube([xr - xp + eps, rib + eps, z[1] - z[0]]);
+                translate([xp - eps, y0 - rib - (xr - xp), z[0]]) cube([eps, rib + xr - xp, z[1] - z[0]]);
+            }
         }
         translate([usbb_x0 - 0.1, y0 - eps, usbb_z0 - 0.15]) cube([xg - usbb_x0 + 0.1, y1 - y0 + 2 * eps, usbb[0] + 0.3]);
     }
@@ -1334,7 +1341,7 @@ function kos(i) = let(mid = col_mid[i], zs = seam_z[i] - splint_h / 2, ze = seam
         sensors && i == rtc_col ? standing("DS3231", rtc, wall + rtc[2], rtc_z0, rtc[2] + 1.5, plugs ? dp_w(6) + 1 : 0) : [],
         bme && i == bme_col ? standing("BME280", bme_b, wall + bme_b[2], bme_z0, bme_b[2] + 1.5) : [],
         battery && i == power_col ? concat(
-            [["micro-USB socket", [wall, usbb_y0 - 0.2 - rib, wall], [usbb_x0 + usbb[2] + usbb_rec[1], lid_y, usbb_z0 + usbb[0] + 0.3 + rib]]],
+            [["micro-USB socket", [wall, wall, wall], [usbb_x0 + usbb[2] + usbb_rec[1], lid_y, usbb_z0 + usbb[0] + 0.3 + rib]]],
             flat("microSD reader", sd, sd_z0, sd_y0, sd_sock[2], sd_lip), flat("TPS63020", bk, bk_z0, bk_y1 - bk[1], bk_h, bk_lip),
             flat("TP4056", charger, charger_z0, lid_y - 0.3 - charger[1], charger_h, charger_lip),
             flat("power-path board", pp_b, pp_z0, lid_y - 0.3 - pp_b[1], pp_parts, pp_lip)) : []));
@@ -1565,7 +1572,7 @@ if (battery) {
     if (usbb_y1 + usbb_out > D) echo("WARNING: charge port receptacle sticks out of the back face");
     if (usbb_zc < 6) echo("WARNING: charge port centre less than 6 mm above the floor (plug overmold on the table)");
     if (usbb_zc - usbb_rec[0] / 2 - 0.3 < wall + clr) echo("WARNING: charge port notch cuts the bottom edge of the lid");
-    if (usbb_y0 - 0.2 - rib < wall + 4) echo("WARNING: charge port front stop leaves less than 4 mm for its wires");
+    if (usbb_y0 - 0.2 - rib - 1.2 < wall + 4) echo("WARNING: charge port front stop leaves less than 4 mm for its wires");
 }
 if (buck) {
     if (bk[0] + 0.3 > col_w - 2 * wall) echo("WARNING: buck-boost board wider than the leg interior");
