@@ -11,7 +11,7 @@ Requirement: [PLAT-POWER-CHARGE-002](../../requirements/platform.md#plat-power-c
 
 ## Setup
 1. Module unpowered: measure R_PROG in place (marking "242", or "362" for the fallback).
-2. Cell on B+ / B−, the meter (current range) in series in B+: A socket on the module's B+, COM on the cell +.
+2. Cell on B+ / B−, the meter on its **10 A socket** (the mA socket fuse blows at 0.5 A) in series in B+: A socket on the module's B+, COM on the cell +.
 
 ## Steps
 1. Note R_PROG.

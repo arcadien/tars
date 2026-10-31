@@ -3,7 +3,7 @@
 Covered = a pytest test tagged @pytest.mark.req('<ID>'), a manual test sheet tests/bench/<ID>.md or
 tests/manual/<ID>.md, or a firmware Unity test tagged `// req: <ID>` under software/. A requirement whose acceptance
 needs the firmware (Unity, on-target) is only reported (warning) while no firmware test exists yet; it becomes
-mandatory with the first one. A manual sheet that was never run (no result line) is reported too.
+mandatory with the first one. A pytest named in the acceptance is required at once. A manual sheet that was never run (no result line) is reported too.
 """
 import glob
 import os
@@ -48,9 +48,10 @@ def test_every_validated_requirement_is_tested_or_excluded():
     unity = unity_tagged()
     covered = tagged | {os.path.basename(f)[:-3] for f in sheets()} | unity
     excluded = set(re.findall(ID, read(os.path.join(ROOT, 'audits', 'exclusions.yml'))))
-    # When the firmware has no test yet, its requirements are pending, not missing
+    # When the firmware has no test yet, its requirements are pending, not missing; a pytest named in the acceptance
+    # is never deferred (it does not need the firmware)
     pending = sorted(i for i, acc in reqs.items() if i not in covered | excluded and not unity
-                     and re.search(r'Unity|on-target|firmware', acc))
+                     and re.search(r'Unity|on-target|firmware', acc) and 'pytest' not in acc)
     if pending:
         warnings.warn(f'{len(pending)} requirement(s) wait for firmware tests: {", ".join(pending)}')
     # Then every other validated requirement is covered or excluded

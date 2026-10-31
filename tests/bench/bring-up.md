@@ -42,10 +42,10 @@ What is left to buy: [shopping_list.md](../../hardware/shopping_list.md). Open q
 - [ ] D1 (1N5822) reverse leakage at 4.2 V, at 35 °C (hot room; D1 only blocks on battery, the charger is off then and does not heat the leg): > 50 µA → R1 4.7 k or a lower-leakage Schottky.
 - [ ] AM312 output high level at 3.3 V > 2.5 V; DW01: does it switch on by itself when the cells are first connected?
 - [ ] TP4056 R_PROG 2.4 k → [PLAT-POWER-CHARGE-002](PLAT-POWER-CHARGE-002.md)
+- [ ] Battery-fed LEDs removed → [PLAT-POWER-SLEEP-001](PLAT-POWER-SLEEP-001.md), [TECH-POWER-SLEEP-001](TECH-POWER-SLEEP-001.md)
 - [ ] TPS63020 output and idle current → [PLAT-POWER-REG-001](PLAT-POWER-REG-001.md)
 - [ ] Slide switch current rating (≥ 1 A).
 - [ ] ZS-042: CR2032 charging resistor removed.
-- [ ] Battery-fed LEDs removed → [PLAT-POWER-SLEEP-001](PLAT-POWER-SLEEP-001.md), [TECH-POWER-SLEEP-001](TECH-POWER-SLEEP-001.md)
 - [ ] Cells matched → [TECH-POWER-CELL-002](TECH-POWER-CELL-002.md)
 
 **3. Bring-up, one element at a time** (multimeter at each step; a bench supply at 3.7 V / 300 mA stands in for the
@@ -59,18 +59,18 @@ cells until step 3.5; nothing goes on the 3V3 before step 3.6 is green)
 
 *3.2 Power path (Q1, D1, R1) + SW1, VSYS loaded with 33 Ω (~110 mA)*
 - [ ] Power-path drops → [PERF-POWER-PATH-001](PERF-POWER-PATH-001.md); USB out: VUSB < 0.5 V within ~1 s.
-- [ ] Switch off → [FUNC-POWER-SWITCH-001](FUNC-POWER-SWITCH-001.md). SW1 on with 1 A load (3.9 Ω 5 W): Q1 and SW1 barely warm.
+- [ ] Switch off → [FUNC-POWER-SWITCH-001](FUNC-POWER-SWITCH-001.md). SW1 on with a 1 A load (3.9 Ω ≥ 10 W; the bench supply limit raised to 1.5 A for this check): Q1 and SW1 barely warm.
 
 *3.3 Dividers on the power-path board*
-- [ ] VBAT/2 = B+ / 2 ± 2 % with the switch on **and** off, and with the charger plugged in (10 MΩ multimeter loads the 500 k
-      node by ~5 %: compare with GPIO1 later).
+- [ ] VBAT/2 with the switch on **and** off, and with the charger plugged in: a 10 MΩ multimeter loads the 500 kΩ node,
+      so expect **0.476 × B+ ± 2 %** (or check R2 / R3 unpowered); compare with GPIO1 later.
 - [ ] USB_DET ≈ 3.0 V with USB in (never > 3.3 V), < 0.2 V with USB out.
 
 *3.4 Polyfuses, cells, star ground*
 - [ ] Polyfuses → [PLAT-POWER-FUSE-001](PLAT-POWER-FUSE-001.md)
 - [ ] Cell charge current on mains, switch on (Q1 the right way round) → [PERF-POWER-PATH-001](PERF-POWER-PATH-001.md) step 3
 - [ ] Cells in: the load does not draw from the cells on the supply, plug / unplug under load → [FUNC-POWER-PATH-001](FUNC-POWER-PATH-001.md), [FUNC-POWER-PATH-002](FUNC-POWER-PATH-002.md)
-- [ ] B− / OUT− / TPS GND / amp GND all < 0.1 Ω to the star point.
+- [ ] Star ground → [TECH-POWER-GROUND-001](TECH-POWER-GROUND-001.md)
 
 *3.5 TPS63020 module, nothing on its output*
 - [ ] Static regulation → [PERF-POWER-REG-001](PERF-POWER-REG-001.md)
@@ -91,7 +91,7 @@ cells until step 3.5; nothing goes on the 3V3 before step 3.6 is green)
 - [ ] MAX98357A: off at boot and with GPIO4 low (SD < 0.1 V), VIN = VSYS, C7 + to VIN; Wi-Fi + loud sound → [PERF-POWER-REG-002](PERF-POWER-REG-002.md)
 - [ ] INMP441: I2S1 data present. DS3231: 0x68 through both tubes, CR2032 not charged. ADXL345: 0x53, INT1 toggles.
 - [ ] microSD: CMD / D0–D3 read 10 kΩ to SD_3V3, init at 10 MHz 1-bit, 3V3 dip at insertion < 0.1 V; GPIO36 high →
-      SD_3V3 < 0.1 V; sleep current with and without the card.
+      SD_3V3 < 0.1 V (and held in reset → [FUNC-POWER-GATE-001](FUNC-POWER-GATE-001.md)); sleep current with and without the card.
 - [ ] BME280: 0x76 (or 0x77) next to 0x53 / 0x57 (DS3231 EEPROM) / 0x68; pull-up total ≥ 1.1 k; temperature vs a reference thermometer cold
       and after 10 min running → offset.
 - [ ] AM312 + R17: ~15 µA idle; GPIO3 ≈ 0 V idle, ≈ 3.3 V on motion, held ~2 s; no false trigger during Wi-Fi bursts and

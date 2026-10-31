@@ -9,7 +9,7 @@ Requirement: [FUNC-POWER-SWITCH-002](../../requirements/functional.md#func-power
 
 ## Setup
 1. Open the left leg's lid.
-2. Unplug **X16** (right cell), so that the whole pack current goes through the meter, then **X12** (left cell). Join the two B− contacts of X12 with a short jumper. Put the meter (current range) in series in B+: **A socket on the board-side B+, COM on the cell-side B+**. A positive reading is current flowing **into** the cell (charge), a negative one current flowing out of it.
+2. Unplug **X16** (right cell), so that the whole pack current goes through the meter, then **X12** (left cell). Join the two B− contacts of X12 with a short jumper. Put the meter on its **10 A socket** (the mA socket fuse blows at 0.5 A) in series in B+: **A socket on the board-side B+, COM on the cell-side B+**. A positive reading is current flowing **into** the cell (charge), a negative one current flowing out of it.
 
 ## Steps
 1. SW1 off, plug the charger. After 1 min, read the cell current (I_off).

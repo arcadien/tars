@@ -6,7 +6,7 @@ Requirement: [PERF-POWER-THERMAL-001](../../requirements/performance.md#perf-pow
 - The assembled robot, lids closed, pack **partly discharged** (so it charges at full current for 30 min).
 - A thermocouple or an IR thermometer.
 - A 5 V ≥ 2 A USB charger and a micro-USB cable.
-- A 3.9 Ω 5 W resistor (≈ 1 A on VSYS) with crocodile leads.
+- A 4.7 Ω ≥ 10 W resistor (≈ 1 A on VSYS on mains, ~4.6 V) with crocodile leads.
 - A room at 20–25 °C.
 
 ## Setup
@@ -15,7 +15,7 @@ Requirement: [PERF-POWER-THERMAL-001](../../requirements/performance.md#perf-pow
 ## Steps
 1. Case A, robot off: plug the charger; read the wall temperature at 15 min and at 30 min.
 2. Let it cool to room temperature, and discharge the pack a little again.
-3. Case B, robot on with the 3.9 Ω load on VSYS (1 A, on the external supply): plug the charger; read at 15 and 30 min.
+3. Case B, robot on with the 4.7 Ω load on VSYS (≈ 1 A on the external supply): plug the charger; read at 15 and 30 min.
 
 ## Pass criteria
 - Every reading ≤ 45 °C. Above: R_PROG 3.6 kΩ ([PLAT-POWER-CHARGE-002](../../requirements/platform.md#plat-power-charge-002)) and run again.

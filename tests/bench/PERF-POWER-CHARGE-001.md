@@ -9,8 +9,8 @@ Requirement: [PERF-POWER-CHARGE-001](../../requirements/performance.md#perf-powe
 - A clock or a phone timer.
 
 ## Setup
-1. Run the robot down to the 3.30 V cut-off (or discharge the pack through a 6.8 Ω resistor while watching B+).
-2. Switch off, let the pack rest 30 min; check B+ ≈ 3.30 V. Note the R_PROG fitted (2.4 kΩ, or the 3.6 kΩ fallback).
+1. Run the robot down to the 3.30 V cut-off, or discharge the pack through a 6.8 Ω ≥ 5 W resistor **on VSYS** (SW1 on, so the DW01 still protects the cells), until B+ reads 3.30 V under load.
+2. Switch off, let the pack rest 30 min and note the rested B+ (a pack cut at 3.30 V under load recovers to ~3.4–3.5 V): that is the start of the timed charge. Note the R_PROG fitted (2.4 kΩ, or the 3.6 kΩ fallback).
 
 ## Steps
 1. Plug the charger with the robot switched off; note the time.

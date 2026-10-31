@@ -8,7 +8,7 @@ Requirement: [TECH-POWER-CHARGE-001](../../requirements/technical.md#tech-power-
 - A multimeter (V range, and mA / 10 A ranges for currents).
 
 ## Setup
-1. Cell on B+ / B−, the meter (current range) in series in B+: A socket on the module's B+, COM on the cell +.
+1. Cell on B+ / B−, the meter on its **10 A socket** (the mA socket fuse blows at 0.5 A) in series in B+: A socket on the module's B+, COM on the cell +.
 
 ## Steps
 1. USB in. Note the current (constant-current phase, ≈ the set current).
