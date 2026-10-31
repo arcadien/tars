@@ -53,7 +53,7 @@ if command -v cygpath >/dev/null; then
 fi
 KICAD=${KICAD:-$(ls ~/bin/kicad-*.AppImage 2>/dev/null | sort | tail -1)}
 GS=$(command -v gs || command -v gswin64c)
-ORCA_PRESETS=~/.config/OrcaSlicer/user/default
+ORCA_PRESETS=~/.config/OrcaSlicer/user/default   # Linux only: the orca stage runs the OrcaSlicer AppImage
 FAILED=()
 T0=$(date +%s)
 
@@ -80,14 +80,15 @@ fi
 inputs() {
     case $1 in
         model) echo mechanical/scad/*.scad ;;
-        stl) echo mechanical/scad/*.scad tools/build4.sh tools/stl2_3mf.py ;;
+        stl) echo mechanical/scad/*.scad tools/build4.sh tools/stl2_3mf.py mechanical/stl/tars4_*.stl ;;   # its own outputs: STLs are not in git, so they may be another branch's or gone
         meshes) echo mechanical/stl/tars4_*.stl mechanical/3mf/tars4.3mf mechanical/3mf/tars4_cr10.3mf tools/update_orca_project.py ;;
         overhang) echo mechanical/stl/tars4_*.stl scripts/overhang.py scripts/overhang_allow.json ;;
         orca) echo mechanical/stl/tars4_*.stl mechanical/3mf/tars4.3mf mechanical/3mf/tars4_cr10.3mf scripts/orca_check.py scripts/orca_profile.py \
                    tools/update_orca_project.py tools/stl2_3mf.py "$ORCA_PRESETS"/machine/*.json "$ORCA_PRESETS"/process/*.json ;;
-        erc) echo hardware/kicad/*.kicad_sch hardware/kicad/*.kicad_sym hardware/kicad/*.kicad_pro hardware/kicad/sym-lib-table \
+        erc) echo tools/kicad_sch_gen.py hardware/kicad/lib_src/* hardware/kicad/*.kicad_sch hardware/kicad/*.kicad_sym hardware/kicad/*.kicad_pro hardware/kicad/sym-lib-table \
                   tests/*.py tests/bench/*.md tests/manual/*.md requirements/*.md audits/exclusions.yml \
-                  mechanical/scad/*.scad tools/boards.py tools/harness.py ;;
+                  mechanical/scad/*.scad tools/boards.py tools/harness.py .gitignore \
+                  $(git ls-files -co --exclude-standard 'software/*.c' 'software/*.cpp' 'software/*.h') ;;   # Unity req tags
         renders) echo mechanical/scad/*.scad tools/build4.sh scripts/check_renders.py ;;
         docs) echo mechanical/scad/*.scad tools/boards.py tools/kicad_sch_gen.py tools/harness.py tools/html2pdf.py tools/wiring_svg.js hardware/tars4_wiring.html ;;
     esac
@@ -120,9 +121,12 @@ stage_overhang() {
 }
 
 stage_meshes() {
-    local p
+    local p out
     for p in mechanical/3mf/tars4.3mf mechanical/3mf/tars4_cr10.3mf; do
-        python3 -I tools/update_orca_project.py "$p" || return 1
+        out=$(python3 -I tools/update_orca_project.py "$p") || return 1
+        echo "$out"
+        # an object left without its STL keeps a stale mesh: the updater only notes it
+        if grep -q "no STL mapped" <<< "$out"; then echo "ERROR meshes: $p has objects with no STL (build4.sh stl, NAME_TO_STL)"; return 1; fi
     done
 }
 
@@ -134,6 +138,9 @@ stage_erc() {
     local cli=(kicad-cli)
     [ -n "$KICAD" ] && cli=("$KICAD" kicad-cli)
     command -v "${cli[0]}" >/dev/null || { echo "KiCad not found: kicad-cli on the PATH or a kicad AppImage in ~/bin (KICAD=...)"; return 1; }
+    # the schematic is generated: regenerate it (netlist checked against the generator, PDF exported); a commit that
+    # changed the generator without its output sees the files rewritten
+    KICAD=$KICAD python3 -I -X utf8 tools/kicad_sch_gen.py || return 1
     "${cli[@]}" sch erc --severity-all --format json -o "$LOG/erc.json" hardware/kicad/tars4.kicad_sch || return 1
     python3 -I - "$LOG/erc.json" <<'EOF' || return 1
 import json, sys

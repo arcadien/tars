@@ -42,8 +42,6 @@ Lying face down, lids off (`part="open"`): pivots and screens at the top of the 
 | `tools/build4.sh` | rebuild STLs, plates and renders (`tools/build4.sh [stl\|3mf\|renders\|all\|cr10]`) |
 | `tools/update_orca_project.py` | refreshes the meshes inside `mechanical/3mf/tars4.3mf` from `mechanical/stl/`, keeping plates, positions and settings |
 | `tools/stl2_3mf.py` | packs STLs into a multi-object 3MF (`--long-x`, `--angle=DEG`); warns if the layout overflows the bed |
-| `tools/tube_section.py` | packs the wires of each pivot tube into its 7 mm bore (`renders/tars4_tube_sections.svg`) |
-| `tools/column_sections.py` (+ `mechanical/scad/column_sections.scad`) | side sections of the four columns, every module labelled (`renders/tars4_column_sections.svg`) |
 | `tools/wiring_svg.js` | exports the sketch of `hardware/tars4_wiring.html` to `renders/tars4_wiring.svg` (`node tools/wiring_svg.js`) |
 | `tools/kicad_sch_gen.py` | generates the KiCad schematic and checks its netlist |
 | `tools/boards.py` | hole-by-hole layouts of the hand-wired boards (S3 carrier, P1, P2, power-path board), checked for missing links and shorts → `renders/tars4_board_*.svg` |
@@ -487,8 +485,6 @@ From the left leg (front view), silicone wire, **30 AWG (Ø0.8) for every signal
 
 With 28 AWG signals the middle tube would be ~60 % full (very hard to pull and to keep turning).
 
-![tube sections](renders/tars4_tube_sections.svg)
-
 - The middle tube carries two GNDs on purpose: the amp's (twisted with its VSYS, straight back to the star) and
   screen 2's logic GND (from P1), so the amp's current pulses never flow in the logic ground.
 - **Twisted pairs**: B+/B−, the amp's VSYS/GND, microSD CLK/GND. 26 AWG drops < 0.1 V on the power runs.
@@ -601,9 +597,7 @@ locking **JST-XH** (3 A) inline pairs, crimped like the Dupont ones (X10, X12–
 Modelled in `mechanical/scad/tars4.scad` (`plugs`, the `CONN` list): each connector is a box (mated housings + 4 mm to bend the wires)
 checked against the walls, screw posts, splints, shelves, boards, lid tabs, tie anchors, pivot bosses, C7, a bundle
 corridor in the middle columns (tube end → P1 / P2) and the other connectors: the model echoes a WARNING on any clash
-(none now). Side sections, connectors in orange (`python3 -I tools/column_sections.py`):
-
-![column sections](renders/tars4_column_sections.svg)
+(none now).
 
 The two legs from the back, lid off (`tools/build4.sh renders`): left leg, its power block connectors in a cut just
 above them (seen from behind, so TARS's left is on the right: X12 / X13 against the lid, X10 in front of them, X14
@@ -803,7 +797,7 @@ Logs in `build/check/`.
 | stl | `mechanical/scad/tars4.scad`, `build4.sh`, the OpenSCAD libraries change | any print part (Ender 3 halves, CR-10 one-piece, the `tube_test3` trial print) with an OpenSCAD `WARNING` / `ERROR`; a raw plate (written to `build/plates/`) off the 220 × 220 bed |
 | meshes | **pre-push** (`make check-meshes`, not part of `make check`), when the STLs or the Orca projects change | `tools/update_orca_project.py` on `mechanical/3mf/tars4.3mf` and `tars4_cr10.3mf`: meshes swapped for the current STLs, layout kept, backup in `backups/`; an up-to-date project is not rewritten. The pre-push hook then refuses the push until the rewritten projects are committed |
 | overhang | **only on request** (`make check-overhang`, not part of `make check`: overhangs are checked in Orca) | `scripts/overhang.py` (uv + trimesh): a region over 2 cm² facing down more than 50° from vertical, unless it is a ceiling narrower than 3 mm (bridge) or listed with its reason in `scripts/overhang_allow.json` (`--limit 45` for a stricter pass) |
-| orca | **only on request** (`make check-orca`, not part of `make check`: needs the OrcaSlicer AppImage) | `scripts/orca_check.py` refreshes the meshes of `mechanical/3mf/tars4.3mf` (Ender 3) and `mechanical/3mf/tars4_cr10.3mf` (CR-10) in place (layout kept, backup in `backups/`; same as `update_orca_project.py`), then the OrcaSlicer CLI (AppImage, no GUI) slices every plate: a part that grew off its plate or into its neighbour fails |
+| orca | **only on request** (`make check-orca`, not part of `make check`: needs the OrcaSlicer AppImage, Linux only) | `scripts/orca_check.py` refreshes the meshes of `mechanical/3mf/tars4.3mf` (Ender 3) and `mechanical/3mf/tars4_cr10.3mf` (CR-10) in place (layout kept, backup in `backups/`; same as `update_orca_project.py`), then the OrcaSlicer CLI (AppImage, no GUI) slices every plate: a part that grew off its plate or into its neighbour fails |
 | erc | the KiCad files change | KiCad ERC through `kicad-cli`: any error (warnings are listed) |
 | renders | `mechanical/scad/tars4.scad`, `build4.sh`, the libraries change | `tools/build4.sh renders`: a PNG missing, not rewritten or blank |
 | docs | `boards.py`, `harness.py`, `hardware/tars4_wiring.html`, `wiring_svg.js` or `mechanical/scad/tars4.scad` (wire lengths) change | `boards.py` (net checks), `wiring_svg.js`, `harness.py`: an output missing or not rewritten, a blank page in `hardware/tars4_harness.pdf` |

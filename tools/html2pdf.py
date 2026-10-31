@@ -8,6 +8,7 @@ landscape unless --portrait, backgrounds on, the page's @media print rules apply
 import base64
 import json
 import os
+import pathlib
 import shutil
 import socket
 import struct
@@ -95,7 +96,7 @@ def main():
             raise RuntimeError('Firefox remote protocol did not start')
         ws.call('session.new', {'capabilities': {}})
         ctx = ws.call('browsingContext.getTree', {})['contexts'][0]['context']
-        ws.call('browsingContext.navigate', {'context': ctx, 'url': 'file://' + src, 'wait': 'complete'})
+        ws.call('browsingContext.navigate', {'context': ctx, 'url': pathlib.Path(src).resolve().as_uri(), 'wait': 'complete'})
         time.sleep(1.5)   # web fonts
         pdf = ws.call('browsingContext.print', {
             'context': ctx, 'background': True, 'shrinkToFit': True,

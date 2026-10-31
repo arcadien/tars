@@ -5,10 +5,20 @@
 # Skip once with `git commit --no-verify`.
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
-before=$(git diff --name-only | sort)
+# the check reads the working tree, the commit takes the index: unstaged changes in the check's inputs would be tested
+# but not committed (stash them with `git stash push --keep-index`, or add them)
+dirty=$(git diff --name-only -- mechanical/scad tools scripts tests requirements software hardware/kicad \
+        hardware/tars4_wiring.html audits/exclusions.yml .gitignore)
+if [ -n "$dirty" ]; then
+    echo "pre-commit: unstaged changes in the check's inputs, add or stash them, then commit again:"
+    echo "$dirty" | sed 's/^/   /'
+    exit 1
+fi
+# modified tracked files with their content hash: a file already modified and rewritten again by the check is seen too
+snap() { git ls-files -m | while IFS= read -r f; do echo "$(git hash-object -- "$f" 2>/dev/null || echo deleted) $f"; done | sort; }
+before=$(snap)
 scripts/check.sh model erc docs || { echo "pre-commit: check failed, commit refused"; exit 1; }
-after=$(git diff --name-only | sort)
-changed=$(comm -13 <(echo "$before") <(echo "$after"))
+changed=$(comm -13 <(echo "$before") <(snap) | cut -d" " -f2-)
 if [ -n "$changed" ]; then
     echo "pre-commit: the check rewrote these tracked files, add them and commit again:"
     echo "$changed" | sed 's/^/   /'

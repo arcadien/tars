@@ -17,6 +17,9 @@ import sys
 import time
 import zipfile
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))   # python3 -I leaves the script's folder out
+from stl2_3mf import bbox, read_stl  # noqa: E402
+
 NAME_TO_STL = {
     "leg_left_bottom": "tars4_col0_bottom", "leg_left_top": "tars4_col0_top",
     "mid_left_bottom": "tars4_col1_bottom", "mid_left_top": "tars4_col1_top",
@@ -32,27 +35,6 @@ NAME_TO_STL = {
     "cr10_leg_right": "tars4_cr10_col3", "cr10_lid_leg_left": "tars4_cr10_lid_leg_sd", "cr10_lid_mid_left": "tars4_cr10_lid_mid_left",
     "cr10_lid_mid_right": "tars4_cr10_lid_mid", "cr10_lid_leg_right": "tars4_cr10_lid_leg",
 }
-
-
-def read_stl(path):
-    txt = open(path).read()
-    pts = [tuple(map(float, m)) for m in re.findall(r"vertex\s+(\S+)\s+(\S+)\s+(\S+)", txt)]
-    verts, index, tris = [], {}, []
-    for i in range(0, len(pts), 3):
-        tri = []
-        for p in pts[i:i + 3]:
-            key = tuple(round(c, 5) for c in p)
-            if key not in index:
-                index[key] = len(verts)
-                verts.append(key)
-            tri.append(index[key])
-        if len(set(tri)) == 3:
-            tris.append(tri)
-    return verts, tris
-
-
-def bbox(verts):
-    return [min(v[i] for v in verts) for i in range(3)], [max(v[i] for v in verts) for i in range(3)]
 
 
 def oriented_centred(verts, long_x=True):

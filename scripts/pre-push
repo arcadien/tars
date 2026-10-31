@@ -1,10 +1,31 @@
 #!/usr/bin/env bash
-# git pre-push hook (installed by `make hook`): runs the slow checks (STL export with bed fit, renders, Orca project
+# git pre-push hook (installed by `make hook`): checks the commit prefixes (RBD), runs the slow checks (STL export with bed fit, renders, Orca project
 # meshes), then refuses the push when they failed or rewrote tracked files (renders, Orca projects): review, commit
 # them, then push again.
 # Skip once with `git push --no-verify`.
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
+# commit prefixes (RBD): every commit pushed, merges aside, starts with an allowed type, and an ID it names exists in
+# requirements/ (validation is the commit-msg hook's job). Git gives "<local ref> <sha> <remote ref> <sha>" on stdin.
+zero=0000000000000000000000000000000000000000
+bad=()
+while read -r _ lsha _ rsha; do
+    [ "$lsha" = "$zero" ] && continue                       # branch deletion
+    if [ "$rsha" = "$zero" ]; then range=("$lsha" --not --remotes); else range=("$rsha..$lsha"); fi
+    while IFS= read -r line; do
+        sha=${line%% *}; subj=${line#* }
+        if [[ ! $subj =~ ^(req|test|feat|tech|perf|ui|conf|arch|plan|chore|fix|docs|style|refactor)(\(([A-Z]+-[A-Z0-9-]+-[0-9]{3})\))?:\  ]]; then
+            bad+=("$sha $subj (prefix)")
+        elif [ -n "${BASH_REMATCH[3]}" ] && ! grep -qx "### ${BASH_REMATCH[3]}" requirements/*.md; then
+            bad+=("$sha $subj (no requirement ${BASH_REMATCH[3]})")
+        fi
+    done < <(git log --no-merges --format='%h %s' "${range[@]}")
+done
+if [ ${#bad[@]} -gt 0 ]; then
+    echo "pre-push: commit subjects must be '<req|test|feat|tech|perf|ui|conf|arch|plan|chore|fix|docs|style|refactor>[(<REQ-ID>)]: ...':"
+    printf '   %s\n' "${bad[@]}"
+    exit 1
+fi
 # the check reads the working tree: with uncommitted changes in its inputs it would not test what is pushed
 dirty=$(git status --porcelain -- mechanical/scad tools scripts)
 if [ -n "$dirty" ]; then
@@ -12,10 +33,11 @@ if [ -n "$dirty" ]; then
     echo "$dirty" | sed 's/^/   /'
     exit 1
 fi
-before=$(git diff --name-only | sort)
+# modified tracked files with their content hash: a file already modified and rewritten again by the check is seen too
+snap() { git ls-files -m | while IFS= read -r f; do echo "$(git hash-object -- "$f" 2>/dev/null || echo deleted) $f"; done | sort; }
+before=$(snap)
 scripts/check.sh stl renders meshes || { echo "pre-push: check failed, push refused"; exit 1; }
-after=$(git diff --name-only | sort)
-changed=$(comm -13 <(echo "$before") <(echo "$after"))
+changed=$(comm -13 <(echo "$before") <(snap) | cut -d" " -f2-)
 if [ -n "$changed" ]; then
     echo "pre-push: the check rewrote these tracked files, commit them and push again:"
     echo "$changed" | sed 's/^/   /'

@@ -49,6 +49,11 @@ jobs:
           openscad --version
           scripts/check.sh model stl erc docs
 
+      # the docs stage rewrote the tracked outputs: they must match what was pushed (a --no-verify push skips the hooks).
+      # The PNG renders are not rebuilt here and the harness PDF varies with the machine's fonts: text outputs only
+      - name: Tracked outputs up to date
+        run: git diff --exit-code --stat -- 'renders/*.svg' 'hardware/*.html'
+
       - if: failure()
         uses: actions/upload-artifact@v4
         with:

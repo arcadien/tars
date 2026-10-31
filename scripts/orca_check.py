@@ -24,15 +24,16 @@ import sys
 import zipfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "tools"))
+from update_orca_project import NAME_TO_STL  # noqa: E402  (the one part <-> STL mapping)
+# the filament / process presets only feed the slicer; this check is about parts fitting their plate, so a PETG preset
+# where the README prints PLA changes nothing here
 OUT = os.path.join(ROOT, "build", "orca")
 PROJECTS = [
     {"file": "tars4.3mf", "printer": "Creality Ender-3 0.4", "process": "0.20mm PETG @Ender3", "filament": None},
     {"file": "tars4_cr10.3mf", "printer": "Creality CR-10 V2 0.4 nozzle - Default",
      "process": "0.20mm Standard @Creality CR10V2", "filament": "Amazon Basics PETG Red",
-     "seed": ["cr10_leg_left=mechanical/stl/tars4_cr10_col0.stl", "cr10_mid_left=mechanical/stl/tars4_cr10_col1.stl",
-              "cr10_mid_right=mechanical/stl/tars4_cr10_col2.stl", "cr10_leg_right=mechanical/stl/tars4_cr10_col3.stl",
-              "cr10_lid_leg_left=mechanical/stl/tars4_cr10_lid_leg_sd.stl", "cr10_lid_mid_left=mechanical/stl/tars4_cr10_lid_mid_left.stl",
-              "cr10_lid_mid_right=mechanical/stl/tars4_cr10_lid_mid.stl", "cr10_lid_leg_right=mechanical/stl/tars4_cr10_lid_leg.stl"]},
+     "seed": [f"{k}=mechanical/stl/{v}.stl" for k, v in NAME_TO_STL.items() if k.startswith("cr10_")]},
 ]
 
 

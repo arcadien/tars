@@ -8,6 +8,7 @@ below. Every wire gets a number W1… in build order and its two ends are typed 
 soldered (grey dot), Dupont (blue D) or JST-XH (orange XH), female F / male M. Each build step gets a diagram (TARS
 columns from left to right, tubes between them), its wire table and its bench test.
 """
+import glob
 import os
 import re
 import shutil
@@ -665,8 +666,12 @@ def main():
         fh.write(page(wires))
     print(f'tars4_harness.html: {len(wires)} wires, {len(STEPS)} steps, '
           f'{sum(1 for v in seen.values() if len(v) == 2)} double contacts')
-    if '--no-pdf' not in sys.argv and shutil.which('firefox'):
-        make_pdf()
+    if '--no-pdf' in sys.argv:
+        return
+    if not shutil.which('firefox'):
+        print('WARNING: firefox not found, tars4_harness.pdf left as it was')
+        return
+    make_pdf()
 
 
 def pin_dates(path):
@@ -678,7 +683,8 @@ def pin_dates(path):
 
 def make_pdf():
     """printable copy through headless Firefox: the document in A4 landscape, then every portrait diagram printed on
-    its own A4 portrait page and put in place of its landscape page (gs splits, pdfunite joins)"""
+    its own A4 portrait page and put in place of its landscape page (Ghostscript splits, finds the captions, joins)"""
+    gs = shutil.which('gs') or shutil.which('gswin64c')   # gswin64c: Windows
     tool = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'html2pdf.py')
     pdf = lambda src, dst, *opt: subprocess.run([sys.executable, '-I', tool, src, dst, *opt], check=True, timeout=180,
                                                 stdout=subprocess.DEVNULL)
@@ -692,17 +698,16 @@ def make_pdf():
             fh.write(parts[0] + ''.join('<div class="sheet portrait">' + q.split('<svg ')[0] + '</div>' + q.split('</svg></div>', 1)[1]
                                         for q in parts[1:]))
         pdf(main_html, os.path.join(d, 'main.pdf'))
-        if not sheets or not (shutil.which('gs') and shutil.which('pdfunite') and shutil.which('pdftotext')):
+        if not sheets or not gs:
+            if sheets:
+                print('WARNING: Ghostscript (gs / gswin64c) not found: the portrait diagrams stay on landscape pages')
             shutil.copy(os.path.join(d, 'main.pdf'), PDF)
             pin_dates(PDF)
             print('wrote tars4_harness.pdf (landscape only)')
             return
-        n = int(subprocess.run(['gs', '-q', '-dNODISPLAY', '-dNOSAFER', '-c',
-                                f'({os.path.join(d, "main.pdf")}) (r) file runpdfbegin pdfpagecount = quit'],
-                               capture_output=True, text=True).stdout.split()[-1])
-        subprocess.run(['gs', '-q', '-dNOPAUSE', '-dBATCH', '-sDEVICE=pdfwrite', f'-sOutputFile={d}/p%03d.pdf',
+        subprocess.run([gs, '-q', '-dNOPAUSE', '-dBATCH', '-sDEVICE=pdfwrite', f'-sOutputFile={d}/p%03d.pdf',
                         os.path.join(d, 'main.pdf')], check=True)
-        pages = [os.path.join(d, f'p{i:03d}.pdf') for i in range(1, n + 1)]
+        pages = sorted(glob.glob(os.path.join(d, 'p[0-9][0-9][0-9].pdf')))
         for k, sh in enumerate(sheets):
             cap = sh.split('<p class="cap">')[1].split('</p>')[0].replace('&amp;', '&')
             one = os.path.join(d, f'portrait{k}.html')
@@ -711,11 +716,12 @@ def make_pdf():
                          + '<div class="wrap"><div class="sheet">' + sh + '</div>')
             pdf(one, os.path.join(d, f'portrait{k}.pdf'), '--portrait')
             for i, pg in enumerate(pages):
-                txt = subprocess.run(['pdftotext', '-layout', pg, '-'], capture_output=True, text=True).stdout
+                txt = subprocess.run([gs, '-q', '-sDEVICE=txtwrite', '-o', '-', pg], capture_output=True, encoding='utf-8', errors='replace').stdout
                 if ' '.join(cap.split()[:4]) in ' '.join(txt.split()) and ' '.join(cap.split()) .split(' : ')[-1] in ' '.join(txt.split()):
                     pages[i] = os.path.join(d, f'portrait{k}.pdf')
                     break
-        subprocess.run(['pdfunite', *pages, PDF], check=True)
+        subprocess.run([gs, '-q', '-dNOPAUSE', '-dBATCH', '-sDEVICE=pdfwrite', '-dOmitXMP', '-dOmitID', '-dOmitInfoDate',   # same bytes every run
+                        f'-sOutputFile={PDF}', *pages], check=True)
     pin_dates(PDF)
     print(f'wrote tars4_harness.pdf ({len(sheets)} diagram(s) in portrait)')
 

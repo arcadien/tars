@@ -11,7 +11,7 @@ import json
 import os
 import sys
 
-ROOT = os.path.expanduser("~/.config/OrcaSlicer")
+ROOT = os.path.expanduser("~/.config/OrcaSlicer")   # Linux only (the orca stage runs the Linux AppImage)
 
 
 def find(kind, name):

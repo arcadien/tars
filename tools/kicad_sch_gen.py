@@ -8,12 +8,14 @@ with real wires (A2 sheet): the power section is wired locally and the buses run
 S3, one vertical track per net; GND and +3V3 use power symbols. Every pin gets a net in the `nets` dict of its part;
 the wires only decide how it is drawn (a pin left undrawn gets a net label, reported as a warning). After writing, the file is upgraded to the native KiCad 10 format with
 kicad-cli and its exported netlist is compared with the `nets` dicts (any accidental wire short is reported).
-Check it with: kicad-cli sch erc hardware/kicad/tars4.kicad_sch ; kicad-cli sch export pdf hardware/kicad/tars4.kicad_sch
+Check it with: kicad-cli sch erc hardware/kicad/tars4.kicad_sch (the netlist check and the PDF export are done here)
 """
+import glob
 import os
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import uuid
 from collections import Counter, defaultdict
@@ -22,11 +24,14 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 LIBSRC = os.path.join(ROOT, "hardware", "kicad", "lib_src")
 OUT = os.path.join(ROOT, "hardware", "kicad", "tars4.kicad_sch")
-# kicad-cli: the AppImage named by $KICAD (or the newest ~/bin/kicad-*.AppImage), else kicad-cli on the PATH
+# kicad-cli: the AppImage named by $KICAD (or the newest ~/bin/kicad-*.AppImage), else kicad-cli on the PATH, else the
+# newest Windows install
 _bin = os.path.expanduser("~/bin")
 _appimages = sorted(f for f in os.listdir(_bin) if f.startswith("kicad-") and f.endswith(".AppImage")) if os.path.isdir(_bin) else []
 KICAD = os.environ.get("KICAD") or (os.path.expanduser(f"~/bin/{_appimages[-1]}") if _appimages else "")
-KICAD_CLI = [KICAD, "kicad-cli"] if KICAD else ([shutil.which("kicad-cli")] if shutil.which("kicad-cli") else [])
+_win = sorted(glob.glob("C:/Program Files/KiCad/*/bin/kicad-cli.exe"))
+_cli = shutil.which("kicad-cli") or (_win[-1] if _win else "")
+KICAD_CLI = [KICAD, "kicad-cli"] if KICAD else ([_cli] if _cli else [])
 ROOT_UUID = str(uuid.uuid5(uuid.NAMESPACE_URL, "tars4-root"))
 _n = [0]
 
@@ -605,7 +610,7 @@ print(f"{OUT}: {len(items)} items, {len(SEGS)} wires, {len(set(NETS.values()) - 
 
 # ---------------- native format + netlist comparison ----------------
 if not KICAD_CLI:
-    print("WARNING: KiCad not found (kicad-cli on the PATH or $KICAD): file not upgraded, netlist not checked")
+    sys.exit("ERROR: KiCad not found (kicad-cli on the PATH or $KICAD): file not upgraded, netlist not checked")
 else:
     subprocess.run([*KICAD_CLI, "sch", "upgrade", OUT], check=True, capture_output=True)
     with tempfile.TemporaryDirectory() as tmp:
@@ -629,3 +634,10 @@ else:
             print("WARNING: expected net not found:", sorted(s), NETS[next(iter(s))])
         for s in gs - ws:
             print("WARNING: unexpected net:", sorted(s))
+        sys.exit("ERROR: the schematic's netlist differs from the nets dicts")
+    # printable copy, creation date pinned: an unchanged schematic gives the same bytes
+    pdf = os.path.join(ROOT, "hardware", "kicad", "tars4_schematic.pdf")
+    subprocess.run([*KICAD_CLI, "sch", "export", "pdf", "-o", pdf, OUT], check=True, capture_output=True)
+    b = re.sub(rb"/CreationDate \(D:[^)]*\)", b"/CreationDate (D:2000:01:01:00:00:00)", open(pdf, "rb").read())
+    open(pdf, "wb").write(b)
+    print("wrote", os.path.relpath(pdf, ROOT))
