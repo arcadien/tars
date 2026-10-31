@@ -261,7 +261,7 @@ POWER_BOARD = dict(
     sub='single-sided pad perfboard, 26.6 × 20 mm, 10 × 8 holes · flat in the left leg, z 170.8, parts on top',
     comp='top view, component side: TARS front at the bottom, TARS left on the left',
     copper='solder side (underneath): bridges, GND bus and all the wires, which leave towards the front',
-    keep=[('J3', 'attache de toron'), ('J4', 'attache de toron'), ('J5', 'attache de toron'), ('J6', 'attache de toron')],
+    keep=[('J3', 'harness tie'), ('J4', 'harness tie'), ('J5', 'harness tie'), ('J6', 'harness tie')],
     keep_note='column J, rows 3–6: the harness clip (z 179) passes 4 mm above: lying parts only',
     parts=[
         ('D1', 'D', '1N5822', {'K': ('A7', 'VPATH'), 'A': ('F7', 'VUSB')}, 'lying, band on the A7 side (axis 3.6 mm from the back edge); holes drilled to 1.3 mm, leads bent with flat pliers'),
@@ -270,7 +270,7 @@ POWER_BOARD = dict(
         ('R16', 'R', '100 k', {'1': ('E2', 'USB_DET'), '2': ('B2', 'GND')}, 'USB_DET → GND'),
         ('R1', 'R', '4.7 k', {'1': ('G7', 'VUSB'), '2': ('G4', 'GND')}, 'Q1 gate → GND'),
         ('R3', 'R', '1 M', {'1': ('I4', 'VBAT/2'), '2': ('I1', 'GND')}, 'VBAT/2 → GND'),
-        ('R22', 'R', '100 k', {'1': ('H8', '3V3'), '2': ('H5', 'SD_EN')}, 'grille de Q5 → 3V3'),
+        ('R22', 'R', '100 k', {'1': ('H8', '3V3'), '2': ('H5', 'SD_EN')}, 'Q5 gate → 3V3'),
         ('Q5', 'Q', 'AO3401A', {'S': ('H8', '3V3'), 'G': ('H5', 'SD_EN'), 'D': ('I6', 'SD_3V3'), '_at': 'I7', '_d': 'E'}, 'glued legs up on I7, D to the right: S towards the back (→ H8), G towards the front (→ H5), D comes back down at I6'),
     ],
     links=[

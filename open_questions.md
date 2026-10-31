@@ -1,4 +1,4 @@
-# TARS4 — open questions (updated 2026-10-28)
+# TARS4 — open questions (updated 2026-10-31)
 
 Collects what is still open after the three review rounds (`reviews/2026-10-21-review.md`, `reviews/2026-10-21-review2.md`,
 `reviews/2026-10-22-review3-boards.md`).
@@ -9,7 +9,7 @@ the README describes the current state (no decision log any more: history in `re
 
 | # | Problem | What was done |
 |---|---|---|
-| B1 | Dupont housings without keying | useless pin removed + cavity plugged (X2 INT2, X8 32K, X5 GAIN with X5 as 4 + 3); one more cavity plugged on the female side of the inline pairs (X3, X7, X15); screens: right-angle header + rib glued on the housing; X14 as JST-PH 3; X6 and X9 unkeyed (reversed, nothing breaks). Pin order in the README (*Connectors*) |
+| B1 | Dupont housings without keying | useless pin removed + cavity plugged (X2 INT2, X8 32K, X5 GAIN with X5 as 4 + 3); one more cavity plugged on the female side of the inline pairs (X3, X7, X15); screens: right-angle header + rib glued on the housing; X14 as JST-XH 4 (polarised); X6 and X9 unkeyed (reversed, nothing breaks). Pin order in the README (*Connectors*) |
 | B2 | TP4056 against the lip of its groove | no upper lip any more (support underneath only) for the TP4056 and the TPS63020, a lid tab holds the back edge; since 2026-10-27 the TP4056 (trimmed to 26.3, micro-USB desoldered) sits on 0.5 ledges without grooves; C9 / D3 lying on the IN end (`charger_h` 5.5) |
 
 ## 2. Decisions — taken
@@ -19,11 +19,13 @@ the carrier (R12 / R19 47 Ω) · D5 15 printed clips · D6 vent slots · D7 R21 
 PWM 20 kHz · D8 C1 SMD 7343 polymer tantalum (POSCAP 10TPE220ML) lying under the S3, on its carrier (2026-10-24) · D9
 lid `lid_mid_left` · D10 Q5 on the microSD 3V3 (GPIO36) · D11 switch kept · D12 5 V ≥ 2 A charger.
 
+T1 tube test3: measured (`tube_od` 7.93, teardrop bores glued 8.00 / turning 8.05), folded into the model
+([PLAT-MECH-PIVOT-001](requirements/platform.md#plat-mech-pivot-001)).
+
 ## 3. Open now
 
 | # | Question | Status |
 |---|---|---|
-| T1 | **Tube test3** (teardrop bores, G7.95 / 8.0 / 8.05, R8.05 / 8.1 / 8.15) | print and measure → `tube_od` 7.93 + clearances + teardrop pivots, then **one single** STL pass + `tools/update_orca_project.py` on `mechanical/3mf/tars4.3mf`. Don't print the columns before |
 | D13 | **Switching charger instead of the TP4056** | TP4056 kept for now (500 mA, R_PROG 2.4k). If E-M8 runs too hot: R_PROG 3.6k (330 mA) or the lower left leg in PETG; alternative TP5100 1 A + separate DW01. IP2312: doesn't fit flat (34.4 × 15) |
 | E-M8 | **TP4056 temperature** (PLA legs) | measure the wall after 15 and 30 min of charge: > 45 °C → R_PROG 3.6k. Copper RPi heatsink ≤ ~3 mm + 0.5–1 mm thermal pad between chip and heatsink, never between board and PLA |
 | RF1 | **Rename `usbb` → `usb_charging_socket`** in `mechanical/scad/tars4.scad` (J1 in the schematic) | separate `refactor` commit: the `usbb*` parameters, the `usbb_z0` / `usbb_y0` geometry keys of `tools/harness.py`, `hardware/measurements.md` |

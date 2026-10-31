@@ -57,7 +57,6 @@ links were found on 2026-10-21, price and stock not guaranteed.
 
 | Item | Qty | Criteria | Links |
 |---|---|---|---|
-| Radial PTC resettable fuse **1.6 A** (trips ~3.2 A), ≥ 16 V | 2 | F1, F2. The Bourns **MF-R160** is rated **30 V** (body Ø10.2 × 3, 5.1 pitch): fine at 4.2 V | [MF-R160 at Mouser (search)](https://www.mouser.fr/c/?q=MF-R160) · [Digi-Key sheet](https://www.digikey.fi/en/products/detail/bourns-inc/MF-R160/259972) |
 | **SMAJ5.0A** TVS diode (unidirectional) | 1 (lot) | D3, TP4056 input | [Amazon (search)](https://www.amazon.fr/s?k=SMAJ5.0A) · [AliExpress (search)](https://fr.aliexpress.com/w/wholesale-smaj5.0a.html) |
 
 ## 6. Printing (no filament yet)
@@ -72,11 +71,10 @@ links were found on 2026-10-21, price and stock not guaranteed.
 
 LOLIN S3 Mini, 2 × 1.3" screens, 2 × 18650, protected TP4056, micro-USB breakout, switch, DS3231, ADXL345, INMP441,
 BME280, AM312, MAX98357A, 39 × 22 × 10 speaker, TPS63020, AO3401A, 1N5822, microSD reader, contact plates, 8/7 brass
-tubes, M2.5 screws, feet, 26 AWG wire. To check in the 2026-10-20 order: fuses, TVS, resistors.
+tubes, M2.5 screws, feet, 26 AWG wire, 2 × XF160 polyfuses (F1, F2). To check in the 2026-10-20 order: TVS, resistors.
 
 ## Sources
 
 - SN-28B Dupont kits on Amazon.fr: [Glarks](https://www.amazon.fr/Glarks-connecteur-cliquet-Connecteur-AWG28-18/dp/B07VQ6YNSC), [JZK](https://www.amazon.fr/JZK-Cliquet-Connecteurs-Assortis-Sertissage/dp/B07PCQ5VMV), [Taiss](https://www.amazon.fr/Taiss-connecteurs-SN-28B-pression-Connecteur/dp/B0BYMT2BRP), [XH2.54 + SN-28B](https://www.amazon.fr/XH2-54-connecteurs-Dupont-barrettes-broches/dp/B092VPWSK4)
 - 30 AWG wire: [BNTECHGO](https://bntechgo.com/bntechgo-30-gauge-silicone-wire-kit-ultra-flexible-10-colors-each-25-feet-high-temp-200-c-600v-30-awg-silicone-wire-11-strands-of-tinned-copper-wire-stranded-wire-for-model-battery/)
-- Fuse: [Digi-Key MF-R160](https://www.digikey.fi/en/products/detail/bourns-inc/MF-R160/259972), [Octopart](https://octopart.com/part/bourns/MF-R160)
 - JST XH (real pitch 2.5 mm, fits 2.54 on short rows): [Pololu](https://www.pololu.com/product/2717)

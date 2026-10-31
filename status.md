@@ -1,21 +1,23 @@
-# audit-lot3 — build pipeline (audit 2026-10-29, lot C)
+# audit-lotE — stale documentation (audit 2026-10-29, lot E), stacked on audit-lot3
 
 ## Goal
-Fix the build-pipeline findings C1–C10 of `audits/2026-10-29-audit-full.md`, one commit each.
+Bring the docs in line with the repo (`audits/2026-10-29-audit-full.md`, lot E).
 
 ## State
-- Done: C1 (stl digest includes its STLs), C2 (erc regenerates the schematic, generator fails on mismatch / no KiCad,
-  exports the PDF), C3 (CI diffs the SVG / HTML outputs), C4 (hooks compare content hashes; pre-commit refuses unstaged
-  check inputs: partial commits go through `git stash push --keep-index`), C5 (meshes fails on an object without STL),
-  C6 (section drawings removed), C7 (harness PDF through Ghostscript only, deterministic), C8 (pre-push checks commit
-  prefixes and IDs), C9 (erc inputs: firmware sources, .gitignore), C10 (one part <-> STL mapping and STL reader,
-  Linux-only Orca paths labelled, portable file URL, overhang_allow.json).
-- Not pushed: GitHub SSH unreachable on 2026-10-31 (also `mech-chargeport-front`, `audit-lot2` PR not opened).
+- Done: README (left tube 14 wires / ~38 %, VSENSE_B colours, 112 wires, X1–X16, 5 Orca plates, Orca refresh by
+  the pre-push hook / `make check-orca`, Validation section with hooks, CI and a model row, requirement domains,
+  build4.sh options, XF160 in the BOM); CONTRIBUTING (hook stages, KiCad at every commit, STLs not in git, uv);
+  open_questions (T1 settled, X14 JST-XH 4); shopping list (XF160 in stock); build4.sh cr10 echo; boards.py notes.
+- Already right: lid speaker tabs (README consistent), power_budget VSENSE (no "draft").
+- Left to mech-audio: the amplifier row of measurements.md and the clone in the shopping list (the clone and its slot
+  live on that branch).
+- Not pushed: GitHub SSH unreachable on 2026-10-31.
 
 ## Open questions
 | # | Question | Answer |
 |---|---|---|
-| L3-1 | C6: tube_section.py hard-codes stale wire lists. Derive them from harness.py (tube routes), or drop the tube / column section SVGs? | drop them (2026-10-31): done |
+| LE-1 | CLAUDE.md: drop "STLs are re-exported byte-different" and the `hardware/tars4_schematic.html` mention? | already gone from CLAUDE.md |
+| LE-2 | tars4.scad:367 comment still says 13 / 19 / 6 wires: fold into the next mechanical commit? | |
 
 ## Next
-Lot C done. Push, PR, merge (merge commit), then audit-lotE on top.
+Merge audit-lot3 first, then this branch (merge commits).

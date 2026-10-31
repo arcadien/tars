@@ -140,7 +140,7 @@ build_cr10() {
         lid_leg_left=mechanical/stl/tars4_cr10_lid_leg_sd.stl lid_mid_left=mechanical/stl/tars4_cr10_lid_mid_left.stl \
         lid_mid_right=mechanical/stl/tars4_cr10_lid_mid.stl lid_leg_right=mechanical/stl/tars4_cr10_lid_leg.stl
     echo "   saved Orca layout: mechanical/3mf/tars4_cr10.3mf (scripts/orca_check.py creates it once, then only refreshes its meshes)"
-    echo "   + mechanical/stl/tars4_inserts.stl (x2, black), mechanical/stl/tars4_collar.stl"
+    echo "   + mechanical/stl/tars4_inserts.stl and tars4_inserts_speaker.stl (black), mechanical/stl/tars4_collar.stl"
 }
 
 case $WHAT in
