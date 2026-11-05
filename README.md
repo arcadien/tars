@@ -221,7 +221,7 @@ the carrier plan `renders/tars4_board_s3.svg` and the KiCad schematic (confirm w
   (40–60 mA) → AO3401A high-side from 3V3 to BLK, gate pulled up by 10 k, pulled down by an AO3400A / 2N7002 on BL_EN.
 - **AMP_SD**: with the breakout's 1 M pull-up to VIN, R18 holds SD < 0.05 V (shutdown below 0.16 V) at boot and in
   deep sleep; driven high, SD > 1.4 V selects the left channel: send the same sample on both. Keep AMP_SD and BL_EN low
-  and I2S0 stopped until B+ has been read and validated (with the switch off and the S3 on a PC, a driven amp would be
+  and I2S0 stopped until the VSYS sense (GPIO37) reports the rail (with the switch off and the S3 on a PC, a driven amp would be
   back-powered through its pins).
 - Libraries: TFT_eSPI or LovyanGFX (ST7789, 240×240, two CS), `ESP_I2S` for the MAX98357A (MP3 decoding fits in the PSRAM).
 
@@ -249,7 +249,8 @@ a bus is drawn as its wires side by side, and the bars across a wire near its en
 | yellow purple green, 1 ring | I2S0 to the MAX98357A, I2S1 from the INMP441 |
 | yellow green, 2 rings | I2C (SCL, SDA) chain to the right leg |
 | yellow purple green, 3 rings | microSD CLK, CMD, D0 (+ blue GND, 3 rings) |
-| brown · red · orange | BL_EN, VBAT/2, AMP_SD and VSENSE_B (1 ring) · PIR (1 ring) · USB_DET |
+| brown · red · orange | BL_EN, AMP_SD (1 ring) · PIR (1 ring) · USB_DET |
+| grey, 30 AWG | analog sense: VBAT/2, VSENSE_B |
 | grey | amplifier → speaker |
 
 The sketch is to scale for the parts; the bus splits are drawn schematically (they physically happen on P1 / P2, see
@@ -349,7 +350,7 @@ TP4056 OUT+ (cells)   ──► AO3401A P-MOSFET Q1 (D → S) ──┘
   wire (it differs from GND only by the DW01 switches, < 50 mV). Always connected, hence 1 M / 1 M: ~2 µA standing; C6
   holds the high-impedance node for the ADC (**never a tantalum** there: its leakage shifts the reading).
 - While charging (USB_DET high) the reading is 50–100 mV high: show "eating", not a level; after the TP4056 stops, B+
-  relaxes from 4.2 V to ~4.15 V ("full").
+  relaxes from its peak (4.16–4.24 V) by ≥ 20 mV: "full" (relative to the peak, FUNC-POWER-MONITOR-003).
 - Hunger levels, averaged over ~1 min so the amp / Wi-Fi peaks don't make TARS cry wolf: > 3.9 V fed, 3.7 V peckish,
   3.5 V hungry, **3.3 V last words then deep sleep** (unless USB_DET is high). Ignore the cut-off when GPIO1 reads
   < 1.25 V (B+ < 2.5 V: no cells, the S3 runs from a PC's USB).
@@ -361,7 +362,7 @@ TP4056 OUT+ (cells)   ──► AO3401A P-MOSFET Q1 (D → S) ──┘
   LED on GPIO47**; keep the TP4056 charge LEDs, fed from USB only), clear the DS3231's EN32kHz bit (register 0x0F,
   bit 3), `gpio_hold` CS1 / CS2 / RST / BL_EN / AMP_SD, store an "empty" flag in RTC memory (no wake-up until
   recharged), **cut the microSD's 3V3 with Q5** (set CLK / CMD / D0 as inputs first), clear the ADXL345's INT_SOURCE
-  and wait for PIR low before sleeping. Target **~0.35–0.65 mA** with the card powered, less with Q5 off (measure).
+  and wait for PIR low before sleeping. Target **≤ 0.65 mA** with the card cut by Q5 (PERF-POWER-SLEEP-001, provisional until E-M7); estimate ~0.3–0.5 mA (`hardware/power_budget.md`).
 - **Wake-up**: everything is active high → EXT1 ANY_HIGH on GPIO2 (ADXL345 INT1), GPIO3 (PIR) and GPIO21 (USB_DET);
   a source already high when going to sleep (USB_DET on mains, PIR still held) is left out of the mask, or the S3 wakes at once; timed wake-ups on the S3's own timer (the DS3231's SQW is not wired).
 - The DW01 cuts at ~2.4 V: a last resort, not the normal stop.
@@ -499,7 +500,7 @@ With 28 AWG signals the middle tube would be ~60 % full (very hard to pull and t
 **Power goes in pairs** (since 2026-10-27): **red / black** for the battery and 5 V side (B+/B−, VUSB, VPATH, VSYS
 and their GND), **white / blue** for the regulated 3V3 and its logic GND, in 26 AWG and in 30 AWG alike. **Blue is
 power only** (regulated GND), never a signal; never yellow for 3V3. Signals: one colour per *role* (30 AWG, 10-colour
-kit, black and grey unused in 30 AWG), the same on every segment of a signal; heat-shrink rings at both ends tell the
+kit, black unused in 30 AWG), the same on every segment of a signal; heat-shrink rings at both ends tell the
 buses apart: no ring = screens / sense lines, **1 ring = I2S (amp and mic) and PIR**, **2 rings = I2C**, **3 rings =
 microSD**. **Power rails sharing the red / black pair get one coloured band** instead (10 mm of coloured heat-shrink,
 shrunk 2–3 cm from each end, the same on the + wire and on its GND; slide it on before soldering / crimping): none =
@@ -519,11 +520,12 @@ and only loose ones on the 30 AWG.
 | purple (select / frame) | CS1, CS2 · LRC, MIC_WS (1) · SD_CMD (3) | 2.5 m |
 | red (status) | DC, INT1 · PIR, PIR OUT (1) | 2.0 m |
 | orange | RST, USB_DET | 1.5 m |
-| brown | BL_EN, VBAT/2 · AMP_SD, VSENSE_B (1) · SD_EN (3) | 2.8 m |
+| brown (enables) | BL_EN · AMP_SD (1) · SD_EN (3) | 2.2 m |
+| grey (analog sense) | VBAT/2, VSENSE_B | 1.5 m |
 
 Middle tube: SCK yellow, MOSI green, CS2 purple, DC red, RST orange, BL_EN brown, BCLK / LRC / DIN yellow / purple /
 green with 1 ring, AMP_SD brown 1 ring, PIR red 1 ring, SDA / SCL green / yellow 2 rings, 3V3 / GND white / blue. Left
-tube: VBAT/2 brown, USB_DET orange, VSENSE_B brown 1 ring, SD_EN brown 3 rings, SD_CLK / CMD / D0 yellow / purple / green 3 rings, SD GND blue
+tube: VBAT/2 grey, USB_DET orange, VSENSE_B grey, SD_EN brown 3 rings, SD_CLK / CMD / D0 yellow / purple / green 3 rings, SD GND blue
 3 rings. Power (26 AWG): red B+ / black B− (cells, no band), red / black with a white band (OUT+ / OUT−), yellow
 (VPATH), orange (VSYS: star, TPS63020 input, amp pair) or purple band (VUSB), white 3V3 / blue logic GND (TPS63020 → P1
 → S3), grey speaker.

@@ -17,7 +17,7 @@ derives_from: [FUNC-POWER-CHARGE-001](functional.md#func-power-charge-001)
 
 ### PLAT-POWER-CHARGE-002
 
-**Title:** Charge current set to 0.5 A by R_PROG 2.4 kΩ
+**Title:** Charge current set by R_PROG on the TP4056 module
 
 **Status:** validated
 
@@ -25,7 +25,7 @@ derives_from: [FUNC-POWER-CHARGE-001](functional.md#func-power-charge-001)
 
 derives_from: [TECH-POWER-CHARGE-001](technical.md#tech-power-charge-001)
 
-**Description:** The TP4056 module's R_PROG (1.2 kΩ "122" from the factory) is replaced by 2.4 kΩ ("242"), which sets the charge current to 0.5 A. If E-M8 fails (wall > 45 °C), the fallback is 3.6 kΩ (0.33 A); D13 is decided after E-M8. Acceptance (bench): with the module unpowered, the fitted R_PROG is within ± 5 %; the charge current into a half-empty cell is 0.45–0.55 A (fallback 0.30–0.36 A); in open air, the TP4056 case is < 60 °C after 15 min.
+**Description:** The TP4056 module's factory R_PROG (1.2 kΩ, 1 A) is replaced by a resistor that sets a charge current within the thermal limit of [PERF-POWER-THERMAL-001](performance.md#perf-power-thermal-001). The fitted value, its fallback and the decisions they depend on (E-M8, D13) are recorded in [measurements.md](../hardware/measurements.md) and [open_questions.md](../open_questions.md). Acceptance (bench): with the module unpowered, the fitted R_PROG is within ± 5 % of the recorded value; the charge current into a half-empty cell is 1200 / R_PROG (A, R in Ω) within ± 10 %; in open air, the TP4056 case is < 60 °C after 15 min.
 
 ### PLAT-POWER-HOTPLUG-001
 
@@ -73,7 +73,7 @@ derives_from: [TECH-POWER-PROTECT-002](technical.md#tech-power-protect-002)
 
 derives_from: [FUNC-POWER-PATH-001](functional.md#func-power-path-001)
 
-**Description:** The circuit is: a 1N5822 Schottky D1 from VUSB to VPATH; a logic-level P-MOSFET Q1 (AO3401A, D on OUT+, S on VPATH, G on VUSB); R1 4.7 kΩ from Q1's gate to GND, chosen so that a warm D1 leaking up to 50 µA still leaves the gate below 0.25 V (Q1 fully on, no leakage measurement needed); it also discharges VUSB twice as fast on unplugging. Acceptance: pytest on the schematic (these nets, Q1 and D1 the right way round); bench: VUSB < 0.5 V within 1 s of unplugging.
+**Description:** The circuit is: a 1N5822 Schottky D1 from VUSB to VPATH; a logic-level P-MOSFET Q1 (AO3401A, D on OUT+, S on VPATH, G on VUSB); R1 4.7 kΩ from Q1's gate to GND. The choice of parts and values is justified in [design_notes.md](../hardware/design_notes.md) (*Parts*). Acceptance: pytest on the schematic (these nets, Q1 and D1 the right way round); bench: VUSB < 0.5 V within 1 s of unplugging.
 
 ### PLAT-POWER-SWITCH-001
 
@@ -121,7 +121,7 @@ derives_from: [TECH-POWER-REG-002](technical.md#tech-power-reg-002)
 
 derives_from: [TECH-POWER-REG-001](technical.md#tech-power-reg-001)
 
-**Description:** C1, a 220 µF polymer tantalum (Panasonic 10TPE220ML, 10 V, ESR ≤ 25 mΩ), sits at the S3 Mini's 3V pin on the carrier, about 35 cm of wire away from the TPS63020, with + on 3V3. Acceptance: pytest on the schematic (C1 between +3V3 and GND at the S3); bench polarity check before the first power-up.
+**Description:** C1, a 220 µF 10 V low-ESR polymer capacitor (ESR ≤ 25 mΩ), sits at the S3 Mini's 3V pin on the carrier, with + on 3V3. The fitted part and why it is needed: [design_notes.md](../hardware/design_notes.md) (*Parts*). Acceptance: pytest on the schematic (C1 between +3V3 and GND at the S3); bench polarity check before the first power-up.
 
 ### PLAT-POWER-DIST-001
 
@@ -141,11 +141,11 @@ derives_from: [TECH-POWER-DIST-001](technical.md#tech-power-dist-001)
 
 **Status:** validated
 
-**Dependencies:** [CONF-POWER-ADCCAL-001](configuration.md#conf-power-adccal-001)
+**Dependencies:** none
 
 derives_from: [FUNC-POWER-MONITOR-001](functional.md#func-power-monitor-001)
 
-**Description:** R2 / R3 (1 MΩ / 1 MΩ) divide the TP4056 B+ pad voltage. R2 is soldered in line in the harness at the B+ pad end, so the sense wire to the power-path board carries B+ only behind 1 MΩ; R3 sits on the power-path board. The midpoint (VBAT/2) goes to GPIO1, an ADC1 channel usable with Wi-Fi on. C6 100 nF ceramic (never tantalum) sits from GPIO1 to GND at the S3. Acceptance: pytest on the schematic (these values and nets); bench: VBAT/2 = B+ / 2 ± 2 % with the switch on, the switch off and the charger plugged in.
+**Description:** R2 / R3 (1 MΩ / 1 MΩ) divide the TP4056 B+ pad voltage; the sense wire carries B+ only behind R2. The midpoint (VBAT/2) goes to GPIO1, an ADC1 channel usable with Wi-Fi on. C6 100 nF ceramic (never tantalum) sits from GPIO1 to GND at the S3. Where each resistor sits: [design_notes.md](../hardware/design_notes.md) (*Parts*). Acceptance: pytest on the schematic (these values and nets); bench: VBAT/2 = B+ / 2 ± 2 % with the switch on, the switch off and the charger plugged in.
 
 ### PLAT-POWER-DETECT-001
 
@@ -165,11 +165,11 @@ derives_from: [FUNC-POWER-DETECT-001](functional.md#func-power-detect-001)
 
 **Status:** validated
 
-**Dependencies:** [PLAT-POWER-SWITCH-001](platform.md#plat-power-switch-001), [TECH-POWER-BACKFEED-001](technical.md#tech-power-backfeed-001)
+**Dependencies:** [TECH-POWER-BACKFEED-001](technical.md#tech-power-backfeed-001)
 
 derives_from: [FUNC-POWER-VSENSE-001](functional.md#func-power-vsense-001)
 
-**Description:** BC547: base from VSYS through 1 MΩ, 330 kΩ base to GND, emitter to GND, collector to GPIO37 with the internal pull-up enabled only while reading. Rail present = GPIO37 low, from a VSYS threshold of 2.3–2.7 V over the NPN's V_BE and gain spread (above the 2.5 V the amplifier needs, below the ~3.2 V minimum of the rail on battery); no voltage above 3V3 reaches the pin. Fitted: BC547B (Q4). R23 (VSYS side) is soldered in line in the harness at the power-path board end, so the wire through the left tube carries VSYS only behind 1 MΩ; R24 and Q4 stand on the S3 carrier, the base line reaching it through X14. Acceptance: pytest on the schematic; bench: GPIO37 low at VSYS 3.0 and 5.0 V, high at 0 V. Standing current ~3–4 µA: [power_budget.md](../hardware/power_budget.md).
+**Description:** BC547: base from VSYS through 1 MΩ, 330 kΩ base to GND, emitter to GND, collector to GPIO37 with the internal pull-up enabled only while reading. Rail present = GPIO37 low, from a VSYS threshold above the amplifier's minimum supply and below the minimum of the rail on battery; no voltage above 3V3 reaches the pin. The wire through the tube carries VSYS only behind 1 MΩ. Fitted: BC547B (Q4). Placement, threshold spread and standing current: [design_notes.md](../hardware/design_notes.md) (*Parts*) and [power_budget.md](../hardware/power_budget.md). Acceptance: pytest on the schematic; bench: GPIO37 low at VSYS 3.0 and 5.0 V, high at 0 V. Standing current ~3–4 µA: [power_budget.md](../hardware/power_budget.md).
 
 ### PLAT-POWER-VBUS-001
 
@@ -238,5 +238,7 @@ derives_from: [FUNC-POWER-CHARGE-001](functional.md#func-power-charge-001)
 **Status:** validated
 
 **Dependencies:** none
+
+derives_from: [FUNC-MECH-JOINT-001](functional.md#func-mech-joint-001)
 
 **Description:** Each column joint turns on a brass tube (7.93 measured outer Ø), glued into one column and turning in the next. The pivot bores are horizontal when the columns print front face down, so they are teardrop-shaped (point toward the print top, self-supporting 45° ceiling, no support inside the bore). Drawn Ø: glued side 8.00 (tube held, no play), turning side 8.05 (turns, micro play only), from tube_test3 (2026-10-28, IBoss PLA Silk, 0.20 mm Ender3 profile). Tight beats loose: a bore that binds is sanded or reamed with an 8 mm drill. Acceptance: `make check` clean (no WARNING); `tube_od` = 7.93, `tube_glue_clr` = 0.07, `tube_run_clr` = 0.12; `pivot_cut` uses `xtear`; first printed joint: glued side holds, turning side turns without wobble.

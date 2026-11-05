@@ -39,7 +39,7 @@
 
 **Status:** validated
 
-**Dependencies:** [TECH-POWER-VBUS-001](technical.md#tech-power-vbus-001)
+**Dependencies:** none
 
 **Description:** A user-operated switch disconnects the system rail from both the battery and the external supply. Acceptance (bench): with the switch off, the system rail reads < 0.1 V both on battery alone and with the external supply connected. Exception: a host plugged into the programming port powers the controller only ([TECH-POWER-VBUS-001](technical.md#tech-power-vbus-001)).
 
@@ -59,9 +59,9 @@
 
 **Status:** validated
 
-**Dependencies:** [PERF-POWER-MONITOR-001](performance.md#perf-power-monitor-001)
+**Dependencies:** none
 
-**Description:** The firmware measures the voltage at the battery terminals (not the system rail), both on battery and with the external supply connected. Acceptance (on-target Unity test + multimeter): on battery and on the external supply, the value the firmware reports is the B+ voltage within the accuracy of [PERF-POWER-MONITOR-001](performance.md#perf-power-monitor-001); on the external supply it does not follow the system rail (~4.7 V).
+**Description:** The firmware measures the voltage at the battery terminals (not the system rail), both on battery and with the external supply connected. Acceptance (on-target Unity test + multimeter): on battery and on the external supply, the value the firmware reports is the B+ voltage within ±5 % before calibration (the calibrated accuracy is [PERF-POWER-MONITOR-001](performance.md#perf-power-monitor-001)'s); on the external supply it does not follow the system rail (~4.7 V).
 
 ### FUNC-POWER-MONITOR-002
 
@@ -71,7 +71,7 @@
 
 **Dependencies:** [FUNC-POWER-MONITOR-001](functional.md#func-power-monitor-001), [CONF-POWER-THRESH-001](configuration.md#conf-power-thresh-001)
 
-**Description:** On battery, the firmware averages the battery voltage over a 60 s sliding window and classifies it as: fed (≥ 3.90 V), peckish (3.70–3.90 V), hungry (3.50–3.70 V), starving (3.30–3.50 V), empty (≤ 3.30 V). The 60 s average is the only hysteresis: there is no extra band, so one sample (a Wi-Fi or amplifier peak) cannot change the level. Acceptance (native Unity test with injected samples): each band gives its level at the boundaries; a 2 s dip of 0.3 V inside a stable window does not change the level.
+**Description:** On battery, the firmware averages the battery voltage over the averaging window of [CONF-POWER-THRESH-001](configuration.md#conf-power-thresh-001) and classifies it into five levels: fed (v ≥ L1), peckish (L2 ≤ v < L1), hungry (L3 ≤ v < L2), starving (cut-off < v < L3), empty (v ≤ cut-off), where L1 > L2 > L3 are the level bounds and the cut-off is that of [CONF-POWER-THRESH-001](configuration.md#conf-power-thresh-001): each boundary belongs to exactly one band. The window average is the only hysteresis: there is no extra band, so one sample (a Wi-Fi or amplifier peak) cannot change the level. Acceptance (native Unity test with injected samples): each band gives its level at the boundaries; a 2 s dip of 0.3 V inside a stable window does not change the level.
 
 ### FUNC-POWER-MONITOR-003
 
@@ -81,7 +81,7 @@
 
 **Dependencies:** [FUNC-POWER-DETECT-001](functional.md#func-power-detect-001), [FUNC-POWER-MONITOR-001](functional.md#func-power-monitor-001)
 
-**Description:** While the external supply is present, the firmware reports the battery state as "charging" instead of a level, then "full" once the charge has ended. The end of charge is inferred from the battery voltage alone; the charger's status output is not wired. Acceptance (native Unity test, injected supply flag and voltages): supply present and rising → charging; supply present and the voltage relaxed to ≤ 4.17 V after reaching ≥ 4.19 V → full; supply removed → back to the [FUNC-POWER-MONITOR-002](functional.md#func-power-monitor-002) level.
+**Description:** While the external supply is present, the firmware reports the battery state as "charging" instead of a level, then "full" once the charge has ended. The end of charge is inferred from the battery voltage alone; the charger's status output is not wired. Acceptance (native Unity test, injected supply flag and voltages): supply present and rising → charging; supply present, the 60 s average having reached ≥ 4.10 V, then fallen ≥ 20 mV below its highest value → full (relative to the peak: a charger terminating anywhere in 4.158–4.242 V is seen); supply removed → back to the [FUNC-POWER-MONITOR-002](functional.md#func-power-monitor-002) level.
 
 ### FUNC-POWER-DETECT-001
 
@@ -125,13 +125,13 @@
 
 ### FUNC-POWER-CUTOFF-002
 
-**Title:** An empty battery stays asleep until it is charging and above 3.5 V
+**Title:** An empty battery stays asleep until it is charging and above the lockout release voltage
 
 **Status:** validated
 
 **Dependencies:** [FUNC-POWER-CUTOFF-001](functional.md#func-power-cutoff-001), [FUNC-POWER-DETECT-002](functional.md#func-power-detect-002)
 
-**Description:** After a low-battery shutdown, the firmware records an "empty" state that survives deep sleep. While it is set, every wake returns to deep sleep without turning on the screens, the amplifier or the radio. It is cleared only when the external supply is present and the battery is above 3.50 V. While the supply is present, the controller wakes on a timer every re-check interval ([CONF-POWER-THRESH-001](configuration.md#conf-power-thresh-001)) to test this; on battery alone no timer wake is armed, so an empty battery is not drained further. Acceptance (on-target Unity test): with the state set, a wake goes back to sleep within 200 ms with the enables low; supply present: the next timer wake comes after the re-check interval ±10 %; supply absent: no timer wake within 2 intervals; supply + 3.4 V keeps the state set; supply + 3.6 V clears it.
+**Description:** After a low-battery shutdown, the firmware records an "empty" state that survives deep sleep. While it is set, every wake returns to deep sleep without turning on the screens, the amplifier or the radio. It is cleared only when the external supply is present and the battery is above the empty-lockout release voltage ([CONF-POWER-THRESH-001](configuration.md#conf-power-thresh-001)). While the supply is present, the controller wakes on a timer every re-check interval ([CONF-POWER-THRESH-001](configuration.md#conf-power-thresh-001)) to test this; on battery alone no timer wake is armed, so an empty battery is not drained further. Acceptance (on-target Unity test): with the state set, a wake goes back to sleep within 200 ms with the enables low; supply present: the next timer wake comes after the re-check interval ±10 %; supply absent: no timer wake within 2 intervals; supply + a battery 0.1 V below the release voltage keeps the state set; 0.1 V above it clears it.
 
 ### FUNC-POWER-GATE-001
 
@@ -142,3 +142,13 @@
 **Dependencies:** none
 
 **Description:** The removable storage card's supply is switched by the firmware and is off while the controller is in reset or has not yet driven the switch. Before cutting it, the firmware stops driving the card's signal lines. Acceptance: bench: card supply < 0.1 V when commanded off and while the controller is held in reset; on-target Unity test: the card signal pins are inputs whenever the supply is commanded off.
+
+### FUNC-MECH-JOINT-001
+
+**Title:** The columns turn on their joints
+
+**Status:** validated
+
+**Dependencies:** none
+
+**Description:** The four columns are joined on one horizontal axis by three joints; each column turns by hand relative to its neighbours, without wobble, and the wires running from column to column cross each joint inside its tube, so turning a column does not pull on them. Acceptance (first assembled robot): each joint turns through the travel the model allows without binding or wobble; 20 turns back and forth leave every wire crossing the joint intact (continuity check P1 / P2 → every housing unchanged).

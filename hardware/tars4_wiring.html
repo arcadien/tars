@@ -83,9 +83,9 @@ td.n { font: 600 14px var(--f-mono); white-space: nowrap; }
           <li><i class="k" style="background:var(--k-blu)"></i><span>blue (regulated GND)<small>26 AWG: logic GND TPS63020 → P1 → S3 · 30 AWG: GND of the screens and sensors, microSD GND (3 rings, twisted with CLK)</small></span></li>
           <li><i class="k" style="background:var(--k-red)"></i><span>red<small>30 AWG (status): DC, INT1 · PIR, AM312 output (1) · 26 AWG: battery / 5 V rails, one coloured band per rail: none = pack B+, white = TP4056 OUT+, yellow = VPATH, orange = VSYS (star, TPS63020, amplifier), purple = VUSB</small></span></li>
           <li><i class="k" style="background:var(--k-org)"></i><span>orange<small>RST, USB_DET</small></span></li>
-          <li><i class="k" style="background:var(--k-brn)"></i><span>brown<small>BL_EN, VBAT/2 · AMP_SD, VSENSE_B (1) · SD_EN (3)</small></span></li>
+          <li><i class="k" style="background:var(--k-brn)"></i><span>brown (enables)<small>BL_EN · AMP_SD (1) · SD_EN (3)</small></span></li>
           <li><i class="k" style="background:var(--k-pur)"></i><span>purple (select / frame)<small>CS1, CS2 · LRC, MIC_WS (1) · SD_CMD (3)</small></span></li>
-          <li><i class="k" style="background:var(--k-gry)"></i><span>grey (26 AWG)<small>speaker wires, + marked with a pen</small></span></li>
+          <li><i class="k" style="background:var(--k-gry)"></i><span>grey<small>30 AWG (analog sense): VBAT/2, VSENSE_B · 26 AWG: speaker wires, + marked with a pen</small></span></li>
         </ul>
       </section>
       <section>
@@ -100,7 +100,7 @@ td.n { font: 600 14px var(--f-mono); white-space: nowrap; }
           <li><i class="k b" style="background:linear-gradient(var(--k-yel) 0% 33%,var(--k-pur) 33% 67%,var(--k-grn) 67% 100%)"></i><span>microSD ×3 (3 rings)<small>SDMMC 1-bit: CLK (33 Ω at the S3), CMD, D0 → reader in the left leg, + 3V3 cut in sleep by Q5 (SD_EN, GPIO36) and a dedicated GND from P1 (twisted with CLK); 10 k pull-ups (to the switched 3V3) on CMD, D0, D1, D2, D3 if the reader has none; 10 µF + 100 nF at the reader; 10 MHz</small></span></li>
           <li><i class="k" style="background:var(--k-brn)"></i><span>BL_EN · AMP_SD<small>GPIO7 → BLK of both screens (backlight, PWM possible); GPIO4 → R10 1 k + R18 10 k on P2 → amplifier SD (off at boot and in sleep). Not the S3 EN pad (reset)</small></span></li>
           <li><i class="k b" style="background:linear-gradient(var(--k-wht) 0% 33%,var(--k-red) 33% 67%,var(--k-blu) 67% 100%)"></i><span>Motion sensor<small>AM312 behind a Ø10 hole in the front (top of the right middle, z ≈ 233), 1.25 mm right of the column axis; R17 1 k on P2 (under screen 2), 3 wires to the sensor; PIR (active high, red 1 ring) goes back through the middle tube to GPIO3</small></span></li>
-          <li><i class="k b" style="background:linear-gradient(var(--k-brn) 0% 50%,var(--k-org) 50% 100%)"></i><span>VBAT/2 (brown) · USB_DET (orange) · VSENSE_B (brown, 1 ring)<small>dividers on the power-path board → GPIO1 / GPIO21, through the left tube; VSYS through R23 1 M (in line at the board) → Q4 on the carrier → GPIO37</small></span></li>
+          <li><i class="k b" style="background:linear-gradient(var(--k-gry) 0% 50%,var(--k-org) 50% 100%)"></i><span>VBAT/2 (grey) · USB_DET (orange) · VSENSE_B (grey)<small>dividers on the power-path board → GPIO1 / GPIO21, through the left tube; VSYS through R23 1 M (in line at the board) → Q4 on the carrier → GPIO37</small></span></li>
           <li><i class="k b" style="background:linear-gradient(var(--k-yel) 0% 50%,var(--k-grn) 50% 100%)"></i><span>Weather sensor<small>BME280 (I2C 0x76) in the right leg, the coolest spot (z ≈ 190), sensor facing a Ø1.5 vent in the front; SDA / SCL / 3V3 / GND from P2 through the right tube, with the DS3231 (z ≈ 107)</small></span></li>
         </ul>
       </section>

@@ -101,4 +101,4 @@
 
 **Dependencies:** [PERF-POWER-CHARGE-001](performance.md#perf-power-charge-001)
 
-**Description:** From a full charge to the low-battery shutdown, the robot runs ≥ 20 h under the reference profile: Wi-Fi connected and idle, both screens at full backlight, no audio. The expected average current per module is in [power_budget.md](../hardware/power_budget.md). Acceptance (bench run with the reference firmware profile, start and shutdown times logged; on-target the firmware logs the time of the shutdown).
+**Description:** From a full charge to the low-battery shutdown, on two cells of ≥ 2500 mAh rated capacity each, the robot runs ≥ 20 h under the reference profile: Wi-Fi connected and idle, both screens at full backlight, no audio. The expected average current per module is in [power_budget.md](../hardware/power_budget.md). Acceptance (bench run with the reference firmware profile, start and shutdown times logged; on-target the firmware logs the time of the shutdown).

@@ -84,7 +84,8 @@ VPATH, orange = VSYS (star, TPS63020 input, amp pair), purple = VUSB. A new rail
 | purple | select / frame (CS, LRC, WS, SD_CMD) |
 | red | status (DC, INT1, PIR) |
 | orange | RST, USB_DET |
-| brown | enables / analog (BL_EN, VBAT/2, AMP_SD, SD_EN) |
+| brown | enables (BL_EN, AMP_SD, SD_EN) |
+| grey | analog sense (VBAT/2, VSENSE_B) |
 
 ## Modeling
 

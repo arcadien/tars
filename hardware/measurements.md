@@ -55,6 +55,7 @@ re-centred in its band (asymmetric extents), `active_dz` −1.1. Tube bores merg
 | Power-path perfboard | width, depth, thickness | `pp_b` [26.6, 20, 1.6] | thickness **1.5** (pad perfboard); size = cut to the plan | |
 | Power-path perfboard | tallest part (D1 lying) | `pp_parts` 6 | D1 lying **5.2** → keep 6 (leads / solder above it) | |
 | Stripboard P1 / P2 | thickness | `hub_b[2]` 1.6 | **1.61** → keep 1.6 | cut to 24 × 32 |
+| TP4056 | R_PROG (PLAT-POWER-CHARGE-002) | 2.4 kΩ "242" (0.5 A) | pending (E-M8) | fallback 3.6 kΩ "362" (0.33 A) if the leg wall goes > 45 °C during charge (E-M8, D13 in open_questions.md) |
 
 ## Sensors, screens, connectors
 

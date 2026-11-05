@@ -1,4 +1,4 @@
-# Bench test PLAT-POWER-CHARGE-002 — charge current set by R_PROG 2.4 kΩ
+# Bench test PLAT-POWER-CHARGE-002 — charge current set by R_PROG
 
 Requirement: [PLAT-POWER-CHARGE-002](../../requirements/platform.md#plat-power-charge-002). Manual test, run at bring-up step **2 and 3.1** ([bring-up.md](bring-up.md)); add a line to *Results* every time it is run.
 
@@ -10,7 +10,7 @@ Requirement: [PLAT-POWER-CHARGE-002](../../requirements/platform.md#plat-power-c
 - A thermometer (IR or thermocouple).
 
 ## Setup
-1. Module unpowered: measure R_PROG in place (marking "242", or "362" for the fallback).
+1. Module unpowered: measure R_PROG in place. The fitted value is in [measurements.md](../../hardware/measurements.md) (2.4 kΩ "242" as built, 3.6 kΩ "362" if E-M8 fails).
 2. Cell on B+ / B−, the meter (current range) in series in B+: A socket on the module's B+, COM on the cell +.
 
 ## Steps
@@ -19,8 +19,8 @@ Requirement: [PLAT-POWER-CHARGE-002](../../requirements/platform.md#plat-power-c
 3. Module in open air: after 15 min, read the temperature of the TP4056 chip.
 
 ## Pass criteria
-- R_PROG within ± 5 %: 2.28–2.52 kΩ (fallback 3.42–3.78 kΩ).
-- Charge current 0.45–0.55 A (fallback 0.30–0.36 A).
+- R_PROG within ± 5 % of the recorded value (2.4 kΩ: 2.28–2.52 kΩ; 3.6 kΩ: 3.42–3.78 kΩ).
+- Charge current 1200 / R_PROG ± 10 % (2.4 kΩ: 0.45–0.55 A; 3.6 kΩ: 0.30–0.36 A).
 - Chip < 60 °C.
 
 ## Results
