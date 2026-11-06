@@ -157,7 +157,7 @@
 
 **Title:** Hand-wired boards laid out for the fewest assembly operations
 
-**Status:** draft
+**Status:** validated
 
 **Dependencies:** none
 
