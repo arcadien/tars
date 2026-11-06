@@ -152,3 +152,13 @@
 **Dependencies:** [TECH-BUILD-ARTIFACTS-001](technical.md#tech-build-artifacts-001)
 
 **Description:** The pre-commit hook runs only checks lasting seconds: model evaluation without export (every model WARNING), board / wiring / harness documents, ERC when the schematic changed. The pre-push hook runs the slow checks: STL export with bed fit (Ender 3 halves, CR-10 one-piece) and renders; it also refreshes the meshes of the Orca projects (`mechanical/3mf/tars4.3mf`, `tars4_cr10.3mf`) from the STLs when they changed, keeping plates, positions and settings; it refuses the push when a check fails or rewrites a tracked file. A CI job on every push and pull request to main runs the model, STL, ERC and docs checks with the pinned OpenSCAD, and main's branch protection requires it. `make hook` installs the pre-commit, commit-msg and pre-push hooks. Acceptance: pre-commit takes ≤ 30 s when `tars4.scad` changed; a model WARNING blocks the commit; a part off its bed blocks the push and fails CI; a push whose STLs differ from the meshes of an Orca project is refused, with the project rewritten to match; a push with up-to-date meshes leaves the projects byte-identical; a pull request with a failing CI job cannot be merged.
+
+### TECH-HARNESS-BOARDS-001
+
+**Title:** Hand-wired boards laid out for the fewest assembly operations
+
+**Status:** draft
+
+**Dependencies:** none
+
+**Description:** Each hand-wired board described in `tools/boards.py` (P1, P2, the S3 carrier P3, the power-path board P4) is laid out to minimise its assembly effort, counted by `tools/boards.py` as a score: 1 per solder bridge between two neighbouring holes, 1 per strip cut, 2 per insulated jumper, 2 per bare bus or bare link. The board may be enlarged up to the room the model leaves for it (`hub_b`, `pp_b` within their columns; the carrier stays the size of the S3); the parts, nets, harness wires and their colours do not change, and every existing check of `tools/boards.py` keeps passing (net connectivity, no shared hole, power-net isolation on the pad boards, schematic cross-check, keep-out holes). Acceptance (pytest): each board passes its checks, and no single move of one part or one wire end to a free hole, on a board of the same size, lowers its score; the score of each board is no higher than before this requirement.
