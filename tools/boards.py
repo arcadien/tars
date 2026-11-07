@@ -61,6 +61,12 @@ CONNS = {
     'X16': ('right cell · inline JST-XH 2', [('B+', 'B+'), ('B−', 'B−')]),
 }
 XH = {'X10', 'X12', 'X13', 'X14', 'X16'}
+SPI_NAME = {x: {'SCL': 'SCK', 'SDA': 'MOSI'} for x in ('X1', 'X4')}  # screens: SPI role of the pins printed SCL / SDA
+BNAME = {'s3': 'P3', 'p1': 'P1', 'p2': 'P2', 'power': 'P4'}   # P = hand-wired board, X = connector, else a module
+# board-to-board wires: soldered at both ends, listed on both drawings, one wire
+PAIRS = [('s3', 'A4', 'p1', 'B9'), ('s3', 'J5', 'p1', 'B10'), ('s3', 'A7', 'p1', 'A7'), ('s3', 'C10', 'p1', 'A5'),
+         ('s3', 'B7', 'p1', 'A8'), ('s3', 'B6', 'p1', 'A6'), ('s3', 'A9', 'p2', 'A11'), ('s3', 'B10', 'p2', 'A4'),
+         ('p1', 'C11', 'p2', 'A10'), ('p1', 'F9', 'p2', 'A9')]
 CCOL = {'X1': 1, 'X2': 1, 'X3': 1, 'X4': 2, 'X5': 2, 'X6': 2, 'X7': 2, 'X8': 3, 'X9': 3, 'X10': 0, 'X12': 0, 'X13': 0,
         'X14': 0, 'X15': 0, 'X16': 0}  # TARS column of each connector (0 = left leg … 3 = right leg)
 
@@ -654,7 +660,8 @@ def safe(x, n, owner, cols, rows):
 
 
 def moved(b):
-    """every board with one movable part shifted, or one wire end moved, to holes nobody uses"""
+    """every board with one movable part shifted (a two-lead part also turned by a quarter, half or three quarters),
+    one wire end moved to a hole nobody uses, or (strip boards) two whole strips swapped"""
     cols, rows = b['grid']
     busy = taken(b)
     term = terminals(b)
@@ -662,15 +669,30 @@ def moved(b):
     for i, p in enumerate(b['parts']):
         if p[1] in FIXED or p[3].get('_fixed'):
             continue
-        own = {h(v[0]) for v in pins_of(p).values()}
-        for dc in range(-cols + 1, cols):
-            for dr in range(-rows + 1, rows):
-                if not dc and not dr:
-                    continue
-                to = {k: (h(v[0])[0] + dc, h(v[0])[1] + dr) for k, v in pins_of(p).items()}
-                if all(0 <= c < cols and 0 <= r < rows and ((c, r) not in busy or (c, r) in own) for c, r in to.values()):
+        at = {k: h(v[0]) for k, v in pins_of(p).items()}
+        k0 = next(iter(at))
+        off = {k: (x[0] - at[k0][0], x[1] - at[k0][1]) for k, x in at.items()}
+        turns = [lambda d: d] + ([lambda d: (-d[1], d[0]), lambda d: (-d[0], -d[1]), lambda d: (d[1], -d[0])] if len(at) == 2 else [])
+        for turn in turns:
+            for c0, r0 in grid:
+                to = {k: (c0 + turn(d)[0], r0 + turn(d)[1]) for k, d in off.items()}
+                if to != at and all(0 <= c < cols and 0 <= r < rows and ((c, r) not in busy or (c, r) in at.values())
+                                    for c, r in to.values()):
                     pins = dict(p[3], **{k: (hn(*to[k]), v[1]) for k, v in pins_of(p).items()})
                     yield dict(b, parts=b['parts'][:i] + [p[:3] + (pins,) + p[4:]] + b['parts'][i + 1:])
+    if b['strips']:
+        keep = {h(x) for x, *_ in b.get('keep', [])}
+        for r1 in range(rows):
+            for r2 in range(r1 + 1, rows):
+                sw = lambda x: (x[0], {r1: r2, r2: r1}.get(x[1], x[1]))
+                parts = [p[:3] + (dict(p[3], **{k: (hn(*sw(h(v[0]))), v[1]) for k, v in pins_of(p).items()}),) + p[4:]
+                         for p in b['parts']]
+                wires = [(hn(*sw(h(w[0]))),) + w[1:] for w in b['wires']]
+                span = lambda p: sorted(abs(h(v[0])[0] - h(u[0])[0]) + abs(h(v[0])[1] - h(u[0])[1])
+                                        for v in pins_of(p).values() for u in pins_of(p).values())
+                if all(span(p) == span(q) for p, q in zip(b['parts'], parts)) and \
+                        not keep & ({h(w[0]) for w in wires} | {h(v[0]) for p in parts for v in pins_of(p).values()}):
+                    yield dict(b, parts=parts, wires=wires)
     for i, w in enumerate(b['wires']):
         for x in grid:
             # a wire may share the hole of a lead of its net on a pad board (soldered to the pin's tail)
@@ -877,6 +899,8 @@ def render(b):
                 else:
                     e(f'<text x="{cx + cw / 2 - 1}" y="{y + 29}" font-size="9.5" text-anchor="middle" fill="{MUTED}">empty</text>')
                 e(f'<text x="{cx + cw / 2 - 1}" y="{y + 56}" font-size="9.5" text-anchor="middle" fill="{INK}" font-family="IBM Plex Mono, monospace">{esc(pin)}</text>')
+                if pin in SPI_NAME.get(ref, {}):
+                    e(f'<text x="{cx + cw / 2 - 1}" y="{y + 68}" font-size="8.5" text-anchor="middle" fill="{MUTED}" font-family="IBM Plex Mono, monospace">{SPI_NAME[ref][pin]}</text>')
                 cx += cw
             x += wd + gap_c
         ty = y + 92
@@ -896,6 +920,15 @@ def render(b):
         lines.append(('p', nm, '–'.join(holes) if kind != 'bus' else f'{holes[0]} … {holes[-1]}', label))
     if b.get('cuts'):
         lines.append(('p', 'cuts', ', '.join(b['cuts']), 'strip broken at this hole'))
+    links = [(ha, o, hb) for a, ha, o, hb in PAIRS if a == b['key']] + [(hb, a, ha) for a, ha, o, hb in PAIRS if o == b['key']]
+    if links:
+        lines.append(('h', 'Board-to-board wires (soldered at both ends, no connector)'))
+        no = {w[0]: i for i, w in enumerate(b['wires'], 1)}
+        for ha, o, hb in sorted(links, key=lambda t: no[t[0]]):
+            w = b['wires'][no[ha] - 1]
+            other = next(x for x in BOARDS if x['key'] == o)
+            j = next(i for i, x in enumerate(other['wires'], 1) if x[0] == hb)
+            lines.append(('p', f'wire {no[ha]} · {ha}', f'{w[1]} → {BNAME[o]} {hb} (wire {j} there)', ''))
     lines.append(('h', 'Wires (drawing no. · hole · signal · wire · other end: ● soldered, D Dupont, XH JST-XH, F / M · to)'))
     for i, (hole, net, colr, g, rings, to, *tg) in enumerate(b['wires'], 1):
         rg = rings_text(rings)
@@ -1069,6 +1102,13 @@ def draw_parts(b, e, hp, S):
             e(f'<text x="{ax}" y="{ay + 3.2}" font-size="8" text-anchor="middle" fill="#ffffff" font-weight="600">{ref}</text>')
 
 
+def pair_errors():
+    """each board-to-board wire leaves a hole that holds a wire of the same net on both boards"""
+    nets = {(b['key'], w[0]): w[1] for b in BOARDS for w in b['wires']}
+    return [f'{a} {ha} ↔ {o} {hb}: wire missing or nets differ' for a, ha, o, hb in PAIRS
+            if (a, ha) not in nets or nets[(a, ha)] != nets.get((o, hb))]
+
+
 def main():
     bad = False
     errs = crosscheck(BOARDS)
@@ -1079,6 +1119,12 @@ def main():
             print('  ', x)
     else:
         print('== schematic: OK, every board part on the same nets as in kicad_sch_gen.py')
+    errs = pair_errors()
+    if errs:
+        bad = True
+        print(f'== board-to-board wires: {len(errs)} problem(s)')
+        for x in errs:
+            print('  ', x)
     for b in BOARDS:
         errs, groups = check(b)
         if errs:

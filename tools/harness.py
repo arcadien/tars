@@ -15,7 +15,7 @@ import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from boards import BOARDS, CONNS, KIT, NAME, XH, CCOL, P, gender, pin_no, rings_text  # noqa: E402
+from boards import BOARDS, BNAME, CONNS, KIT, NAME, PAIRS, SPI_NAME, XH, CCOL, P, gender, pin_no, rings_text  # noqa: E402
 import json  # noqa: E402
 import tempfile  # noqa: E402
 
@@ -27,16 +27,11 @@ PIGTAIL = 6      # module pigtails (INMP441, AM312, microSD reader), cm
 TOL = 3         # cut length = estimate + TOL, cm
 
 BCOL = {'s3': 1, 'p1': 1, 'p2': 2, 'power': 0}
-BNAME = {'s3': 'P3', 'p1': 'P1', 'p2': 'P2', 'power': 'P4'}   # P = hand-wired board, X = connector, else a module
 BSUB = {'s3': 'S3 carrier', 'p1': 'left middle distribution', 'p2': 'right middle distribution', 'power': 'power path'}
 FRAME = {'P': ('#2f8f5b', 'board'), 'M': ('#8e44c4', 'module'), 'D': ('#2a62d6', 'Dupont'), 'XH': ('#f07800', 'JST-XH')}
 BSTEP = {'power': 1, 's3': 3, 'p1': 4, 'p2': 6}
 TUBE = {0: 'left tube', 1: 'middle tube', 2: 'right tube'}
 COLNAME = ['left leg', 'left middle', 'right middle', 'right leg']
-# board-to-board wires: listed on both drawings, one wire
-PAIRS = [('s3', 'A4', 'p1', 'B9'), ('s3', 'J5', 'p1', 'B10'), ('s3', 'A7', 'p1', 'A7'), ('s3', 'C10', 'p1', 'A5'),
-         ('s3', 'B7', 'p1', 'A8'), ('s3', 'B6', 'p1', 'A6'), ('s3', 'A9', 'p2', 'A11'), ('s3', 'B10', 'p2', 'A4'),
-         ('p1', 'C11', 'p2', 'A10'), ('p1', 'F9', 'p2', 'A9')]
 
 
 def S(block, port, col, step, sub='', frame='M'):
@@ -491,7 +486,7 @@ def page(wires):
     for ref in sorted(CONNS, key=lambda r: int(r[1:])):
         title, pins = CONNS[ref]
         cells = ''.join('<span class="gap"></span>' if p == '|' else
-                        f'<span class="cell{" key" if net == "key" else ""}"><b>{esc(p)}</b><small>{"plugged" if net == "key" else esc(net or "empty")}</small></span>'
+                        f'<span class="cell{" key" if net == "key" else ""}"><b>{esc(p)}{esc(" · " + SPI_NAME[ref][p] if p in SPI_NAME.get(ref, {}) else "")}</b><small>{"plugged" if net == "key" else esc(net or "empty")}</small></span>'
                         for p, net in pins)
         kind = 'x' if ref in XH else 'd'
         conn_cards.append(f'<div class="card"><p><span class="e {kind}">{ref}</span> {esc(title)}</p><div class="pins">{cells}</div></div>')
