@@ -9,8 +9,8 @@ on:
     branches: [main]
 
 env:
-  OPENSCAD_VERSION: "2026.10.27"   # pinned (TECH-BUILD-ARTIFACTS-001): same as CONTRIBUTING.md
-  OPENSCAD_SHA256: 13be4bac3aa25fcb2b7065cef5a02a5bb258fdac65f4eb49399e529d3d9468e3
+  OPENSCAD_VERSION: "2026.11-RC0"   # pinned (TECH-BUILD-ARTIFACTS-001): same as CONTRIBUTING.md
+  OPENSCAD_SHA256: 78c2050aedcf52cca0186151cdcda1118a771491e3bec934b3172d0b03a9de96
 
 jobs:
   check:
@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # nightly snapshots are pruned from files.openscad.org after a while: the cache keeps the pinned one
+      # release candidate (files.openscad.org/rc/); the cache keeps the pinned one
       - uses: actions/cache@v4
         with:
           path: ~/openscad
@@ -28,7 +28,7 @@ jobs:
         run: |
           mkdir -p ~/openscad ~/bin
           f=~/openscad/OpenSCAD-$OPENSCAD_VERSION-x86_64.AppImage
-          [ -f "$f" ] || curl -fsSL -o "$f" "https://files.openscad.org/snapshots/$(basename "$f")"
+          [ -f "$f" ] || curl -fsSL -o "$f" "https://files.openscad.org/rc/$(basename "$f")"
           echo "$OPENSCAD_SHA256  $f" | sha256sum -c -
           chmod +x "$f"
           (cd ~/openscad && rm -rf squashfs-root && "$f" --appimage-extract > /dev/null)

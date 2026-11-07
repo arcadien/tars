@@ -8,7 +8,7 @@ TARS robot, `tars4` variant. `README.md` is the project documentation; `mechanic
   `open_questions.md`. `CONTRIBUTING.md` is the manual workflow (no network, no assistant): keep it in step with the tools.
 - `make check` (incremental) must pass; commit the files it rewrites. The pre-commit hook runs the fast stages (model,
   erc, docs), the pre-push hook the slow ones (stl, renders, Orca meshes), CI (`check` job) gates merges to main. STLs and raw
-  plates are not in git (TECH-BUILD-ARTIFACTS-001): `make check-stl` before a print. OpenSCAD pinned to 2026.10.27.
+  plates are not in git (TECH-BUILD-ARTIFACTS-001): `make check-stl` before a print. OpenSCAD pinned to 2026.11-RC0.
 - Commit prefixes (RBD pre-push hook): req, test, feat, tech, perf, ui, conf, arch, plan, chore, fix, docs, style,
   refactor; `feat(ID):`-style ones need a validated requirement. Granular commits, push after each.
 - Branches: each work branch keeps its state in `status.md` at the repo root (goal, state, findings, open questions with

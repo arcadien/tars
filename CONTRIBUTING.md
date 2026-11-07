@@ -7,7 +7,7 @@ the tools are installed.
 
 | Tool | Used for | Notes |
 |---|---|---|
-| OpenSCAD **2026.10.27** nightly (`openscad`), pinned | the model, STL export, renders | GUI for previewing, CLI for the scripts; the same version as CI (`.github/workflows/check.yml`): another version may export different geometry; on Windows `make check` finds it in `C:\Program Files\OpenSCAD (Nightly)` (or `OpenSCAD`) without any PATH change, and runs `openscad.com`, the console binary |
+| OpenSCAD **2026.11-RC0** release candidate (`openscad`), pinned: [Linux AppImage](https://files.openscad.org/rc/OpenSCAD-2026.11-RC0-x86_64.AppImage), [Windows installer](https://files.openscad.org/rc/OpenSCAD-2026.11-RC0-x86-64-Installer.exe) | the model, STL export, renders | GUI for previewing, CLI for the scripts; the same version as CI (`.github/workflows/check.yml`): another version may export different geometry; on Windows `make check` finds it in `C:\Program Files\OpenSCAD (Nightly)` (or `OpenSCAD`) without any PATH change, and runs `openscad.com`, the console binary |
 | Python 3 | `tools/*.py`, `scripts/*.py` | standard library only, except the two `uv` scripts below |
 | `uv` | `scripts/check_renders.py` (Pillow), `scripts/overhang.py` (trimesh), the requirement tests `tests/` (`uvx pytest`, in the ERC stage) | downloads packages on the first run: run `make check` once **while online** to fill the cache, then work offline with `UV_OFFLINE=1` |
 | Node.js (`node`) | `tools/wiring_svg.js` | static SVG of the wiring sketch |
