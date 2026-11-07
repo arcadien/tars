@@ -21,5 +21,14 @@ jumpers, buses and strip cuts. Board size may grow within the room the model lea
 - Score weights: bridge 1, cut 1, jumper 2, bus / link 2. **Answer:** OK (a per-hole cost for long buses not wanted).
 - Max size per board: from the model (hub column width, power-leg grooves) — to compute.
 
+## Progress (2026-11-06)
+- `tools/boards.py`: score(), route() (links / cuts laid again from the terminals), neighbours(), optimise();
+  check() now also enforces keep-outs (keep_allows), ≤ 2 wire ends per hole, no 26 AWG in a strip board's edge column.
+  Keep-outs made explicit: carrier antenna rows 12–13, P1 / P2 lid-tab corners.
+- Search with random kicks (`build/layout/ils.py`, not versioned): P4 20 → 11, P3 28 → 24, P1 2 and P2 4 unchanged.
+  Proposed layouts in `build/layout/best_power.txt`, `best_s3.txt`.
+- P3 proposal moves C1 (SMD tantalum) to F5–H5 and drops the GND bus for 3 jumpers: C1 body vs R13 / R14 to check.
+
 ## Next step
-Test committed (xfail), then, then the optimiser in `tools/boards.py`.
+User reviews the P4 / P3 proposals; then apply them to BOARDS, fix the hole references in notes / wire texts, regenerate
+SVG / harness / wiring docs, drop the xfail, move the kick search into optimise().

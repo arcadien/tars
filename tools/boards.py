@@ -6,7 +6,8 @@ Each board is described hole by hole (column letter A.. from the left of the com
 the bottom / front): parts, solder bridges, bare buses, insulated jumpers, strip cuts and the harness wires. The
 script checks the description before drawing it:
 - every net is one connected group (strips + bridges + buses + jumpers), and no group carries two nets;
-- no two leads share a hole, no lead sits under another part's body;
+- no two leads share a hole, no hole takes more than two wire ends, no lead sits under another part's body;
+- nothing in a keep-out hole but what the board allows there (keep_allows), no 26 AWG wire in a strip board's edge column;
 - on the pad boards, no hole of a power net (VUSB, VPATH, VSYS, OUT+, B+) is next to a hole of any other net (GND,
   a GPIO line, 3V3 or another power net), so a stray solder blob cannot short the cells, bypass Q1 / SW1 or put the
   battery on a GPIO;
@@ -121,7 +122,8 @@ CARRIER = dict(
     comp='component side: TARS front (towards the S3), the headers and the standing parts under the S3',
     copper='solder side: towards the lid, all the wires and links',
     keep=[('A3', 'lid tab'), ('J3', 'lid tab'), ('A12', 'lid tab'),
-          ('J12', 'lid tab'), ('J4', 'V (VBUS): contact pulled out of the header')],
+          ('J12', 'lid tab'), ('J4', 'V (VBUS): contact pulled out of the header')]
+    + [(hn(c, r), 'antenna') for r in (11, 12) for c in range(10) if (c, r) != (0, 11) and (c, r) != (9, 11)],
     keep_note='bands 4.5–7 and 27.9–30.4 mm (rows 3 and 12): the lid tabs press on the edges, solder side; rows 12–13 under the antenna: nothing',
     parts=[
         ('X', 'HDR', '2 × 8 female', {k: v for k, v in s3_hdr.items() if v[0][0] in 'AB'}, 'left header (EN … 3V)'),
@@ -185,7 +187,8 @@ P1 = dict(
     sub='stripboard, 24 × 32 mm, 9 × 12 holes, horizontal strips · standing under screen 1, z 139.9–171.9',
     comp='component side: towards the front, the wires enter through the holes',
     copper='copper side: towards the lid, wires and leads are soldered there',
-    keep=[], keep_note='left and right edges: lid tabs and stops (≈ 1.5 mm), no hole used in column A / I on rows 1 and 12',
+    keep=[(x, 'lid tab') for x in ('A1', 'I1', 'A12', 'I12')],
+    keep_note='left and right edges: lid tabs and stops (≈ 1.5 mm), no hole used in column A / I on rows 1 and 12',
     parts=[
         ('R4', 'R', '10 k', {'1': ('E8', 'BL_EN'), '2': ('E11', 'GND')}, 'BL_EN → GND, lying (7.62 pitch)'),
         ('C2', 'C', '10 µF 16 V', {'+': ('G9', '3V3'), '-': ('G10', 'GND')}, '16 V tantalum, + at G9 (3V3); or X5R / X7R ceramic ≥ 6.3 V, 2.54 pitch'),
@@ -223,7 +226,8 @@ P2 = dict(
     sub='stripboard, 24 × 32 mm, 9 × 12 holes, horizontal strips · standing under screen 2, z 139.9–171.9',
     comp='component side: towards the front, the wires enter through the holes',
     copper='copper side: towards the lid, wires and leads are soldered there',
-    keep=[], keep_note='left and right edges: lid tabs and stops (≈ 1.5 mm)',
+    keep=[(x, 'lid tab') for x in ('A1', 'I1', 'A12', 'I12')],
+    keep_note='left and right edges: lid tabs and stops (≈ 1.5 mm), no hole used in column A / I on rows 1 and 12',
     parts=[
         ('R10', 'Rv', '1 k', {'1': ('B11', 'AMP_SD_S3'), '2': ('D11', 'AMP_SD')}, 'in series, standing, straddles the C11 cut'),
         ('R18', 'Rv', '10 k', {'1': ('E11', 'AMP_SD'), '2': ('E10', 'GND')}, 'AMP_SD → GND, standing'),
@@ -261,7 +265,7 @@ POWER_BOARD = dict(
     sub='single-sided pad perfboard, 26.6 × 20 mm, 10 × 8 holes · flat in the left leg, z 170.8, parts on top',
     comp='top view, component side: TARS front at the bottom, TARS left on the left',
     copper='solder side (underneath): bridges, GND bus and all the wires, which leave towards the front',
-    keep=[('J3', 'attache de toron'), ('J4', 'attache de toron'), ('J5', 'attache de toron'), ('J6', 'attache de toron')],
+    keep=[(x, 'harness clip') for x in ('J3', 'J4', 'J5', 'J6')], keep_allows={'lying', 'wire', 'link'},
     keep_note='column J, rows 3–6: the harness clip (z 179) passes 4 mm above: lying parts only',
     parts=[
         ('D1', 'D', '1N5822', {'K': ('A7', 'VPATH'), 'A': ('F7', 'VUSB')}, 'lying, band on the A7 side (axis 3.6 mm from the back edge); holes drilled to 1.3 mm, leads bent with flat pliers'),
@@ -371,6 +375,10 @@ def check(b):
             elif t in seen_pin:
                 errs.append(f'{t} gets two wires of this board ({seen_pin[t]}, {hole})')
             seen_pin[t] = hole
+    ends = {}
+    for w in b['wires']:
+        ends[w[0]] = ends.get(w[0], 0) + 1
+    errs += [f'{x} holds {k} wire ends (2 at most)' for x, k in ends.items() if k > 2]
     for hole, refs in leads.items():
         if len(refs) > 1:
             errs.append(f'{hn(*hole)} holds two leads {refs}')
@@ -401,6 +409,19 @@ def check(b):
                         errs.append(f'{ref} body over the lead {leads[x]} in {hn(*x)}')
                     if b['strips'] and any(w[0] == hn(*x) for w in b['wires']):
                         errs.append(f'{ref} body over a wire entering {hn(*x)}')  # wires enter from the component side
+    # keep-outs: what each board lets into them (keep_allows: lying parts, wires, links), nothing by default
+    allows = b.get('keep_allows', set())
+    for x, why in b.get('keep', []):
+        hx = h(x)
+        for ref, kind, val, pins, note in b['parts']:
+            if hx in {h(v[0]) for k, v in pins.items() if not k.startswith('_') and v[1]} and not (kind in ('R', 'D') and 'lying' in allows):
+                errs.append(f'{ref} lead in the keep-out {x} ({why})')
+        if 'wire' not in allows and any(h(w[0]) == hx for w in b['wires']):
+            errs.append(f'wire in the keep-out {x} ({why})')
+        if 'link' not in allows and any(hx in {h(y) for y in hs} for _, hs, _ in b['links']):
+            errs.append(f'link in the keep-out {x} ({why})')
+    if b['strips']:  # the front stops cover the edge columns: 30 AWG only there
+        errs += [f'26 AWG wire in the edge hole {w[0]}' for w in b['wires'] if w[3] == 26 and h(w[0])[0] in (0, cols - 1)]
     # hazards on pad boards: a power net next to any other net
     if not b['strips']:
         hole_net = {}
@@ -465,6 +486,203 @@ def crosscheck(boards):
             if inline(w[2:]) and inline(w[2:])[0] not in refs:
                 errs.append(f'{b["key"]}: wire {w[0]}: in-line {inline(w[2:])[0]} is not in the schematic')
     return errs
+
+
+# ----------------------------------------------------------------------------------------------------------------
+# Layout search (TECH-HARNESS-BOARDS-001): the links and cuts are laid again from the holes of each net, and a part
+# or a wire end is moved as long as the assembly score drops.
+# ----------------------------------------------------------------------------------------------------------------
+WEIGHT = {'bridge': 1, 'jumper': 2, 'bus': 2, 'link': 2}  # a strip cut weighs 1
+FIXED = ('HDR', 'Q')  # headers sit under the S3's pins, the SOT-23s are glued and wire-wrapped
+
+
+def score(b):
+    """assembly score: 1 per bridge between two neighbours, 1 per strip cut, 2 per jumper, bus or link"""
+    return len(b.get('cuts', [])) + sum(WEIGHT[k] * (len(hs) - 1 if k == 'bridge' else 1) for k, hs, _ in b['links'])
+
+
+def pins_of(part):
+    return {k: v for k, v in part[3].items() if not k.startswith('_')}
+
+
+def terminals(b):
+    """{hole: net} of every part pin and wire end"""
+    t = {h(v[0]): v[1] for p in b['parts'] for v in pins_of(p).values() if v[1]}
+    t.update((h(w[0]), w[1]) for w in b['wires'])
+    return t
+
+
+def taken(b):
+    """holes no new lead or wire may use: leads, wires, the SOT-23s' glue spots and wire-wrap passages, keep-outs"""
+    t = set(terminals(b)) | {h(x) for x, *_ in b.get('keep', [])}
+    for p in b['parts']:
+        t |= {h(v[0]) for v in pins_of(p).values()}
+        if p[1] == 'Q':
+            t |= {h(p[3]['_at'])} | {h(x) for vs in p[3].get('_via', {}).values() for x in vs}
+    return t
+
+
+def route(b):
+    """the board with its links (and strip cuts) laid again from its terminals, or None if they can't be"""
+    return (route_strips if b['strips'] else route_pads)(b, terminals(b), taken(b))
+
+
+def near(a, c):
+    return abs(a[0] - c[0]) + abs(a[1] - c[1])
+
+
+def jumpers(groups, spots):
+    """jumpers joining the groups of one net (lists of holes, spots: holes a jumper end may use), nearest first"""
+    links, done = [], [groups[0]]
+    rest = groups[1:]
+    while rest:
+        d, a, c, g = min((near(a, c), a, c, g) for g in rest for c in spots(g) for a in (x for k in done for x in spots(k)))
+        links.append(('jumper', [hn(*a), hn(*c)], ''))
+        done.append(g)
+        rest.remove(g)
+    return links
+
+
+def route_strips(b, term, busy):
+    cols, rows = b['grid']
+    cuts, segs = [], {}  # segs: net -> list of strip segments (lists of holes)
+    for r in range(rows):
+        row = sorted((c, n) for (c, rr), n in term.items() if rr == r)
+        seg_start = 0
+        for (c1, n1), (c2, n2) in zip(row, row[1:]):
+            if n1 != n2:
+                free = [c for c in range(c1 + 1, c2) if (c, r) not in busy]
+                if not free:
+                    return None
+                cut = free[len(free) // 2]
+                cuts.append(hn(cut, r))
+                segs.setdefault(n1, []).append([(c, r) for c in range(seg_start, cut)])
+                seg_start = cut + 1
+        if row:
+            segs.setdefault(row[-1][1], []).append([(c, r) for c in range(seg_start, cols)])
+    cut_holes = {h(x) for x in cuts}
+
+    def spots(g):
+        return [x for x in g if x not in busy and x not in cut_holes] or [x for x in g if x not in cut_holes]
+    links = [lk for n in sorted(segs) for lk in jumpers(segs[n], spots)]
+    names = {}
+    for n, gs in segs.items():
+        for g in gs:
+            names.setdefault(g[0][1], []).append((g[0][0], n))
+    strip_names = {r: ' | '.join(n for _, n in sorted(v)) for r, v in names.items()}
+    return dict(b, links=links, cuts=cuts, strip_names=strip_names)
+
+
+def route_pads(b, term, busy):
+    cols, rows = b['grid']
+    owner = dict(term)  # hole -> net, grows with the buses
+    keep = {h(k) for k, *_ in b.get('keep', [])}
+    links = []
+    by_net = {}
+    for x, n in term.items():
+        by_net.setdefault(n, []).append(x)
+    for n in sorted(by_net, key=lambda n: (-len(by_net[n]), n)):
+        holes = sorted(by_net[n])
+        group = {x: i for i, x in enumerate(holes)}
+
+        def join(a, c):
+            ga, gc = group[a], group[c]
+            for x in group:
+                if group[x] == gc:
+                    group[x] = ga
+        for a in holes:  # bridges between neighbouring holes of the net
+            for c in ((a[0] + 1, a[1]), (a[0], a[1] + 1)):
+                if c in group and group[c] != group[a]:
+                    links.append(('bridge', [hn(*a), hn(*c)], ''))
+                    join(a, c)
+        while True:  # a bare bus along a row or column where it joins three groups or more
+            best = None
+            lines = [[(c, r) for c in range(cols)] for r in range(rows)] + [[(c, r) for r in range(rows)] for c in range(cols)]
+            for line in lines:
+                if len({group[x] for x in line if x in group}) < 3:
+                    continue
+                run = []
+                for x in line + [None]:
+                    ok = x is not None and (owner.get(x) == n or (x not in busy and x not in owner and safe(x, n, owner, cols, rows)))
+                    if ok:
+                        run.append(x)
+                        continue
+                    ends = [k for k, y in enumerate(run) if y in group]
+                    if ends:
+                        seg = run[ends[0]:ends[-1] + 1]
+                        gain = len({group[y] for y in seg if y in group})
+                        if gain >= 3 and (best is None or gain > best[0]):
+                            best = (gain, seg)
+                    run = []
+            if not best:
+                break
+            seg = best[1]
+            links.append(('bus', [hn(*x) for x in seg], n))
+            first = next(y for y in seg if y in group)
+            for y in seg:
+                owner[y] = n
+                if y in group:
+                    join(first, y)
+                else:
+                    group[y] = group[first]
+        gs = {}
+        for x, g in group.items():
+            gs.setdefault(g, []).append(x)
+        links += jumpers(sorted(gs.values()), lambda g: [x for x in g if x not in keep] or g)
+    return dict(b, links=links)
+
+
+def safe(x, n, owner, cols, rows):
+    """a bare hole may join net n: no other net next to it when either is a power net"""
+    for d in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+        m = owner.get((x[0] + d[0], x[1] + d[1]))
+        if m and m != n and {n, m} & POWER:
+            return False
+    return True
+
+
+def moved(b):
+    """every board with one movable part shifted, or one wire end moved, to holes nobody uses"""
+    cols, rows = b['grid']
+    busy = taken(b)
+    term = terminals(b)
+    grid = [(c, r) for c in range(cols) for r in range(rows)]
+    for i, p in enumerate(b['parts']):
+        if p[1] in FIXED:
+            continue
+        own = {h(v[0]) for v in pins_of(p).values()}
+        for dc in range(-cols + 1, cols):
+            for dr in range(-rows + 1, rows):
+                if not dc and not dr:
+                    continue
+                to = {k: (h(v[0])[0] + dc, h(v[0])[1] + dr) for k, v in pins_of(p).items()}
+                if all(0 <= c < cols and 0 <= r < rows and ((c, r) not in busy or (c, r) in own) for c, r in to.values()):
+                    pins = dict(p[3], **{k: (hn(*to[k]), v[1]) for k, v in pins_of(p).items()})
+                    yield dict(b, parts=b['parts'][:i] + [p[:3] + (pins,) + p[4:]] + b['parts'][i + 1:])
+    for i, w in enumerate(b['wires']):
+        for x in grid:
+            # a wire may share the hole of a lead of its net on a pad board (soldered to the pin's tail)
+            if x != h(w[0]) and (x not in busy or (not b['strips'] and term.get(x) == w[1]
+                                                    and x not in {h(k) for k, *_ in b.get('keep', [])})):
+                yield dict(b, wires=b['wires'][:i] + [(hn(*x),) + w[1:]] + b['wires'][i + 1:])
+
+
+def neighbours(b):
+    """the boards one move away from b, with their links laid again, that pass every check"""
+    for m in moved(b):
+        r = route(m)
+        if r and not check(r)[0]:
+            yield r
+
+
+def optimise(b):
+    """the board after moves that each lower the score, until none does"""
+    best = min([b] + [r for r in [route(b)] if r and not check(r)[0]], key=score)
+    while True:
+        nxt = min(neighbours(best), key=score, default=best)
+        if score(nxt) >= score(best):
+            return best
+        best = nxt
 
 
 # ----------------------------------------------------------------------------------------------------------------
