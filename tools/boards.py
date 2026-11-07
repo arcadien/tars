@@ -132,7 +132,7 @@ CARRIER = dict(
         ('R19', 'Rv', '47 Ω', {'1': ('D8', 'SCK_S3'), '2': ('D7', 'SCK2')}, 'SCK → screen 2'),
         ('R20', 'Rv', '33 Ω', {'1': ('C9', 'MOSI_S3'), '2': ('C10', 'MOSI')}, 'MOSI, in series (softer edges, SPI at 40 MHz)'),
         ('C6', 'Cc', '100 nF', {'1': ('C11', 'VBAT/2'), '2': ('D11', 'GND')}, 'GPIO1 → GND, small ceramic (no tantalum, no film: too wide)'),
-        ('C1', 'C', '220 µF CMS 7343', {'+': ('C2', '3V3'), '-': ('E2', 'GND')}, 'SMD tantalum 7.3 × 4.3 lying flat under the S3, band (+) on the C2 side; a lead offcut soldered on each end, through C2 / E2 (Panasonic POSCAP 10TPE220ML, 10 V polymer, ESR 25 mΩ)'),
+        ('C1', 'C', '220 µF CMS 7343', {'+': ('C2', '3V3'), '-': ('E2', 'GND'), '_fixed': True}, 'SMD tantalum 7.3 × 4.3 lying flat under the S3, band (+) on the C2 side; a lead offcut soldered on each end, through C2 / E2 (Panasonic POSCAP 10TPE220ML, 10 V polymer, ESR 25 mΩ)'),
         ('R11', 'Rv', '33 Ω', {'1': ('H11', 'SD_CLK_S3'), '2': ('G11', 'SD_CLK')}, 'SD_CLK'),
         ('C8', 'Cc', '100 nF', {'1': ('H7', 'USB_DET'), '2': ('G7', 'GND')}, 'GPIO21 → GND, small ceramic (no film: too wide)'),
         ('R14', 'Rv', '33 Ω', {'1': ('H6', 'LRC_S3'), '2': ('G6', 'LRC')}, 'LRC'),
@@ -397,16 +397,22 @@ def check(b):
     for n, gs in where.items():
         if len(gs) > 1:
             errs.append(f'net {n} split in {len(gs)} groups')
-    # leads under axial bodies (and capacitors spanning more than one pitch)
+    # leads (and glued SOT-23s) under axial bodies (and capacitors spanning more than one pitch); a diode body (Ø5.3)
+    # also covers the line of holes on each side of its axis
+    glued = {h(pins['_at']): [ref] for ref, kind, val, pins, note in b['parts'] if kind == 'Q'}
     for ref, kind, val, pins, note in b['parts']:
         if kind in ('R', 'D', 'Cc'):
             (a, b2) = [h(v[0]) for k, v in pins.items() if not k.startswith('_')]
             if a[0] == b2[0] or a[1] == b2[1]:
                 n = max(abs(a[0] - b2[0]), abs(a[1] - b2[1]))
+                side = (int(a[0] == b2[0]), int(a[1] == b2[1]))  # unit step across the axis
                 for k in range(1, n):
                     x = (a[0] + (b2[0] - a[0]) * k // n, a[1] + (b2[1] - a[1]) * k // n)
-                    if x in leads:
-                        errs.append(f'{ref} body over the lead {leads[x]} in {hn(*x)}')
+                    for y in [x] + ([(x[0] - side[0], x[1] - side[1]), (x[0] + side[0], x[1] + side[1])] if kind == 'D' else []):
+                        if y in leads and y != x and ref in ''.join(leads[y]):
+                            continue
+                        if y in leads or y in glued:
+                            errs.append(f'{ref} body over {(leads.get(y) or glued[y])} in {hn(*y)}')
                     if b['strips'] and any(w[0] == hn(*x) for w in b['wires']):
                         errs.append(f'{ref} body over a wire entering {hn(*x)}')  # wires enter from the component side
     # keep-outs: what each board lets into them (keep_allows: lying parts, wires, links), nothing by default
@@ -493,7 +499,7 @@ def crosscheck(boards):
 # or a wire end is moved as long as the assembly score drops.
 # ----------------------------------------------------------------------------------------------------------------
 WEIGHT = {'bridge': 1, 'jumper': 2, 'bus': 2, 'link': 2}  # a strip cut weighs 1
-FIXED = ('HDR', 'Q')  # headers sit under the S3's pins, the SOT-23s are glued and wire-wrapped
+FIXED = ('HDR', 'Q')  # headers sit under the S3's pins, the SOT-23s are glued and wire-wrapped; '_fixed' pins hand-placed parts
 
 
 def score(b):
@@ -524,20 +530,24 @@ def taken(b):
 
 def route(b):
     """the board with its links (and strip cuts) laid again from its terminals, or None if they can't be"""
-    return (route_strips if b['strips'] else route_pads)(b, terminals(b), taken(b))
+    r = (route_strips if b['strips'] else route_pads)(b, terminals(b), taken(b))
+    if r:  # jumpers numbered J1, J2… as on the drawings
+        js = iter(range(1, len(r['links']) + 1))
+        r['links'] = [(k, hs, f'J{next(js)} {lab}' if k == 'jumper' else lab) for k, hs, lab in r['links']]
+    return r
 
 
 def near(a, c):
     return abs(a[0] - c[0]) + abs(a[1] - c[1])
 
 
-def jumpers(groups, spots):
+def jumpers(groups, spots, net):
     """jumpers joining the groups of one net (lists of holes, spots: holes a jumper end may use), nearest first"""
     links, done = [], [groups[0]]
     rest = groups[1:]
     while rest:
         d, a, c, g = min((near(a, c), a, c, g) for g in rest for c in spots(g) for a in (x for k in done for x in spots(k)))
-        links.append(('jumper', [hn(*a), hn(*c)], ''))
+        links.append(('jumper', [hn(*a), hn(*c)], net))
         done.append(g)
         rest.remove(g)
     return links
@@ -564,7 +574,7 @@ def route_strips(b, term, busy):
 
     def spots(g):
         return [x for x in g if x not in busy and x not in cut_holes] or [x for x in g if x not in cut_holes]
-    links = [lk for n in sorted(segs) for lk in jumpers(segs[n], spots)]
+    links = [lk for n in sorted(segs) for lk in jumpers(segs[n], spots, n)]
     names = {}
     for n, gs in segs.items():
         for g in gs:
@@ -628,7 +638,7 @@ def route_pads(b, term, busy):
         gs = {}
         for x, g in group.items():
             gs.setdefault(g, []).append(x)
-        links += jumpers(sorted(gs.values()), lambda g: [x for x in g if x not in keep] or g)
+        links += jumpers(sorted(gs.values()), lambda g: [x for x in g if x not in keep] or g, n)
     return dict(b, links=links)
 
 
@@ -648,7 +658,7 @@ def moved(b):
     term = terminals(b)
     grid = [(c, r) for c in range(cols) for r in range(rows)]
     for i, p in enumerate(b['parts']):
-        if p[1] in FIXED:
+        if p[1] in FIXED or p[3].get('_fixed'):
             continue
         own = {h(v[0]) for v in pins_of(p).values()}
         for dc in range(-cols + 1, cols):
