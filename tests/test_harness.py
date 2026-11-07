@@ -3,12 +3,12 @@ import pytest
 
 import boards    # tools/, on the path through conftest.py
 
-PENDING = {'s3'}  # a single move still lowers its score: optimised layout waits for review
+PENDING = {'s3'}  # GND bus along column E kept by choice: three jumpers score lower but are harder to solder
 BASELINE = {'s3': 28, 'p1': 2, 'p2': 4, 'power': 20}  # scores before TECH-HARNESS-BOARDS-001
 
 
 @pytest.mark.req('TECH-HARNESS-BOARDS-001')
-@pytest.mark.parametrize('board', [pytest.param(b, marks=pytest.mark.xfail(strict=True, reason='proposed layout not applied yet'))
+@pytest.mark.parametrize('board', [pytest.param(b, marks=pytest.mark.xfail(strict=True, reason='layout kept by choice (see PENDING)'))
                                    if b['key'] in PENDING else b for b in boards.BOARDS], ids=lambda b: b['key'])
 def test_board_layout_is_a_local_minimum_of_the_assembly_score(board):
     # Given a board as committed: it passes its checks and scores no worse than before the requirement

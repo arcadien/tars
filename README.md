@@ -575,7 +575,7 @@ the other contacts with their signal) and the tables of parts, links and wires (
 ![power-path board](renders/tars4_board_power.svg)
 
 - **S3 carrier**: the 2 × 8 female headers and every part (R11–R14, R19, R20, C6, C8 standing, C1 lying flat) on the component side
-  under the S3; on the solder side only the GND bus (column E), the bridges, three insulated jumpers and the 27 wires,
+  under the S3; on the solder side only the GND bus (column E), the bridges, four insulated jumpers and the 28 wires,
   each soldered on its pin's tail or pad and leaving inwards. Cut 1.2 mm below row 1 and 2.7 mm above row 13 (row 4,
   the first pin row, 8.8 mm above the S3's USB edge). The headers are glued to the board (only single-sided pads hold
   them); the V (VBUS) contact is pulled out. Rows 3 and 12 stay clear at the edges (lid tabs), rows 12–13 under the
@@ -585,7 +585,8 @@ the other contacts with their signal) and the tables of parts, links and wires (
   30 AWG in columns A / I, bent inwards (the front stops cover 1.5 mm of each edge); parts ≤ 9 mm tall.
 - **Power-path board**: parts on top (all lying, D1 1N5822 axis 3.6 mm from the back edge, Q1 / Q5 glued upside down
   with insulated 30 AWG wire-wrap leads), the GND star bus along the front row and every wire on the underside,
-  leaving towards the front channel. OUT+ has its own pad (B4) with no neighbour; R2 (B+) lies J8 → J5, away from Q5.
+  leaving towards the front channel; three insulated jumpers (VUSB F5 → F7 / G4, VPATH A5 → A7). OUT+ has its own
+  pad (B4) with no neighbour; R2 (B+) is soldered in line in the harness at the B+ pad end.
   Column J rows 3–6 stay flat: the tie anchor at z 179 is 4 mm above.
 
 ## Connectors (demountable wiring)
