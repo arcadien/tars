@@ -6,7 +6,8 @@ Each board is described hole by hole (column letter A.. from the left of the com
 the bottom / front): parts, solder bridges, bare buses, insulated jumpers, strip cuts and the harness wires. The
 script checks the description before drawing it:
 - every net is one connected group (strips + bridges + buses + jumpers), and no group carries two nets;
-- no two leads share a hole, no lead sits under another part's body;
+- no two leads share a hole, no hole takes more than two wire ends nor two jumper ends, no lead sits under another part's body;
+- nothing in a keep-out hole but what the board allows there (keep_allows), no 26 AWG wire in a strip board's edge column;
 - on the pad boards, no hole of a power net (VUSB, VPATH, VSYS, OUT+, B+) is next to a hole of any other net (GND,
   a GPIO line, 3V3 or another power net), so a stray solder blob cannot short the cells, bypass Q1 / SW1 or put the
   battery on a GPIO;
@@ -60,6 +61,12 @@ CONNS = {
     'X16': ('right cell · inline JST-XH 2', [('B+', 'B+'), ('B−', 'B−')]),
 }
 XH = {'X10', 'X12', 'X13', 'X14', 'X16'}
+SPI_NAME = {x: {'SCL': 'SCK', 'SDA': 'MOSI'} for x in ('X1', 'X4')}  # screens: SPI role of the pins printed SCL / SDA
+BNAME = {'s3': 'P3', 'p1': 'P1', 'p2': 'P2', 'power': 'P4'}   # P = hand-wired board, X = connector, else a module
+# board-to-board wires: soldered at both ends, listed on both drawings, one wire
+PAIRS = [('s3', 'A4', 'p1', 'B9'), ('s3', 'J5', 'p1', 'B10'), ('s3', 'A7', 'p1', 'A7'), ('s3', 'C10', 'p1', 'A5'),
+         ('s3', 'B7', 'p1', 'A8'), ('s3', 'B6', 'p1', 'A6'), ('s3', 'A9', 'p2', 'A11'), ('s3', 'B10', 'p2', 'A2'),
+         ('p1', 'C11', 'p2', 'A10'), ('p1', 'F9', 'p2', 'A9')]
 CCOL = {'X1': 1, 'X2': 1, 'X3': 1, 'X4': 2, 'X5': 2, 'X6': 2, 'X7': 2, 'X8': 3, 'X9': 3, 'X10': 0, 'X12': 0, 'X13': 0,
         'X14': 0, 'X15': 0, 'X16': 0}  # TARS column of each connector (0 = left leg … 3 = right leg)
 
@@ -121,7 +128,8 @@ CARRIER = dict(
     comp='component side: TARS front (towards the S3), the headers and the standing parts under the S3',
     copper='solder side: towards the lid, all the wires and links',
     keep=[('A3', 'lid tab'), ('J3', 'lid tab'), ('A12', 'lid tab'),
-          ('J12', 'lid tab'), ('J4', 'V (VBUS): contact pulled out of the header')],
+          ('J12', 'lid tab'), ('J4', 'V (VBUS): contact pulled out of the header')]
+    + [(hn(c, r), 'antenna') for r in (11, 12) for c in range(10) if (c, r) != (0, 11) and (c, r) != (9, 11)],
     keep_note='bands 4.5–7 and 27.9–30.4 mm (rows 3 and 12): the lid tabs press on the edges, solder side; rows 12–13 under the antenna: nothing',
     parts=[
         ('X', 'HDR', '2 × 8 female', {k: v for k, v in s3_hdr.items() if v[0][0] in 'AB'}, 'left header (EN … 3V)'),
@@ -130,7 +138,7 @@ CARRIER = dict(
         ('R19', 'Rv', '47 Ω', {'1': ('D8', 'SCK_S3'), '2': ('D7', 'SCK2')}, 'SCK → screen 2'),
         ('R20', 'Rv', '33 Ω', {'1': ('C9', 'MOSI_S3'), '2': ('C10', 'MOSI')}, 'MOSI, in series (softer edges, SPI at 40 MHz)'),
         ('C6', 'Cc', '100 nF', {'1': ('C11', 'VBAT/2'), '2': ('D11', 'GND')}, 'GPIO1 → GND, small ceramic (no tantalum, no film: too wide)'),
-        ('C1', 'C', '220 µF CMS 7343', {'+': ('C2', '3V3'), '-': ('E2', 'GND')}, 'SMD tantalum 7.3 × 4.3 lying flat under the S3, band (+) on the C2 side; a lead offcut soldered on each end, through C2 / E2 (Panasonic POSCAP 10TPE220ML, 10 V polymer, ESR 25 mΩ)'),
+        ('C1', 'C', '220 µF CMS 7343', {'+': ('C2', '3V3'), '-': ('E2', 'GND'), '_fixed': True}, 'SMD tantalum 7.3 × 4.3 lying flat under the S3, band (+) on the C2 side; a lead offcut soldered on each end, through C2 / E2 (Panasonic POSCAP 10TPE220ML, 10 V polymer, ESR 25 mΩ)'),
         ('R11', 'Rv', '33 Ω', {'1': ('H11', 'SD_CLK_S3'), '2': ('G11', 'SD_CLK')}, 'SD_CLK'),
         ('C8', 'Cc', '100 nF', {'1': ('H7', 'USB_DET'), '2': ('G7', 'GND')}, 'GPIO21 → GND, small ceramic (no film: too wide)'),
         ('R14', 'Rv', '33 Ω', {'1': ('H6', 'LRC_S3'), '2': ('G6', 'LRC')}, 'LRC'),
@@ -149,14 +157,14 @@ CARRIER = dict(
         ('bridge', ['E7', 'F7', 'G7'], ''), ('bridge', ['H7', 'I7'], ''),
         ('bridge', ['H6', 'I6'], ''), ('bridge', ['H11', 'I11'], ''),
         ('bridge', ['H10', 'I10'], ''), ('bridge', ['F10', 'E10'], ''), ('bridge', ['F9', 'E9'], ''),
-        ('bridge', ['G8', 'G9', 'G10'], ''),
+        ('bridge', ['G9', 'G10'], ''),
     ],
     wires=[  # hole, net, colour, gauge, rings, destination
         ('A4', '3V3', 'white', 26, 0, 'P1 3V3'), ('J5', 'GND', 'blue', 26, 0, 'P1 GND'),
         ('A10', 'INT1', 'red', 30, 0, 'X2 ADXL345 INT1', ['X2.INT1']), ('A9', 'AMP_SD_S3', 'brown', 30, 1, 'middle tube → P2 A11 (before R10)'),
         ('A7', 'DC', 'red', 30, 0, 'P1 DC'), ('C10', 'MOSI', 'green', 30, 0, 'P1 MOSI (after R20)'),
         ('A5', 'CS1', 'purple', 30, 0, 'X1 screen 1 CS', ['X1.CS']),
-        ('B11', 'VBAT/2', 'brown', 30, 0, 'left tube → X14', ['X14.VBAT/2']), ('B10', 'PIR', 'red', 30, 1, 'middle tube → P2 A4 (before R17)'),
+        ('B11', 'VBAT/2', 'brown', 30, 0, 'left tube → X14', ['X14.VBAT/2']), ('B10', 'PIR', 'red', 30, 1, 'middle tube → P2 A2 (before R17)'),
         ('B9', 'SDA', 'green', 30, 2, 'X2 ADXL345 SDA', ['X2.SDA']), ('B8', 'SCL', 'yellow', 30, 2, 'X2 ADXL345 SCL', ['X2.SCL']),
         ('B7', 'BL_EN', 'brown', 30, 0, 'P1 BL_EN'), ('B6', 'RST', 'orange', 30, 0, 'P1 RST'),
         ('B5', 'CS2', 'purple', 30, 0, 'middle tube → X4 screen 2 CS', ['X4.CS']), ('B4', 'MIC_BCLK', 'yellow', 30, 1, 'X3 mic SCK', ['X3.SCK']),
@@ -167,7 +175,7 @@ CARRIER = dict(
         ('J6', 'DIN', 'green', 30, 1, 'middle tube → X5 amplifier DIN', ['X5.DIN']),
         ('G11', 'SD_CLK', 'yellow', 30, 3, 'left tube → X15 CLK', ['X15.CLK']), ('G6', 'LRC', 'purple', 30, 1, 'middle tube → X5 amplifier LRC', ['X5.LRC']),
         ('G4', 'BCLK', 'yellow', 30, 1, 'middle tube → X5 amplifier BCLK', ['X5.BCLK']),
-        ('G8', 'VSENSE_B', 'brown', 30, 1, 'left tube → X14 (R23 at the power-path board end)', ['X14.VSENSE_B']),
+        ('G9', 'VSENSE_B', 'brown', 30, 1, 'left tube → X14 (R23 at the power-path board end)', ['X14.VSENSE_B']),
     ],
     notes=[
         'Assemble in this order: female headers (component side, square: plug them onto the S3 to solder), parts, bridges, GND bus (tinned wire along column E), insulated jumpers, then the wires. Everything is done on the bench, carrier out of TARS.',
@@ -185,7 +193,8 @@ P1 = dict(
     sub='stripboard, 24 × 32 mm, 9 × 12 holes, horizontal strips · standing under screen 1, z 139.9–171.9',
     comp='component side: towards the front, the wires enter through the holes',
     copper='copper side: towards the lid, wires and leads are soldered there',
-    keep=[], keep_note='left and right edges: lid tabs and stops (≈ 1.5 mm), no hole used in column A / I on rows 1 and 12',
+    keep=[(x, 'lid tab') for x in ('A1', 'I1', 'A12', 'I12')],
+    keep_note='left and right edges: lid tabs and stops (≈ 1.5 mm), no hole used in column A / I on rows 1 and 12',
     parts=[
         ('R4', 'R', '10 k', {'1': ('E8', 'BL_EN'), '2': ('E11', 'GND')}, 'BL_EN → GND, lying (7.62 pitch)'),
         ('C2', 'C', '10 µF 16 V', {'+': ('G9', '3V3'), '-': ('G10', 'GND')}, '16 V tantalum, + at G9 (3V3); or X5R / X7R ceramic ≥ 6.3 V, 2.54 pitch'),
@@ -223,7 +232,8 @@ P2 = dict(
     sub='stripboard, 24 × 32 mm, 9 × 12 holes, horizontal strips · standing under screen 2, z 139.9–171.9',
     comp='component side: towards the front, the wires enter through the holes',
     copper='copper side: towards the lid, wires and leads are soldered there',
-    keep=[], keep_note='left and right edges: lid tabs and stops (≈ 1.5 mm)',
+    keep=[(x, 'lid tab') for x in ('A1', 'I1', 'A12', 'I12')],
+    keep_note='left and right edges: lid tabs and stops (≈ 1.5 mm), no hole used in column A / I on rows 1 and 12',
     parts=[
         ('R10', 'Rv', '1 k', {'1': ('B11', 'AMP_SD_S3'), '2': ('D11', 'AMP_SD')}, 'in series, standing, straddles the C11 cut'),
         ('R18', 'Rv', '10 k', {'1': ('E11', 'AMP_SD'), '2': ('E10', 'GND')}, 'AMP_SD → GND, standing'),
@@ -231,10 +241,10 @@ P2 = dict(
         ('C11', 'Cc', '100 nF', {'1': ('G9', '3V3'), '2': ('G10', 'GND')}, 'decoupling, ceramic'),
         ('R21', 'R', '100 Ω', {'1': ('H9', '3V3'), '2': ('H6', 'PIR_VDD')}, 'AM312 filter, lying (7.62 pitch)'),
         ('C12', 'C', '10 µF 16 V', {'+': ('F6', 'PIR_VDD'), '-': ('F5', 'GND')}, 'AM312 filter, 16 V tantalum (+ at F6); or 47 µF electrolytic Ø5 × 7 at most'),
-        ('R17', 'Rv', '1 k', {'1': ('B4', 'PIR'), '2': ('D4', 'PIR_OUT')}, 'in series, standing, straddles the C4 cut'),
+        ('R17', 'Rv', '1 k', {'1': ('E2', 'PIR'), '2': ('E4', 'PIR_OUT')}, 'in series, standing across strip 3 (left empty): strip 2 PIR → strip 4 PIR_OUT'),
     ],
     links=[('jumper', ['I10', 'I5'], 'GND 10 ↔ 5')],
-    cuts=['C11', 'C4'],
+    cuts=['C11'],
     wires=[
         ('A11', 'AMP_SD_S3', 'brown', 30, 1, 'middle tube → S3 IO4 (A9)'), ('F11', 'AMP_SD', 'brown', 30, 1, 'X5 amplifier SD', ['X5.SD']),
         ('A10', 'GND', 'blue', 30, 0, 'middle tube → P1 GND'), ('B10', 'GND', 'blue', 30, 0, 'X4 screen 2 GND', ['X4.GND']),
@@ -244,14 +254,14 @@ P2 = dict(
         ('A8', 'SDA', 'green', 30, 2, 'middle tube → ADXL345 SDA', ['X2.SDA']), ('C8', 'SDA', 'green', 30, 2, 'right tube → X9 / X8 SDA', ['X9.SDA', 'X8.SDA']),
         ('A7', 'SCL', 'yellow', 30, 2, 'middle tube → ADXL345 SCL', ['X2.SCL']), ('C7', 'SCL', 'yellow', 30, 2, 'right tube → X9 / X8 SCL', ['X9.SCL', 'X8.SCL']),
         ('D6', 'PIR_VDD', 'white', 30, 0, 'X7 AM312 VIN', ['X7.VIN']),
-        ('A4', 'PIR', 'red', 30, 1, 'middle tube → S3 IO3 (B10)'), ('F4', 'PIR_OUT', 'red', 30, 1, 'X7 AM312 OUT', ['X7.OUT']),
+        ('A2', 'PIR', 'red', 30, 1, 'middle tube → S3 IO3 (B10)'), ('F4', 'PIR_OUT', 'red', 30, 1, 'X7 AM312 OUT', ['X7.OUT']),
     ],
-    strip_names={10: 'AMP_SD_S3 | AMP_SD', 9: 'GND', 8: '3V3', 7: 'SDA', 6: 'SCL', 5: 'PIR_VDD', 4: 'GND', 3: 'PIR | PIR_OUT'},
+    strip_names={10: 'AMP_SD_S3 | AMP_SD', 9: 'GND', 8: '3V3', 7: 'SDA', 6: 'SCL', 5: 'PIR_VDD', 4: 'GND', 3: 'PIR_OUT', 1: 'PIR'},
     notes=[
-        'Cuts at C11 and C4 (3 mm drill turned by hand on the copper side): R10 and R17 are in series in their strip.',
+        'Cut at C11 (3 mm drill turned by hand on the copper side): R10 is in series in strip 11. R17 bridges strip 2 (PIR) to strip 4 (PIR_OUT) over the empty strip 3: no cut.',
         'Insulated jumper I10 → I5 on the copper side (the lid tabs only touch rows 1 and 12): strips 10 and 5 are both GND (C12 needs a GND next to PIR_VDD).',
-        'Strips 1–3 and 12 free (spare).',
-        'The S3 wire arrives before the series resistor (A11 AMP_SD_S3, A4 PIR), the module one after it (F11 AMP_SD, F4 PIR_OUT): don\'t swap them, otherwise R10 / R17 are shorted.',
+        'Strips 1, 3 (under R17) and 12 free.',
+        'The S3 wire arrives before the series resistor (A11 AMP_SD_S3, A2 PIR), the module one after it (F11 AMP_SD, F4 PIR_OUT): don\'t swap them, otherwise R10 / R17 are shorted.',
         'Part height ≤ 9 mm on the component side (10.4 mm up to the front wall); columns A and I: wires bent inwards right out of the hole (front stops).',
         'The SPI, CS2, BL_EN and I2S wires of screen 2 / the amplifier don\'t go through P2: tube → connector directly.',
     ])
@@ -261,46 +271,42 @@ POWER_BOARD = dict(
     sub='single-sided pad perfboard, 26.6 × 20 mm, 10 × 8 holes · flat in the left leg, z 170.8, parts on top',
     comp='top view, component side: TARS front at the bottom, TARS left on the left',
     copper='solder side (underneath): bridges, GND bus and all the wires, which leave towards the front',
-    keep=[('J3', 'attache de toron'), ('J4', 'attache de toron'), ('J5', 'attache de toron'), ('J6', 'attache de toron')],
+    keep=[(x, 'harness clip') for x in ('J3', 'J4', 'J5', 'J6')], keep_allows={'lying', 'wire', 'link'},
     keep_note='column J, rows 3–6: the harness clip (z 179) passes 4 mm above: lying parts only',
     parts=[
         ('D1', 'D', '1N5822', {'K': ('A7', 'VPATH'), 'A': ('F7', 'VUSB')}, 'lying, band on the A7 side (axis 3.6 mm from the back edge); holes drilled to 1.3 mm, leads bent with flat pliers'),
         ('Q1', 'Q', 'AO3401A', {'S': ('A5', 'VPATH'), 'G': ('E5', 'VUSB'), 'D': ('B4', 'OUT+'), '_at': 'C5', '_d': 'N', '_via': {'D': ['B6']}}, 'glued legs up on C5–D5, D towards the back: G to the east (→ E5), S to the west (→ A5), D goes round by the west to B4'),
         ('R15', 'R', '68 k', {'1': ('F5', 'VUSB'), '2': ('F2', 'USB_DET')}, 'VUSB → USB_DET'),
         ('R16', 'R', '100 k', {'1': ('E2', 'USB_DET'), '2': ('B2', 'GND')}, 'USB_DET → GND'),
-        ('R1', 'R', '4.7 k', {'1': ('G7', 'VUSB'), '2': ('G4', 'GND')}, 'Q1 gate → GND'),
+        ('R1', 'R', '4.7 k', {'1': ('G4', 'VUSB'), '2': ('G1', 'GND')}, 'Q1 gate → GND'),
         ('R3', 'R', '1 M', {'1': ('I4', 'VBAT/2'), '2': ('I1', 'GND')}, 'VBAT/2 → GND'),
         ('R22', 'R', '100 k', {'1': ('H8', '3V3'), '2': ('H5', 'SD_EN')}, 'grille de Q5 → 3V3'),
         ('Q5', 'Q', 'AO3401A', {'S': ('H8', '3V3'), 'G': ('H5', 'SD_EN'), 'D': ('I6', 'SD_3V3'), '_at': 'I7', '_d': 'E'}, 'glued legs up on I7, D to the right: S towards the back (→ H8), G towards the front (→ H5), D comes back down at I6'),
     ],
     links=[
-        ('bridge', ['A8', 'A7', 'A6', 'A5'], ''),
-        ('bridge', ['F8', 'F7', 'F6', 'F5'], ''), ('bridge', ['F5', 'E5'], ''), ('bridge', ['F7', 'G7'], ''),
-        ('bridge', ['C3', 'D3'], ''),
-        ('bridge', ['E2', 'F2'], ''),
-        ('bridge', ['B2', 'B1'], ''), ('bridge', ['G4', 'G3', 'G2', 'G1'], ''),
-        ('bus', [f'{chr(65 + c)}1' for c in range(10)], 'GND'),
-        ('bridge', ['J5', 'J4'], ''), ('bridge', ['I4', 'J4'], ''), ('bridge', ['J4', 'J3'], ''),
-        ('bridge', ['D3', 'D4'], ''),
+        ('bus', [f'{chr(65 + c)}1' for c in range(1, 9)], 'GND'), ('bridge', ['B1', 'B2'], ''),
+        ('bridge', ['E5', 'F5'], ''), ('jumper', ['F5', 'F7'], 'J1 VUSB'), ('jumper', ['F5', 'G4'], 'J2 VUSB'),
+        ('jumper', ['A5', 'A7'], 'J3 VPATH'),
+        ('bridge', ['E2', 'F2'], ''), ('bridge', ['I3', 'I4'], ''), ('bridge', ['C3', 'D3'], ''),
     ],
     wires=[
-        ('F8', 'VUSB', 'red', 26, 'purple', 'TP4056 IN+ (VUSB)'), ('B4', 'OUT+', 'red', 26, 'white', 'TP4056 OUT+'),
-        ('A8', 'VPATH', 'red', 26, 'yellow', 'X10 → switch SW1 (VPATH)', ['X10.VPATH']),
+        ('E5', 'VUSB', 'red', 26, 'purple', 'TP4056 IN+ (VUSB)'), ('B4', 'OUT+', 'red', 26, 'white', 'TP4056 OUT+'),
+        ('A5', 'VPATH', 'red', 26, 'yellow', 'X10 → switch SW1 (VPATH)', ['X10.VPATH']),
         ('D3', 'VSYS', 'red', 26, 'orange', 'X10 ← switch SW1 (VSYS)', ['X10.VSYS']), ('C3', 'VSYS', 'red', 26, 'orange', 'TPS63020 VIN'),
         ('C3', 'VSYS', 'red', 26, 'orange', 'X13 → amplifier VIN (twisted pair)', ['X13.VSYS']),
-        ('C1', 'GND', 'black', 26, 'white', 'TP4056 OUT−'), ('D1', 'GND', 'black', 26, 'orange', 'TPS63020 GND'),
+        ('B1', 'GND', 'black', 26, 'white', 'TP4056 OUT−'), ('B1', 'GND', 'black', 26, 'orange', 'TPS63020 GND'),
         ('E1', 'GND', 'black', 26, 'orange', 'X13 → amplifier GND (twisted pair)', ['X13.GND amp']),
-        ('J5', 'VBAT/2', 'brown', 30, 0, 'TP4056 B+ pad (R2 1 MΩ in line at the pad end)', [], {'inline': ('R2', '1 MΩ', 'B+', 'far')}), ('J3', 'VBAT/2', 'brown', 30, 0, 'X14 → left tube → S3 IO1', ['X14.VBAT/2']),
+        ('I3', 'VBAT/2', 'brown', 30, 0, 'TP4056 B+ pad (R2 1 MΩ in line at the pad end)', [], {'inline': ('R2', '1 MΩ', 'B+', 'far')}), ('I3', 'VBAT/2', 'brown', 30, 0, 'X14 → left tube → S3 IO1', ['X14.VBAT/2']),
         ('E2', 'USB_DET', 'orange', 30, 0, 'X14 → left tube → S3 IO21', ['X14.USB_DET']),
         ('H8', '3V3', 'white', 30, 0, 'TPS63020 VOUT'), ('I6', 'SD_3V3', 'white', 30, 3, 'X15 → microSD reader VCC', ['X15.3V3']),
         ('H5', 'SD_EN', 'brown', 30, 3, 'X14 → left tube → S3 IO36', ['X14.SD_EN']),
-        ('D4', 'VSYS', 'brown', 30, 1, 'R23 1 MΩ in line (heat-shrink, at this end) → X14 → left tube → carrier G8 (VSENSE_B)',
+        ('D3', 'VSYS', 'brown', 30, 1, 'R23 1 MΩ in line (heat-shrink, at this end) → X14 → left tube → carrier G9 (VSENSE_B)',
          ['X14.VSENSE_B'], {'inline': ('R23', '1 MΩ', 'VSENSE_B')}),
     ],
     notes=[
         'Single-sided board, copper underneath: no copper under Q1 / Q5 nor under the part bodies.',
         'Lying parts (1/4 W, 7.62 pitch), D1 lying (Ø5.3): height ≤ 6 mm. Q1 and Q5 (SOT-23) glued legs up in the drawn orientation (seen from the top, flipped: G / S / D on the sketch), linked with insulated 30 AWG wire-wrap wire (Kynar), stripped 2 mm at each end (one touch of the iron each); glue on top once tested.',
-        'The underside carries the GND bus (tinned wire along row 1: the ground star), the bridges and all the wires, which leave towards the front (row 1) then go up or down in the front corridor.',
+        'The underside carries the GND bus (tinned wire along row 1, B1–I1: the ground star), the bridges, three insulated jumpers (VUSB F5 → F7 and F5 → G4, VPATH A5 → A7) and all the wires, which leave towards the front (row 1) then go up or down in the front corridor. Two wires share B1 (TP4056 OUT−, TPS63020 GND), I3 (VBAT/2), C3 (VSYS); VUSB (E5) and VPATH (A5) sit on Q1\'s gate and source pads.',
         'Holes left empty between the power nets and ground / the GPIOs: don\'t fill them with solder.',
         'Check to GND, without the modules: VUSB ≈ 9.4 kΩ (R1 ∥ R15 + R16), USB_DET ≈ 44 kΩ, VBAT/2 ≈ 1 MΩ, B+ ≈ 2 MΩ, VPATH / VSYS / OUT+ > 1 MΩ; OUT+ ↔ VSYS and OUT+ ↔ VPATH open.',
     ])
@@ -371,6 +377,16 @@ def check(b):
             elif t in seen_pin:
                 errs.append(f'{t} gets two wires of this board ({seen_pin[t]}, {hole})')
             seen_pin[t] = hole
+    ends = {}
+    for w in b['wires']:
+        ends[w[0]] = ends.get(w[0], 0) + 1
+    errs += [f'{x} holds {k} wire ends (2 at most)' for x, k in ends.items() if k > 2]
+    jends = {}
+    for kind, holes, _ in b['links']:
+        if kind == 'jumper':
+            for x in holes:
+                jends[x] = jends.get(x, 0) + 1
+    errs += [f'{x} holds {k} jumper ends (2 at most)' for x, k in jends.items() if k > 2]
     for hole, refs in leads.items():
         if len(refs) > 1:
             errs.append(f'{hn(*hole)} holds two leads {refs}')
@@ -389,18 +405,37 @@ def check(b):
     for n, gs in where.items():
         if len(gs) > 1:
             errs.append(f'net {n} split in {len(gs)} groups')
-    # leads under axial bodies (and capacitors spanning more than one pitch)
+    # leads (and glued SOT-23s) under axial bodies (and capacitors spanning more than one pitch); a diode body (Ø5.3)
+    # also covers the line of holes on each side of its axis
+    glued = {h(pins['_at']): [ref] for ref, kind, val, pins, note in b['parts'] if kind == 'Q'}
     for ref, kind, val, pins, note in b['parts']:
         if kind in ('R', 'D', 'Cc'):
             (a, b2) = [h(v[0]) for k, v in pins.items() if not k.startswith('_')]
             if a[0] == b2[0] or a[1] == b2[1]:
                 n = max(abs(a[0] - b2[0]), abs(a[1] - b2[1]))
+                side = (int(a[0] == b2[0]), int(a[1] == b2[1]))  # unit step across the axis
                 for k in range(1, n):
                     x = (a[0] + (b2[0] - a[0]) * k // n, a[1] + (b2[1] - a[1]) * k // n)
-                    if x in leads:
-                        errs.append(f'{ref} body over the lead {leads[x]} in {hn(*x)}')
+                    for y in [x] + ([(x[0] - side[0], x[1] - side[1]), (x[0] + side[0], x[1] + side[1])] if kind == 'D' else []):
+                        if y in leads and y != x and ref in ''.join(leads[y]):
+                            continue
+                        if y in leads or y in glued:
+                            errs.append(f'{ref} body over {(leads.get(y) or glued[y])} in {hn(*y)}')
                     if b['strips'] and any(w[0] == hn(*x) for w in b['wires']):
                         errs.append(f'{ref} body over a wire entering {hn(*x)}')  # wires enter from the component side
+    # keep-outs: what each board lets into them (keep_allows: lying parts, wires, links), nothing by default
+    allows = b.get('keep_allows', set())
+    for x, why in b.get('keep', []):
+        hx = h(x)
+        for ref, kind, val, pins, note in b['parts']:
+            if hx in {h(v[0]) for k, v in pins.items() if not k.startswith('_') and v[1]} and not (kind in ('R', 'D') and 'lying' in allows):
+                errs.append(f'{ref} lead in the keep-out {x} ({why})')
+        if 'wire' not in allows and any(h(w[0]) == hx for w in b['wires']):
+            errs.append(f'wire in the keep-out {x} ({why})')
+        if 'link' not in allows and any(hx in {h(y) for y in hs} for _, hs, _ in b['links']):
+            errs.append(f'link in the keep-out {x} ({why})')
+    if b['strips']:  # the front stops cover the edge columns: 30 AWG only there
+        errs += [f'26 AWG wire in the edge hole {w[0]}' for w in b['wires'] if w[3] == 26 and h(w[0])[0] in (0, cols - 1)]
     # hazards on pad boards: a power net next to any other net
     if not b['strips']:
         hole_net = {}
@@ -465,6 +500,223 @@ def crosscheck(boards):
             if inline(w[2:]) and inline(w[2:])[0] not in refs:
                 errs.append(f'{b["key"]}: wire {w[0]}: in-line {inline(w[2:])[0]} is not in the schematic')
     return errs
+
+
+# ----------------------------------------------------------------------------------------------------------------
+# Layout search (TECH-HARNESS-BOARDS-001): the links and cuts are laid again from the holes of each net, and a part
+# or a wire end is moved as long as the assembly score drops.
+# ----------------------------------------------------------------------------------------------------------------
+WEIGHT = {'bridge': 1, 'jumper': 2, 'bus': 2, 'link': 2}  # a strip cut weighs 1
+FIXED = ('HDR', 'Q')  # headers sit under the S3's pins, the SOT-23s are glued and wire-wrapped; '_fixed' pins hand-placed parts
+
+
+def score(b):
+    """assembly score: 1 per bridge between two neighbours, 1 per strip cut, 2 per jumper, bus or link"""
+    return len(b.get('cuts', [])) + sum(WEIGHT[k] * (len(hs) - 1 if k == 'bridge' else 1) for k, hs, _ in b['links'])
+
+
+def pins_of(part):
+    return {k: v for k, v in part[3].items() if not k.startswith('_')}
+
+
+def terminals(b):
+    """{hole: net} of every part pin and wire end"""
+    t = {h(v[0]): v[1] for p in b['parts'] for v in pins_of(p).values() if v[1]}
+    t.update((h(w[0]), w[1]) for w in b['wires'])
+    return t
+
+
+def taken(b):
+    """holes no new lead or wire may use: leads, wires, the SOT-23s' glue spots and wire-wrap passages, keep-outs"""
+    t = set(terminals(b)) | {h(x) for x, *_ in b.get('keep', [])}
+    for p in b['parts']:
+        t |= {h(v[0]) for v in pins_of(p).values()}
+        if p[1] == 'Q':
+            t |= {h(p[3]['_at'])} | {h(x) for vs in p[3].get('_via', {}).values() for x in vs}
+    return t
+
+
+def route(b):
+    """the board with its links (and strip cuts) laid again from its terminals, or None if they can't be"""
+    r = (route_strips if b['strips'] else route_pads)(b, terminals(b), taken(b))
+    if r:  # jumpers numbered J1, J2… as on the drawings
+        js = iter(range(1, len(r['links']) + 1))
+        r['links'] = [(k, hs, f'J{next(js)} {lab}' if k == 'jumper' else lab) for k, hs, lab in r['links']]
+    return r
+
+
+def near(a, c):
+    return abs(a[0] - c[0]) + abs(a[1] - c[1])
+
+
+def jumpers(groups, spots, net):
+    """jumpers joining the groups of one net (lists of holes, spots: holes a jumper end may use), nearest first"""
+    links, done = [], [groups[0]]
+    rest = groups[1:]
+    while rest:
+        d, a, c, g = min((near(a, c), a, c, g) for g in rest for c in spots(g) for a in (x for k in done for x in spots(k)))
+        links.append(('jumper', [hn(*a), hn(*c)], net))
+        done.append(g)
+        rest.remove(g)
+    return links
+
+
+def route_strips(b, term, busy):
+    cols, rows = b['grid']
+    cuts, segs = [], {}  # segs: net -> list of strip segments (lists of holes)
+    for r in range(rows):
+        row = sorted((c, n) for (c, rr), n in term.items() if rr == r)
+        seg_start = 0
+        for (c1, n1), (c2, n2) in zip(row, row[1:]):
+            if n1 != n2:
+                free = [c for c in range(c1 + 1, c2) if (c, r) not in busy]
+                if not free:
+                    return None
+                cut = free[len(free) // 2]
+                cuts.append(hn(cut, r))
+                segs.setdefault(n1, []).append([(c, r) for c in range(seg_start, cut)])
+                seg_start = cut + 1
+        if row:
+            segs.setdefault(row[-1][1], []).append([(c, r) for c in range(seg_start, cols)])
+    cut_holes = {h(x) for x in cuts}
+
+    def spots(g):
+        return [x for x in g if x not in busy and x not in cut_holes] or [x for x in g if x not in cut_holes]
+    links = [lk for n in sorted(segs) for lk in jumpers(segs[n], spots, n)]
+    names = {}
+    for n, gs in segs.items():
+        for g in gs:
+            names.setdefault(g[0][1], []).append((g[0][0], n))
+    strip_names = {r: ' | '.join(n for _, n in sorted(v)) for r, v in names.items()}
+    return dict(b, links=links, cuts=cuts, strip_names=strip_names)
+
+
+def route_pads(b, term, busy):
+    cols, rows = b['grid']
+    owner = dict(term)  # hole -> net, grows with the buses
+    keep = {h(k) for k, *_ in b.get('keep', [])}
+    links = []
+    by_net = {}
+    for x, n in term.items():
+        by_net.setdefault(n, []).append(x)
+    for n in sorted(by_net, key=lambda n: (-len(by_net[n]), n)):
+        holes = sorted(by_net[n])
+        group = {x: i for i, x in enumerate(holes)}
+
+        def join(a, c):
+            ga, gc = group[a], group[c]
+            for x in group:
+                if group[x] == gc:
+                    group[x] = ga
+        for a in holes:  # bridges between neighbouring holes of the net
+            for c in ((a[0] + 1, a[1]), (a[0], a[1] + 1)):
+                if c in group and group[c] != group[a]:
+                    links.append(('bridge', [hn(*a), hn(*c)], ''))
+                    join(a, c)
+        while True:  # a bare bus along a row or column where it joins three groups or more
+            best = None
+            lines = [[(c, r) for c in range(cols)] for r in range(rows)] + [[(c, r) for r in range(rows)] for c in range(cols)]
+            for line in lines:
+                if len({group[x] for x in line if x in group}) < 3:
+                    continue
+                run = []
+                for x in line + [None]:
+                    ok = x is not None and (owner.get(x) == n or (x not in busy and x not in owner and safe(x, n, owner, cols, rows)))
+                    if ok:
+                        run.append(x)
+                        continue
+                    ends = [k for k, y in enumerate(run) if y in group]
+                    if ends:
+                        seg = run[ends[0]:ends[-1] + 1]
+                        gain = len({group[y] for y in seg if y in group})
+                        if gain >= 3 and (best is None or gain > best[0]):
+                            best = (gain, seg)
+                    run = []
+            if not best:
+                break
+            seg = best[1]
+            links.append(('bus', [hn(*x) for x in seg], n))
+            first = next(y for y in seg if y in group)
+            for y in seg:
+                owner[y] = n
+                if y in group:
+                    join(first, y)
+                else:
+                    group[y] = group[first]
+        gs = {}
+        for x, g in group.items():
+            gs.setdefault(g, []).append(x)
+        links += jumpers(sorted(gs.values()), lambda g: [x for x in g if x not in keep] or g, n)
+    return dict(b, links=links)
+
+
+def safe(x, n, owner, cols, rows):
+    """a bare hole may join net n: no other net next to it when either is a power net"""
+    for d in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+        m = owner.get((x[0] + d[0], x[1] + d[1]))
+        if m and m != n and {n, m} & POWER:
+            return False
+    return True
+
+
+def moved(b):
+    """every board with one movable part shifted (a two-lead part also turned by a quarter, half or three quarters),
+    one wire end moved to a hole nobody uses, or (strip boards) two whole strips swapped"""
+    cols, rows = b['grid']
+    busy = taken(b)
+    term = terminals(b)
+    grid = [(c, r) for c in range(cols) for r in range(rows)]
+    for i, p in enumerate(b['parts']):
+        if p[1] in FIXED or p[3].get('_fixed'):
+            continue
+        at = {k: h(v[0]) for k, v in pins_of(p).items()}
+        k0 = next(iter(at))
+        off = {k: (x[0] - at[k0][0], x[1] - at[k0][1]) for k, x in at.items()}
+        turns = [lambda d: d] + ([lambda d: (-d[1], d[0]), lambda d: (-d[0], -d[1]), lambda d: (d[1], -d[0])] if len(at) == 2 else [])
+        for turn in turns:
+            for c0, r0 in grid:
+                to = {k: (c0 + turn(d)[0], r0 + turn(d)[1]) for k, d in off.items()}
+                if to != at and all(0 <= c < cols and 0 <= r < rows and ((c, r) not in busy or (c, r) in at.values())
+                                    for c, r in to.values()):
+                    pins = dict(p[3], **{k: (hn(*to[k]), v[1]) for k, v in pins_of(p).items()})
+                    yield dict(b, parts=b['parts'][:i] + [p[:3] + (pins,) + p[4:]] + b['parts'][i + 1:])
+    if b['strips']:
+        keep = {h(x) for x, *_ in b.get('keep', [])}
+        for r1 in range(rows):
+            for r2 in range(r1 + 1, rows):
+                sw = lambda x: (x[0], {r1: r2, r2: r1}.get(x[1], x[1]))
+                parts = [p[:3] + (dict(p[3], **{k: (hn(*sw(h(v[0]))), v[1]) for k, v in pins_of(p).items()}),) + p[4:]
+                         for p in b['parts']]
+                wires = [(hn(*sw(h(w[0]))),) + w[1:] for w in b['wires']]
+                span = lambda p: sorted(abs(h(v[0])[0] - h(u[0])[0]) + abs(h(v[0])[1] - h(u[0])[1])
+                                        for v in pins_of(p).values() for u in pins_of(p).values())
+                if all(span(p) == span(q) for p, q in zip(b['parts'], parts)) and \
+                        not keep & ({h(w[0]) for w in wires} | {h(v[0]) for p in parts for v in pins_of(p).values()}):
+                    yield dict(b, parts=parts, wires=wires)
+    for i, w in enumerate(b['wires']):
+        for x in grid:
+            # a wire may share the hole of a lead of its net on a pad board (soldered to the pin's tail)
+            if x != h(w[0]) and (x not in busy or (not b['strips'] and term.get(x) == w[1]
+                                                    and x not in {h(k) for k, *_ in b.get('keep', [])})):
+                yield dict(b, wires=b['wires'][:i] + [(hn(*x),) + w[1:]] + b['wires'][i + 1:])
+
+
+def neighbours(b):
+    """the boards one move away from b, with their links laid again, that pass every check"""
+    for m in moved(b):
+        r = route(m)
+        if r and not check(r)[0]:
+            yield r
+
+
+def optimise(b):
+    """the board after moves that each lower the score, until none does"""
+    best = min([b] + [r for r in [route(b)] if r and not check(r)[0]], key=score)
+    while True:
+        nxt = min(neighbours(best), key=score, default=best)
+        if score(nxt) >= score(best):
+            return best
+        best = nxt
 
 
 # ----------------------------------------------------------------------------------------------------------------
@@ -647,6 +899,8 @@ def render(b):
                 else:
                     e(f'<text x="{cx + cw / 2 - 1}" y="{y + 29}" font-size="9.5" text-anchor="middle" fill="{MUTED}">empty</text>')
                 e(f'<text x="{cx + cw / 2 - 1}" y="{y + 56}" font-size="9.5" text-anchor="middle" fill="{INK}" font-family="IBM Plex Mono, monospace">{esc(pin)}</text>')
+                if pin in SPI_NAME.get(ref, {}):
+                    e(f'<text x="{cx + cw / 2 - 1}" y="{y + 68}" font-size="8.5" text-anchor="middle" fill="{MUTED}" font-family="IBM Plex Mono, monospace">{SPI_NAME[ref][pin]}</text>')
                 cx += cw
             x += wd + gap_c
         ty = y + 92
@@ -666,6 +920,15 @@ def render(b):
         lines.append(('p', nm, '–'.join(holes) if kind != 'bus' else f'{holes[0]} … {holes[-1]}', label))
     if b.get('cuts'):
         lines.append(('p', 'cuts', ', '.join(b['cuts']), 'strip broken at this hole'))
+    links = [(ha, o, hb) for a, ha, o, hb in PAIRS if a == b['key']] + [(hb, a, ha) for a, ha, o, hb in PAIRS if o == b['key']]
+    if links:
+        lines.append(('h', 'Board-to-board wires (soldered at both ends, no connector)'))
+        no = {w[0]: i for i, w in enumerate(b['wires'], 1)}
+        for ha, o, hb in sorted(links, key=lambda t: no[t[0]]):
+            w = b['wires'][no[ha] - 1]
+            other = next(x for x in BOARDS if x['key'] == o)
+            j = next(i for i, x in enumerate(other['wires'], 1) if x[0] == hb)
+            lines.append(('p', f'wire {no[ha]} · {ha}', f'{w[1]} → {BNAME[o]} {hb} (wire {j} there)', ''))
     lines.append(('h', 'Wires (drawing no. · hole · signal · wire · other end: ● soldered, D Dupont, XH JST-XH, F / M · to)'))
     for i, (hole, net, colr, g, rings, to, *tg) in enumerate(b['wires'], 1):
         rg = rings_text(rings)
@@ -839,6 +1102,13 @@ def draw_parts(b, e, hp, S):
             e(f'<text x="{ax}" y="{ay + 3.2}" font-size="8" text-anchor="middle" fill="#ffffff" font-weight="600">{ref}</text>')
 
 
+def pair_errors():
+    """each board-to-board wire leaves a hole that holds a wire of the same net on both boards"""
+    nets = {(b['key'], w[0]): w[1] for b in BOARDS for w in b['wires']}
+    return [f'{a} {ha} ↔ {o} {hb}: wire missing or nets differ' for a, ha, o, hb in PAIRS
+            if (a, ha) not in nets or nets[(a, ha)] != nets.get((o, hb))]
+
+
 def main():
     bad = False
     errs = crosscheck(BOARDS)
@@ -849,6 +1119,12 @@ def main():
             print('  ', x)
     else:
         print('== schematic: OK, every board part on the same nets as in kicad_sch_gen.py')
+    errs = pair_errors()
+    if errs:
+        bad = True
+        print(f'== board-to-board wires: {len(errs)} problem(s)')
+        for x in errs:
+            print('  ', x)
     for b in BOARDS:
         errs, groups = check(b)
         if errs:
