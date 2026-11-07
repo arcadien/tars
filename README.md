@@ -580,8 +580,8 @@ the other contacts with their signal) and the tables of parts, links and wires (
   the first pin row, 8.8 mm above the S3's USB edge). The headers are glued to the board (only single-sided pads hold
   them); the V (VBUS) contact is pulled out. Rows 3 and 12 stay clear at the edges (lid tabs), rows 12–13 under the
   antenna stay empty.
-- **P1 / P2**: wires go in from the component side and are soldered on the copper side (towards the lid); P2 has two
-  strip cuts (C11, C4) for the series resistors R10 / R17 and an insulated jumper I10 → I5 on the copper side. Only
+- **P1 / P2**: wires go in from the component side and are soldered on the copper side (towards the lid); P2 has one
+  strip cut (C11) for the series resistor R10, R17 standing from strip 2 to strip 4, and an insulated jumper I10 → I5 on the copper side. Only
   30 AWG in columns A / I, bent inwards (the front stops cover 1.5 mm of each edge); parts ≤ 9 mm tall.
 - **Power-path board**: parts on top (all lying, D1 1N5822 axis 3.6 mm from the back edge, Q1 / Q5 glued upside down
   with insulated 30 AWG wire-wrap leads), the GND star bus along the front row and every wire on the underside,

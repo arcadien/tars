@@ -65,7 +65,7 @@ SPI_NAME = {x: {'SCL': 'SCK', 'SDA': 'MOSI'} for x in ('X1', 'X4')}  # screens: 
 BNAME = {'s3': 'P3', 'p1': 'P1', 'p2': 'P2', 'power': 'P4'}   # P = hand-wired board, X = connector, else a module
 # board-to-board wires: soldered at both ends, listed on both drawings, one wire
 PAIRS = [('s3', 'A4', 'p1', 'B9'), ('s3', 'J5', 'p1', 'B10'), ('s3', 'A7', 'p1', 'A7'), ('s3', 'C10', 'p1', 'A5'),
-         ('s3', 'B7', 'p1', 'A8'), ('s3', 'B6', 'p1', 'A6'), ('s3', 'A9', 'p2', 'A11'), ('s3', 'B10', 'p2', 'A4'),
+         ('s3', 'B7', 'p1', 'A8'), ('s3', 'B6', 'p1', 'A6'), ('s3', 'A9', 'p2', 'A11'), ('s3', 'B10', 'p2', 'A2'),
          ('p1', 'C11', 'p2', 'A10'), ('p1', 'F9', 'p2', 'A9')]
 CCOL = {'X1': 1, 'X2': 1, 'X3': 1, 'X4': 2, 'X5': 2, 'X6': 2, 'X7': 2, 'X8': 3, 'X9': 3, 'X10': 0, 'X12': 0, 'X13': 0,
         'X14': 0, 'X15': 0, 'X16': 0}  # TARS column of each connector (0 = left leg … 3 = right leg)
@@ -164,7 +164,7 @@ CARRIER = dict(
         ('A10', 'INT1', 'red', 30, 0, 'X2 ADXL345 INT1', ['X2.INT1']), ('A9', 'AMP_SD_S3', 'brown', 30, 1, 'middle tube → P2 A11 (before R10)'),
         ('A7', 'DC', 'red', 30, 0, 'P1 DC'), ('C10', 'MOSI', 'green', 30, 0, 'P1 MOSI (after R20)'),
         ('A5', 'CS1', 'purple', 30, 0, 'X1 screen 1 CS', ['X1.CS']),
-        ('B11', 'VBAT/2', 'brown', 30, 0, 'left tube → X14', ['X14.VBAT/2']), ('B10', 'PIR', 'red', 30, 1, 'middle tube → P2 A4 (before R17)'),
+        ('B11', 'VBAT/2', 'brown', 30, 0, 'left tube → X14', ['X14.VBAT/2']), ('B10', 'PIR', 'red', 30, 1, 'middle tube → P2 A2 (before R17)'),
         ('B9', 'SDA', 'green', 30, 2, 'X2 ADXL345 SDA', ['X2.SDA']), ('B8', 'SCL', 'yellow', 30, 2, 'X2 ADXL345 SCL', ['X2.SCL']),
         ('B7', 'BL_EN', 'brown', 30, 0, 'P1 BL_EN'), ('B6', 'RST', 'orange', 30, 0, 'P1 RST'),
         ('B5', 'CS2', 'purple', 30, 0, 'middle tube → X4 screen 2 CS', ['X4.CS']), ('B4', 'MIC_BCLK', 'yellow', 30, 1, 'X3 mic SCK', ['X3.SCK']),
@@ -241,10 +241,10 @@ P2 = dict(
         ('C11', 'Cc', '100 nF', {'1': ('G9', '3V3'), '2': ('G10', 'GND')}, 'decoupling, ceramic'),
         ('R21', 'R', '100 Ω', {'1': ('H9', '3V3'), '2': ('H6', 'PIR_VDD')}, 'AM312 filter, lying (7.62 pitch)'),
         ('C12', 'C', '10 µF 16 V', {'+': ('F6', 'PIR_VDD'), '-': ('F5', 'GND')}, 'AM312 filter, 16 V tantalum (+ at F6); or 47 µF electrolytic Ø5 × 7 at most'),
-        ('R17', 'Rv', '1 k', {'1': ('B4', 'PIR'), '2': ('D4', 'PIR_OUT')}, 'in series, standing, straddles the C4 cut'),
+        ('R17', 'Rv', '1 k', {'1': ('E2', 'PIR'), '2': ('E4', 'PIR_OUT')}, 'in series, standing across strip 3 (left empty): strip 2 PIR → strip 4 PIR_OUT'),
     ],
     links=[('jumper', ['I10', 'I5'], 'GND 10 ↔ 5')],
-    cuts=['C11', 'C4'],
+    cuts=['C11'],
     wires=[
         ('A11', 'AMP_SD_S3', 'brown', 30, 1, 'middle tube → S3 IO4 (A9)'), ('F11', 'AMP_SD', 'brown', 30, 1, 'X5 amplifier SD', ['X5.SD']),
         ('A10', 'GND', 'blue', 30, 0, 'middle tube → P1 GND'), ('B10', 'GND', 'blue', 30, 0, 'X4 screen 2 GND', ['X4.GND']),
@@ -254,14 +254,14 @@ P2 = dict(
         ('A8', 'SDA', 'green', 30, 2, 'middle tube → ADXL345 SDA', ['X2.SDA']), ('C8', 'SDA', 'green', 30, 2, 'right tube → X9 / X8 SDA', ['X9.SDA', 'X8.SDA']),
         ('A7', 'SCL', 'yellow', 30, 2, 'middle tube → ADXL345 SCL', ['X2.SCL']), ('C7', 'SCL', 'yellow', 30, 2, 'right tube → X9 / X8 SCL', ['X9.SCL', 'X8.SCL']),
         ('D6', 'PIR_VDD', 'white', 30, 0, 'X7 AM312 VIN', ['X7.VIN']),
-        ('A4', 'PIR', 'red', 30, 1, 'middle tube → S3 IO3 (B10)'), ('F4', 'PIR_OUT', 'red', 30, 1, 'X7 AM312 OUT', ['X7.OUT']),
+        ('A2', 'PIR', 'red', 30, 1, 'middle tube → S3 IO3 (B10)'), ('F4', 'PIR_OUT', 'red', 30, 1, 'X7 AM312 OUT', ['X7.OUT']),
     ],
-    strip_names={10: 'AMP_SD_S3 | AMP_SD', 9: 'GND', 8: '3V3', 7: 'SDA', 6: 'SCL', 5: 'PIR_VDD', 4: 'GND', 3: 'PIR | PIR_OUT'},
+    strip_names={10: 'AMP_SD_S3 | AMP_SD', 9: 'GND', 8: '3V3', 7: 'SDA', 6: 'SCL', 5: 'PIR_VDD', 4: 'GND', 3: 'PIR_OUT', 1: 'PIR'},
     notes=[
-        'Cuts at C11 and C4 (3 mm drill turned by hand on the copper side): R10 and R17 are in series in their strip.',
+        'Cut at C11 (3 mm drill turned by hand on the copper side): R10 is in series in strip 11. R17 bridges strip 2 (PIR) to strip 4 (PIR_OUT) over the empty strip 3: no cut.',
         'Insulated jumper I10 → I5 on the copper side (the lid tabs only touch rows 1 and 12): strips 10 and 5 are both GND (C12 needs a GND next to PIR_VDD).',
-        'Strips 1–3 and 12 free (spare).',
-        'The S3 wire arrives before the series resistor (A11 AMP_SD_S3, A4 PIR), the module one after it (F11 AMP_SD, F4 PIR_OUT): don\'t swap them, otherwise R10 / R17 are shorted.',
+        'Strips 1, 3 (under R17) and 12 free.',
+        'The S3 wire arrives before the series resistor (A11 AMP_SD_S3, A2 PIR), the module one after it (F11 AMP_SD, F4 PIR_OUT): don\'t swap them, otherwise R10 / R17 are shorted.',
         'Part height ≤ 9 mm on the component side (10.4 mm up to the front wall); columns A and I: wires bent inwards right out of the hole (front stops).',
         'The SPI, CS2, BL_EN and I2S wires of screen 2 / the amplifier don\'t go through P2: tube → connector directly.',
     ])

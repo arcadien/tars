@@ -1060,7 +1060,7 @@
 <text x="84" y="1853.0" font-size="12" fill="#1d2226"><tspan font-weight="600">wire 4 · A9</tspan><tspan x="234" font-family="IBM Plex Mono, monospace" font-size="11">AMP_SD_S3 → P2 A11 (wire 1 there)</tspan></text>
 <text x="84" y="1868.0" font-size="12" fill="#1d2226"><tspan font-weight="600">wire 5 · A7</tspan><tspan x="234" font-family="IBM Plex Mono, monospace" font-size="11">DC → P1 A7 (wire 15 there)</tspan></text>
 <text x="84" y="1883.0" font-size="12" fill="#1d2226"><tspan font-weight="600">wire 6 · C10</tspan><tspan x="234" font-family="IBM Plex Mono, monospace" font-size="11">MOSI → P1 A5 (wire 21 there)</tspan></text>
-<text x="84" y="1898.0" font-size="12" fill="#1d2226"><tspan font-weight="600">wire 9 · B10</tspan><tspan x="234" font-family="IBM Plex Mono, monospace" font-size="11">PIR → P2 A4 (wire 15 there)</tspan></text>
+<text x="84" y="1898.0" font-size="12" fill="#1d2226"><tspan font-weight="600">wire 9 · B10</tspan><tspan x="234" font-family="IBM Plex Mono, monospace" font-size="11">PIR → P2 A2 (wire 15 there)</tspan></text>
 <text x="84" y="1913.0" font-size="12" fill="#1d2226"><tspan font-weight="600">wire 12 · B7</tspan><tspan x="234" font-family="IBM Plex Mono, monospace" font-size="11">BL_EN → P1 A8 (wire 12 there)</tspan></text>
 <text x="84" y="1928.0" font-size="12" fill="#1d2226"><tspan font-weight="600">wire 13 · B6</tspan><tspan x="234" font-family="IBM Plex Mono, monospace" font-size="11">RST → P1 A6 (wire 18 there)</tspan></text>
 <text x="84" y="1953.0" font-size="12" font-weight="600" fill="#5e676d" letter-spacing=".06em">WIRES (DRAWING NO. · HOLE · SIGNAL · WIRE · OTHER END: ● SOLDERED, D DUPONT, XH JST-XH, F / M · TO)</text>
@@ -1108,7 +1108,7 @@
 <text x="106" y="2107.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace"> 9  B10  PIR</text>
 <text x="274" y="2107.0" font-size="11.5" fill="#5e676d">red 30 AWG, 1 ring</text>
 <circle cx="476" cy="2103.0" r="5" fill="#8e979c" stroke="#1d2226" stroke-width="1"/>
-<text x="494" y="2107.0" font-size="11.5" fill="#1d2226">middle tube → P2 A4 (before R17)</text>
+<text x="494" y="2107.0" font-size="11.5" fill="#1d2226">middle tube → P2 A2 (before R17)</text>
 <circle cx="92" cy="2120.0" r="6.5" fill="#23964a" stroke="#3a4248" stroke-width="1.3"/>
 <text x="106" y="2124.0" font-size="11.5" fill="#1d2226" font-family="IBM Plex Mono, monospace">10  B9  SDA</text>
 <text x="274" y="2124.0" font-size="11.5" fill="#5e676d">green 30 AWG, 2 rings</text>
